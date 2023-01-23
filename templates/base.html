@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AIM Work and Travel</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Webestica.com">
+    <meta name="description" content="AIM Work and Travel">
+
+    <!-- Dark mode -->
+    <script type="text/javascript">
+        var theme = localStorage.getItem('data-theme');
+        var root = document.documentElement;
+        if (theme === 'dark' && theme !== undefined) {
+            root.classList.add('dark-mode');
+        } else {
+            root.classList.remove('dark-mode');
+        }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/static/img/aimtravel_logo.jpg">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/font-awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/tiny-slider/tiny-slider.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/glightbox/css/glightbox.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/flatpickr/css/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="/static/booking_v1.1.0/template/assets/vendor/choices/css/choices.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/booking_v1.1.0/template/assets/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="navbar-light header-sticky">
+    <!-- Logo Nav START -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container d-block">
+            <div class="row align-items-center">
+                <div class="col-4">
+                    <!-- Logo START -->
+                    <a class="navbar-brand" href="{% url 'index' %}">
+                        <img class="light-mode-item navbar-brand-item d-inline h-40px h-md-60px"
+                             src="/static/img/aimtravel_logo.jpg" alt="logo">
+
+                    </a>
+                    <!-- Logo END -->
+                    <a class="btn btn-lg btn-primary mb-0" href="#" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false"
+                       data-bs-auto-close="outside">ЗАПИШИ СЕ</a>
+                </div>
+
+                <div class="col-8">
+                    <!-- Navbar top Right-->
+                    <div class="align-items-center justify-content-end d-none d-lg-flex">
+                        <ul class="nav border-bottom">
+
+                            <li class="nav-item"><a href="{% url 'team' %}" class="nav-link pb-2"><i
+                                    class="bi bi-briefcase me-2"></i>За нас</a>
+                            </li>
+                            <li class="nav-item"><a href="{% url 'contacts' %}"
+                                                    class="nav-link pb-2"><i class="bi bi-info-circle me-2"></i>Контакти</a>
+                            </li>
+                            <li class="nav-item"><a href="../static/booking_v1.1.0/template/account-bookings.html"
+                                                    class="nav-link normal pb-2"><i class="bi bi-briefcase me-2"></i>Блог</a>
+                            </li>
+                            <li class="nav-item"><a href="https://www.facebook.com/AIMBulgaria/"
+                                                    class="nav-link pb-2"><i class="bi bi-facebook me-2"></i></a></li>
+                            <li class="nav-item"><a href="https://www.instagram.com/aim_workandtravel/"
+                                                    class="nav-link pb-2"><i class="bi bi-instagram me-2 bi-lg"></i></a>
+                            </li>
+
+
+
+                            {% if user.is_authenticated %}
+                                <li class="nav-item"><a href="#" class="nav-link pb-2"><i
+                                        class="far fa-user me-2"></i>Здравей, {{ user.first_name }}.</a></li>
+                                <li class="nav-item"><a class="nav-link pb-2" href="{% url 'sign out' %}">Изход</a></li>
+                            {% else %}
+                                <li class="nav-item"><a href="{% url 'sign in' %}" class="nav-link pb-2"><i class="far fa-user me-2"></i>Регистрация
+                                    или Вход</a></li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+
+                    <div class="d-sm-flex align-items-left justify-content-start">
+                        <!-- Main navbar START -->
+                        <div class="navbar-collapse collapse" id="navbarCollapse">
+                            <ul class="navbar-nav navbar-nav-scroll mx-auto">
+                                <!-- Nav item WAT USA -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="listingMenu"
+                                       data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Бригада в САЩ</a>
+                                    <ul class="dropdown-menu" aria-labelledby="listingMenu">
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="{% url 'why usa' %}">Защо на бригада
+                                                в САЩ?</a>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="{% url 'who' %}">Кой може да
+                                                участва?</a>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="{% url 'how' %}">Как да се запишеш?</a>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="#">Цена</a>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="#">Необходими документи</a>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown" href="#"><span
+                                                    class="badge bg-success ms-lg-0 small">Записване</span></a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <!-- Nav item Online Services -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="listingMenu"
+                                       data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Онлайн Услуги</a>
+                                    <ul class="dropdown-menu" aria-labelledby="listingMenu">
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#">Безплатна консултация</a>
+                                            <ul class="dropdown-menu" data-bs-popper="none">
+                                                <li><a class="dropdown-item" href="#">В офис</a></li>
+                                                <li><a class="dropdown-item" href="#">Онлайн среща</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Онлайн регистрация за бригада</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Nav item Taxes -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="jobOffers"
+                                       aria-haspopup="true" aria-expanded="false">Данъци</a>
+                                </li>
+
+                                <!-- Nav item Other Services -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="otherServices"
+                                       data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Други услуги</a>
+                                    <ul class="dropdown-menu" aria-labelledby="pagesMenu">
+
+                                        <li><a class="dropdown-item" href="#">Лагер / Стаж в САЩ</a></li>
+                                        <li><a class="dropdown-item" href="#">Работа за нестуденти (Н2В Виза)</a></li>
+                                        <li><a class="dropdown-item" href="#">Самолетни билети</a></li>
+
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#">Authentication</a>
+                                            <ul class="dropdown-menu" data-bs-popper="none">
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/sign-in.html">Sign
+                                                    In</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/sign-up.html">Sign
+                                                    Up</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/forgot-password.html">Forgot
+                                                    Password</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/two-factor-auth.html">Two
+                                                    factor
+                                                    authentication</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#">Blog</a>
+                                            <ul class="dropdown-menu" data-bs-popper="none">
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/blog.html">Blog</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/blog-detail.html">Blog
+                                                    Detail</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <!-- Dropdown submenu -->
+                                        <li class="dropdown-submenu dropend">
+                                            <a class="dropdown-item dropdown-toggle" href="#">Help</a>
+                                            <ul class="dropdown-menu" data-bs-popper="none">
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/help-center.html">Help
+                                                    Center</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/help-detail.html">Help
+                                                    Detail</a>
+                                                </li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/privacy-policy.html">Privacy
+                                                    Policy</a></li>
+                                                <li><a class="dropdown-item"
+                                                       href="/static/booking_v1.1.0/template/terms-of-service.html">Terms
+                                                    of
+                                                    Service</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li><a class="dropdown-item"
+                                               href="/static/booking_v1.1.0/template/pricing.html">Pricing</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                               href="/static/booking_v1.1.0/template/faq.html">FAQs</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                               href="/static/booking_v1.1.0/template/error.html">Error
+                                            404</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="/static/booking_v1.1.0/template/coming-soon.html">Coming
+                                            Soon</a></li>
+                                    </ul>
+                                </li>
+
+                                <!-- Nav item Job Offers -->
+                                <li class="nav-item">
+                                    <a class="btn btn-sm btn-primary mb-0" href="{% url 'offers' %}" role="button"
+                                       data-bs-toggle="dropdown" aria-expanded="false"
+                                       data-bs-auto-close="outside">Работни оферти</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- Main navbar END -->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+    <!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+{% block content %}
+{% endblock %}
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark pt-5">
+    <div class="container">
+        <!-- Row START -->
+        <div class="row g-4">
+
+            <!-- Widget 1 START -->
+            <div class="col-lg-3">
+                <!-- logo -->
+                <a href="{% url 'index' %}">
+                    <img class="h-40px" src="/static/img/aimtravel_logo.jpg" alt="logo">
+                </a>
+                <p class="my-3 text-muted">AIM Work and Travel</p>
+                <p class="mb-2"><a href="#" class="text-muted text-primary-hover"><i class="bi bi-telephone me-2"></i>+
+                    359 88 99 66 583</a></p>
+                <p class="mb-0"><a href="#" class="text-muted text-primary-hover"><i class="bi bi-envelope me-2"></i>info@aimtravel.bg</a>
+                </p>
+            </div>
+            <!-- Widget 1 END -->
+
+            <!-- Widget 2 START -->
+            <div class="col-lg-8 ms-auto">
+                <div class="row g-4">
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Page</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">About us</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Contact us</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">News and Blog</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Meet a Team</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Link</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Sign up</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Sign in</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Privacy Policy</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Terms</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Cookie</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Support</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Global Site</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">India</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">California</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Indonesia</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Canada</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#">Malaysia</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Link block -->
+                    <div class="col-6 col-md-3">
+                        <h5 class="text-white mb-2 mb-md-4">Booking</h5>
+                        <ul class="nav flex-column text-primary-hover">
+                            <li class="nav-item"><a class="nav-link text-muted" href="#"><i
+                                    class="fa-solid fa-hotel me-2"></i>Hotel</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#"><i
+                                    class="fa-solid fa-plane me-2"></i>Flight</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#"><i
+                                    class="fa-solid fa-globe-americas me-2"></i>Tour</a></li>
+                            <li class="nav-item"><a class="nav-link text-muted" href="#"><i
+                                    class="fa-solid fa-car me-2"></i>Cabs</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Widget 2 END -->
+
+        </div><!-- Row END -->
+
+        <!-- Tops Links -->
+        <div class="row mt-5">
+            <h5 class="mb-2 text-white">Top Links</h5>
+            <ul class="list-inline text-primary-hover lh-lg">
+                <li class="list-inline-item"><a href="#" class="text-muted">Flights</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Hotels</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Tours</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Cabs</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">About</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Contact us</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Blogs</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Services</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Detail page</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Services</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Policy</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Testimonials</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Newsletters</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Podcasts</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Protests</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">NewsCyber</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Education</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Sports</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Tech and Auto</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Opinion</a></li>
+                <li class="list-inline-item"><a href="#" class="text-muted">Share Market</a></li>
+            </ul>
+        </div>
+
+        <!-- Payment and card -->
+        <div class="row g-4 justify-content-between mt-0 mt-md-2">
+
+            <!-- Payment card -->
+            <div class="col-sm-7 col-md-6 col-lg-4">
+                <h5 class="text-white mb-2">Payment & Security</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"><a href="#"><img
+                            src="../static/booking_v1.1.0/template/assets/images/element/paypal.svg" class="h-30px"
+                            alt=""></a></li>
+                    <li class="list-inline-item"><a href="#"><img
+                            src="../static/booking_v1.1.0/template/assets/images/element/visa.svg" class="h-30px"
+                            alt=""></a></li>
+                    <li class="list-inline-item"><a href="#"><img
+                            src="../static/booking_v1.1.0/template/assets/images/element/mastercard.svg"
+                            class="h-30px" alt=""></a></li>
+                    <li class="list-inline-item"><a href="#"><img
+                            src="../static/booking_v1.1.0/template/assets/images/element/expresscard.svg"
+                            class="h-30px" alt=""></a></li>
+                </ul>
+            </div>
+
+            <!-- Social media icon -->
+            <div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
+                <h5 class="text-white mb-2">Последвай ни</h5>
+                <ul class="list-inline mb-0 mt-3">
+                    <li class="list-inline-item"><a class="btn btn-sm px-2 bg-facebook mb-0"
+                                                    href="https://www.facebook.com/AIMBulgaria/"><i
+                            class="fab fa-fw fa-facebook-f"></i></a></li>
+                    <li class="list-inline-item"><a class="btn btn-sm shadow px-2 bg-instagram mb-0"
+                                                    href="https://www.instagram.com/aim_workandtravel/"><i
+                            class="fab fa-fw fa-instagram"></i></a></li>
+                    <li class="list-inline-item"><a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i
+                            class="fab fa-fw fa-twitter"></i></a></li>
+                    <li class="list-inline-item"><a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i
+                            class="fab fa-fw fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="mt-4 mb-0">
+
+        <!-- Bottom footer -->
+        <div class="row">
+            <div class="container">
+                <div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
+                    <!-- copyright text -->
+                    <div class="text-muted text-primary-hover"> Copyrights <a href="#" class="text-muted">©2023
+                        AIM Work and Travel</a>. All rights reserved.
+                    </div>
+                    <!-- copyright links-->
+                    <div class="nav mt-2 mt-lg-0">
+                        <ul class="list-inline text-primary-hover mx-auto mb-0">
+                            <li class="list-inline-item me-0"><a class="nav-link py-1 text-muted" href="#">Privacy
+                                policy</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link py-1 text-muted" href="#">Terms and
+                                conditions</a></li>
+                            <li class="list-inline-item me-0"><a class="nav-link py-1 text-muted pe-0" href="#">Refund
+                                policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<!-- Modal START -->
+<div class="modal fade" id="map360" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Title -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="map360label">Hotel 360 View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Body -->
+            <div class="modal-body p-3">
+                <iframe src="https://www.google.com/maps/embed?pb=!4v1664190302197!6m8!1m7!1sgWjBbRwH2wMmQTbvyZwkGw!2m2!1d51.49712857925994!2d-0.1593322776188391!3f348.1837813715552!4f17.07463868756892!5f0.8485845663286693"
+                        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal END -->
+
+<!-- Back to top -->
+<div class="back-top"></div>
+
+<!-- Bootstrap JS -->
+<script src="/static/booking_v1.1.0/template/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="/static/booking_v1.1.0/template/assets/vendor/tiny-slider/tiny-slider.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/purecounterjs/dist/purecounter_vanilla.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/glightbox/js/glightbox.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/flatpickr/js/flatpickr.min.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/choices/js/choices.min.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/jarallax/jarallax.min.js"></script>
+<script src="/static/booking_v1.1.0/template/assets/vendor/jarallax/jarallax-video.min.js"></script>
+
+<!-- ThemeFunctions -->
+<script src="/static/booking_v1.1.0/template/assets/js/functions.js"></script>
+
+</body>
+</html>

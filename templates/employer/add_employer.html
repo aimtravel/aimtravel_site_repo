@@ -1,0 +1,43 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+
+        <div>
+            <form method="post" action="{% url 'add employer' %}" style="{% static 'style.css' %}">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button class="btn btn-primary btn-lg">Добави работодател</button>
+            </form>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+
+{% endblock %}

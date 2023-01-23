@@ -1,0 +1,40 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+
+        <div class="col-md-6">
+            <img src="{{ offer_details.offer_pic }}" alt="" height="400" width="550">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ offer_details.job_position }}</h2>
+            <h3>$ {{ offer_details.wage|floatformat:2 }} на час</h3>
+            <h3>{{ offer_details.city }}, {{ offer_details.state }}</h3>
+            <h3>{{ offer_details.employer }} {{ offer_details.sponsor }}</h3>
+            <h3 style="color: whitesmoke; alignment: left">{{ offer_details.job_description|safe }}</h3>
+            <br>
+            <br>
+        </div>
+
+
+        <div>
+            {% if user.is_staff %}
+                <a href="{% url 'edit offer' pk=offer_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Промени офертата</button>
+                </a>
+                <a href="{% url 'delete offer' pk=offer_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Изтрий офертата</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

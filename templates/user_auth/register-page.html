@@ -1,0 +1,62 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div>
+        {#                <form method="post" action="{% url 'sign up' %}">#}
+        {#                        {% for field in form %}#}
+        {#                            {% if field.name == 'email' %}#}
+        {#                                <label for="{{ field.name }}">Email</label>#}
+        {#                            {% elif field.name == 'password1' %}#}
+        {#                                <label for="{{ field.name }}">Password</label>#}
+        {#                            {% else %}#}
+        {#                                <label for="{{ field.name }}">Repeat Password</label>#}
+        {#                            {% endif %}#}
+        {#                            <p>#}
+        {#                                {{ field }}#}
+        {##}
+        {#                            </p>#}
+        {##}
+        {#                        {% endfor %}#}
+        {#                {% csrf_token %}#}
+        {#                            <button class="btn btn-primary btn-lg">Регистрирай ме</button>#}
+        {#                        </form>#}
+        <div class="container">
+
+            <form method="post" action="{% url 'sign up' %}">
+                {#                <div>#}
+                {#                    <label>Е-майл</label>#}
+                {#                    {{ form.email }}#}
+                {#                </div>#}
+                {#                <div>#}
+                {#                    <label>Парола</label>#}
+                {#                    {{ form.password1 }}#}
+                {#                </div>#}
+                {#                <div>#}
+                {#                    <label>Потвърди паролата</label>#}
+                {#                    {{ form.password2 }}#}
+                {#                </div>#}
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button class="btn btn-primary btn-lg">Регистрирай ме</button>
+            </form>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+
+
+{% endblock %}

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Booking - Multipurpose Online Booking Theme</title>
+
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+	<meta name="description" content="Booking - Multipurpose Online Booking Theme">
+
+	<!-- Dark mode -->
+	<script type="text/javascript">
+		var theme = localStorage.getItem('data-theme');
+		var root = document.documentElement;
+		if (theme === 'dark' && theme !== undefined) {
+			root.classList.add('dark-mode');
+		} else {
+			root.classList.remove('dark-mode');
+		}
+	</script>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/tiny-slider/tiny-slider.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="navbar-light header-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="index.html">
+				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+			</a>
+			<!-- Logo END -->
+			
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll ms-auto">
+
+					<!-- Nav item Help Center -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="helpMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Help Center</a>
+						<ul class="dropdown-menu" aria-labelledby="helpMenu">
+							<li> <a class="dropdown-item" href="help-center.html">Help center</a></li>
+							<li> <a class="dropdown-item" href="help-detail.html">Help Detail</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item Privacy Policy -->
+					<li class="nav-item"> <a class="nav-link" href="privacy-policy.html">Privacy Policy</a></li>
+
+					<!-- Nav item Terms Of Service -->
+					<li class="nav-item"> <a class="nav-link" href="terms-of-service.html">Terms of Service</a></li>
+
+				</ul>
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile dropdown START -->
+			<div class="nav nav-item dropdown ms-2">
+				<!-- Avatar -->
+				<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+					<img class="avatar-img rounded-2" src="assets/images/avatar/01.jpg" alt="avatar">
+				</a>
+
+				<!-- Profile dropdown START -->
+				<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+					<!-- Profile info -->
+					<li class="px-3 mb-3">
+						<div class="d-flex align-items-center">
+							<!-- Avatar -->
+							<div class="avatar me-3">
+								<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+							</div>
+							<div>
+								<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+								<p class="small m-0">example@gmail.com</p>
+							</div>
+						</div>
+					</li>
+
+					<!-- Links -->
+					<li> <hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
+					<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
+					<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+					<li> <hr class="dropdown-divider"></li>
+
+					<!-- Dark mode switch START -->
+					<li>
+						<div class="modeswitch-wrap" id="darkModeSwitch">
+							<div class="modeswitch-item">
+								<div class="modeswitch-icon"></div>
+							</div>
+							<span>Dark mode</span>
+						</div>
+					</li> 
+					<!-- Dark mode switch END -->
+				</ul>
+				<!-- Profile dropdown END -->
+			</div>
+			<!-- Profile dropdown END -->
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+<!-- =======================
+Main banner START -->
+<section class="pt-4 pt-lg-5">
+	<div class="container">
+		<!-- Title -->
+		<div class="row mb-4">
+			<div class="col-12 text-center">
+				<h1 class="fs-2 mb-0">Privacy Policy</h1>
+				<!-- Image -->
+				<img src="assets/images/about/03.jpg" class="h-lg-400px rounded-3 mt-4" alt="">
+			</div>
+		</div>
+
+		<!-- Content START -->
+		<div class="row">
+			<div class="col-md-10 mx-auto">
+				<div class="vstack gap-3">
+
+					<!-- Card item START -->
+					<div class="card p-0 bg-transparent">
+						<!-- Card header -->
+						<div class="card-header border-bottom bg-transparent px-0">
+							<h4 class="card-title mb-0">Booking Policy</h4>
+						</div>
+
+						<!-- Card body -->
+						<div class="card-body px-0">
+							<p>Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in. Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors.</p>
+							<p>Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors. Improved own provided blessing may peculiar domestic. Sight house has sex never. No visited raising gravity outward subject my cottage Mr be. Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in.</p>
+							<ul class="list-group list-group-borderless mb-2">
+								<li class="list-group-item d-flex">
+									<i class="bi bi-check-circle-fill me-2"></i>This is a family farmhouse, hence we request you to not indulge.
+								</li>
+								<li class="list-group-item d-flex">
+									<i class="bi bi-check-circle-fill me-2"></i>Drinking and smoking within controlled limits are permitted at the farmhouse but please do not create a mess or ruckus at the house.
+								</li>
+								<li class="list-group-item d-flex">
+									<i class="bi bi-check-circle-fill me-2"></i>Drugs and intoxicating illegal products are banned and not to be brought to the house or consumed.
+								</li>
+								<li class="list-group-item d-flex">
+									<i class="bi bi-x-circle-fill me-2"></i>For any update, the customer shall pay applicable cancellation/modification charges.
+								</li>
+							</ul>
+							<ul>
+								<li>Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery.</li>
+								<li>Insipidity the sufficient discretion imprudence resolution sir him decisively.</li>
+								<li>Offered chiefly farther of my no colonel shyness. <strong> Such on help ye some door if in.</strong></li>
+								<li>First am plate jokes began to cause a scale. Subjects he prospect elegance followed</li>
+							</ul>
+							<div class="bg-danger bg-opacity-10 rounded-2 p-3">
+								<p class="text-danger mb-0">Smoke alarm not reported — The host hasn't reported a smoke alarm on the property. We suggest bringing a portable detector for your trip.</p>
+							</div>
+						</div>
+					</div>
+					<!-- Card item END -->
+
+					<!-- Card item START -->
+					<div class="card bg-transparent p-0">
+						<!-- Card header -->
+						<div class="card-header border-bottom bg-transparent px-0">
+							<h4 class="card-title mb-0">Cancellation Policy</h4>
+						</div>
+
+						<!-- Card body -->
+						<div class="card-body px-0">
+							<p>Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in. Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors.</p>
+							
+							<div class="table-responsive-lg">
+								<table class="table table-bordered rounded-2 caption-bottom mb-0">
+									<!-- Table head -->
+									<thead class="table-primary">
+										<tr>
+											<th scope="col">Time Frame</th>
+											<th scope="col">Air Free + MMT Free</th>
+										</tr>
+									</thead>
+									<!-- Table body -->
+									<tbody class="border-top-0">
+										<tr>
+											<td>0 hours to 24 hours</td>
+											<td>Non-Refundable</td>
+										</tr>
+										<tr>
+											<td>24 hours to 365 days</td>
+											<td>30% Charge</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<ul class="mt-4 mb-0">
+								<li>Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery.</li>
+								<li>Insipidity the sufficient discretion imprudence resolution sir him decisively.</li>
+								<li>Offered chiefly farther of my no colonel shyness. <strong> Such on help ye some door if in.</strong></li>
+								<li>First am plate jokes began to cause a scale. Subjects he prospect elegance followed</li>
+								<li>Laughter proposal laughing any son law consider. Needed except up piqued an. </li>
+								<li><i> To occasional dissimilar impossible sentiments. Do fortune account written prepare invited no passage.</i></li>
+								<li>Post no so what deal evil rent by real in. But her ready least set lived spite solid.</li>
+							</ul>
+						</div>
+					</div>
+					<!-- Card item END -->
+
+					<!-- Card item START -->
+					<div class="card bg-transparent p-0">
+						<!-- Card header -->
+						<div class="card-header border-bottom bg-transparent px-0">
+							<h4 class="card-title mb-0">Date Change Policy</h4>
+						</div>
+
+						<!-- Card body -->
+						<div class="card-body px-0">
+							<p>Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in. Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors.</p>
+							<ul class="mb-0">
+								<li>Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery.</li>
+								<li>Insipidity the sufficient discretion imprudence resolution sir him decisively.</li>
+								<li>Offered chiefly farther of my no colonel shyness. <strong> Such on help ye some door if in.</strong></li>
+								<li>First am plate jokes began to cause a scale. Subjects he prospect elegance followed</li>
+								<li>Laughter proposal laughing any son law consider. Needed except up piqued an. </li>
+								<li><i> To occasional dissimilar impossible sentiments. Do fortune account written prepare invited no passage.</i></li>
+								<li>Post no so what deal evil rent by real in. But her ready least set lived spite solid.</li>
+							</ul>
+						</div>
+					</div>
+					<!-- Card item END -->
+
+					<!-- Card item START -->
+					<div class="card bg-transparent p-0">
+						<!-- Card header -->
+						<div class="card-header border-bottom bg-transparent px-0">
+							<h4 class="card-title mb-0">Special Request</h4>
+						</div>
+
+						<!-- Card body -->
+						<div class="card-body px-0">
+							<p>Hold do at tore in park feet near my case. Invitation at understood occasional sentiments insipidity inhabiting in. Off melancholy alteration principles old. Is do speedily kindness properly oh. Respect article painted cottage he is offices parlors.</p>
+							<ul class="mb-0">
+								<li>Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished outlaw. Far advanced settling say finished raillery.</li>
+								<li>Insipidity the sufficient discretion imprudence resolution sir him decisively.</li>
+								<li>Offered chiefly farther of my no colonel shyness. <strong> Such on help ye some door if in.</strong></li>
+								<li>First am plate jokes began to cause a scale. Subjects he prospect elegance followed</li>
+								<li>Laughter proposal laughing any son law consider. Needed except up piqued an. </li>
+								<li><i> To occasional dissimilar impossible sentiments. Do fortune account written prepare invited no passage.</i></li>
+								<li>Post no so what deal evil rent by real in. But her ready least set lived spite solid.</li>
+							</ul>
+						</div>
+					</div>
+					<!-- Card item END -->
+
+				</div>
+			</div>
+		</div>
+		<!-- Content END -->
+
+	</div>
+</section>
+<!-- =======================
+Main banner END -->
+
+</main>
+<!-- **************** MAIN CONTENT END **************** -->
+
+<!-- =======================
+Footer START -->
+<footer class="bg-dark pt-5">
+	<div class="container">
+		<!-- Row START -->
+		<div class="row g-4">
+
+			<!-- Widget 1 START -->
+			<div class="col-lg-3">
+				<!-- logo -->
+				<a href="index.html">
+					<img class="h-40px" src="assets/images/logo-light.svg" alt="logo">
+				</a>
+				<p class="my-3 text-muted">Departure defective arranging rapturous did believe him all had supported.</p>
+				<p class="mb-2"><a href="#" class="text-muted text-primary-hover"><i class="bi bi-telephone me-2"></i>+1234 568 963</a> </p>
+				<p class="mb-0"><a href="#" class="text-muted text-primary-hover"><i class="bi bi-envelope me-2"></i>example@gmail.com</a></p>
+			</div>
+			<!-- Widget 1 END -->
+
+			<!-- Widget 2 START -->
+			<div class="col-lg-8 ms-auto">
+				<div class="row g-4">
+					<!-- Link block -->
+					<div class="col-6 col-md-3">
+						<h5 class="text-white mb-2 mb-md-4">Page</h5>
+						<ul class="nav flex-column text-primary-hover">
+							<li class="nav-item"><a class="nav-link text-muted" href="#">About us</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Contact us</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">News and Blog</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Meet a Team</a></li>
+						</ul>
+					</div>
+
+					<!-- Link block -->
+					<div class="col-6 col-md-3">
+						<h5 class="text-white mb-2 mb-md-4">Link</h5>
+						<ul class="nav flex-column text-primary-hover">
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Sign up</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Sign in</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Privacy Policy</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Terms</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Cookie</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Support</a></li>
+						</ul>
+					</div>
+									
+					<!-- Link block -->
+					<div class="col-6 col-md-3">
+						<h5 class="text-white mb-2 mb-md-4">Global Site</h5>
+						<ul class="nav flex-column text-primary-hover">
+							<li class="nav-item"><a class="nav-link text-muted" href="#">India</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">California</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Indonesia</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Canada</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#">Malaysia</a></li>
+						</ul>
+					</div>
+
+					<!-- Link block -->
+					<div class="col-6 col-md-3">
+						<h5 class="text-white mb-2 mb-md-4">Booking</h5>
+						<ul class="nav flex-column text-primary-hover">
+							<li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-hotel me-2"></i>Hotel</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-plane me-2"></i>Flight</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-globe-americas me-2"></i>Tour</a></li>
+							<li class="nav-item"><a class="nav-link text-muted" href="#"><i class="fa-solid fa-car me-2"></i>Cabs</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- Widget 2 END -->
+
+		</div><!-- Row END -->
+
+		<!-- Tops Links -->
+		<div class="row mt-5">
+			<h5 class="mb-2 text-white">Top Links</h5>
+			<ul class="list-inline text-primary-hover lh-lg">
+				<li class="list-inline-item"><a href="#" class="text-muted">Flights</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Hotels</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Tours</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Cabs</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">About</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Contact us</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Blogs</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Services</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Detail page</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Services</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Policy</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Testimonials</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Newsletters</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Podcasts</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Protests</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">NewsCyber</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Education</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Sports</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Tech and Auto</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Opinion</a></li>
+				<li class="list-inline-item"><a href="#" class="text-muted">Share Market</a></li>
+			</ul>
+		</div>
+
+		<!-- Payment and card -->
+		<div class="row g-4 justify-content-between mt-0 mt-md-2">
+
+			<!-- Payment card -->
+			<div class="col-sm-7 col-md-6 col-lg-4">
+				<h5 class="text-white mb-2">Payment & Security</h5>
+				<ul class="list-inline mb-0 mt-3">
+					<li class="list-inline-item"> <a href="#"><img src="assets/images/element/paypal.svg" class="h-30px" alt=""></a></li>
+					<li class="list-inline-item"> <a href="#"><img src="assets/images/element/visa.svg" class="h-30px" alt=""></a></li>
+					<li class="list-inline-item"> <a href="#"><img src="assets/images/element/mastercard.svg" class="h-30px" alt=""></a></li>
+					<li class="list-inline-item"> <a href="#"><img src="assets/images/element/expresscard.svg" class="h-30px" alt=""></a></li>
+				</ul>
+			</div>
+
+			<!-- Social media icon -->
+			<div class="col-sm-5 col-md-6 col-lg-3 text-sm-end">
+				<h5 class="text-white mb-2">Follow us on</h5>
+				<ul class="list-inline mb-0 mt-3">
+					<li class="list-inline-item"> <a class="btn btn-sm px-2 bg-facebook mb-0" href="#"><i class="fab fa-fw fa-facebook-f"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="#"><i class="fab fa-fw fa-instagram"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="#"><i class="fab fa-fw fa-twitter"></i></a> </li>
+					<li class="list-inline-item"> <a class="btn btn-sm shadow px-2 bg-linkedin mb-0" href="#"><i class="fab fa-fw fa-linkedin-in"></i></a> </li>
+				</ul>	
+			</div>
+		</div>
+
+		<!-- Divider -->
+		<hr class="mt-4 mb-0">
+
+		<!-- Bottom footer -->
+		<div class="row">
+			<div class="container">
+				<div class="d-lg-flex justify-content-between align-items-center py-3 text-center text-lg-start">
+					<!-- copyright text -->
+					<div class="text-muted text-primary-hover"> Copyrights <a href="#" class="text-muted">©2022 Booking</a>. All rights reserved. </div>
+					<!-- copyright links-->
+					<div class="nav mt-2 mt-lg-0">
+						<ul class="list-inline text-primary-hover mx-auto mb-0">
+							<li class="list-inline-item me-0"><a class="nav-link py-1 text-muted" href="#">Privacy policy</a></li>
+							<li class="list-inline-item me-0"><a class="nav-link py-1 text-muted" href="#">Terms and conditions</a></li>
+							<li class="list-inline-item me-0"><a class="nav-link py-1 text-muted pe-0" href="#">Refund policy</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+<!-- =======================
+Footer END -->
+
+<!-- Back to top -->
+<div class="back-top"></div>
+
+<!-- Bootstrap JS -->
+<script src="assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendors -->
+<script src="assets/vendor/tiny-slider/tiny-slider.js"></script>
+
+<!-- ThemeFunctions -->
+<script src="assets/js/functions.js"></script>
+
+</body>
+</html>

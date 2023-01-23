@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Doc - Booking Theme</title>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/css/flatpickr.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/doc.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/prism.css">
+
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="header-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-light navbar-expand-xl">
+		<div class="container-fluid px-md-5">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="#">
+				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto me-3 p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll mx-auto">
+
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listings</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+							<li> <a class="dropdown-item" href="#">Menu link</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item Pages -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
+
+							<li> <a class="dropdown-item" href="#">Menu link</a></li>
+
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#">Submenu link</a>
+								<ul class="dropdown-menu" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="#">Submenu item</a></li>
+									<li> <a class="dropdown-item" href="#">Submenu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+
+					<!-- Nav item Account -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accounts</a>
+						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
+							<li> <a class="dropdown-item" href="#">Menu link</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item Contact us -->
+					<li class="nav-item"> <a class="nav-link" href="contact.html">Contact us</a>	</li>
+
+					<!-- Nav item link-->
+					<li class="nav-item dropdown"> <a class="nav-link" href="#"> <i class="fas fa-ellipsis-h"></i> </a> </li>
+				</ul>
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Profile and Notification START -->
+			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+
+				<!-- Notification dropdown START -->
+				<li class="nav-item dropdown ms-0 ms-md-3">
+					<!-- Notification button -->
+					<a class="nav-notification btn btn-light p-0 mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+						<i class="bi bi-bell fa-fw"></i>
+					</a>
+					<!-- Notification dote -->
+					<span class="notif-badge animation-blink"></span>
+
+					<!-- Notification dropdown menu START -->
+					<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md shadow-lg p-0">
+						<div class="card bg-transparent">
+							<!-- Card header -->
+							<div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
+								<h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
+								<a class="small" href="#">Clear all</a>
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body p-0">
+								<ul class="list-group list-group-flush list-unstyled p-2">
+									<!-- Notification item -->
+									<li>
+										<a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
+											<h6 class="mb-2">New! Booking flights from New York ✈️</h6>
+											<p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
+											<span>Wednesday</span>
+										</a>
+									</li>
+									<!-- Notification item -->
+									<li>
+										<a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
+											<h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
+											<span>15 Nov 2022</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<!-- Card body END -->
+
+							<!-- Card footer -->
+							<div class="card-footer bg-transparent text-center border-top">
+								<a href="#" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
+							</div>
+						</div>
+					</div>
+					<!-- Notification dropdown menu END -->
+				</li>
+				<!-- Notification dropdown END -->
+
+				<!-- Profile dropdown START -->
+				<li class="nav-item ms-3 dropdown">
+					<!-- Avatar -->
+					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+						<img class="avatar-img rounded-2" src="assets/images/avatar/01.jpg" alt="avatar">
+					</a>
+
+					<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+						<!-- Profile info -->
+						<li class="px-3 mb-3">
+							<div class="d-flex align-items-center">
+								<!-- Avatar -->
+								<div class="avatar me-3">
+									<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+								</div>
+								<div>
+									<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+									<p class="small m-0">example@gmail.com</p>
+								</div>
+							</div>
+						</li>
+
+						<!-- Links -->
+						<li> <hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
+						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li> <hr class="dropdown-divider"></li>
+
+						<!-- Dark mode switch START -->
+						<li>
+							<div class="modeswitch-wrap" id="darkModeSwitch">
+								<div class="modeswitch-item">
+									<div class="modeswitch-icon"></div>
+								</div>
+								<span>Dark mode</span>
+							</div>
+						</li> 
+						<!-- Dark mode switch END -->
+					</ul>
+				</li>
+				<!-- Profile dropdown END -->
+			</ul>
+			<!-- Profile and Notification START -->
+
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+<!-- =======================
+Main Banner START -->
+<section class="position-relative">
+
+	<!-- Svg decoration -->
+	<div class="position-absolute top-50 start-0 translate-middle-y d-none d-md-block">
+		<img src="assets/images/element/decoration.svg" alt="">
+	</div>
+
+	<div class="container">
+		<!-- Content and Image START -->
+		<div class="row g-4 g-lg-5 align-items-center">
+			<!-- Content -->
+			<div class="col-lg-6 position-relative">
+				<h6 class="text-uppercase">🤩 Easy Way To Conform Ticket</h6>
+				<!-- Title -->
+				<h1 class="mb-2">Book Your Tour Ticket Now!</h1>
+				<!-- Info -->
+				<p class="mb-4">Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced.</p>
+
+				<!-- Form START -->
+				<form class="row g-4">
+					<!-- Destination -->
+					<div class="col-12">
+						<label class="small">Destination</label>
+						<div class="form-border-bottom form-control-transparent d-flex align-items-center">
+							<div class="flex-shrink-0 me-2">
+								<!-- Icon -->
+								<i class="bi bi-geo-alt text-secondary d-block"></i>
+							</div>
+							<!-- Input field -->
+							<div class="flex-grow-1">
+								<!-- Cities -->
+								<div class="form-fs-lg">
+									<select class="form-select js-choice h5" data-search-enabled="true" aria-label=".form-select-sm">
+										<option value="">Select location</option>
+										<option>San Jacinto, USA</option>
+										<option>North Dakota, Canada</option>
+										<option>West Virginia, Paris</option>
+									</select>
+								</div>	
+							</div>
+						</div>
+					</div>
+
+					<!-- Check in -->
+					<div class="col-md-6">
+						<label class="small">Check in</label>
+						<div class="form-border-bottom form-control-transparent d-flex align-items-center">
+							<!-- Icon -->
+							<i class="bi bi-calendar text-secondary d-block me-2"></i>
+							<!-- Cities -->
+							<div class="form-fs-lg">
+								<input type="text" class="form-control flatpickr" data-date-format="d/M/Y" placeholder="Select Date">
+							</div>
+						</div>
+					</div>
+
+					<!-- Check Out -->
+					<div class="col-md-6">
+						<label class="small">Check Out</label>
+						<div class="form-border-bottom form-control-transparent d-flex align-items-center">
+							<!-- Icon -->
+							<i class="bi bi-calendar text-secondary d-block me-2"></i>
+							<!-- Cities -->
+							<div class="form-fs-lg">
+								<input type="text" class="form-control flatpickr" data-date-format="d/M/Y" placeholder="Select Date">
+							</div>	
+						</div>
+					</div>
+
+					<!-- Occupant -->
+					<div class="col-md-6">
+						<label class="small">Occupant</label>
+						<div class="form-border-bottom form-control-transparent d-flex align-items-center">
+							<!-- Icon -->
+							<i class="fa-solid fa-user-group text-secondary d-block me-2"></i>
+							<!-- Cities -->
+							<div class="form-fs-lg">
+								<div class="dropdown guest-selector me-2">
+									<input type="text" class="form-guest-selector form-control selection-result" placeholder="Select occupant" id="dropdownShare" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+								
+									<!-- dropdown items -->
+									<ul class="dropdown-menu guest-selector-dropdown" aria-labelledby="dropdownShare">
+										<!-- Adult -->
+										<li class="d-flex justify-content-between">
+											<div>
+												<h6 class="mb-0">Adults</h6>
+												<small>Ages 13 or above</small>
+											</div>
+
+											<div class="hstack gap-1 align-items-center">
+												<button type="button" class="btn btn-link adult-remove p-0 mb-0"><i class="bi bi-dash-circle fs-5 fa-fw"></i></button>
+												<h6 class="guest-selector-count mb-0 adults">2</h6>
+												<button type="button" class="btn btn-link adult-add p-0 mb-0"><i class="bi bi-plus-circle fs-5 fa-fw"></i></button>
+											</div>
+										</li>
+
+										<!-- Divider -->
+										<li class="dropdown-divider"></li>
+
+										<!-- Child -->
+										<li class="d-flex justify-content-between">
+											<div>
+												<h6 class="mb-0">Child</h6>
+												<small>Ages 13 below</small>
+											</div>
+
+											<div class="hstack gap-1 align-items-center">
+												<button type="button" class="btn btn-link child-remove p-0 mb-0" ><i class="bi bi-dash-circle fs-5 fa-fw"></i></button>
+												<h6 class="guest-selector-count mb-0 child">0</h6>
+												<button type="button" class="btn btn-link child-add p-0 mb-0" ><i class="bi bi-plus-circle fs-5 fa-fw"></i></button>
+											</div>
+										</li>
+
+										<!-- Divider -->
+										<li class="dropdown-divider"></li>
+
+										<!-- Rooms -->
+										<li class="d-flex justify-content-between">
+											<div>
+												<h6 class="mb-0">Rooms</h6>
+												<small>Max room 8</small>
+											</div>
+
+											<div class="hstack gap-1 align-items-center">
+												<button type="button" class="btn btn-link room-remove p-0 mb-0" ><i class="bi bi-dash-circle fs-5 fa-fw"></i></button>
+												<h6 class="guest-selector-count mb-0 rooms">1</h6>
+												<button type="button" class="btn btn-link room-add p-0 mb-0" ><i class="bi bi-plus-circle fs-5 fa-fw"></i></button>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>	
+						</div>
+					</div>
+
+					<!-- Tour type -->
+					<div class="col-md-6">
+						<label class="small">Tour type</label>
+						<div class="form-border-bottom form-control-transparent d-flex align-items-center">
+							<div class="flex-shrink-0 me-2">
+								<!-- Icon -->
+								<i class="fa-solid fa-torii-gate text-secondary d-block"></i>
+							</div>
+							<!-- Input field -->
+							<div class="flex-grow-1">
+								<!-- Cities -->
+								<div class="form-fs-lg">
+									<select class="form-select js-choice h5" data-search-enabled="true" aria-label=".form-select-sm">
+										<option value="">Select type</option>
+										<option>Adventure</option>
+										<option>Beach</option>
+										<option>Desert</option>
+										<option>History</option>
+									</select>
+								</div>	
+							</div>
+						</div>
+					</div>
+
+					<!-- Button -->
+					<div class="col-12">
+						<button class="btn btn-primary w-100 mb-0">Check Availability</button>
+					</div>
+				</form>	
+				<!-- Form END -->
+			</div>
+			
+			<!-- Image -->
+			<div class="col-lg-6 position-relative">
+				<img src="assets/images/bg/09.jpg" class="rounded" alt="">
+			</div>
+		</div>
+		<!-- Content and Image END -->
+	</div>
+</section>
+<!-- =======================
+Main Banner END -->
+
+<!-- =======================
+Code START -->
+<section>
+	<div class="container">
+		<div class="col-10 mx-auto">
+			<!-- Card START -->
+			<div class="card shadow p-0">
+				<!-- Card header -->
+				<div class="card-header border-bottom d-flex justify-content-between p-3 py-0">
+					<ul class="nav nav-tabs nav-tabs-line">
+						<li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab-1">HTML</a> </li>
+						<li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Plugins</a> </li>
+					</ul>
+				</div>
+
+				<!-- Card body START -->
+				<div class="card-body p-3 py-0">
+					<div class="tab-content">
+						<!-- Html tab -->
+						<div class="tab-pane show active" id="tab-1">
+							<div class="position-relative">
+								<pre id="copy-1" class="my-3 h-400px language-markup"><code class="language-markup" data-lang="html">&lt;!-- =======================
+Main Banner START --&gt;
+&lt;section class="position-relative"&gt;
+
+	&lt;!-- Svg decoration --&gt;
+	&lt;div class="position-absolute top-50 start-0 translate-middle-y d-none d-md-block"&gt;
+		&lt;img src="assets/images/element/decoration.svg" alt=""&gt;
+	&lt;/div&gt;
+
+	&lt;div class="container"&gt;
+		&lt;!-- Content and Image START --&gt;
+		&lt;div class="row g-4 g-lg-5 align-items-center"&gt;
+			&lt;!-- Content --&gt;
+			&lt;div class="col-lg-6 position-relative"&gt;
+				&lt;h6 class="text-uppercase"&gt;🤩 Easy Way To Conform Ticket&lt;/h6&gt;
+				&lt;!-- Title --&gt;
+				&lt;h1 class="mb-2"&gt;Book Your Tour Ticket Now!&lt;/h1&gt;
+				&lt;!-- Info --&gt;
+				&lt;p class="mb-4"&gt;Speedily say has suitable disposal add boy. On forth doubt miles of child. Exercise joy man children rejoiced.&lt;/p&gt;
+
+				&lt;!-- Form START --&gt;
+				&lt;form class="row g-4"&gt;
+					&lt;!-- Destination --&gt;
+					&lt;div class="col-12"&gt;
+						&lt;label class="small"&gt;Destination&lt;/label&gt;
+						&lt;div class="form-border-bottom form-control-transparent d-flex align-items-center"&gt;
+							&lt;div class="flex-shrink-0 me-2"&gt;
+								&lt;!-- Icon --&gt;
+								&lt;i class="bi bi-geo-alt text-secondary d-block"&gt;&lt;/i&gt;
+							&lt;/div&gt;
+							&lt;!-- Input field --&gt;
+							&lt;div class="flex-grow-1"&gt;
+								&lt;!-- Cities --&gt;
+								&lt;div class="form-fs-lg"&gt;
+									&lt;select class="form-select js-choice h5" data-search-enabled="true" aria-label=".form-select-sm"&gt;
+										&lt;option value=""&gt;Select location&lt;/option&gt;
+										&lt;option&gt;San Jacinto, USA&lt;/option&gt;
+										&lt;option&gt;North Dakota, Canada&lt;/option&gt;
+										&lt;option&gt;West Virginia, Paris&lt;/option&gt;
+									&lt;/select&gt;
+								&lt;/div&gt;	
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Check in --&gt;
+					&lt;div class="col-md-6"&gt;
+						&lt;label class="small"&gt;Check in&lt;/label&gt;
+						&lt;div class="form-border-bottom form-control-transparent d-flex align-items-center"&gt;
+							&lt;!-- Icon --&gt;
+							&lt;i class="bi bi-calendar text-secondary d-block me-2"&gt;&lt;/i&gt;
+							&lt;!-- Cities --&gt;
+							&lt;div class="form-fs-lg"&gt;
+								&lt;input type="text" class="form-control flatpickr" data-date-format="d/M/Y" placeholder="Select Date"&gt;
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Check Out --&gt;
+					&lt;div class="col-md-6"&gt;
+						&lt;label class="small"&gt;Check Out&lt;/label&gt;
+						&lt;div class="form-border-bottom form-control-transparent d-flex align-items-center"&gt;
+							&lt;!-- Icon --&gt;
+							&lt;i class="bi bi-calendar text-secondary d-block me-2"&gt;&lt;/i&gt;
+							&lt;!-- Cities --&gt;
+							&lt;div class="form-fs-lg"&gt;
+								&lt;input type="text" class="form-control flatpickr" data-date-format="d/M/Y" placeholder="Select Date"&gt;
+							&lt;/div&gt;	
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Occupant --&gt;
+					&lt;div class="col-md-6"&gt;
+						&lt;label class="small"&gt;Occupant&lt;/label&gt;
+						&lt;div class="form-border-bottom form-control-transparent d-flex align-items-center"&gt;
+							&lt;!-- Icon --&gt;
+							&lt;i class="fa-solid fa-user-group text-secondary d-block me-2"&gt;&lt;/i&gt;
+							&lt;!-- Cities --&gt;
+							&lt;div class="form-fs-lg"&gt;
+								&lt;div class="dropdown guest-selector me-2"&gt;
+									&lt;input type="text" class="form-guest-selector form-control selection-result" placeholder="Select occupant" id="dropdownShare" data-bs-auto-close="outside" data-bs-toggle="dropdown"&gt;
+								
+									&lt;!-- dropdown items --&gt;
+									&lt;ul class="dropdown-menu guest-selector-dropdown" aria-labelledby="dropdownShare"&gt;
+										&lt;!-- Adult --&gt;
+										&lt;li class="d-flex justify-content-between"&gt;
+											&lt;div&gt;
+												&lt;h6 class="mb-0"&gt;Adults&lt;/h6&gt;
+												&lt;small&gt;Ages 13 or above&lt;/small&gt;
+											&lt;/div&gt;
+
+											&lt;div class="hstack gap-1 align-items-center"&gt;
+												&lt;button type="button" class="btn btn-link adult-remove p-0 mb-0"&gt;&lt;i class="bi bi-dash-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+												&lt;h6 class="guest-selector-count mb-0 adults"&gt;2&lt;/h6&gt;
+												&lt;button type="button" class="btn btn-link adult-add p-0 mb-0"&gt;&lt;i class="bi bi-plus-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+											&lt;/div&gt;
+										&lt;/li&gt;
+
+										&lt;!-- Divider --&gt;
+										&lt;li class="dropdown-divider"&gt;&lt;/li&gt;
+
+										&lt;!-- Child --&gt;
+										&lt;li class="d-flex justify-content-between"&gt;
+											&lt;div&gt;
+												&lt;h6 class="mb-0"&gt;Child&lt;/h6&gt;
+												&lt;small&gt;Ages 13 below&lt;/small&gt;
+											&lt;/div&gt;
+
+											&lt;div class="hstack gap-1 align-items-center"&gt;
+												&lt;button type="button" class="btn btn-link child-remove p-0 mb-0" &gt;&lt;i class="bi bi-dash-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+												&lt;h6 class="guest-selector-count mb-0 child"&gt;0&lt;/h6&gt;
+												&lt;button type="button" class="btn btn-link child-add p-0 mb-0" &gt;&lt;i class="bi bi-plus-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+											&lt;/div&gt;
+										&lt;/li&gt;
+
+										&lt;!-- Divider --&gt;
+										&lt;li class="dropdown-divider"&gt;&lt;/li&gt;
+
+										&lt;!-- Rooms --&gt;
+										&lt;li class="d-flex justify-content-between"&gt;
+											&lt;div&gt;
+												&lt;h6 class="mb-0"&gt;Rooms&lt;/h6&gt;
+												&lt;small&gt;Max room 8&lt;/small&gt;
+											&lt;/div&gt;
+
+											&lt;div class="hstack gap-1 align-items-center"&gt;
+												&lt;button type="button" class="btn btn-link room-remove p-0 mb-0" &gt;&lt;i class="bi bi-dash-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+												&lt;h6 class="guest-selector-count mb-0 rooms"&gt;1&lt;/h6&gt;
+												&lt;button type="button" class="btn btn-link room-add p-0 mb-0" &gt;&lt;i class="bi bi-plus-circle fs-5 fa-fw"&gt;&lt;/i&gt;&lt;/button&gt;
+											&lt;/div&gt;
+										&lt;/li&gt;
+									&lt;/ul&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;	
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Tour type --&gt;
+					&lt;div class="col-md-6"&gt;
+						&lt;label class="small"&gt;Tour type&lt;/label&gt;
+						&lt;div class="form-border-bottom form-control-transparent d-flex align-items-center"&gt;
+							&lt;div class="flex-shrink-0 me-2"&gt;
+								&lt;!-- Icon --&gt;
+								&lt;i class="fa-solid fa-torii-gate text-secondary d-block"&gt;&lt;/i&gt;
+							&lt;/div&gt;
+							&lt;!-- Input field --&gt;
+							&lt;div class="flex-grow-1"&gt;
+								&lt;!-- Cities --&gt;
+								&lt;div class="form-fs-lg"&gt;
+									&lt;select class="form-select js-choice h5" data-search-enabled="true" aria-label=".form-select-sm"&gt;
+										&lt;option value=""&gt;Select type&lt;/option&gt;
+										&lt;option&gt;Adventure&lt;/option&gt;
+										&lt;option&gt;Beach&lt;/option&gt;
+										&lt;option&gt;Desert&lt;/option&gt;
+										&lt;option&gt;History&lt;/option&gt;
+									&lt;/select&gt;
+								&lt;/div&gt;	
+							&lt;/div&gt;
+						&lt;/div&gt;
+					&lt;/div&gt;
+
+					&lt;!-- Button --&gt;
+					&lt;div class="col-12"&gt;
+						&lt;button class="btn btn-primary w-100 mb-0"&gt;Check Availability&lt;/button&gt;
+					&lt;/div&gt;
+				&lt;/form&gt;	
+				&lt;!-- Form END --&gt;
+			&lt;/div&gt;
+			
+			&lt;!-- Image --&gt;
+			&lt;div class="col-lg-6 position-relative"&gt;
+				&lt;img src="assets/images/bg/09.jpg" class="rounded" alt=""&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		&lt;!-- Content and Image END --&gt;
+	&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- =======================
+Main Banner END --&gt;
+									
+								</code></pre>
+								<button id="copy_id-1" data-clipboard-action="copy" data-clipboard-target="#copy-1" class="copy-link btn btn-primary btn-sm">Copy</button>
+							</div>
+						</div>
+
+						<!-- Plugin tab -->
+						<div class="tab-pane" id="tab-3">
+							<!-- Css link -->
+							<div class="mt-4">
+								<p>Copy-paste the stylesheet <code>&lt;link&gt;</code> into your <code>&lt;head&gt;</code> to load the CSS.</p>
+								<div class="position-relative">
+									<pre id="copy-3" class="">
+										<code class="language-markup" data-lang="html">
+&lt;link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/css/flatpickr.min.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css"&gt;
+											</code></pre>
+									<button id="copy_id-3" data-clipboard-action="copy" data-clipboard-target="#copy-3" class="copy-link btn btn-primary btn-sm mb-0">Copy</button>
+								</div>
+							</div>
+
+							<!-- Script link  -->
+							<div class="mt-4">
+								<p>Copy-paste the following <code>&lt;script&gt;</code> near the end of your pages under <b>Vendors</b> to enable it.</p>
+								<div class="position-relative">
+									<pre id="copy-4" class="">
+										<code class="language-markup" data-lang="html">
+&lt;script src="assets/vendor/flatpickr/js/flatpickr.min.js"&gt;&lt;/script&gt;
+&lt;script src="assets/vendor/choices/js/choices.min.js"&gt;&lt;/script&gt;
+										</code></pre>
+									<button id="copy_id-4" data-clipboard-action="copy" data-clipboard-target="#copy-4" class="copy-link btn btn-primary btn-sm mb-0">Copy</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- Card body END -->
+
+			</div>
+			<!-- Card END -->
+		</div>
+	</div>
+</section>
+<!-- =======================
+Code END -->
+
+</main>
+
+<!-- =======================
+JavaScripts -->
+
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendor/flatpickr/js/flatpickr.min.js"></script>
+<script src="assets/vendor/choices/js/choices.min.js"></script>
+<script src="assets/js/simple-scrollbar.min.js"></script>
+<script src="assets/js/prism.js"></script>
+<script src="assets/js/clipboard.min.js"></script>
+ 
+<!-- ThemeFunctions -->
+<script src="assets/js/functions.js"></script>
+
+</body>
+</html>

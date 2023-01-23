@@ -1,0 +1,35 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+{% block content %}
+
+
+    <br><br><br>
+    <br>
+    <div data-inline-type="">
+        <div>
+            <a href="{% url 'employee profile edit' user.pk %}">
+                <button type="button" class="btn btn-primary btn-lg">Редактирай</button>
+            </a>
+        </div>
+        <div>
+            <form style="text-align: justify-all" method="post"
+                  action="{% url 'employee profile details' user.pk %}">
+                <br>
+                {% csrf_token %}
+                <img src="{{ employee.employee_pic }}" alt="" height="100" width="100">
+                <h3><label for='employee_first_name'>Име:&nbsp</label>{{ employee.employee_first_name }}
+                    <label for='employee_last_name'>Фамилия:&nbsp</label>{{ employee.employee_last_name }}</h3>
+                <h3><label for='employee_role'>Позиция:&nbsp</label>{{ employee.employee_role }}</h3>
+                <h3><label for='employee_phone'>Телефон:&nbsp</label>{{ employee.employee_phone }}</h3>
+                <h3><label for='employee_email'>Е-майл:&nbsp</label>{{ employee.employee_email }}</h3>
+            </form>
+            <a href="{% url 'change password' %}">
+                <button class="btn btn-primary btn-lg">Смяна на парола</button>
+            </a>
+        </div>
+    </div>
+
+
+
+{% endblock %}

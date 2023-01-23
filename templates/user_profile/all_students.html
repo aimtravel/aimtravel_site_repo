@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{##}
+{##}
+{#    <div>#}
+{#    <br><br><br>#}
+{#        {% for user in student_list %}#}
+{##}
+{#            <div style='color: whitesmoke; max-height: 300px'>#}
+{#                <h3>#}
+{#                    <a href="{% url 'details profile' user.pk %}">#}
+{#                        <button class="btn btn-primary btn-lg" style="scale: 80%">Инфо</button>#}
+{#                    </a>#}
+{#                    {{ user.first_name }} {{ user.last_name }} - {{ user.user }}#}
+{##}
+{#                </h3>#}
+{#            </div>#}
+{#            <div>#}
+{##}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+
+    <br>
+    <h1 align="center">СПИСЪК СТУДЕНТИ</h1>
+    <br><br><br>
+    <div class="row">
+        {% for student in page_obj %}
+
+            <div style='color: whitesmoke; max-height: 300px'>
+                <h3>
+                    <a href="{% url 'details profile' student.pk %}">
+                        <button class="btn btn-primary btn-lg" style="scale: 80%">Инфо</button>
+                    </a>
+                    {{ student.first_name }} {{ student.last_name }} - {{ student.user }}
+
+                </h3>
+            </div>
+        {% endfor %}
+    </div>
+    <br><br><br>
+    <div class="row" align="center">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+
+{% endblock %}

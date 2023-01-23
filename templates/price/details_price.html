@@ -1,0 +1,35 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+
+        <div>
+            <h2>{{ price_details.pricing_type }}</h2>
+            <h3>$ {{ price_details.price|floatformat:2 }}</h3>
+            <h3 style="color: whitesmoke">{{ price_details.price_description }}</h3>
+            <br>
+            <br>
+        </div>
+
+
+        <div>
+            {% if user.is_staff %}
+                <a href="{% url 'edit price' pk=price_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Промени ценовия план</button>
+                </a>
+                <a href="{% url 'delete price' pk=price_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Изтрий ценовия план</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

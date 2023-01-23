@@ -1,0 +1,35 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% block content %}
+
+    <br><br><br>
+    <div>
+        <form method="post" action="{% url 'employee profile edit' user.pk %}">
+            <div align="center">
+                {% if form.errors %}
+                    <div class="list-group-item-warning" style="color: whitesmoke; background-color: red; max-width: 300px">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <h4> {{ error }} </h4>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        <br>
+            <div align="center">
+                <h3><label for='employee_first_name'>Име:&nbsp</label>{{ form.employee_first_name }}</h3>
+                <h3><label for='employee_last_name'>Фамилия:&nbsp</label>{{ form.employee_last_name }}</h3>
+                <h3><label for='employee_role'>Позиция:&nbsp</label>{{ form.employee_role }}</h3>
+                <h3><label for='employee_phone'>Телефон:&nbsp</label>{{ form.employee_phone }}</h3>
+                <h3><label for='employee_email'>Е-майл:&nbsp</label>{{ form.employee_email }}</h3>
+                <label for='employee_pic'>Снимка:&nbsp</label>{{ form.employee_pic }}&nbsp&nbsp&nbsp
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg">Запази</button>
+            </div>
+        </form>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+{% endblock %}

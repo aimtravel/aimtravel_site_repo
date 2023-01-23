@@ -1,0 +1,1002 @@
+.wrapper header.header {
+    background-image: url("img/header-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: 950px;
+    position: relative;
+}
+
+.wrapper header.header > img {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.wrapper header.header .header-top .logo {
+    margin-top: 30px
+}
+
+.wrapper header.header .header-top .logo h2 a {
+    font-family: 'Dancing Script', cursive;
+    font-size: 44px;
+    font-weight: 400;
+    text-decoration: none;
+    color: #fff;
+}
+
+.wrapper header.header .header-top ul.nav.navbar-nav {
+    float: right;
+    margin-top: 30px;
+}
+
+.wrapper header.header .header-top ul.nav.navbar-nav li a {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.wrapper header.header .header-top ul.nav.navbar-nav li a:hover {
+    color: #6a1dad;
+    background: transparent;
+}
+
+.wrapper header.header .header-carousal {
+    margin-top: 295px;
+    position: relative
+}
+
+.wrapper header.header .header-carousal .item {
+    margin: 0 auto;
+    width: max-content;
+    width: -moz-max-content;
+    width: -webkit-max-content;
+    width: -o-max-content;
+    text-align: center
+}
+
+.wrapper header.header .header-carousal .owl-prev {
+    left: 0;
+    position: absolute;
+    top: 70px;
+}
+
+.wrapper header.header .header-carousal .owl-next {
+    right: 0;
+    position: absolute;
+    top: 70px;
+}
+
+.wrapper header.header .header-carousal .owl-next i,
+.wrapper header.header .header-carousal .owl-prev i {
+    font-size: 40px;
+    width: 65px;
+    height: 65px;
+    line-height: 65px;
+    background: #b547d2;
+    text-align: center;
+    border: none;
+    border-radius: 33px
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+}
+
+.owl-theme .owl-nav [class*=owl-]:hover {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+}
+
+.wrapper header.header .header-carousal .owl-dots {
+    display: none;
+}
+
+.wrapper header.header .header-carousal .item h2,
+.wrapper header.header .header-carousal .item h4,
+.wrapper header.header .header-carousal .item p,
+.wrapper header.header .header-carousal .item button {
+    margin: 0;
+    padding: 0
+}
+
+.wrapper header.header .header-carousal .item h4 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'Raleway', sans-serif;
+    padding-bottom: 5px
+}
+
+.wrapper header.header .header-carousal .item h2 {
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.wrapper header.header .header-carousal .item p {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 30px;
+}
+
+.wrapper header.header .header-carousal .item button {
+    color: #403e3e;
+    font-size: 17px;
+    font-weight: 600;
+    font-family: "Open Sans", sans-serif;
+    background: #fff;
+    border: none;
+    padding: 20px 40px;
+    margin-top: 40px
+}
+
+.wrapper header.header .header-carousal .item button:hover {
+    background: #403e3e;
+    color: #fff;
+    border: none;
+}
+
+.wrapper section > h2 {
+    color: #3b3b3b;
+    font-family: "Raleway", sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 0;
+    margin-top: 120px;
+    text-align: center;
+}
+
+.wrapper section .about-icon {
+    margin: 0 auto 165px;
+    position: relative;
+    text-align: center;
+    width: 120px;
+    z-index: -1;
+}
+
+.wrapper section .about-icon::before {
+    background: #91328f none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 11px;
+    width: 120px;
+    z-index: -1;
+}
+
+.wrapper section .about-icon > img {
+    width: 15px;
+    height: 15px;
+}
+
+.wrapper section.about-us .video {
+    padding-right: 30px;
+    padding-top: 10px;
+}
+
+.wrapper section.about-us .video iframe {
+    height: 365px;
+}
+
+.wrapper section.about-us .text > h4 {
+    color: #121212;
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    margin: 0 0 55px;
+}
+
+.wrapper section.about-us .text > h3 {
+    color: #4d4d4d;
+    font-family: "Raleway", sans-serif;
+    font-size: 17px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.wrapper section.about-us .text > p {
+    color: #b0aeae;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    margin-bottom: 35px;
+}
+
+.wrapper section.about-us .text > button {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #853bfe;
+    color: #853bfe;
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    padding: 12px 40px;
+}
+
+.wrapper section.about-us .text > button:hover {
+    color: #fff;
+    background: #853bfe;
+}
+
+.wrapper section.service {
+    background: #f7f7f7;
+    z-index: -1;
+    padding-bottom: 120px
+}
+
+.wrapper section.service > h2 {
+    padding-top: 80px;
+    margin-top: 140px
+}
+
+.wrapper .service .about-icon {
+    z-index: 2147483647;
+}
+
+.wrapper section.service .about-icon {
+    margin-bottom: 0;
+    position: relative;
+    text-align: center;
+    width: 120px;
+}
+
+.wrapper .service .about-icon::before {
+    background: #91328f none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 11px;
+    width: 120px;
+    z-index: -1;
+}
+
+.wrapper section.service .text {
+    margin-top: 140px;
+    text-align: center;
+}
+
+.wrapper section.service .text i {
+    background: #7c2dfe none repeat scroll 0 0;
+    border: 5px solid #f4ddf8;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 33px;
+    height: 65px;
+    line-height: 55px;
+    width: 65px;
+}
+
+.wrapper section.service .text h4 {
+    color: #0f0f0f;
+    font-family: "Raleway", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 25px;
+    margin-top: 12px;
+    text-transform: uppercase;
+}
+
+.wrapper section.service .text p {
+    color: #7a7a7a;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    margin-bottom: 45px;
+}
+
+.wrapper section.service .text h5 a {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: #853bfe;
+    border: 1px solid #853bfe;
+    text-decoration: none;
+    padding: 15px 30px;
+}
+
+.wrapper section.service .text h5 a:hover {
+    background: #853bfe;
+    color: #fff;
+}
+
+.wrapper section.portfolio .about-icon {
+    margin: 0 auto 140px;
+}
+
+.wrapper section.portfolio .button-group.filters-button-group {
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.wrapper section.portfolio .button-group button.button {
+    border: medium none;
+    color: #3f3f3f;
+    font-family: "Open Sans", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 8px;
+    padding: 13px 20px;
+    background: #fff;
+}
+
+.wrapper section.portfolio .button-group button.button.is-checked {
+    position: relative;
+    color: #7c2dfe
+}
+
+.wrapper section.portfolio .button.is-checked::before {
+    background: #7c2dfe none repeat scroll 0 0;
+    bottom: 3px;
+    content: "";
+    height: 3px;
+    left: 25%;
+    position: absolute;
+    width: 50%;
+}
+
+
+/*
+.wrapper section.portfolio .grid {
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 154px
+}
+*/
+
+.wrapper section.portfolio .portfolio-item {
+    width: 33%;
+    margin-right: .33%
+}
+
+.wrapper section.portfolio .portfolio-item > img {
+    width: 100%;
+    position: relative;
+    height: auto;
+}
+
+.wrapper section.portfolio .portfolio-text {
+    background: rgba(226, 91, 251, 0.9) none repeat scroll 0 0;
+    height: 100%;
+    opacity: 0;
+    padding-top: 42%;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100%;
+}
+
+.wrapper section.portfolio .portfolio-item > h3 {
+    color: #000;
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.wrapper section.portfolio .portfolio-item > p {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 400;
+    color: #000;
+    font-family: "Raleway", sans-serif;
+}
+
+.wrapper section.portfolio .portfolio-item:hover > .portfolio-text {
+    opacity: 1;
+}
+
+.wrapper section.portfolio .portfolio-item:hover > img {
+    height: 410px
+}
+
+.wrapper section.portfolio .portfolio-item:hover > h3 {
+    position: absolute;
+    bottom: 48px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 99
+}
+
+.wrapper section.portfolio .portfolio-item:hover > p {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 99
+}
+
+.wrapper section.portfolio .portfolio-text i {
+    color: #fff;
+    font-size: 34px;
+}
+
+.wrapper section.portfolio .portfolio-text img {
+    width: 600px;
+    height: 600px
+}
+
+.wrapper section.portfolio .portfolio-text > h4 {
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 2px
+}
+
+.wrapper section.portfolio-item.image1 > h3,
+.wrapper section.portfolio-item.image2 > h3,
+.wrapper section.portfolio-item.image3 > h3,
+.wrapper section.portfolio-item.image4 > h3 {
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    color: #979797;
+}
+
+.mfp-gallery .mfp-container .mfp-content .mfp-figure figure .mfp-img {
+    width: 900px !important
+}
+
+.wrapper section.portfolio .grid > .portfolio-item {
+    margin-top: 19px;
+}
+
+.wrapper section.testimonial {
+    position: relative;
+}
+
+.wrapper section.testimonial > h2 {
+    color: #fff;
+    padding: 74px 0 0;
+}
+
+.wrapper section.testimonial > img {
+    position: absolute;
+    width: 100%;
+    z-index: -3;
+    height: 100%
+}
+
+.wrapper section.testimonial .about-icon {
+    z-index: -2;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .item {
+    background: #fff none repeat scroll 0 0;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    width: 815px;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .owl-nav {
+    display: none;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .item > img {
+    border: 1px solid #7c2dfe;
+    border-radius: 50%;
+    height: 90px;
+    margin: 0 auto;
+    width: 90px;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .item > h4 {
+    font-size: 19px;
+    font-weight: 500;
+    font-family: "Raleway", sans-serif;
+    color: #7c2dfe;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .item > h5 {
+    color: #656565;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+    padding: 10px;
+}
+
+.wrapper section.testimonial .testimonial-carousal-one .item > p i {
+    font-size: 17px;
+    margin-right: 13px;
+    color: #7c2dfe;
+}
+
+.wrapper section.testimonial .about-icon::before {
+    background: #fff none repeat scroll 0 0;
+    content: "";
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 11px;
+    width: 120px;
+    z-index: -1;
+}
+
+.wrapper section.testimonial .about-icon::after {
+    background: #fff none repeat scroll 0 0;
+    content: "";
+    height: 4px;
+    left: 57px;
+    position: absolute;
+    top: 10px;
+    width: 4px;
+    z-index: 0;
+    border-radius: 2px;
+}
+
+.wrapper section.testimonial .about-icon {
+    margin: 0 auto 75px;
+}
+
+.wrapper section.testimonial .owl-theme .owl-dots {
+    margin-top: 45px;
+    margin-bottom: 75px;
+}
+
+.wrapper section.testimonial .owl-theme .owl-dots .owl-dot span {
+    background: #fff none repeat scroll 0 0;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #fff;
+}
+
+.wrapper section.testimonial .owl-dots .owl-dot.active span {
+    position: relative;
+    background: #7c2dfe;
+    border: 1px solid #fff
+}
+
+.wrapper section.testimonial .owl-dots .owl-dot.active span::after {
+    background: #e355fd none repeat scroll 0 0;
+    border-radius: 5px;
+    content: "";
+    height: 12px;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 12px;
+}
+
+.clear {
+    clear: both;
+}
+
+.wrapper section.our-team .about-icon {
+    margin: 0 auto 105px;
+    position: relative;
+    text-align: center;
+    width: 120px;
+    z-index: -1;
+}
+
+.our-team .two2,
+.our-team .two3,
+.our-team .two4 {
+    display: none;
+}
+
+.hexagon1 {
+    height: 500px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+}
+
+.hexagon1 > img {
+    height: 312px;
+    left: 22px;
+    opacity: 0;
+    position: absolute;
+    top: 27px;
+    width: 255px;
+}
+
+.hexagon1 h3 {
+    color: #3c3c3c;
+    font-family: "Raleway", sans-serif;
+    font-size: 21px;
+    font-weight: 400;
+    margin: 128px 0 0;
+    opacity: 0;
+    text-align: center;
+}
+
+.hexagon1 p {
+    font-size: 15px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    color: #5b5959;
+    text-align: center;
+    opacity: 0
+}
+
+.hexagon1:hover > img {
+    opacity: 1
+}
+
+.hexagon1:hover > h3 {
+    opacity: 1
+}
+
+.hexagon1:hover > p {
+    opacity: 1
+}
+
+.hexagon {
+    background-color: transparent;
+    height: 180px;
+    margin: 86.6px 0;
+    position: relative;
+    width: 295px;
+}
+
+.hexagon > img {
+    height: 370px;
+    left: 0;
+    position: absolute;
+    top: -95px;
+    width: 370px;
+    z-index: -5;
+}
+
+.hexagon::before,
+.hexagon::after {
+    border-left: 150px solid #fff;
+    border-right: 150px solid #fff;
+    content: "";
+    position: absolute;
+    top: -87px;
+    width: 0;
+}
+
+.hexagon::before {
+    border-bottom: 95px solid transparent;
+    bottom: 100%;
+}
+
+.hexagon::after {
+    border-top: 95px solid transparent;
+    top: 100%;
+    width: 0;
+}
+
+.wrapper section.our-team .tom {
+    background: #7c2dfe none repeat scroll 0 0;
+    overflow: hidden;
+}
+
+.wrapper section.our-team .description {
+    background: #7c2dfe;
+}
+
+.wrapper section.our-team .description > h3 {
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    font-size: 27px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.wrapper section.our-team .description > h3 span {
+    font-style: italic;
+}
+
+.wrapper section.our-team .description > h4 {
+    font-size: 22px;
+    font-weight: 400;
+    font-family: "Raleway", sans-serif;
+    color: #fff
+}
+
+.wrapper section.our-team .description > h5 {
+    color: #f6f6f6;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 27px;
+}
+
+.wrapper section.our-team .description > p i {
+    font-size: 21px;
+    color: #f6f6f6;
+    width: 55px;
+    padding: 15px 0;
+    text-align: center;
+    margin-right: 10px;
+    border: 2px solid #fff;
+}
+
+.wrapper section.our-team .description p i:hover {
+    background: #fff;
+    color: #7c2dfe;
+}
+
+.wrapper section.our-team .description {
+    float: left;
+    width: 70%;
+    padding: 45px 55px
+}
+
+.wrapper section.our-team .images {
+    float: right;
+    width: 30%;
+    height: 345px;
+}
+
+.wrapper section.our-team .images img {
+    height: auto;
+    width: 100%;
+}
+
+.wrapper section.our-blog {
+    margin-bottom: 140px;
+}
+
+.wrapper section.our-blog .about-icon {
+    margin: 0 auto 145px;
+}
+
+.wrapper section.our-blog .item .text {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: -9px 1px 15px rgba(0, 0, 0, 0.15);
+    left: -195px;
+    padding: 55px 40px 70px;
+    position: absolute;
+    top: 81px;
+    width: 530px;
+}
+
+.wrapper section.our-blog .item {
+    width: 820px;
+    height: 606px;
+    margin: 0 auto;
+    border: 3px solid #d858f0;
+    position: relative;
+}
+
+.wrapper section.our-blog .item .images {
+    position: absolute;
+    right: -115px;
+    top: 34px;
+}
+
+.wrapper section.our-blog .item .text h4 {
+    color: #d858f0;
+    font-family: "Raleway", sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.wrapper section.our-blog .item .text h5 {
+    border-bottom: 1px solid #797878;
+    color: #797878;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    margin-top: 30px;
+    padding-bottom: 35px;
+}
+
+.wrapper section.our-blog .item .text p {
+    color: #5e5c5c;
+    font-family: "Open Sans", sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    margin-bottom: 60px;
+    margin-top: 35px;
+}
+
+.wrapper section.our-blog .item .text p span.name {
+    font-style: italic;
+    color: #d858f0;
+}
+
+.wrapper section.our-blog .item .text h6 a {
+    background: #7c2dfe none repeat scroll 0 0;
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 15px 50px;
+    text-decoration: none;
+}
+
+.wrapper section.our-blog .owl-dots {
+    display: none;
+}
+
+.wrapper section.our-blog .owl-nav {
+    margin-top: 80px;
+}
+
+.wrapper section.our-blog .owl-nav i {
+    background: #7c2dfe;
+    padding: 10px 20px;
+    font-size: 39px;
+    margin: 0;
+}
+
+.wrapper section.our-blog .owl-nav i:hover {
+    background: #e355fd
+}
+
+.wrapper section.our-blog .owl-nav .owl-prev,
+.wrapper section.our-blog .owl-nav .owl-next {
+    margin: 0
+}
+
+.wrapper section.footer-icon {
+    background: #e355fd;
+    padding: 105px 0
+}
+
+.wrapper section.footer-icon .item img {
+    margin: 0 auto;
+    width: auto;
+}
+
+.wrapper section.contact-area .contact-form {
+    background: #fff none repeat scroll 0 0;
+    box-shadow: -9px 1px 15px rgba(0, 0, 0, 0.15);
+    margin: 135px auto -50px;
+    padding: 40px 135px;
+    width: 730px;
+}
+
+.wrapper section.contact-area .contact-form input[type="text"],
+.wrapper section.contact-area .contact-form input[type="email"],
+.wrapper section.contact-area .contact-form textarea {
+    border: none;
+    border-bottom: 1px solid #aba8a8;
+    padding: 40px 25px 15px;
+    color: #7a7a7a;
+}
+
+.wrapper section.contact-area .contact-form input:focus,
+.wrapper section.contact-area .contact-form input:focus,
+.wrapper section.contact-area .contact-form textarea:focus {
+    color: #e355fd;
+    border-bottom: 1px solid #e355fd;
+}
+
+.wrapper section.contact-area .contact-form input[type="text"] {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+}
+
+.wrapper section.contact-area .contact-form input[type="email"] {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+}
+
+.wrapper section.contact-area .contact-form textarea {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    height: 130px
+}
+
+.wrapper section.contact-area .contact-form input[type="submit"] {
+    padding: 15px 45px;
+    font-size: 18px;
+    color: #fff;
+    background: #e355fd;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    border: none;
+    margin-top: 40px;
+}
+
+.wrapper section.contact-area .contact-part h4 {
+    color: #3b3b3b;
+    font-family: "Raleway", sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.wrapper section.contact-area .contact-part h4 i {
+    color: #e355fd;
+    width: 65px;
+    text-align: center;
+    font-size: 29px
+}
+
+.wrapper section.contact-area .contact-part p {
+    color: #837d7d;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 15px;
+    margin-left: 65px;
+    text-transform: capitalize;
+}
+
+.wrapper section.contact-area > h2 {
+    margin-top: 110px;
+}
+
+.wrapper footer.footer {
+    background: #e355fd;
+    height: 220px;
+}
+
+.wrapper footer.footer .text {
+}
+
+.wrapper footer.footer .text p {
+    color: #fff;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 170px;
+}
+
+.wrapper footer.footer .text p a {
+    color: #4500b6;
+    text-decoration: none;
+}
+
+.wrapper footer.footer .footer-logo p {
+    text-align: center;
+    margin-top: 70px
+}
+
+.wrapper footer.footer .footer-logo p a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 44px;
+    font-family: 'Dancing Script', cursive;
+    text-align: center;
+}
+
+.wrapper footer.footer .icon p {
+    float: right;
+    margin-top: 160px
+}
+
+.wrapper footer.footer .icon p i {
+    color: #fff;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 10px;
+}
+
+.wrapper footer.footer .icon p i:hover {
+    background: #7c2dfe;
+    border-radius: 20px;
+}
+
+.wrapper section.footer-icon .owl-nav,
+.wrapper section.footer-icon .owl-dots {
+    display: none;
+}

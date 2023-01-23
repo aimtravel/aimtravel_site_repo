@@ -1,0 +1,63 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% block content %}
+
+    <br><br><br>
+    <div>
+        <form method="post"
+              action="{% url 'edit profile' students.pk %}"
+              enctype="multipart/form-data">
+
+            {% if form.errors %}
+                <div class="list-group-item-warning" style="color: whitesmoke; background-color: red; max-width: 300px">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <h4> {{ error }} </h4>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>{{ form.first_name.label }}: {{ form.first_name }}</h4>
+                    <h4>{{ form.middle_name.label }}: {{ form.middle_name }}</h4>
+                    <h4>{{ form.last_name.label }}: {{ form.last_name }}</h4>
+                    <h4>{{ form.bg_personal_number.label }}: {{ form.bg_personal_number }}</h4>
+                    <h4>{{ form.date_of_birth.label }}: {{ form.date_of_birth }}</h4>
+                    <h4>{{ form.place_of_birth.label }}: {{ form.place_of_birth }}</h4>
+                    <h4>{{ form.country_of_birth.label }}: {{ form.country_of_birth }}</h4><br>
+                    <h4>{{ form.phone.label }}: {{ form.phone }}</h4>
+                    <h4>{{ form.email.label }}: {{ form.email }}</h4>
+                    <h4>{{ form.street.label }}: {{ form.street }}</h4>
+                    <h4>{{ form.city.label }}: {{ form.city }}</h4>
+                    <h4>{{ form.province.label }}: {{ form.province }}</h4>
+
+                </div>
+                <div class="col-md-5">
+                    <h4>{{ form.nationality.label }}: {{ form.nationality }}</h4>
+                    <h4>{{ form.id_passport_number.label }}: {{ form.id_passport_number }}</h4>
+                    <h4>{{ form.passport_date_of_issue.label }}: {{ form.passport_date_of_issue }}</h4>
+                    <h4>{{ form.is_received_visa.label }}: {{ form.is_received_visa }}</h4><br>
+
+                    <h4>{{ form.university.label }}: {{ form.university }}</h4>
+                    <h4>{{ form.year_of_education.label }}: {{ form.year_of_education }}</h4>
+                    <h4>{{ form.is_fulltime_student.label }}: {{ form.is_fulltime_student }}</h4>
+                    <h4>{{ form.foreign_university.label }}: {{ form.foreign_university }}</h4><br>
+
+                    <h4>{{ form.search_job_pref.label }}: {{ form.search_job_pref }}</h4>
+                    <h4>{{ form.how_to_reach.label }}: {{ form.how_to_reach }}</h4>
+                    <h4>Снимка за ВИЗА: {{ form.visa_photo }}</h4><br>
+                    <h4 style="color: whitesmoke">{{ form.file_field.lable }} {{ form.file_field }}</h4>
+                </div>
+
+
+            </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg">Запази</button>
+        </form>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+{% endblock %}

@@ -1,0 +1,747 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+        <!-- =======================
+    Main Banner START -->
+        <section class="py-0">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-11 mx-auto">
+                        <!-- Slider START -->
+                        <div class="primary-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden">
+                            <div class="tiny-slider-inner" data-gutter="0" data-arrow="true" data-dots="false"
+                                 data-items="1">
+                                <!-- Card item START -->
+                                <div class="card overflow-hidden h-400px h-sm-600px rounded-0"
+                                     style="background-image:url(../static/booking_v1.1.0/template/assets/images/category/hotel/06.jpg); background-position: center left; background-size: cover;">
+                                    <!-- Background dark overlay -->
+                                    <div class="bg-overlay bg-dark opacity-3"></div>
+                                    <!-- Card image overlay -->
+                                    <div class="card-img-overlay d-flex align-items-center">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-11 col-lg-7">
+                                                    <!-- Title -->
+                                                    <h1 class="text-white display-6">Не чакай! <br>Запиши се сега!</h1>
+                                                    <a href="#" class="btn btn-orange mb-0">💖ЗАПИШИ СЕ</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card item END -->
+                                <!-- Card item START -->
+                                <div class="card overflow-hidden h-400px h-sm-600px bg-parallax text-center rounded-0"
+                                     data-jarallax-video="https://www.youtube.com/watch?v=j56YlCXuPFU">
+                                    <!-- Background dark overlay -->
+                                    <div class="bg-overlay bg-dark opacity-3"></div>
+                                    <!-- Card image overlay -->
+                                    <div class="card-img-overlay d-flex align-items-center">
+                                        <div class="container w-100 my-auto">
+                                            <div class="row justify-content-center">
+                                                <div class="col-11 col-lg-8">
+                                                    <!-- Title -->
+                                                    <h1 class="text-white">Заповядай и разгледай нашите оферти</h1>
+                                                    <a href="{% url 'offers_filter' %}"
+                                                       class="btn btn-dark mb-0">Оферти</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card item END -->
+                            </div>
+                        </div>
+                        <!-- Slider END -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Main Banner END -->
+        <!-- =======================
+        Best 4 Offers START -->
+        <section class="pt-0 pt-md-5">
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h2 class="mb-0">Нашите най-добри оферти</h2>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Package item -->
+                    {% for offer in page_obj %}
+                    <div class="col-sm-6 col-xl-3">
+                        <!-- Card START -->
+                        <div class="card card-img-scale overflow-hidden bg-transparent">
+                            <div class="card-img-scale-wrapper rounded-3">
+                                <!-- Card Image -->
+                                <img src="{{ offer.offer_pic }}"
+                                     class="card-img" style="width: 250px; height: 250px" alt="offer picture">
+                                <!-- Overlay -->
+                                <div class="card-img-overlay d-flex flex-column z-index-1 p-4">
+                                    <!-- Card overlay top -->
+                                    <div class="d-flex justify-content-between">
+                                        <span class="badge text-bg-dark">{{ offer.city }}, {{ offer.state }}</span>
+                                        <span class="badge text-bg-white"><i
+                                                class="fa-solid fa-star text-warning me-2"></i>{{ offer.ranking }}</span>
+                                    </div>
+                                    <!-- Card overlay bottom -->
+                                    <div class="w-100 mt-auto">
+                                        <!-- Card category -->
+                                        <span class="badge text-bg-white fs-6"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card body -->
+                            <div class="card-body px-2">
+                                <!-- Title -->
+                                <h5 class="card-title"><a href="tour-grid.html" class="stretched-link">{{ offer.job_position }}</a></h5>
+                                <!-- Content -->
+                                <div class="hstack gap-2">
+                                    <span class="h5 mb-0 text-success">${{ offer.wage }}</span>
+                                    <small>per hour</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Card END -->
+                    </div>
+                    {% endfor %}
+
+                </div> <!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Best 4 Offers END -->
+        <!-- =======================
+        About START -->
+        <section class="py-0 py-lg-7">
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <h2>Винаги сме насреща да ви осигурим едно незабравимо лято. Щастливи сме да помогнем. </h2>
+                        <p class="mb-0">We focus a great deal on the understanding of behavioral psychology and
+                            influence
+                            triggers which are crucial for becoming a well-rounded Digital Marketer. We understand that
+                            theory is important to build a solid foundation, we understand that theory alone isn't going
+                            to
+                            get the job done.</p>
+                    </div>
+                </div>
+
+                <!-- Counters and features START -->
+                <div class="row g-4">
+                    <!-- Counter -->
+                    <div class="col-xl-4">
+                        <div class="card card-body bg-primary bg-opacity-10 vstack gap-4 justify-content-center h-100 p-4">
+                            <!-- Counter item -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
+                                    data-purecounter-end="10" data-purecounter-delay="200">0</h3>
+                                <h6 class="fw-normal mb-0">Всички оферти</h6>
+                            </div>
+
+                            <!-- Counter item -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-center me-3">
+                                    <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
+                                        data-purecounter-end="200" data-purecounter-delay="300">0</h3>
+                                    <span class="h3 text-primary mb-0">+</span>
+                                </div>
+                                <h6 class="fw-normal mb-0">Служители</h6>
+                            </div>
+
+                            <!-- Counter item -->
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-center me-3">
+                                    <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
+                                        data-purecounter-end="50" data-purecounter-delay="300">0</h3>
+                                    <span class="h3 text-primary mb-0">+</span>
+                                </div>
+                                <h6 class="fw-normal mb-0">Доволни клиенти</h6>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card  overflow-hidden">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/about/07.jpg" class="rounded-3" alt="">
+                            <!-- Full screen button -->
+                            <div class="w-100 h-100">
+                                <button class="btn btn-dark position-absolute top-50 start-50 translate-middle mb-0"
+                                        data-bs-toggle="modal" data-bs-target="#map360">
+                                    <i class="bi bi-eye me-2"></i>View 360
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="col-md-6 col-xl-4">
+                        <ul class="list-group list-group-borderless">
+                            <li class="list-group-item py-3">
+                                <h6 class="mb-0 fw-normal">
+                                    <i class="bi bi-cash-coin fa-fw text-info me-2"></i>Best Rate Guaranteed
+                                </h6>
+                            </li>
+
+                            <li class="list-group-item py-3">
+                                <h6 class="mb-0 fw-normal">
+                                    <i class="bi bi-credit-card-2-back fa-fw text-warning me-2"></i>Payment at Hotel
+                                </h6>
+                            </li>
+
+                            <li class="list-group-item py-3">
+                                <h6 class="mb-0 fw-normal">
+                                    <i class="bi bi-wallet fa-fw text-success me-2"></i>Exclusive Members Rewards
+                                </h6>
+                            </li>
+
+                            <li class="list-group-item py-3">
+                                <h6 class="mb-0 fw-normal">
+                                    <i class="bi bi-wifi fa-fw text-danger me-2"></i>WIFI Access
+                                </h6>
+                            </li>
+
+                            <li class="list-group-item pt-3 pb-0">
+                                <h6 class="mb-0 fw-normal">
+                                    <i class="bi bi-tags fa-fw text-orange me-2"></i>No Hidden Changes
+                                </h6>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- Counters and features END -->
+            </div>
+        </section>
+        <!-- =======================
+        About END -->
+
+        <!-- =======================
+        Near by START -->
+        <section>
+            <div class="container">
+                <!-- Title -->
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <h2 class="mb-0">Explore Nearby</h2>
+                    </div>
+                </div>
+
+                <div class="row g-4 g-md-5">
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/01.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">San Francisco</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/02.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Los Angeles</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/03.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Miami</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/04.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Sanjosh</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/05.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">New York</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/06.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">North Justen</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/07.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Rio</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/08.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Las Vegas</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/09.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Texas</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/10.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Chicago</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/11.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">New Keagan</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+
+                    <!-- Card item START -->
+                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+                        <div class="card bg-transparent text-center p-1 h-100">
+                            <!-- Image -->
+                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/01.jpg" class="rounded-circle" alt="">
+
+                            <div class="card-body p-0 pt-3">
+                                <h5 class="card-title"><a href="#" class="stretched-link">Oslo</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card item END -->
+                </div> <!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Near by END -->
+
+        <!-- =======================
+        Services START -->
+        <section class="pt-0 pt-lg-5">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-6">
+                        <!-- Title -->
+                        <h2>Ние сме тук за вас</h2>
+                        <p>Запишете се за бригада при нас и изживейте една мечта.</p>
+                        <!-- Button -->
+                        <a href="#" class="btn btn-dark mb-4">Безплатна консултация</a>
+                        <!-- Services -->
+                        <div class="row g-sm-4">
+                            <div class="col-sm-6">
+                                <ul class="list-group list-group-borderless mt-2 mb-0">
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-wifi fa-fw text-primary me-2"></i>Free
+                                            Wifi</h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-person-swimming fa-fw text-primary me-2"></i>Swimming
+                                            Pool</h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-person-shelter fa-fw text-primary me-2"></i>Private
+                                            Workshop</h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-utensils fa-fw text-primary me-2"></i>Breakfast</h6>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <ul class="list-group list-group-borderless">
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-bolt fa-fw text-primary me-2"></i>Free
+                                            Electricity</h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-dumbbell fa-fw text-primary me-2"></i>Gym Space</h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><i
+                                                class="fa-solid fa-spa fa-fw text-primary me-2"></i>Spa
+                                        </h6>
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <h6 class="fw-normal mb-0"><a href="#"><i
+                                                class="fa-solid fa-ellipsis fa-fw text-primary me-2"></i>Other Services</a>
+                                        </h6>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="bg-light rounded-3 h-100 p-4">
+                            <!-- Slider START -->
+                            <div class="tiny-slider arrow-round arrow-blur">
+                                <div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-edge="2"
+                                     data-dots="false" data-items-xl="1" data-items-md="1">
+
+                                    <!-- Card START -->
+                                    <div class="card bg-transparent">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm-6">
+                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/02.jpg"
+                                                     class="img-fluid card-img"
+                                                     alt="...">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="card-body p-0">
+                                                    <h6 class="fw-normal mb-3">Honeymoon Sweets</h6>
+                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Maldives
+                                                        Sunshine Hotel</a></h4>
+                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
+                                                            class="bi bi-arrow-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card END -->
+
+                                    <!-- Card START -->
+                                    <div class="card bg-transparent">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm-6">
+                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/01.jpg"
+                                                     class="img-fluid card-img"
+                                                     alt="...">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="card-body p-0">
+                                                    <h6 class="fw-normal mb-3">Royal Stay</h6>
+                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Booking
+                                                        Grad Palace Japan</a></h4>
+                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
+                                                            class="bi bi-arrow-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card END -->
+
+                                    <!-- Card START -->
+                                    <div class="card bg-transparent">
+                                        <div class="row g-4 align-items-center">
+                                            <div class="col-sm-6">
+                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/03.jpg"
+                                                     class="img-fluid card-img"
+                                                     alt="...">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="card-body p-0">
+                                                    <h6 class="fw-normal mb-3">Adventure Stay</h6>
+                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Golf
+                                                        &
+                                                        Spa Resort in New York</a></h4>
+                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
+                                                            class="bi bi-arrow-right"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card END -->
+                                </div>
+                            </div>
+                            <!-- Slider END -->
+                        </div>
+                    </div>
+                </div> <!-- Row END -->
+            </div>
+        </section>
+        <!-- =======================
+        Services END -->
+
+        <!-- =======================
+        Action box START -->
+        <section class="py-0 py-md-5">
+            <div class="container">
+                <div class="position-relative rounded-3 overflow-hidden p-3 p-sm-5"
+                     style="background-image:url(../static/booking_v1.1.0/template/assets/images/about/08.jpg); background-position: center left; background-size: cover;">
+                    <div class="row position-relative z-index-9">
+                        <div class="col-md-7 col-xl-5 ms-auto">
+                            <div class="card card-body p-sm-5">
+                                <div class="d-sm-flex justify-content-between align-items-center mb-2">
+                                    <h6 class="text-primary mb-0">Изключителна оферта</h6>
+                                    <!-- Rating -->
+                                    <ul class="list-inline small mb-0">
+                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
+                                        </li>
+                                        <li class="list-inline-item"><i class="fa-solid fa-star text-warning"></i></li>
+                                    </ul>
+                                </div>
+                                <!-- Title -->
+                                <h5>Enjoy Your Dream Vacation In Switzerland</h5>
+                                <p class="mb-3">Book your hotel with us and don't forget to grab an awesome hotel deal
+                                    to
+                                    save massive on your stay.</p>
+
+                                <!-- Price -->
+                                <h6 class="fw-normal mb-1">2 Days / 3 Nights</h6>
+                                <div class="d-flex align-items-center">
+                                    <h5 class="text-success mb-0 me-1">$750</h5>
+                                    <span class="mb-0 me-2">/day</span>
+                                    <span class="text-decoration-line-through">$1000</span>
+                                </div>
+                                <!-- Button -->
+                                <a href="#" class="btn btn-primary-soft mb-0 mt-3">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Action box END -->
+
+        <!-- =======================
+        Gallery START -->
+        <section>
+            <div class="container-fluid">
+                <!-- Title -->
+                <div class="row mb-md-4">
+                    <div class="col-12 mx-auto text-center mb-4">
+                        <h2 class="mb-0">Нашите доволни клиенти</h2>
+                    </div>
+                </div>
+
+                <!-- Slider START -->
+                <div class="tiny-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden">
+                    <div class="tiny-slider-inner d-flex align-items-end" data-autoplay="true" data-edge="2"
+                         data-arrow="true" data-dots="false" data-items="6" data-items-lg="4" data-items-sm="2">
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/01.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/01.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/02.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/02.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/03.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/03.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/05.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/05.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/08.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/08.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="https://www.youtube.com/embed/tXHviS-4ygo">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/04.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+									<span class="btn text-danger btn-round btn-white position-absolute top-50 start-50 translate-middle mb-0">
+										<i class="fas fa-play"></i>
+									</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/06.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/06.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Slider item -->
+                        <div>
+                            <a data-glightbox="" data-gallery="gallery"
+                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/07.jpg">
+                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
+                                    <!-- Image -->
+                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/07.jpg" class="rounded-3" alt="">
+                                    <!-- Full screen button -->
+                                    <div class="hover-element w-100 h-100">
+                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slider END	 -->
+            </div>
+        </section>
+        <!-- =======================
+        Gallery END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+{% endblock %}

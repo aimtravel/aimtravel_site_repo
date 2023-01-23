@@ -1,0 +1,44 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+
+        <div>
+            <form method="post" action="{% url 'delete price' pk=delete_price.pk %}" style="{% static 'style.css' %}">
+
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-primary btn-lg">Изтрий</button>
+            </form>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+    <br><br>
+    <br>
+
+{% endblock %}

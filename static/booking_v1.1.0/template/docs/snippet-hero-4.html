@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Doc - Booking Theme</title>
+	<!-- Meta Tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="author" content="Webestica.com">
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+	<!-- Google Font -->
+	<!-- Google Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap-icons/bootstrap-icons.css">
+
+	<!-- Theme CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/css/flatpickr.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/doc.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/prism.css">
+
+</head>
+
+<body>
+
+<!-- Header START -->
+<header class="navbar-light header-sticky">
+	<!-- Logo Nav START -->
+	<nav class="navbar navbar-expand-xl">
+		<div class="container">
+			<!-- Logo START -->
+			<a class="navbar-brand" href="#">
+				<img class="light-mode-item navbar-brand-item" src="assets/images/logo.svg" alt="logo">
+				<img class="dark-mode-item navbar-brand-item" src="assets/images/logo-light.svg" alt="logo">
+			</a>
+			<!-- Logo END -->
+
+			<!-- Responsive navbar toggler -->
+			<button class="navbar-toggler ms-auto ms-sm-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-animation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+				<span class="d-none d-sm-inline-block small">Menu</span>
+			</button>
+
+			<!-- Responsive category toggler -->
+			<button class="navbar-toggler ms-sm-auto mx-3 me-md-0 p-0 p-sm-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCategoryCollapse" aria-controls="navbarCategoryCollapse" aria-expanded="false" aria-label="Toggle navigation">
+				<i class="bi bi-grid-3x3-gap-fill fa-fw"></i><span class="d-none d-sm-inline-block small">Category</span>
+			</button>
+
+			<!-- Main navbar START -->
+			<div class="navbar-collapse collapse" id="navbarCollapse">
+				<ul class="navbar-nav navbar-nav-scroll me-auto">
+
+					<!-- Nav item Listing -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="listingMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Listings</a>
+						<ul class="dropdown-menu" aria-labelledby="listingMenu">
+							<li> <a class="dropdown-item" href="#">Menu link</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item Pages -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+						<ul class="dropdown-menu" aria-labelledby="pagesMenu">
+
+							<li> <a class="dropdown-item" href="#">Menu link</a></li>
+
+							<!-- Dropdown submenu -->
+							<li class="dropdown-submenu dropend">
+								<a class="dropdown-item dropdown-toggle" href="#">Submenu link</a>
+								<ul class="dropdown-menu" data-bs-popper="none">
+									<li> <a class="dropdown-item" href="#">Submenu item</a></li>
+									<li> <a class="dropdown-item" href="#">Submenu item</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+
+					<!-- Nav item Account -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="accounntMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Accounts</a>
+						<ul class="dropdown-menu" aria-labelledby="accounntMenu">
+              <li> <a class="dropdown-item" href="#">Menu link</a></li>
+						</ul>
+					</li>
+
+					<!-- Nav item link-->
+					<li class="nav-item dropdown"> <a class="nav-link" href="#"> <i class="fas fa-ellipsis-h"></i> </a> </li>
+				</ul>
+			</div>
+			<!-- Main navbar END -->
+
+			<!-- Nav category menu START -->
+			<div class="navbar-collapse collapse" id="navbarCategoryCollapse">
+				<ul class="navbar-nav navbar-nav-scroll nav-pills-primary-soft text-center ms-auto p-2 p-xl-0">
+					<!-- Nav item Hotel -->
+					<li class="nav-item"> <a class="nav-link active" href="#"><i class="fa-solid fa-hotel me-2"></i>Hotel</a>	</li>
+
+					<!-- Nav item Flight -->
+					<li class="nav-item"> <a class="nav-link" href="#"><i class="fa-solid fa-plane me-2"></i>Flight</a>	</li>
+
+					<!-- Nav item Tour -->
+					<li class="nav-item"> <a class="nav-link" href="#"><i class="fa-solid fa-globe-americas me-2"></i>Tour</a> </li>
+
+					<!-- Nav item Cabs -->
+					<li class="nav-item"> <a class="nav-link" href="#"><i class="fa-solid fa-car me-2"></i>Cab</a></li>
+				</ul>
+			</div>
+			<!-- Nav category menu END -->
+
+			<!-- Profile and Notification START -->
+			<ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+
+				<!-- Notification dropdown START -->
+				<li class="nav-item dropdown ms-0 ms-md-3">
+					<!-- Notification button -->
+					<a class="nav-notification btn btn-light p-0 mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+						<i class="bi bi-bell fa-fw"></i>
+					</a>
+					<!-- Notification dote -->
+					<span class="notif-badge animation-blink"></span>
+
+					<!-- Notification dropdown menu START -->
+					<div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md shadow-lg p-0">
+						<div class="card bg-transparent">
+							<!-- Card header -->
+							<div class="card-header bg-transparent d-flex justify-content-between align-items-center border-bottom">
+								<h6 class="m-0">Notifications <span class="badge bg-danger bg-opacity-10 text-danger ms-2">4 new</span></h6>
+								<a class="small" href="#">Clear all</a>
+							</div>
+
+							<!-- Card body START -->
+							<div class="card-body p-0">
+								<ul class="list-group list-group-flush list-unstyled p-2">
+									<!-- Notification item -->
+									<li>
+										<a href="#" class="list-group-item list-group-item-action rounded notif-unread border-0 mb-1 p-3">
+											<h6 class="mb-2">New! Booking flights from New York ✈️</h6>
+											<p class="mb-0 small">Find the flexible ticket on flights around the world. Start searching today</p>
+											<span>Wednesday</span>
+										</a>
+									</li>
+									<!-- Notification item -->
+									<li>
+										<a href="#" class="list-group-item list-group-item-action rounded border-0 mb-1 p-3">
+											<h6 class="mb-2">Sunshine saving are here 🌞 save 30% or more on a stay</h6>
+											<span>15 Nov 2022</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+							<!-- Card body END -->
+
+							<!-- Card footer -->
+							<div class="card-footer bg-transparent text-center border-top">
+								<a href="#" class="btn btn-sm btn-link mb-0 p-0">See all incoming activity</a>
+							</div>
+						</div>
+					</div>
+					<!-- Notification dropdown menu END -->
+				</li>
+				<!-- Notification dropdown END -->
+
+				<!-- Profile dropdown START -->
+				<li class="nav-item ms-3 dropdown">
+					<!-- Avatar -->
+					<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+						<img class="avatar-img rounded-2" src="assets/images/avatar/01.jpg" alt="avatar">
+					</a>
+
+					<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
+						<!-- Profile info -->
+						<li class="px-3 mb-3">
+							<div class="d-flex align-items-center">
+								<!-- Avatar -->
+								<div class="avatar me-3">
+									<img class="avatar-img rounded-circle shadow" src="assets/images/avatar/01.jpg" alt="avatar">
+								</div>
+								<div>
+									<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+									<p class="small m-0">example@gmail.com</p>
+								</div>
+							</div>
+						</li>
+
+						<!-- Links -->
+						<li> <hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-bookmark-check fa-fw me-2"></i>My Bookings</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>My Wishlist</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Settings</a></li>
+						<li><a class="dropdown-item" href="#"><i class="bi bi-info-circle fa-fw me-2"></i>Help Center</a></li>
+						<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+						<li> <hr class="dropdown-divider"></li>
+
+						<!-- Dark mode switch START -->
+						<li>
+							<div class="modeswitch-wrap" id="darkModeSwitch">
+								<div class="modeswitch-item">
+									<div class="modeswitch-icon"></div>
+								</div>
+								<span>Dark mode</span>
+							</div>
+						</li> 
+						<!-- Dark mode switch END -->
+					</ul>
+				</li>
+				<!-- Profile dropdown END -->
+			</ul>
+			<!-- Profile and Notification START -->
+
+		</div>
+	</nav>
+	<!-- Logo Nav END -->
+</header>
+<!-- Header END -->
+
+<!-- **************** MAIN CONTENT START **************** -->
+<main>
+
+<!-- =======================
+Main Banner START -->
+<section class="pt-0 pt-lg-5">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-lg-10 ms-auto position-relative">
+				<img src="assets/images/bg/03.jpg" class="rounded-3" alt="">
+
+				<!-- Search START -->
+				<div class="col-11 col-sm-10 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7">
+					<div class="card shadow pb-0 mt-n7 mt-sm-n8 mt-lg-0">
+
+						<!-- Card header -->
+						<div class="card-header border-bottom p-3 p-sm-4">
+							<h5 class="card-title mb-0">Book Your Online Cab</h5>
+						</div>
+
+						<!-- Card body START -->
+						<form class="card-body form-control-border p-3 p-sm-4">
+							<!-- Tabs START -->
+							<div class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+								<div class="form-check form-check-inline active" id="cab2-one-way-tab" data-bs-toggle="pill" data-bs-target="#cab2-one-way" role="tab" aria-controls="cab2-one-way" aria-selected="true">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="cabRadio1" value="option1" checked>
+									<label class="form-check-label" for="cabRadio1">One Way</label>
+								</div>
+								<div class="form-check form-check-inline" id="cab2-round-way-tab" data-bs-toggle="pill" data-bs-target="#cab2-round-way" role="tab" aria-controls="cab2-round-way" aria-selected="false">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="cabRadio2" value="option2">
+									<label class="form-check-label" for="cabRadio2">Round Trip</label>
+								</div>
+							</div>
+							<!-- Tabs END -->
+
+							<!-- Tabs content START -->
+							<div class="tab-content my-4" id="pills-tabContent">
+								<!-- One way START -->
+								<div class="tab-pane fade show active" id="cab2-one-way" role="tabpanel" aria-labelledby="cab2-one-way-tab">
+									<div class="row g-2 g-md-4">
+										<!-- Pickup -->
+										<div class="col-md-6 position-relative">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small">Pickup</label>
+												<select class="form-select js-choice" data-search-enabled="true">
+													<option value="">Select location</option>
+													<option>New York</option>
+													<option>Canada</option>
+													<option>Paris</option>
+												</select>
+											</div>
+
+											<!-- Auto fill button -->
+											<div class="btn-flip-icon z-index-9 mt-2 mt-md-1">
+												<button class="btn btn-dark shadow btn-round mb-0"><i class="fa-solid fa-right-left"></i></button>
+											</div>
+										</div>
+
+										<!-- Drop -->
+										<div class="col-md-6 text-md-end">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small ms-3 ms-md-0 me-md-3">Drop</label>
+												<select class="form-select js-choice" data-search-enabled="true">
+													<option value="">Select Location</option>
+													<option>Canada</option>
+													<option>New York</option>
+													<option>Paris</option>
+												</select>
+											</div>	
+										</div>
+
+										<!-- Date -->
+										<div class="col-md-6">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small">Pickup Date</label>
+												<input type="text" class="form-control flatpickr" placeholder="Select date">
+											</div>
+										</div>
+
+										<!-- Time -->
+										<div class="col-md-6 text-md-end">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small ms-3 ms-md-0 me-md-3">Pickup time</label>
+												<input type="text" class="form-control flatpickr text-md-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time">
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<!-- One way END -->
+
+								<!-- Round trip START -->
+								<div class="tab-pane fade" id="cab2-round-way" role="tabpanel" aria-labelledby="cab2-round-way-tab">
+									<div class="row g-2 g-md-4">
+										<!-- Pickup -->
+										<div class="col-md-6 position-relative">
+											<label class="form-label small">Pickup</label>
+											<div class="form-fs-lg form-control-transparent">
+												<select class="form-select js-choice" data-search-enabled="true">
+													<option value="">Select Location</option>
+													<option>New York</option>
+													<option>Canada</option>
+													<option>Paris</option>
+												</select>
+											</div>	
+
+											<!-- Auto fill button -->
+											<div class="btn-flip-icon z-index-9 mt-2 mt-md-1">
+												<button class="btn btn-dark shadow btn-round mb-0"><i class="fa-solid fa-right-left"></i></button>
+											</div>
+										</div>
+
+										<!-- Drop -->
+										<div class="col-sm-6 text-sm-end">
+											<label class="form-label small ms-3 ms-md-0 me-md-3">Drop</label>
+											<div class="form-fs-lg form-control-transparent">
+												<select class="form-select js-choice" data-search-enabled="true">
+													<option value="">Select Location</option>
+													<option>Canada</option>
+													<option>New York</option>
+													<option>Paris</option>
+												</select>
+											</div>	
+										</div>
+
+										<!-- Date -->
+										<div class="col-sm-6">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small">Pickup Date</label>
+												<input type="text" class="form-control flatpickr" placeholder="Select date">
+											</div>
+										</div>
+
+										<!-- Time -->
+										<div class="col-sm-6 text-sm-end">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small ms-3 ms-md-0 me-md-3">Pickup time</label>
+												<input type="text" class="form-control flatpickr text-sm-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time">
+											</div>
+										</div>
+
+										<!-- Date -->
+										<div class="col-sm-6">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small">Return Date</label>
+												<input type="text" class="form-control flatpickr" placeholder="Select date">
+											</div>
+										</div>
+
+										<!-- Time -->
+										<div class="col-sm-6 text-sm-end">
+											<div class="form-fs-lg form-control-transparent">
+												<label class="form-label small ms-3 ms-md-0 me-md-3">Return time</label>
+												<input type="text" class="form-control flatpickr text-sm-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time">
+											</div>
+										</div>
+									</div> <!-- Row END -->
+								</div>
+								<!-- Round trip END -->
+							</div>
+							<!-- Tabs content END -->
+
+							<!-- Button -->
+							<div class="d-grid">
+								<button class="btn btn-dark mb-0">Search Cabs</button>
+							</div>
+
+						</form>
+						<!-- Card-body END -->
+					</div>
+				</div>
+				<!-- Search END -->
+			</div>
+		</div> <!-- Row END -->
+	</div>
+</section>
+<!-- =======================
+Main Banner END -->
+
+<!-- =======================
+Code START -->
+<section>
+	<div class="container">
+		<div class="col-10 mx-auto">
+			<!-- Card START -->
+			<div class="card shadow p-0">
+				<!-- Card header -->
+				<div class="card-header border-bottom d-flex justify-content-between p-3 py-0">
+					<ul class="nav nav-tabs nav-tabs-line">
+						<li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab-1">HTML</a> </li>
+						<li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Plugins</a> </li>
+					</ul>
+				</div>
+
+				<!-- Card body START -->
+				<div class="card-body p-3 py-0">
+					<div class="tab-content">
+						<!-- Html tab -->
+						<div class="tab-pane show active" id="tab-1">
+							<div class="position-relative">
+								<pre id="copy-1" class="my-3 h-400px language-markup"><code class="language-markup" data-lang="html">&lt;!-- =======================
+Main Banner START --&gt;
+&lt;section class="pt-0 pt-lg-5"&gt;
+	&lt;div class="container"&gt;
+		&lt;div class="row"&gt;
+
+			&lt;div class="col-lg-10 ms-auto position-relative"&gt;
+				&lt;img src="assets/images/bg/03.jpg" class="rounded-3" alt=""&gt;
+
+				&lt;!-- Search START --&gt;
+				&lt;div class="col-11 col-sm-10 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7"&gt;
+					&lt;div class="card shadow pb-0 mt-n7 mt-sm-n8 mt-lg-0"&gt;
+
+						&lt;!-- Card header --&gt;
+						&lt;div class="card-header border-bottom p-3 p-sm-4"&gt;
+							&lt;h5 class="card-title mb-0"&gt;Book Your Online Cab&lt;/h5&gt;
+						&lt;/div&gt;
+
+						&lt;!-- Card body START --&gt;
+						&lt;form class="card-body form-control-border p-3 p-sm-4"&gt;
+							&lt;!-- Tabs START --&gt;
+							&lt;div class="nav nav-pills mb-3" id="pills-tab" role="tablist"&gt;
+								&lt;div class="form-check form-check-inline active" id="cab2-one-way-tab" data-bs-toggle="pill" data-bs-target="#cab2-one-way" role="tab" aria-controls="cab2-one-way" aria-selected="true"&gt;
+									&lt;input class="form-check-input" type="radio" name="inlineRadioOptions" id="cabRadio1" value="option1" checked&gt;
+									&lt;label class="form-check-label" for="cabRadio1"&gt;One Way&lt;/label&gt;
+								&lt;/div&gt;
+								&lt;div class="form-check form-check-inline" id="cab2-round-way-tab" data-bs-toggle="pill" data-bs-target="#cab2-round-way" role="tab" aria-controls="cab2-round-way" aria-selected="false"&gt;
+									&lt;input class="form-check-input" type="radio" name="inlineRadioOptions" id="cabRadio2" value="option2"&gt;
+									&lt;label class="form-check-label" for="cabRadio2"&gt;Round Trip&lt;/label&gt;
+								&lt;/div&gt;
+							&lt;/div&gt;
+							&lt;!-- Tabs END --&gt;
+
+							&lt;!-- Tabs content START --&gt;
+							&lt;div class="tab-content my-4" id="pills-tabContent"&gt;
+								&lt;!-- One way START --&gt;
+								&lt;div class="tab-pane fade show active" id="cab2-one-way" role="tabpanel" aria-labelledby="cab2-one-way-tab"&gt;
+									&lt;div class="row g-2 g-md-4"&gt;
+										&lt;!-- Pickup --&gt;
+										&lt;div class="col-md-6 position-relative"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small"&gt;Pickup&lt;/label&gt;
+												&lt;select class="form-select js-choice" data-search-enabled="true"&gt;
+													&lt;option value=""&gt;Select location&lt;/option&gt;
+													&lt;option&gt;New York&lt;/option&gt;
+													&lt;option&gt;Canada&lt;/option&gt;
+													&lt;option&gt;Paris&lt;/option&gt;
+												&lt;/select&gt;
+											&lt;/div&gt;
+
+											&lt;!-- Auto fill button --&gt;
+											&lt;div class="btn-flip-icon z-index-9 mt-2 mt-md-1"&gt;
+												&lt;button class="btn btn-dark shadow btn-round mb-0"&gt;&lt;i class="fa-solid fa-right-left"&gt;&lt;/i&gt;&lt;/button&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Drop --&gt;
+										&lt;div class="col-md-6 text-md-end"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small ms-3 ms-md-0 me-md-3"&gt;Drop&lt;/label&gt;
+												&lt;select class="form-select js-choice" data-search-enabled="true"&gt;
+													&lt;option value=""&gt;Select Location&lt;/option&gt;
+													&lt;option&gt;Canada&lt;/option&gt;
+													&lt;option&gt;New York&lt;/option&gt;
+													&lt;option&gt;Paris&lt;/option&gt;
+												&lt;/select&gt;
+											&lt;/div&gt;	
+										&lt;/div&gt;
+
+										&lt;!-- Date --&gt;
+										&lt;div class="col-md-6"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small"&gt;Pickup Date&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr" placeholder="Select date"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Time --&gt;
+										&lt;div class="col-md-6 text-md-end"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small ms-3 ms-md-0 me-md-3"&gt;Pickup time&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr text-md-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+									&lt;/div&gt;
+								&lt;/div&gt;
+								&lt;!-- One way END --&gt;
+
+								&lt;!-- Round trip START --&gt;
+								&lt;div class="tab-pane fade" id="cab2-round-way" role="tabpanel" aria-labelledby="cab2-round-way-tab"&gt;
+									&lt;div class="row g-2 g-md-4"&gt;
+										&lt;!-- Pickup --&gt;
+										&lt;div class="col-md-6 position-relative"&gt;
+											&lt;label class="form-label small"&gt;Pickup&lt;/label&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;select class="form-select js-choice" data-search-enabled="true"&gt;
+													&lt;option value=""&gt;Select Location&lt;/option&gt;
+													&lt;option&gt;New York&lt;/option&gt;
+													&lt;option&gt;Canada&lt;/option&gt;
+													&lt;option&gt;Paris&lt;/option&gt;
+												&lt;/select&gt;
+											&lt;/div&gt;	
+
+											&lt;!-- Auto fill button --&gt;
+											&lt;div class="btn-flip-icon z-index-9 mt-2 mt-md-1"&gt;
+												&lt;button class="btn btn-dark shadow btn-round mb-0"&gt;&lt;i class="fa-solid fa-right-left"&gt;&lt;/i&gt;&lt;/button&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Drop --&gt;
+										&lt;div class="col-sm-6 text-sm-end"&gt;
+											&lt;label class="form-label small ms-3 ms-md-0 me-md-3"&gt;Drop&lt;/label&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;select class="form-select js-choice" data-search-enabled="true"&gt;
+													&lt;option value=""&gt;Select Location&lt;/option&gt;
+													&lt;option&gt;Canada&lt;/option&gt;
+													&lt;option&gt;New York&lt;/option&gt;
+													&lt;option&gt;Paris&lt;/option&gt;
+												&lt;/select&gt;
+											&lt;/div&gt;	
+										&lt;/div&gt;
+
+										&lt;!-- Date --&gt;
+										&lt;div class="col-sm-6"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small"&gt;Pickup Date&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr" placeholder="Select date"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Time --&gt;
+										&lt;div class="col-sm-6 text-sm-end"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small ms-3 ms-md-0 me-md-3"&gt;Pickup time&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr text-sm-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Date --&gt;
+										&lt;div class="col-sm-6"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small"&gt;Return Date&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr" placeholder="Select date"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+
+										&lt;!-- Time --&gt;
+										&lt;div class="col-sm-6 text-sm-end"&gt;
+											&lt;div class="form-fs-lg form-control-transparent"&gt;
+												&lt;label class="form-label small ms-3 ms-md-0 me-md-3"&gt;Return time&lt;/label&gt;
+												&lt;input type="text" class="form-control flatpickr text-sm-end" data-enableTime="true" data-noCalendar="true" placeholder="Select time"&gt;
+											&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/div&gt; &lt;!-- Row END --&gt;
+								&lt;/div&gt;
+								&lt;!-- Round trip END --&gt;
+							&lt;/div&gt;
+							&lt;!-- Tabs content END --&gt;
+
+							&lt;!-- Button --&gt;
+							&lt;div class="d-grid"&gt;
+								&lt;button class="btn btn-dark mb-0"&gt;Search Cabs&lt;/button&gt;
+							&lt;/div&gt;
+
+						&lt;/form&gt;
+						&lt;!-- Card-body END --&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+				&lt;!-- Search END --&gt;
+			&lt;/div&gt;
+		&lt;/div&gt; &lt;!-- Row END --&gt;
+	&lt;/div&gt;
+&lt;/section&gt;
+&lt;!-- =======================
+Main Banner END --&gt;
+									
+								</code></pre>
+								<button id="copy_id-1" data-clipboard-action="copy" data-clipboard-target="#copy-1" class="copy-link btn btn-primary btn-sm">Copy</button>
+							</div>
+						</div>
+
+						<!-- Plugin tab -->
+						<div class="tab-pane" id="tab-3">
+							<!-- Css link -->
+							<div class="mt-4">
+								<p>Copy-paste the stylesheet <code>&lt;link&gt;</code> into your <code>&lt;head&gt;</code> to load the CSS.</p>
+								<div class="position-relative">
+									<pre id="copy-3" class="">
+										<code class="language-markup" data-lang="html">
+&lt;link rel="stylesheet" type="text/css" href="assets/vendor/flatpickr/css/flatpickr.min.css"&gt;
+&lt;link rel="stylesheet" type="text/css" href="assets/vendor/choices/css/choices.min.css"&gt;
+											</code></pre>
+									<button id="copy_id-3" data-clipboard-action="copy" data-clipboard-target="#copy-3" class="copy-link btn btn-primary btn-sm mb-0">Copy</button>
+								</div>
+							</div>
+
+							<!-- Script link  -->
+							<div class="mt-4">
+								<p>Copy-paste the following <code>&lt;script&gt;</code> near the end of your pages under <b>Vendors</b> to enable it.</p>
+								<div class="position-relative">
+									<pre id="copy-4" class="">
+										<code class="language-markup" data-lang="html">
+&lt;script src="assets/vendor/flatpickr/js/flatpickr.min.js"&gt;&lt;/script&gt;
+&lt;script src="assets/vendor/choices/js/choices.min.js"&gt;&lt;/script&gt;
+										</code></pre>
+									<button id="copy_id-4" data-clipboard-action="copy" data-clipboard-target="#copy-4" class="copy-link btn btn-primary btn-sm mb-0">Copy</button>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!-- Card body END -->
+
+			</div>
+			<!-- Card END -->
+		</div>
+	</div>
+</section>
+<!-- =======================
+Code END -->
+
+</main>
+
+<!-- =======================
+JavaScripts -->
+
+<!-- Bootstrap JS -->
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="assets/vendor/flatpickr/js/flatpickr.min.js"></script>
+<script src="assets/vendor/choices/js/choices.min.js"></script>
+<script src="assets/js/simple-scrollbar.min.js"></script>
+<script src="assets/js/prism.js"></script>
+<script src="assets/js/clipboard.min.js"></script>
+ 
+<!-- ThemeFunctions -->
+<script src="assets/js/functions.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+
+        <div>
+            <h2>{{ service_details.service_type }}</h2>
+            <h3>$ {{ service_details.service_price|floatformat:2 }}</h3>
+            <h3 style="color: whitesmoke">{{ service_details.service_description }}</h3>
+            <br>
+            <br>
+        </div>
+
+
+        <div>
+            {% if user.is_staff %}
+                <a href="{% url 'edit service' pk=service_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Промени услугата</button>
+                </a>
+                <a href="{% url 'delete service' pk=service_details.pk %}">
+                    <button class="btn btn-primary btn-lg">Изтрий услугата</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock %}

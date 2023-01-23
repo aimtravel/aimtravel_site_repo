@@ -1,0 +1,98 @@
+{% extends 'base3.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+    <br><br><br>
+    <br>
+    <div data-inline-type="">
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{% url 'edit profile' students_details.pk %}">
+                    <button type="button" class="btn btn-primary btn-lg">Редактирай</button>
+                </a>
+            </div>
+        </div>
+
+        <div>
+            <form style="text-align: justify-all" method="post"
+                  action="{% url 'details profile' user.pk %}"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <h3>
+                            <label for='first_name'>Име:&nbsp</label>{{ students_details.first_name }}<br>
+                            <label for='middle_name'>Презиме:&nbsp</label>{{ students_details.middle_name }}<br>
+                            <label for='last_name'>Фамилия:&nbsp</label>{{ students_details.last_name }}<br>
+                            <label for='bg_personal_number'>ЕГН:&nbsp</label>{{ students_details.bg_personal_number }}<br>
+                            <label for='date_of_birth'>Дата на раждане:&nbsp</label>{{ students_details.date_of_birth }}<br>
+                            <label for='place_of_birth'>Място на
+                                раждане:&nbsp</label>{{ students_details.place_of_birth }}<br>
+                            <label for='country_of_birth'>Държава на
+                                раждане:&nbsp</label>{{ students_details.country_of_birth }}<br><br>
+                            <label for='phone'>Телефон:&nbsp</label>{{ students_details.phone }}<br>
+                            <label for='email'>Е-mail:&nbsp</label>{{ students_details.email }}<br>
+                            <label for='street'>Ул./жк.:&nbsp</label>{{ students_details.street }}<br>
+                            <label for='city'>Град:&nbsp</label>{{ students_details.city }}<br>
+                            <label for='province'>Област:&nbsp</label>{{ students_details.province }}<br>
+                        </h3>
+                    </div>
+                    <div class="col-md-4">
+                        <h3>
+                            <label for='nationality'>Националност:&nbsp</label>{{ students_details.nationality }}<br>
+                            <label for='id_passport_number'>Номер на
+                                паспорт:&nbsp</label>{{ students_details.id_passport_number }}<br>
+                            <label for='passport_date_of_issue'>Дата на
+                                издаване:&nbsp</label>{{ students_details.passport_date_of_issue }}<br>
+                            <label for='is_received_visa'>Има ли издадена виза:&nbsp</label>
+                            {% if students_details.is_received_visa %}
+                                Да
+                            {% else %}
+                                Не
+                            {% endif %}
+                            <br>
+                            <label for='university'>Университет:&nbsp</label>{{ students_details.university }}<br>
+                            <label for='year_of_education'>Курс:&nbsp</label>{{ students_details.year_of_education }}<br>
+                            <label for='is_fulltime_student'>Редовно записан/а:&nbsp</label>
+                            {% if students_details.is_fulltime_student %}
+                                Да
+                            {% else %}
+                                Не
+                            {% endif %}
+                            <br>
+                            <label for='foreign_university'>Чуждестранен
+                                университет:&nbsp</label>{{ students_details.foreign_university }}<br>
+                        </h3>
+
+
+                        <h3>
+                            <label for='search_job_pref'>Предпочитания за
+                                работа:&nbsp</label>{{ students_details.search_job_pref }}<br>
+                            <label for='how_to_reach'>Начин на
+                                контакт:&nbsp</label>{{ students_details.how_to_reach }}<br>
+                        </h3>
+                        <h3>
+                            <label for='file_field'>Документи:&nbsp</label>
+
+                            {% if students_details.file_field.name %}
+                                <a style="color: deepskyblue" href="{{ students_details.file_field }}"
+                                   download>Изтегли</a>
+                            {% else %}
+                                Няма качени файлове.
+                            {% endif %}
+
+                        </h3>
+                    </div>
+                    <div class="col-md-3">
+                        <img src="{{ students_details.visa_photo }}" alt="" style="max-height: 300px;">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

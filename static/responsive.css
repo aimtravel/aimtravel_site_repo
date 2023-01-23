@@ -1,0 +1,529 @@
+@media (min-width: 992px) and (max-width: 1599px) {
+    .wrapper section.our-blog .item .text {
+        left: -40px;
+        padding: 25px 28px 40px;
+        top: 112px;
+    }
+
+    .wrapper section.our-blog .item .images {
+        right: -33px;
+    }
+
+    .wrapper section.our-team .col-md-3 {
+        width: 50%
+    }
+
+    .wrapper section.about-us .video {
+        padding-right: 0px;
+    }
+
+    .wrapper section.portfolio .portfolio-item > img {
+
+    }
+
+    .wrapper section.portfolio .portfolio-item:hover > img {
+        height: 360px
+    }
+
+    .wrapper section.contact-area .contact-part p {
+        word-spacing: -1px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .wrapper header.header {
+        background-size: 150% auto;
+
+    }
+
+    .wrapper header.header .header-carousal .item {
+        width: 550px;
+    }
+
+    .wrapper header.header .header-top .logo {
+        text-align: center;
+    }
+
+    .wrapper header.header .header-carousal {
+        margin-top: 100px;
+    }
+
+    .wrapper header.header .header-carousal .item p br {
+        display: none;
+    }
+
+    .wrapper header.header {
+        height: auto;
+    }
+
+    .wrapper header.header .header-carousal .item button {
+        margin-top: 20px;
+        margin-bottom: 60px
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item {
+        width: 100%;
+    }
+
+    .wrapper section.our-team .description > h5 {
+        height: auto;
+    }
+
+    .wrapper section.our-team .images img {
+        height: auto;
+    }
+
+    .wrapper section.our-team .description > h3 {
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+    .wrapper section.our-team .description {
+        float: left;
+        padding: 25px;
+        width: 55%;
+    }
+
+    .wrapper section.our-team .images {
+        float: right;
+        height: auto;
+        width: 45%;
+    }
+
+    .wrapper section.portfolio .portfolio-item > img {
+
+    }
+
+    .wrapper section.portfolio .portfolio-item:hover > img {
+        height: 320px
+    }
+
+    .wrapper section.our-blog .item {
+        height: 555px;
+        width: 590px;
+    }
+
+    .wrapper section.our-blog .item .images {
+        right: -47px;
+        width: 600px;
+    }
+
+    .wrapper section.our-blog .item .images img {
+        height: 476px;
+    }
+
+    .wrapper section.our-blog .item .text {
+        left: -60px;
+        top: 81px;
+        width: 518px;
+        padding: 25px 28px 40px;
+    }
+
+    .wrapper section.footer-icon .item img {
+        width: 140px;
+    }
+
+    .wrapper section.contact-area .contact-part h4 i {
+        color: #e355fd;
+        font-size: 20px;
+        text-align: center;
+        width: 30px;
+    }
+
+    .wrapper section.contact-area .contact-part h4 {
+        font-size: 18px;
+        letter-spacing: -1px;
+    }
+
+    .wrapper section.contact-area .contact-part p {
+        font-size: 14px;
+        letter-spacing: -1px;
+        margin-left: 30px;
+    }
+
+    .wrapper section.contact-area .contact-form {
+        width: 600px;
+    }
+
+    .wrapper footer.footer .icon p i {
+        font-size: 18px;
+        margin-right: 2px;
+    }
+}
+
+@media (min-width: 580px) and (max-width: 767px) {
+
+    .wrapper header.header {
+        background-size: 150% auto;
+
+    }
+
+    .wrapper header.header .header-top .logo {
+        text-align: center;
+    }
+
+    .wrapper header.header .header-top ul.nav.navbar-nav {
+        width: 100%;
+    }
+
+    .wrapper header.header .header-top ul.nav.navbar-nav li {
+        display: inline-block
+    }
+
+    .wrapper header.header {
+        height: 600px;
+    }
+
+    .wrapper header.header .header-carousal {
+        margin-top: 50px;
+    }
+
+    .wrapper header.header .header-carousal .owl-next i,
+    .wrapper header.header .header-carousal .owl-prev i {
+        border-radius: 50%;
+        font-size: 25px;
+        height: 45px;
+        line-height: 45px;
+        width: 45px;
+    }
+
+    .wrapper header.header .header-carousal .item {
+        width: 425px;
+    }
+
+    .wrapper header.header .header-carousal .item p br {
+        display: none
+    }
+
+    .wrapper header.header .header-carousal .owl-prev,
+    .wrapper header.header .header-carousal .owl-next {
+        top: 40%;
+    }
+
+    .wrapper section.portfolio .portfolio-item {
+        margin-right: 1%;
+        width: 49%;
+    }
+
+    .wrapper section.portfolio .portfolio-item:hover > img {
+        height: 407px
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item {
+        width: 500px;
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item > h5 br {
+        display: none
+    }
+
+    .wrapper section.our-team .images {
+        float: none;
+        max-height: 400px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .wrapper section.our-team .images img {
+        height: auto;
+        width: 100%;
+    }
+
+    .wrapper section.our-team .description {
+        float: none;
+        width: 100%;
+    }
+
+    .wrapper section.our-team .description > h5 {
+        height: auto;
+    }
+
+    .wrapper section.our-blog .item {
+        width: 100%;
+    }
+
+    .wrapper section.our-team .col-sm-6 {
+        width: 100%
+    }
+
+    .wrapper section.our-blog .item .images {
+        display: none
+    }
+
+    .wrapper section.our-blog .item .text {
+        left: 0;
+        width: 100%;
+        box-shadow: 0 0 0 0;
+    }
+
+    .wrapper section.footer-icon .item img {
+        width: 105px;
+    }
+
+    .wrapper section.contact-area .contact-part {
+        text-align: center;
+    }
+
+    .wrapper section.contact-area .contact-part h4 i {
+        display: block;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .wrapper section.contact-area .contact-part p {
+        margin-left: 0px;
+    }
+
+    .wrapper section.contact-area .contact-form {
+        padding: 10px 35px 30px;
+        width: 450px;
+    }
+
+    .wrapper footer.footer .icon p {
+        float: right;
+        margin-left: 17px;
+        margin-right: 0;
+        margin-top: 10px;
+        text-align: center;
+    }
+}
+
+@media (min-width: 80px) and (max-width: 579px) {
+
+    .wrapper header.header {
+        background-size: 150% auto;
+
+    }
+
+    .wrapper header.header .header-top .logo {
+        text-align: center;
+    }
+
+    .wrapper header.header .header-top ul.nav.navbar-nav {
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .wrapper header.header .header-carousal {
+        margin-top: 60px;
+    }
+
+    .wrapper header.header .header-carousal .item {
+        width: 100%;
+    }
+
+    .wrapper header.header .header-carousal .item p br {
+        display: none;
+    }
+
+    .wrapper header.header .header-carousal .owl-next i,
+    .wrapper header.header .header-carousal .owl-prev i {
+        font-size: 20px;
+        height: 30px;
+        line-height: 30px;
+        width: 30px;
+    }
+
+    .wrapper header.header .header-carousal .owl-prev {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        top: auto;
+    }
+
+    .wrapper header.header .header-carousal .owl-next {
+        position: absolute;
+        right: 0;
+        top: auto;
+        bottom: 0;
+    }
+
+    .wrapper header.header .header-carousal .item button {
+        font-size: 17px;
+        font-weight: 600;
+        margin-top: 20px;
+        padding: 10px 20px;
+    }
+
+    .wrapper header.header {
+        height: auto;
+        padding-bottom: 50px;
+    }
+
+    .wrapper section.about-us .about-icon {
+        margin: 0 auto 100px;
+    }
+
+    .wrapper section.about-us .video {
+        padding-right: 0;
+        padding-top: 0;
+    }
+
+    .wrapper section.portfolio .portfolio-item {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item {
+        width: 100%;
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item > h5 br {
+        display: none;
+    }
+
+    .wrapper section.our-team .col-sm-6 {
+        width: 100%
+    }
+
+    .wrapper section.testimonial .testimonial-carousal-one .item > h5 br {
+        display: none
+    }
+
+    .wrapper section.our-team .images img {
+        height: auto;
+        width: 100%;
+    }
+
+    .wrapper section.our-team .images {
+        float: none;
+        max-height: 250px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .wrapper section.our-team .description {
+        float: none;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .wrapper section.our-team .description > h3 {
+        text-align: center;
+    }
+
+    .wrapper section.our-team .description > h5 {
+        height: auto;
+        text-align: justify
+    }
+
+    .wrapper section.our-team .description > h4 {
+        text-align: center;
+    }
+
+    .wrapper section.our-blog .item {
+        width: 100%;
+        height: 495px;
+    }
+
+    .wrapper section.our-blog .item .images {
+        display: none
+    }
+
+    .wrapper section.our-blog .item .text {
+        left: 0;
+        width: 100%;
+    }
+
+    .wrapper section.our-blog .item .text {
+        padding: 10px;
+        top: 20px;
+        box-shadow: 0px 0px 0px #d7e0ed;
+    }
+
+    .wrapper section.our-blog .item .text h4 {
+        font-size: 20px;
+    }
+
+    .wrapper section.our-blog .item .text h5 {
+        text-align: justify;
+    }
+
+    .wrapper section.footer-icon .item img {
+        width: 125px;
+    }
+
+    .wrapper footer.footer .icon p i {
+        background: #e355fd;
+        border-radius: 20px;
+    }
+
+    .wrapper section.contact-area .contact-part {
+        text-align: center;
+    }
+
+    .wrapper section.contact-area .contact-part h4 i {
+        display: block;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .wrapper section.contact-area .contact-part p {
+        margin-left: 0px;
+    }
+
+    .wrapper section.contact-area .contact-form {
+        padding: 10px 35px 30px;
+        width: 450px;
+    }
+
+    .wrapper footer.footer .icon p {
+        float: right;
+        margin-left: 17px;
+        margin-right: 0;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .wrapper section.contact-area .contact-form {
+        padding: 10px;
+        width: 100%;
+    }
+
+    .wrapper section.portfolio .button-group button.button {
+        margin-right: 0;
+    }
+}
+
+@media (min-width: 80px) and (max-width: 480px) {
+
+    .wrapper header.header {
+        background-size: 150% auto;
+
+    }
+
+
+    .wrapper footer.footer .text {
+        display: none;
+    }
+
+    .wrapper header.header .header-top ul.nav.navbar-nav li a {
+        font-size: 20px;
+        padding: 4px;
+    }
+
+    .wrapper footer.footer .col-xs-2,
+    .wrapper footer.footer .col-xs-4 {
+        width: 100%
+    }
+
+    .wrapper footer.footer .icon p {
+        float: none;
+        margin: 0;
+    }
+
+    .wrapper footer.footer .icon p i {
+        margin-right: 0px;
+    }
+
+    .wrapper section.portfolio .button-group button.button {
+        padding: 13px 20px;
+        display: block;
+        width: -moz-fit-content;
+        margin: 0 auto;
+    }
+}
