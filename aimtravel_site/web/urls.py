@@ -10,6 +10,7 @@ urlpatterns = (
         path('why_usa/', why_usa_tab, name='why usa'),
         path('who/', who_tab, name='who'),
         path('how/', how_tab, name='how'),
+        path('price/', price_tab, name='price'),
     ])),
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),

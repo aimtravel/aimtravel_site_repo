@@ -47,6 +47,10 @@ def who_tab(request):
 def how_tab(request):
     return render(request, template_name='nav/wat_usa/how.html')
 
+
+def price_tab(request):
+    return render(request, template_name='nav/wat_usa/price.html')
+
 # END - - - STATIC VIEWS
 
 
