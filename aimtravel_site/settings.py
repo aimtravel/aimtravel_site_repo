@@ -22,7 +22,6 @@ SECRET_KEY = 'django-insecure-i&53x@=*+1)a3_!5a!q8!pxr-pm#p+bm%+s81mrq8482_a+-2_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'aimtravel_site.web',
     'aimtravel_site.user_auth',
     'aimtravel_site.user_profile',
+    'aimtravel_site.posting',
 ]
 
 MIDDLEWARE = [

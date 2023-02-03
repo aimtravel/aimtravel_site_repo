@@ -51,6 +51,15 @@ def how_tab(request):
 def price_tab(request):
     return render(request, template_name='nav/wat_usa/price.html')
 
+
+def needed_docs(request):
+    return render(request, template_name='nav/wat_usa/needed_docs.html')
+
+
+def taxes(request):
+    return render(request, template_name='nav/taxes.html')
+
+
 # END - - - STATIC VIEWS
 
 
@@ -75,6 +84,7 @@ class DisplayOfferView(views.ListView):
 class DisplayFilterOfferView(filter_views.FilterView):
     filterset_class = OfferFilter
     template_name = 'job_offer/offer_filter.html'
+
 
 
 class DetailsOfferView(views.DetailView):

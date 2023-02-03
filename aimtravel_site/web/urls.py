@@ -11,7 +11,9 @@ urlpatterns = (
         path('who/', who_tab, name='who'),
         path('how/', how_tab, name='how'),
         path('price/', price_tab, name='price'),
+        path('needed_docs', needed_docs, name='needed documents'),
     ])),
+    path('taxes/', taxes, name='taxes'),
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),
         path('all/', DisplayOfferView.as_view(), name='offers'),

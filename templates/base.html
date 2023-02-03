@@ -65,7 +65,7 @@
                     </a>
                     <!-- Logo END -->
                     <a class="btn btn-lg btn-primary mb-0" href="#" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false"
+                       aria-expanded="false"
                        data-bs-auto-close="outside">ЗАПИШИ СЕ</a>
                 </div>
 
@@ -80,8 +80,8 @@
                             <li class="nav-item"><a href="{% url 'contacts' %}"
                                                     class="nav-link pb-2"><i class="bi bi-info-circle me-2"></i>Контакти</a>
                             </li>
-                            <li class="nav-item"><a href="../static/booking_v1.1.0/template/account-bookings.html"
-                                                    class="nav-link normal pb-2"><i class="bi bi-briefcase me-2"></i>Блог</a>
+                            <li class="nav-item"><a href="{% url 'news' %}"
+                                                    class="nav-link normal pb-2"><i class="bi bi-briefcase me-2"></i>Новини</a>
                             </li>
                             <li class="nav-item"><a href="https://www.facebook.com/AIMBulgaria/"
                                                     class="nav-link pb-2"><i class="bi bi-facebook me-2"></i></a></li>
@@ -92,11 +92,45 @@
 
 
                             {% if user.is_authenticated %}
-                                <li class="nav-item"><a href="#" class="nav-link pb-2"><i
-                                        class="far fa-user me-2"></i>Здравей, {{ user.first_name }}.</a></li>
+
+                                <li class="nav-item dropdown"><a href="#" class="nav-link pb-2"id="profileDropdown" role="button"
+                       data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown"
+                       aria-expanded="false"><i
+                                        class="far fa-user me-2"></i>Здравей, {{ user.first_name }}.</a>
+                                    <ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                                        aria-labelledby="profileDropdown">
+                                        <!-- Profile info -->
+                                        <li class="px-3 mb-3">
+                                            <div class="d-flex align-items-center">
+                                                <div>
+
+                                                    <a class="h6 mt-2 mt-sm-0"
+                                                       href="">{{ user.first_name }} {{ user.last_name }}
+                                                    </a>
+
+                                                    <p class="small m-0">{{ user.email }}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                        <!-- Links -->
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="{% url 'edit profile' pk=user.pk %}"><i
+                                                class="bi bi-info-circle fa-fw me-2"></i>Лична информация</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-heart fa-fw me-2"></i>Любими</a></li>
+                                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear fa-fw me-2"></i>Настройки</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{% url 'contacts' %}"><i
+                                                class="bi bi-telephone fa-fw me-2"></i>Контакт с AIM Work and Travel</a></li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item"><a class="nav-link pb-2" href="{% url 'sign out' %}">Изход</a></li>
                             {% else %}
-                                <li class="nav-item"><a href="{% url 'sign in' %}" class="nav-link pb-2"><i class="far fa-user me-2"></i>Регистрация
+                                <li class="nav-item"><a href="{% url 'sign in' %}" class="nav-link pb-2"><i
+                                        class="far fa-user me-2"></i>Регистрация
                                     или Вход</a></li>
                             {% endif %}
 
@@ -128,7 +162,8 @@
 
                                         <!-- Dropdown submenu -->
                                         <li class="dropdown-submenu dropend">
-                                            <a class="dropdown-item dropdown" href="{% url 'how' %}">Как да се запишеш?</a>
+                                            <a class="dropdown-item dropdown" href="{% url 'how' %}">Как да се
+                                                запишеш?</a>
                                         </li>
 
                                         <!-- Dropdown submenu -->
@@ -138,7 +173,8 @@
 
                                         <!-- Dropdown submenu -->
                                         <li class="dropdown-submenu dropend">
-                                            <a class="dropdown-item dropdown" href="#">Необходими документи</a>
+                                            <a class="dropdown-item dropdown" href="{% url 'needed documents' %}">Необходими
+                                                документи</a>
                                         </li>
 
                                         <!-- Dropdown submenu -->
@@ -169,7 +205,7 @@
 
                                 <!-- Nav item Taxes -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" id="jobOffers"
+                                    <a class="nav-link" href="{% url 'taxes' %}" id="jobOffers"
                                        aria-haspopup="true" aria-expanded="false">Данъци</a>
                                 </li>
 
@@ -257,9 +293,9 @@
                                 </li>
 
                                 <!-- Nav item Job Offers -->
-                                <li class="nav-item">
-                                    <a class="btn btn-sm btn-primary mb-0" href="{% url 'offers' %}" role="button"
-                                       data-bs-toggle="dropdown" aria-expanded="false"
+                                <li class="nav-item" style="position: relative; top: 10px;">
+                                    <a class="btn btn-sm btn-primary mb-0" href="{% url 'offers_filter' %}"
+                                       role='button' aria-expanded="false"
                                        data-bs-auto-close="outside">Работни оферти</a>
                                 </li>
 
