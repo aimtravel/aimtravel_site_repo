@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
@@ -30,6 +31,10 @@ def admin_panel(request):
 
 def error_404(request, exception):
     return render(request, '404.html')
+
+
+def under_construction(request):
+    return render(request, 'under_construction.html')
 
 # END - - - GENERIC VIEWS
 
@@ -76,15 +81,24 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 class DisplayOfferView(views.ListView):
     model = JobOffer
     template_name = 'job_offer/offers.html'
-    context_object_name = 'offer_list'
-    paginate_by = 4
+
+    paginate_by = 12
     ordering = ('-ranking', '-wage',)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        offers = context['object_list']
+        paginator = Paginator(offers, self.paginate_by)
+        page = self.request.GET.get('page')
+        paginated_offers = paginator.get_page(page)
+
+        context['offers'] = paginated_offers
+        return context
 
 
 class DisplayFilterOfferView(filter_views.FilterView):
     filterset_class = OfferFilter
     template_name = 'job_offer/offer_filter.html'
-
 
 
 class DetailsOfferView(views.DetailView):

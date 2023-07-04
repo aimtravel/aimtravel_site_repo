@@ -43,6 +43,13 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
+    bg_personal_number = models.CharField(
+        validators=(only_digits,),
+        max_length=BG_PERSONAL_ID_NUM,
+        verbose_name='ЕГН',
+        blank=True,
+        null=True,
+    )
     date_of_birth = models.DateField(
         verbose_name='Дата на раждане',
         help_text='dd-mm-yyyy',
@@ -74,13 +81,7 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
-    bg_personal_number = models.CharField(
-        validators=(only_digits,),
-        max_length=BG_PERSONAL_ID_NUM,
-        verbose_name='ЕГН',
-        blank=True,
-        null=True,
-    )
+
     nationality = models.CharField(
         validators=(only_letters,),
         verbose_name='Националност',
@@ -88,9 +89,191 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
-    country_of_birth = models.CharField(
-        verbose_name='Държава на раждане',
-        max_length=MAX_NAME_LENGTH,
+    family_status = models.CharField(
+        validators=(only_letters,),
+        verbose_name='Семеен статус',
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    phone = models.CharField(
+        validators=(only_digits,),
+        verbose_name='Телефон',
+        max_length=PHONE_NUM,
+        blank=True,
+        null=True,
+    )
+    email = models.CharField(
+        verbose_name='E-mail',
+        max_length=EMAIL_LENGTH,
+        blank=True,
+        null=True,
+    )
+    emergency_contact_name = models.CharField(
+        verbose_name='Контакт за спешни случаи',
+        max_length=40,
+        blank=True,
+        null=True,
+    )
+    emergency_contact_phone = models.CharField(
+        verbose_name='Телефон',
+        max_length=13,
+        blank=True,
+        null=True,
+    )
+    emergency_contact_email = models.CharField(
+        verbose_name='E-mail',
+        max_length=EMAIL_LENGTH,
+        blank=True,
+        null=True,
+    )
+    emergency_contact_relationship = models.CharField(
+        verbose_name='Връзка',
+        max_length=15,
+        blank=True,
+        null=True,
+    )
+
+    university = models.CharField(
+        validators=(only_letters,),
+        verbose_name='Университет',
+        max_length=UNIVERSITY_NAME_LENGTH,
+        blank=True,
+        null=True,
+    )
+    major_study = models.CharField(
+        verbose_name="Специалност",
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+
+    year_of_education = models.PositiveIntegerField(
+        default=1,
+        verbose_name='Курс',
+        blank=True,
+        null=True,
+    )
+    is_fulltime_student = models.BooleanField(
+        verbose_name='Студент "Редовно обучение"',
+        blank=True,
+        null=True,
+    )
+    possible_begin_date = models.DateField(
+        verbose_name='Дата на започване',
+        blank=True,
+        null=True,
+    )
+    possible_finish_date = models.DateField(
+        verbose_name='Дата на приключване',
+        blank=True,
+        null=True,
+    )
+    is_wat_before = models.BooleanField(
+        verbose_name='Участвал ли си в WAT преди?',
+        blank=True,
+        null=True,
+    )
+    wat_before_year = models.CharField(
+        verbose_name='Ако да, коя година',
+        max_length=4,
+        blank=True,
+        null=True,
+    )
+
+    position_held1 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    position_period1 = models.CharField(
+        max_length=25,
+        blank=True,
+        null=True,
+    )
+    employer_name1 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    employer_city1 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    position_held2 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    position_period2 = models.CharField(
+        max_length=25,
+        blank=True,
+        null=True,
+    )
+    employer_name2 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    employer_city2 = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+    )
+    visa_before = models.BooleanField(
+        blank=True,
+        null=True,
+    )
+    visa_before_year = models.CharField(
+        max_length=4,
+        blank=True,
+        null=True,
+    )
+    issued_visa_before = models.BooleanField(
+        blank=True,
+        null=True,
+    )
+    issued_visa_before_type = models.CharField(
+        max_length=4,
+        blank=True,
+        null=True,
+    )
+    purpose_of_visit = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    any_relatives_in_USA = models.BooleanField(
+        blank=True,
+        null=True,
+    )
+    relatives_kind = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+
+    knowledge_of_english = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    other_language = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    other_language_level = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    hobby = models.TextField(
+        blank=True,
+        null=True,
+    )
+    personal_qualities = models.TextField(
         blank=True,
         null=True,
     )
@@ -112,32 +295,8 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
-    phone = models.CharField(
-        validators=(only_digits,),
-        verbose_name='Телефон',
-        max_length=PHONE_NUM,
-        blank=True,
-        null=True,
-    )
-    email = models.CharField(
-        verbose_name='E-mail',
-        max_length=EMAIL_LENGTH,
-        blank=True,
-        null=True,
-    )
-    university = models.CharField(
-        validators=(only_letters,),
-        verbose_name='Университет',
-        max_length=UNIVERSITY_NAME_LENGTH,
-        blank=True,
-        null=True,
-    )
-    year_of_education = models.PositiveIntegerField(
-        default=1,
-        verbose_name='Курс',
-        blank=True,
-        null=True,
-    )
+
+
     foreign_university = models.CharField(
         validators=(only_letters,),
         verbose_name='Чуждестранен университет',
@@ -145,11 +304,7 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
-    is_fulltime_student = models.BooleanField(
-        verbose_name='Студент "Редовно обучение"',
-        blank=True,
-        null=True,
-    )
+
     search_job_pref = models.CharField(
         verbose_name='Предпочитана работа',
         max_length=ADDITIONAL_FIELD_LENGTH,

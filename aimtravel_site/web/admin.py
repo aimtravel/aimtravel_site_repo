@@ -6,7 +6,7 @@ from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Comp
 # Register your models here.
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
-    list_display = ['job_position', 'employer', 'wage', 'city', 'state']
+    list_display = ['job_position', 'employer_name', 'wage', 'city', 'state']
     list_filter = ['state']
 
 

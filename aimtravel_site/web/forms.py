@@ -16,10 +16,9 @@ class JobOfferEditForm(forms.ModelForm):
 
         widgets = {
             'job_position': forms.TextInput(attrs={'placeholder': 'Позиция'}),
-            'employer': forms.TextInput(attrs={'placeholder': 'Работодател'}),
+            'employer_name': forms.TextInput(attrs={'placeholder': 'Работодател'}),
             'city': forms.TextInput(attrs={'placeholder': 'Град'}),
             'state': forms.TextInput(attrs={'placeholder': 'Щат'}),
-            'sponsor': forms.TextInput(attrs={'placeholder': 'Спонсор'}),
             'offer_pic': forms.TextInput(attrs={'placeholder': 'Снимка-URL'}),
         }
 

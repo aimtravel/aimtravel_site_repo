@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'aimtravel_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aimtravel_db',
-        'USER': 'berkmena',
-        'PASSWORD': 'postgrespw',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aimtravel',
+        'USER': 'root',
+        'PASSWORD': 'mysql_pw',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '3306',
     }
 }
 

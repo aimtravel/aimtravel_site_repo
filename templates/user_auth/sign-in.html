@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load placeholders %}
-{% block content %}
 
+{% block content %}
     <br>
     <br>
     <br>
@@ -13,7 +11,7 @@
     <br>
     <br>
     <div class="container">
-        <center>
+
             <form method="post" action="{% url 'sign in' %}" style="alignment-baseline: center">
                 {{ form.as_p }}
                 <input type="hidden" name="next" value="{{ next }}">
@@ -25,7 +23,7 @@
             <a href="{% url 'password_reset' %}">
                     <button class="btn btn-primary btn-lg">Забравена парола</button>
                 </a>
-        </center>
+
     </div>
     <br>
     <br>

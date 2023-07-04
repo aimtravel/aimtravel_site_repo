@@ -1,0 +1,33 @@
+// Get the navigation bar element
+var navbar = document.querySelector("nav");
+var logo = document.querySelector("#logo")
+var navA = document.querySelectorAll(".link-a");
+
+// Get the initial offset position of the navigation bar
+var stickyOffset = navbar.offsetTop;
+
+// Function to add the sticky class to the navigation bar when scrolling
+function stickyNav() {
+  if (window.pageYOffset >= stickyOffset) {
+    navbar.classList.add("sticky");
+    logo.style.width = '60px';
+    logo.style.height = '60px';
+    
+    navA.forEach(element => {
+      element.style.fontSize = '15px'
+    });
+
+    
+  } else {
+    navbar.classList.remove("sticky");
+    logo.style.width = '100px';
+    logo.style.height = '100px';
+
+    navA.forEach(element => {
+      element.style.fontSize = '18px'
+    });
+  }
+}
+
+// Add the stickyNav function as a scroll event listener
+window.addEventListener("scroll", stickyNav);

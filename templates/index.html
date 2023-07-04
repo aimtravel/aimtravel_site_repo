@@ -1,747 +1,1008 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-    <!-- **************** MAIN CONTENT START **************** -->
-    <main>
-        <!-- =======================
-    Main Banner START -->
-        <section class="py-0">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-11 mx-auto">
-                        <!-- Slider START -->
-                        <div class="primary-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden">
-                            <div class="tiny-slider-inner" data-gutter="0" data-arrow="true" data-dots="false"
-                                 data-items="1">
-                                <!-- Card item START -->
-                                <div class="card overflow-hidden h-400px h-sm-600px rounded-0"
-                                     style="background-image:url(../static/booking_v1.1.0/template/assets/images/category/hotel/06.jpg); background-position: center left; background-size: cover;">
-                                    <!-- Background dark overlay -->
-                                    <div class="bg-overlay bg-dark opacity-3"></div>
-                                    <!-- Card image overlay -->
-                                    <div class="card-img-overlay d-flex align-items-center">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-11 col-lg-7">
-                                                    <!-- Title -->
-                                                    <h1 class="text-white display-6">Не чакай! <br>Запиши се сега!</h1>
-                                                    <a href="#" class="btn btn-orange mb-0">💖ЗАПИШИ СЕ</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card item END -->
-                                <!-- Card item START -->
-                                <div class="card overflow-hidden h-400px h-sm-600px bg-parallax text-center rounded-0"
-                                     data-jarallax-video="https://www.youtube.com/watch?v=j56YlCXuPFU">
-                                    <!-- Background dark overlay -->
-                                    <div class="bg-overlay bg-dark opacity-3"></div>
-                                    <!-- Card image overlay -->
-                                    <div class="card-img-overlay d-flex align-items-center">
-                                        <div class="container w-100 my-auto">
-                                            <div class="row justify-content-center">
-                                                <div class="col-11 col-lg-8">
-                                                    <!-- Title -->
-                                                    <h1 class="text-white">Заповядай и разгледай нашите оферти</h1>
-                                                    <a href="{% url 'offers_filter' %}"
-                                                       class="btn btn-dark mb-0">Оферти</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Card item END -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIM Travel - Home</title>
+
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/node_modules/glightbox/dist/css/glightbox.min.css">
+    <script src="../static/node_modules/glightbox/dist/js/glightbox.min.js"></script>
+
+</head>
+
+<body>
+<header>
+    <section id="top-header">
+        <div id="top-header-left">
+            <p id="top-header-left-p1">+359 88 99 66 583</p>
+            <div class="vl">
+                <hr>
+            </div>
+            <p id="top-header-left-p2">studentski@aimtravel.bg</p>
+            <div class="vl">
+                <hr>
+            </div>
+            <p id="top-header-left-p3">Абонирай се</p>
+        </div>
+        <div id="top-header-right">
+            <p id="top-header-right-p1">Последвай ни в:</p>
+            <div id="top-header-right-links">
+
+                <div id="top-header-right-links-icons">
+
+                    <div id="insta-link">
+                        <a href="#">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
+                                      stroke="#FFFFFF" stroke-width="1.5"></path>
+                                <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="vl">
+                        <hr>
+                    </div>
+                    <div id="fb-link">
+                        <a href="#">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
+                                      stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                        <div id="vl3"></div>
+                    </div>
+                    <div class="vl">
+                        <hr>
+                    </div>
+                    <div id="youtube-link">
+                        <a href="#">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path
+                                        d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
+                                        stroke="#FFFFFF" stroke-width="1.5"></path>
+                            </svg>
+                        </a>
+                        <div id="vl3"></div>
+                    </div>
+                    <div class="vl">
+                        <hr>
+                    </div>
+                    <div class="tiktok-link">
+                        <a href="#">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
+                                      stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
+                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="vl">
+                        <hr>
+                    </div>
+
+                </div>
+
+                <div id="top-header-right-login">
+                    <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <section id="header-nav">
+        <nav>
+            <ul id="header-nav-links-container">
+                <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
+                <li class="dropdown link-a">
+                    <a class="target-element" id="wat-usa" href="#">Бригада САЩ</a>
+                    <div class="tooltip">
+                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>
+                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>
+                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>
+                        <a href="#">ЦЕНИ</a>
+                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>
+                    </div>
+                    <span class="icon"></span>
+                </li>
+                <li class="dropdown">
+                    <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
+                    <div class="tooltip">
+                        <a href="#">nqkakvo mnogo mnogo dylgo</a>
+                        <a href="#">placeholder</a>
+                        <a href="#">placeholder</a>
+                    </div>
+                    <span class="icon"></span>
+                </li>
+                <li><img id="logo" src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="">
+                </li>
+                <li class="dropdown">
+                    <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
+                    <div class="tooltip">
+                        <a href="#">i te tuka edno dulgo</a>
+                        <a href="#">placeholder</a>
+                        <a href="#">placeholder</a>
+                    </div>
+                    <span class="icon"></span>
+                </li>
+                <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
+                <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
+            </ul>
+        </nav>
+    </section>
+
+
+    <section id="slider">
+        <div class="background" id="background">
+            <div class="background-gradient">
+                <div class="slider">
+                    <div class="btn" id="prev-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
+                    <div class="slider-container">
+
+                        <div class='text-container' id='main-slider'>
+                            <p id="main-slider-text-heading">AIM TRAVEL</p>
+                            <hr>
+                            <p id="main-slider-text-subheading">Work & Travel Agency</p>
+                            <div id="main-slider-button">
+                                <a href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                             </div>
                         </div>
-                        <!-- Slider END -->
+
+                        <div id="slider-1" class="slider1">
+                            <h4>ПРОМО</h4>
+                            <h1>СТУДЕНТСКА БРИГАДА В САЩ</h1>
+                            <p>Запиши се до края на Октомври на най-ниските цени.</p>
+                            <div class="slider-btn" id="slider-1-button">
+                                <a href="#">ЗАПИШИ СЕ</a>
+                            </div>
+                        </div>
+                        <div id="slider-2">
+                            <h4>AIM TRAVEL</h4>
+                            <h1>КАТАЛОГ</h1>
+                            <p>Вече имаме каталог с полезна информация за програмта Work and Travel USA. В него ще
+                                намерите всичко полезно за Бригадата в САЩ на едно място!</p>
+                            <div class="slider-btn" id="slider-2-button">
+                                <a href="#">СВАЛИ БЕЗПЛАТНО</a>
+                            </div>
+                        </div>
+                        <div id="slider-3">
+                            <h4>AIM TRAVEL</h4>
+                            <h1>БУТИКОВА АГЕНЦИЯ</h1>
+                            <p>Предлагаме специално подбрани, премиум оферти за работа, от наш представител на
+                                място, който се среща директно с работодателите от много години насам. Неговият опит
+                                и лични контакти, му позволяват да намери най-добре платените места за работа, тъй
+                                като си е изградил вътрешна мрежа от работодатели.</p>
+                            <div class="slider-btn" id="slider-3-button">
+                                <a href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn" id="next-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- =======================
-        Main Banner END -->
-        <!-- =======================
-        Best 4 Offers START -->
-        <section class="pt-0 pt-md-5">
-            <div class="container">
-                <!-- Title -->
-                <div class="row mb-4">
-                    <div class="col-12 text-center">
-                        <h2 class="mb-0">Нашите най-добри оферти</h2>
+        </div>
+    </section>
+    <section id="top-destinations">
+        <div id="col-1">
+            <div class="row-1">
+                <a href="#">📍 Provincetown, MA</a>
+            </div>
+            <div class="row-2">
+                <a href="#">📍 New Jersey</a>
+            </div>
+        </div>
+        <div id="col-2">
+            <div class="row-1">
+                <a href="#">📍 Nantucket, MA</a>
+            </div>
+            <div class="row-2">
+                <a href="#">📍 California</a>
+            </div>
+        </div>
+        <div id="col-3">
+            <div class="row-1">
+                <a href="#">📍 Maine</a>
+            </div>
+            <div class="row-2">
+                <a href="#">📍 Florida</a>
+
+            </div>
+        </div>
+    </section>
+
+</header>
+<img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+<main>
+    <section id="about">
+        <div id="about-text">
+            <h1>Work Hard Travel Far</h1>
+            <p>Мотото на Aim Travel, произлиза от създателите на фирмата. Заминавайки именно с този принцип на
+                бригада преди години, те успяват да постигнат и открият много за Америка и да основат Aim Trave,
+                за
+                да предават успеха си на следващите записали се за бригада.
+            </p>
+            <p>
+                Това е призмата, през която Aim Travel пречупва програмата Work and Travel, което означава, че
+                фирмата ще ти осигури най-добрите условия да работиш, да се докажеш, да постигаш и след това да
+                пътуваш, да откриваш, да инвестираш в себе си. "The sky is the limit", както гласи една
+                американска
+                поговорка. Възможностите са неограничени и всичко зависи само от теб - какво ще направиш, какво
+                ще
+                постигнеш, какво ще откриеш и как това ще те промени за едно лято, като човек, личност, житейски
+                опит. Разбери възможностите си и открий какво можеш. С преживяването и опитът, който ще
+                натрупаш, ще
+                имаш истории за разказване през целия си живот. Сега е моментът!</p>
+            <div class="slider-btn">
+                <a href="">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+            </div>
+        </div>
+        <div id="about-img">
+            <div id="img-1">
+                <img src="../static/img/Ready-stock/WEBP%20version/about_1.webp" alt="img-1">
+                <div class="white-border"></div>
+            </div>
+            <div id="img-2">
+                <img src="../static/img/Ready-stock/WEBP%20version/about_2.webp" alt="img-2">
+                <div class="white-border"></div>
+            </div>
+        </div>
+    </section>
+    <section id="cta-section">
+        <div id="cta-background-gradient">
+            <div id="cta-container">
+                <h3><b>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</b></h3>
+                <h1>НЕ СЕ ПРИТЕСНЯВЙТЕ!</h1>
+                <h3>НИЕ СМЕ НАСРЕЩА!</h3>
+                <div id="cta-subtext">
+                    <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за
+                        безплатна
+                        онлайн
+                        консултация, където ще имате възможност да зададете всичките си въпроси и да получите
+                        квалифициран
+                        отговор.</p>
+                </div>
+                <div class="slider-btn">
+                    <a href="">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="offers">
+        <div id="offers-top-row">
+            <div id="offers-section-header">
+                <h1>Работни Оферти</h1>
+            </div>
+            <div id="offers-buttons">
+                <div class="round-shape-background">
+                    <div class="btn" id="prev-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
                 </div>
-
-                <div class="row g-4">
-                    <!-- Package item -->
-                    {% for offer in page_obj %}
-                    <div class="col-sm-6 col-xl-3">
-                        <!-- Card START -->
-                        <div class="card card-img-scale overflow-hidden bg-transparent">
-                            <div class="card-img-scale-wrapper rounded-3">
-                                <!-- Card Image -->
-                                <img src="{{ offer.offer_pic }}"
-                                     class="card-img" style="width: 250px; height: 250px" alt="offer picture">
-                                <!-- Overlay -->
-                                <div class="card-img-overlay d-flex flex-column z-index-1 p-4">
-                                    <!-- Card overlay top -->
-                                    <div class="d-flex justify-content-between">
-                                        <span class="badge text-bg-dark">{{ offer.city }}, {{ offer.state }}</span>
-                                        <span class="badge text-bg-white"><i
-                                                class="fa-solid fa-star text-warning me-2"></i>{{ offer.ranking }}</span>
-                                    </div>
-                                    <!-- Card overlay bottom -->
-                                    <div class="w-100 mt-auto">
-                                        <!-- Card category -->
-                                        <span class="badge text-bg-white fs-6"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card body -->
-                            <div class="card-body px-2">
-                                <!-- Title -->
-                                <h5 class="card-title"><a href="tour-grid.html" class="stretched-link">{{ offer.job_position }}</a></h5>
-                                <!-- Content -->
-                                <div class="hstack gap-2">
-                                    <span class="h5 mb-0 text-success">${{ offer.wage }}</span>
-                                    <small>per hour</small>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card END -->
-                    </div>
-                    {% endfor %}
-
-                </div> <!-- Row END -->
-            </div>
-        </section>
-        <!-- =======================
-        Best 4 Offers END -->
-        <!-- =======================
-        About START -->
-        <section class="py-0 py-lg-7">
-            <div class="container">
-                <!-- Title -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <h2>Винаги сме насреща да ви осигурим едно незабравимо лято. Щастливи сме да помогнем. </h2>
-                        <p class="mb-0">We focus a great deal on the understanding of behavioral psychology and
-                            influence
-                            triggers which are crucial for becoming a well-rounded Digital Marketer. We understand that
-                            theory is important to build a solid foundation, we understand that theory alone isn't going
-                            to
-                            get the job done.</p>
-                    </div>
-                </div>
-
-                <!-- Counters and features START -->
-                <div class="row g-4">
-                    <!-- Counter -->
-                    <div class="col-xl-4">
-                        <div class="card card-body bg-primary bg-opacity-10 vstack gap-4 justify-content-center h-100 p-4">
-                            <!-- Counter item -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
-                                    data-purecounter-end="10" data-purecounter-delay="200">0</h3>
-                                <h6 class="fw-normal mb-0">Всички оферти</h6>
-                            </div>
-
-                            <!-- Counter item -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex justify-content-center me-3">
-                                    <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
-                                        data-purecounter-end="200" data-purecounter-delay="300">0</h3>
-                                    <span class="h3 text-primary mb-0">+</span>
-                                </div>
-                                <h6 class="fw-normal mb-0">Служители</h6>
-                            </div>
-
-                            <!-- Counter item -->
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex justify-content-center me-3">
-                                    <h3 class="purecounter text-primary mb-0" data-purecounter-start="0"
-                                        data-purecounter-end="50" data-purecounter-delay="300">0</h3>
-                                    <span class="h3 text-primary mb-0">+</span>
-                                </div>
-                                <h6 class="fw-normal mb-0">Доволни клиенти</h6>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Location -->
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card  overflow-hidden">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/about/07.jpg" class="rounded-3" alt="">
-                            <!-- Full screen button -->
-                            <div class="w-100 h-100">
-                                <button class="btn btn-dark position-absolute top-50 start-50 translate-middle mb-0"
-                                        data-bs-toggle="modal" data-bs-target="#map360">
-                                    <i class="bi bi-eye me-2"></i>View 360
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Features -->
-                    <div class="col-md-6 col-xl-4">
-                        <ul class="list-group list-group-borderless">
-                            <li class="list-group-item py-3">
-                                <h6 class="mb-0 fw-normal">
-                                    <i class="bi bi-cash-coin fa-fw text-info me-2"></i>Best Rate Guaranteed
-                                </h6>
-                            </li>
-
-                            <li class="list-group-item py-3">
-                                <h6 class="mb-0 fw-normal">
-                                    <i class="bi bi-credit-card-2-back fa-fw text-warning me-2"></i>Payment at Hotel
-                                </h6>
-                            </li>
-
-                            <li class="list-group-item py-3">
-                                <h6 class="mb-0 fw-normal">
-                                    <i class="bi bi-wallet fa-fw text-success me-2"></i>Exclusive Members Rewards
-                                </h6>
-                            </li>
-
-                            <li class="list-group-item py-3">
-                                <h6 class="mb-0 fw-normal">
-                                    <i class="bi bi-wifi fa-fw text-danger me-2"></i>WIFI Access
-                                </h6>
-                            </li>
-
-                            <li class="list-group-item pt-3 pb-0">
-                                <h6 class="mb-0 fw-normal">
-                                    <i class="bi bi-tags fa-fw text-orange me-2"></i>No Hidden Changes
-                                </h6>
-                            </li>
-                        </ul>
-
-                    </div>
-                </div>
-                <!-- Counters and features END -->
-            </div>
-        </section>
-        <!-- =======================
-        About END -->
-
-        <!-- =======================
-        Near by START -->
-        <section>
-            <div class="container">
-                <!-- Title -->
-                <div class="row mb-4">
-                    <div class="col-12 text-center">
-                        <h2 class="mb-0">Explore Nearby</h2>
-                    </div>
-                </div>
-
-                <div class="row g-4 g-md-5">
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/01.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">San Francisco</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/02.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Los Angeles</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/03.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Miami</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/04.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Sanjosh</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/05.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">New York</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/06.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">North Justen</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/07.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Rio</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/08.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Las Vegas</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/09.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Texas</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/10.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Chicago</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/11.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">New Keagan</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-
-                    <!-- Card item START -->
-                    <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
-                        <div class="card bg-transparent text-center p-1 h-100">
-                            <!-- Image -->
-                            <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/nearby/01.jpg" class="rounded-circle" alt="">
-
-                            <div class="card-body p-0 pt-3">
-                                <h5 class="card-title"><a href="#" class="stretched-link">Oslo</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card item END -->
-                </div> <!-- Row END -->
-            </div>
-        </section>
-        <!-- =======================
-        Near by END -->
-
-        <!-- =======================
-        Services START -->
-        <section class="pt-0 pt-lg-5">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-6">
-                        <!-- Title -->
-                        <h2>Ние сме тук за вас</h2>
-                        <p>Запишете се за бригада при нас и изживейте една мечта.</p>
-                        <!-- Button -->
-                        <a href="#" class="btn btn-dark mb-4">Безплатна консултация</a>
-                        <!-- Services -->
-                        <div class="row g-sm-4">
-                            <div class="col-sm-6">
-                                <ul class="list-group list-group-borderless mt-2 mb-0">
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-wifi fa-fw text-primary me-2"></i>Free
-                                            Wifi</h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-person-swimming fa-fw text-primary me-2"></i>Swimming
-                                            Pool</h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-person-shelter fa-fw text-primary me-2"></i>Private
-                                            Workshop</h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-utensils fa-fw text-primary me-2"></i>Breakfast</h6>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <ul class="list-group list-group-borderless">
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-bolt fa-fw text-primary me-2"></i>Free
-                                            Electricity</h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-dumbbell fa-fw text-primary me-2"></i>Gym Space</h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><i
-                                                class="fa-solid fa-spa fa-fw text-primary me-2"></i>Spa
-                                        </h6>
-                                    </li>
-
-                                    <li class="list-group-item">
-                                        <h6 class="fw-normal mb-0"><a href="#"><i
-                                                class="fa-solid fa-ellipsis fa-fw text-primary me-2"></i>Other Services</a>
-                                        </h6>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="bg-light rounded-3 h-100 p-4">
-                            <!-- Slider START -->
-                            <div class="tiny-slider arrow-round arrow-blur">
-                                <div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-edge="2"
-                                     data-dots="false" data-items-xl="1" data-items-md="1">
-
-                                    <!-- Card START -->
-                                    <div class="card bg-transparent">
-                                        <div class="row g-4 align-items-center">
-                                            <div class="col-sm-6">
-                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/02.jpg"
-                                                     class="img-fluid card-img"
-                                                     alt="...">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="card-body p-0">
-                                                    <h6 class="fw-normal mb-3">Honeymoon Sweets</h6>
-                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Maldives
-                                                        Sunshine Hotel</a></h4>
-                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
-                                                            class="bi bi-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Card END -->
-
-                                    <!-- Card START -->
-                                    <div class="card bg-transparent">
-                                        <div class="row g-4 align-items-center">
-                                            <div class="col-sm-6">
-                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/01.jpg"
-                                                     class="img-fluid card-img"
-                                                     alt="...">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="card-body p-0">
-                                                    <h6 class="fw-normal mb-3">Royal Stay</h6>
-                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Booking
-                                                        Grad Palace Japan</a></h4>
-                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
-                                                            class="bi bi-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Card END -->
-
-                                    <!-- Card START -->
-                                    <div class="card bg-transparent">
-                                        <div class="row g-4 align-items-center">
-                                            <div class="col-sm-6">
-                                                <img src="../static/booking_v1.1.0/template/assets/images/category/flight/03.jpg"
-                                                     class="img-fluid card-img"
-                                                     alt="...">
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="card-body p-0">
-                                                    <h6 class="fw-normal mb-3">Adventure Stay</h6>
-                                                    <h4 class="card-title mb-3"><a href="#" class="stretched-link">Golf
-                                                        &
-                                                        Spa Resort in New York</a></h4>
-                                                    <a href="#" class="btn btn-link p-0">Explore Now <i
-                                                            class="bi bi-arrow-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Card END -->
-                                </div>
-                            </div>
-                            <!-- Slider END -->
-                        </div>
-                    </div>
-                </div> <!-- Row END -->
-            </div>
-        </section>
-        <!-- =======================
-        Services END -->
-
-        <!-- =======================
-        Action box START -->
-        <section class="py-0 py-md-5">
-            <div class="container">
-                <div class="position-relative rounded-3 overflow-hidden p-3 p-sm-5"
-                     style="background-image:url(../static/booking_v1.1.0/template/assets/images/about/08.jpg); background-position: center left; background-size: cover;">
-                    <div class="row position-relative z-index-9">
-                        <div class="col-md-7 col-xl-5 ms-auto">
-                            <div class="card card-body p-sm-5">
-                                <div class="d-sm-flex justify-content-between align-items-center mb-2">
-                                    <h6 class="text-primary mb-0">Изключителна оферта</h6>
-                                    <!-- Rating -->
-                                    <ul class="list-inline small mb-0">
-                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item me-0"><i class="fa-solid fa-star text-warning"></i>
-                                        </li>
-                                        <li class="list-inline-item"><i class="fa-solid fa-star text-warning"></i></li>
-                                    </ul>
-                                </div>
-                                <!-- Title -->
-                                <h5>Enjoy Your Dream Vacation In Switzerland</h5>
-                                <p class="mb-3">Book your hotel with us and don't forget to grab an awesome hotel deal
-                                    to
-                                    save massive on your stay.</p>
-
-                                <!-- Price -->
-                                <h6 class="fw-normal mb-1">2 Days / 3 Nights</h6>
-                                <div class="d-flex align-items-center">
-                                    <h5 class="text-success mb-0 me-1">$750</h5>
-                                    <span class="mb-0 me-2">/day</span>
-                                    <span class="text-decoration-line-through">$1000</span>
-                                </div>
-                                <!-- Button -->
-                                <a href="#" class="btn btn-primary-soft mb-0 mt-3">Book Now</a>
-                            </div>
-                        </div>
+                <div class="round-shape-background">
+                    <div class="btn" id="next-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- =======================
-        Action box END -->
-
-        <!-- =======================
-        Gallery START -->
-        <section>
-            <div class="container-fluid">
-                <!-- Title -->
-                <div class="row mb-md-4">
-                    <div class="col-12 mx-auto text-center mb-4">
-                        <h2 class="mb-0">Нашите доволни клиенти</h2>
+        </div>
+        <div id="offers-slides">
+            <div class="offer-slide" id="offer-1">
+                <div class="offer-pic" id="offer-1-picture">
+                    <div class="curve-line">
+                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="offer-btn">
+                        <a href="">НАУЧИ ПОВЕЧЕ</a>
                     </div>
                 </div>
-
-                <!-- Slider START -->
-                <div class="tiny-slider arrow-round arrow-blur arrow-hover rounded-3 overflow-hidden">
-                    <div class="tiny-slider-inner d-flex align-items-end" data-autoplay="true" data-edge="2"
-                         data-arrow="true" data-dots="false" data-items="6" data-items-lg="4" data-items-sm="2">
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/01.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/01.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/02.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/02.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/03.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/03.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/05.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/05.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/08.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/08.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="https://www.youtube.com/embed/tXHviS-4ygo">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/04.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-									<span class="btn text-danger btn-round btn-white position-absolute top-50 start-50 translate-middle mb-0">
-										<i class="fas fa-play"></i>
-									</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/06.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/06.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- Slider item -->
-                        <div>
-                            <a data-glightbox="" data-gallery="gallery"
-                               href="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/07.jpg">
-                                <div class="card card-element-hover card-overlay-hover overflow-hidden">
-                                    <!-- Image -->
-                                    <img src="../static/booking_v1.1.0/template/assets/images/category/hotel/gallery/07.jpg" class="rounded-3" alt="">
-                                    <!-- Full screen button -->
-                                    <div class="hover-element w-100 h-100">
-                                        <i class="bi bi-fullscreen fs-6 text-white position-absolute top-50 start-50 translate-middle bg-dark rounded-1 p-2 lh-1"></i>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                <div class="offer-text-container" id="offer-1-text">
+                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>
+                    <p class="offer-location">Nantucket, MA</p>
+                    <p class="offer-type">Premium Offer</p>
+                    <p class="offer-salary">#17.75/H + FREE MEALS</p>
                 </div>
-                <!-- Slider END	 -->
             </div>
-        </section>
-        <!-- =======================
-        Gallery END -->
 
-    </main>
-    <!-- **************** MAIN CONTENT END **************** -->
-{% endblock %}
+            <div class="offer-slide" id="offer-2">
+                <div class="offer-pic" id="offer-2-picture">
+                    <div class="curve-line">
+                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="offer-btn">
+                        <a href="">НАУЧИ ПОВЕЧЕ</a>
+                    </div>
+                </div>
+                <div class="offer-text-container" id="offer-2-text">
+                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>
+                    <p class="offer-location">Nantucket, MA</p>
+                    <p class="offer-type">Premium Offer</p>
+                    <p class="offer-salary">#17.75/H + FREE MEALS</p>
+                </div>
+            </div>
+
+            <div class="offer-slide" id="offer-3">
+                <div class="offer-pic" id="offer-3-picture">
+                    <div class="curve-line">
+                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="offer-btn">
+                        <a href="">НАУЧИ ПОВЕЧЕ</a>
+                    </div>
+                </div>
+                <div class="offer-text-container" id="offer-3-text">
+                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>
+                    <p class="offer-location">Nantucket, MA</p>
+                    <p class="offer-type">Premium Offer</p>
+                    <p class="offer-salary">#17.75/H + FREE MEALS</p>
+                </div>
+            </div>
+
+            <div class="offer-slide" id="offer-4">
+                <div class="offer-pic" id="offer-4-picture">
+                    <div class="curve-line">
+                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="offer-btn">
+                        <a href="">НАУЧИ ПОВЕЧЕ</a>
+                    </div>
+                </div>
+                <div class="offer-text-container" id="offer-4-text">
+                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>
+                    <p class="offer-location">Nantucket, MA</p>
+                    <p class="offer-type">Premium Offer</p>
+                    <p class="offer-salary">#17.75/H + FREE MEALS</p>
+                </div>
+            </div>
+        </div>
+        <div class="slider-btn" id="offers-more-btn">
+            <a href="">ОЩЕ РАБОТНИ ОФЕРТИ</a>
+        </div>
+    </section>
+    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <section id="video-section">
+        <div id="main-video">
+            <a href="https://www.youtube-nocookie.com/embed/EAx-L-U3m_o?controls=0" data-glightbox
+               class="glightbox2" data-effect="fade">
+                <div class="fancy-background"></div>
+                <img src="../static/img/thumbnail.JPG" alt="">
+                <div class="white-border">
+                    <div class="white-wrapper">
+                        <div class="play-button">
+                            <div class="inner-circle">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px"
+                                     stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                    <path
+                                            d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                            stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="main-video-logo">
+                    <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                </div>
+                <div id="main-video-details" class="vertical-line">
+                    <p>AIM Travel</p>
+                </div>
+            </a>
+        </div>
+        <div id="sub-videos">
+            <div class="subvideo sub1">
+                <a href="https://youtu.be/yDSlvGFYujY" data-glightbox class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="../static/img/subvideo1.JPG" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="24px" height="24px"
+                                         stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path
+                                                d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+            <div class="subvideo sub2">
+                <a href="https://youtu.be/faVqXlIy9UY" data-glightbox class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="../static/img/subvideo2.JPG" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="24px" height="24px"
+                                         stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path
+                                                d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+            <div class="subvideo sub3">
+                <a href="https://youtu.be/buj_rAg_orI" data-glightbox class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="../static/img/subvideo3.JPG" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="24px" height="24px"
+                                         stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path
+                                                d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+            <div class="subvideo sub4">
+                <a href="https://youtu.be/0Z1InOm9RZo" data-glightbox class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="../static/img/subvideo4.JPG" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="24px" height="24px"
+                                         stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path
+                                                d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+            <div class="subvideo sub5">
+                <a href="https://youtu.be/x99rABFPwPA" data-glightbox class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="../static/img/subvideo5.JPG" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <?xml version="1.0" encoding="UTF-8"?>
+                                    <svg width="24px" height="24px"
+                                         stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path
+                                                d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                                stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="slider-btn" id="video-more-btn">
+            <a href="">ЗАПИШИ СЕ</a>
+        </div>
+
+    </section>
+    <img class="main-flag2" src="../static/img/USA%20Flag.png" alt="">
+    <section id="news-section">
+        <div id="news-heading">
+            <p id="heading-news">Новини</p>
+        </div>
+        <div id="news">
+            <div id="last-news">
+                <div id="last-news-img">
+                    <img src="../static/img/Last-news.png" alt="">
+                    <div class="white-border"></div>
+                </div>
+                <div id="last-news-text">
+                    <p class="news-date last">17 МАРТ 2023</p>
+                    <h2 id="last-news-header">Визовите интервюта започват на 6-ти февруари</h2>
+                    <p id="last-news-main-content">Добрите WAT новини не спират да идват, а пoредната е от
+                        Посолството на САЩ в България, които потвърдиха, че няма да има ограничения в броя на
+                        студентите, които ще могат да се явят на интервю за J1 виза и да заминат на бригада през
+                        2023 г.
+                        От Консулството съобщиха, че ще започнат с интервютата на 6 февруари догодина и ще
+                        продължат
+                        чак до 15 юни, като при необходимост...
+                    </p>
+                </div>
+            </div>
+            <div id="last-4-news">
+                <div id="last-4-1" class="news-content">
+                    <div id="last-4-1-img" class="last-img">
+                        <img src="../static/img/last1.png" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="last-4-1-text">
+                        <p class="news-date">17 МАРТ 2023</p>
+                        <h3>Бригада – направете го, защото си заслужава</h3>
+                        <a href="#">Прочети Статия</a>
+                    </div>
+                </div>
+                <div id="last-4-2" class="news-content">
+                    <div id="last-4-2-img" class="last-img">
+                        <img src="../static/img/last2.png" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="last-4-2-text">
+                        <p class="news-date">17 МАРТ 2023</p>
+                        <h3>Бригада – направете го, защото си заслужава</h3>
+                        <a href="#">Прочети Статия</a>
+                    </div>
+                </div>
+                <div id="last-4-3" class="news-content">
+                    <div id="last-4-3-img" class="last-img">
+                        <img src="../static/img/last3.png" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="last-4-3-text">
+                        <p class="news-date">17 МАРТ 2023</p>
+                        <h3>Бригада – направете го, защото си заслужава</h3>
+                        <a href="#">Прочети Статия</a>
+                    </div>
+                </div>
+                <div id="last-4-4" class="news-content">
+                    <div id="last-4-4-img" class="last-img">
+                        <img src="../static/img/last4.png" alt="">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="last-4-4-text">
+                        <p class="news-date">17 МАРТ 2023</p>
+                        <h3>Бригада – направете го, защото си заслужава</h3>
+                        <a href="#">Прочети Статия</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="news-button">
+            <div class="slider-btn" id="news-more-btn">
+                <a href="">ОЩЕ НОВИНИ</a>
+            </div>
+        </div>
+    </section>
+    <section id="pricing-section">
+        <div id="pricing-text">
+            <h4>БРИГАДА В САЩ</h4>
+            <h1>КОЛКО СТРУВА</h1>
+            <h4>С AIM TRAVEL USA?</h4>
+            <p>Готов ли си да се запишеш за Бригада в САЩ? Нашият Раздел "Цени" предлага всичко, от което се
+                нуждаеш, за да разбереш какви са разходите за една WAT програма на всеки студент. От таксите за
+                виза
+                и самолетен билет до услугите за предоставяне на нашите специално подбрани бутикови работни
+                оферти.
+                Кликни бутона "Цени" сега, за да научиш повече относно различните финансирания.</p>
+        </div>
+        <div id="pricing-button">
+            <div id="pricing-btn" class="pricing-btn">
+                <a href="">ВИЖ НАШИТЕ СПЕЦИАЛНИ ЦЕНИ</a>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" viewBox="0 0 24 24"
+                     stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                    <path
+                            d="M9.171 14.828l5.657-5.656m0 0h-4.95m4.95 0v4.95M21 3.6v16.8a.6.6 0 01-.6.6H3.6a.6.6 0 01-.6-.6V3.6a.6.6 0 01.6-.6h16.8a.6.6 0 01.6.6z"
+                            stroke="#ffffff " stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <section id="story-section">
+        <div id="story-heading">
+            <p id="heading-story">Истории На Студенти</p>
+        </div>
+        <div id="story">
+            <div id="story-1" class="story-container">
+                <div class="story-img">
+                    <img src="../static/img/story1.png" alt="">
+                    <div class="white-border"></div>
+                </div>
+                <div class="story-text">
+                    <h3>Бригада – направете го, защото си заслужава</h3>
+                    <p>Бригада - направете го, защото си заслужава Магдалена Гичева РусеМагдалена учи
+                        специалност "Компютърни системи и технологии" в  Русенски университет "Ангел
+                        Кънчев". Това
+                        лято тя е на своята трета поредна...</p>
+                    <a href="#">Прочети Статия</a>
+                </div>
+            </div>
+            <div id="story-2" class="story-container">
+                <div class="story-img">
+                    <img src="../static/img/story2.png" alt="">
+                    <div class="white-border"></div>
+                </div>
+                <div class="story-text">
+                    <h3>Моето приключение, наречено Америка</h3>
+                    <p>Моето приключение, наречено Америка, никога не би било същото без подкрепата и
+                        всеотдайността
+                        на AIM Travel USA. От самото начало бях убедена...</p>
+                    <a href="#">Прочети Статия</a>
+                </div>
+            </div>
+            <div id="story-3" class="story-container">
+                <div class="story-img">
+                    <img src="../static/img/story3.png" alt="">
+                    <div class="white-border"></div>
+                </div>
+                <div class="story-text">
+                    <h3>Първи курс на бригада в САЩ</h3>
+                    <p>Първи курс на бригада в сащ Марио желев ПловдивМарио е първи курс в Пловдивския
+                        университет
+                        "Паисий Хилендарски". Лято 2020 беше неговият първи път на бригада в Америка. Виж какво
+                        сподели за преживяването си...</p>
+                    <a href="#">Прочети Статия</a>
+                </div>
+            </div>
+        </div>
+        <div id="story-button" class="slider-btn">
+            <a href="">ВИЖ ОЩЕ ИСТОРИИ</a>
+        </div>
+    </section>
+    <section id="service-section">
+        <div id="service-container">
+            <div class="row">
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/money_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>НАЙ-АТРАКТИВНИТЕ РАБОТНИ ОФЕРТИ</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>Вече 10 години си партнираме с най-добрите работодатели. Нашите партньори гарантират
+                            отлични
+                            работни оферти (Nantucket, Provincetown) с ангажимент към квартирата и условията на
+                            работа
+                            на топ локации в САЩ.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/tasks_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>ЛЕСНИ СТЪПКИ ЗА КАНДИДАТСТАВАНЕ</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>Разработили сме бърз и лесен процес на кандидатстване с минимален разход на време от
+                            страна
+                            на клиента. Подпомагаме кандидатите при процеса на кандидатстване, но и по време на
+                            цялата
+                            програма.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/paying_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>ПЛАЩАНЕ НА ВНОСКИ ИЛИ СТУДЕНТСКИ КРЕДИТ</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>Платете програмата на вноски или със студентски кредит. Съвместно със Societe
+                            Generale
+                            Експресбанк имате възможност да се възползвате от най-изгодния студентски кредит до
+                            15
+                            000
+                            лв.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/progress_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>ВИСОКА УСПЕВАЕМОСТ ЗА ВИЗА</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>След нашата безплатна подготовка ние Гарантираме висока успеваемост на интервюто за
+                            виза.
+                            Информираме Ви как протича интервюто, какви въпроси да очаквате, как да се
+                            представите
+                            блестящо.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/communication_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>БЕЗПЛАТНА ЕЗИКОВА ПОДГОТОВКА</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>Ще ти помогнем да подобриш английския си език, нашият добре обучен персонал ще ти
+                            съдейства с
+                            тренинг по английски. Ще придобиеш увереност за разговор в неформална обстановка, ще
+                            комуникираш своодно в САЩ.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/people_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>ПЕРСОНАЛНО ВНИМАНИЕ - КОНСУЛТАЦИИ</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>Винаги ще сме до теб. Помагаме ти да избереш най-подходящата за теб работна оферта.
+                            Попълваме
+                            заедно всички документи. Можеш да разчиташ на нашия съвет и помощ при всяко решение
+                            и
+                            стъпка
+                            от програмата.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <div id="footer-nav-container">
+        <div id="logo-container">
+            <a href="">
+                <img src="../static/img/white-AIM_logo%201.png" alt="">
+            </a>
+            <p>Work Hard Travel Far</p>
+        </div>
+        <div class="nav-container">
+            <h1>БЪРЗИ ВРЪЗКИ</h1>
+            <a href="#top-header">Начало</a>
+            <a href="#about">За нас</a>
+            <a href="#">Работни оферти</a>
+            <a href="#">Блог</a>
+            <a href="{% url 'under-construction' %}">Контакти</a>
+        </div>
+        <div class="nav-container">
+            <h1>БРИГАДА В САЩ</h1>
+            <a href="#">Защо на бригада в САШ?</a>
+            <a href="#">Кой може да участва?</a>
+            <a href="#">Как да се запишеш?</a>
+            <a href="#">Цена</a>
+            <a href="#">Необходими документи</a>
+        </div>
+        <div class="nav-container">
+            <h1>ОНЛАЙН УСЛУГИ</h1>
+            <a href="#">Безплатна консултация</a>
+            <a href="#">Регистрация за бригада</a>
+            <br>
+            <div id="phone-details">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" stroke-width="1.5"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                    <path
+                            d="M18.118 14.702L14 15.5c-2.782-1.396-4.5-3-5.5-5.5l.77-4.13L7.815 2H4.064c-1.128 0-2.016.932-1.847 2.047.42 2.783 1.66 7.83 5.283 11.453 3.805 3.805 9.286 5.456 12.302 6.113 1.165.253 2.198-.655 2.198-1.848v-3.584l-3.882-1.479z"
+                            stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                </svg>
+                <p>
+                    +359 88 99 66 583
+                </p>
+            </div>
+            <div id="email-details">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" stroke-width="1.5"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFF">
+                    <path d="M7 9l5 3.5L17 9" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                    <path d="M2 17V7a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2z" stroke="#FFFFFF"
+                          stroke-width="1.5"></path>
+                </svg>
+                <p>studentski@aimtravel.bg</p>
+            </div>
+        </div>
+        <div class="nav-container">
+            <h1>ДРУГИ УСЛУГИ</h1>
+            <a href="#">Лагер / Стаж САЩ</a>
+            <a href="#">Работа за нестуденти (Н2В Виза)</a>
+            <a href="#">Самолетни билети</a>
+            <a href="#">Данъци в САЩ</a>
+            <a href="#">Данъци</a>
+        </div>
+    </div>
+    <div id="horizontal-line">
+        <hr>
+    </div>
+    <div id="footer-link-container">
+        <div id="footer-text">
+            <p>Copyright © <b>AIM Travel USA</b> 2023. Всички права запазени.</p>
+        </div>
+        <div id="footer-links-icons">
+
+            <div id="footer-right-links-icons">
+                <div id="footer-login">
+                    <a id="footer-login-p1" href="#">Login</a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="insta-link">
+                    <a href="#">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
+                                  stroke="#FFFFFF" stroke-width="1.5"></path>
+                            <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="fb-link">
+                    <a href="#">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
+                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="youtube-link">
+                    <a href="#">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path
+                                    d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
+                                    stroke="#FFFFFF" stroke-width="1.5"></path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div class="tiktok-link">
+                    <a href="#">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
+                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round">
+                            </path>
+                            <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="../static/javascript/js_dropdown.js"></script>
+<script type="text/javascript" src="../static/javascript/js_slider.js"></script>
+<script type="text/javascript" src="../static/javascript/js_navbar.js"></script>
+<script type="text/javascript" src="../static/javascript/js_video.js"></script>
+</body>
+
+</html>

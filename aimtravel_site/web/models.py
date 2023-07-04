@@ -1,4 +1,8 @@
 from django.db import models
+from django.conf import settings
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import os
 from model_utils import Choices
 
 from aimtravel_site.web.validators import max_value
@@ -6,25 +10,14 @@ from aimtravel_site.web.validators import max_value
 
 class JobOffer(models.Model):
     POSITION_NAME = 30
-    EMPLOYER_NAME = 30
+    EMPLOYER = 30
     CITY_NAME = 20
-    STATE_NAME = 2
+    STATE_NAME = 20
     SPONSOR_NAME = 20
 
-    job_position = models.CharField(
-        verbose_name='Позиция',
-        max_length=POSITION_NAME,
-        blank=True,
-        null=True,
-    )
-    employer = models.CharField(
-        verbose_name='Работодател',
-        max_length=EMPLOYER_NAME,
-        blank=True,
-        null=True,
-    )
-    wage = models.FloatField(
-        verbose_name='Заплащане',
+    employer_name = models.CharField(
+        verbose_name='Име на работодател',
+        max_length=EMPLOYER,
         blank=True,
         null=True,
     )
@@ -40,18 +33,87 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    sponsor = models.CharField(
-        verbose_name='Спонсор',
-        max_length=SPONSOR_NAME,
+    job_position = models.CharField(
+        verbose_name='Работна позиция',
+        max_length=POSITION_NAME,
         blank=True,
         null=True,
     )
-    offer_pic = models.URLField(
-        verbose_name='Снимка-URL',
+    wage = models.FloatField(
+        verbose_name='Заплащане',
+        blank=True,
+        null=True,
+    )
+    tips = models.BooleanField(
+        verbose_name='Бакшиши',
+        blank=True,
+        null=True,
+    )
+    bonus = models.BooleanField(
+        verbose_name='Бонус',
+        blank=True,
+        null=True,
+    )
+    minimum_hours = models.FloatField(
+        verbose_name='Минимум часове на седмица',
+        blank=True,
+        null=True,
+    )
+    overtime = models.BooleanField(
+        verbose_name='Overtime',
+        blank=True,
+        null=True,
+    )
+    housing = models.BooleanField(
+        verbose_name='Хаузинг',
+        blank=True,
+        null=True,
+    )
+    english_level = models.CharField(
+        verbose_name='Ниво на английски език',
+        max_length=10,
+        blank=True,
+        null=True,
+    )
+    begin_date = models.DateField(
+        verbose_name='Стартова дата',
+        blank=True,
+        null=True,
+    )
+    end_date = models.DateField(
+        verbose_name='Крайна дата',
+        blank=True,
+        null=True,
+    )
+    groups = models.BooleanField(
+        verbose_name='Подходящо за групи',
+        blank=True,
+        null=True,
+    )
+    couples = models.BooleanField(
+        verbose_name='Подходящо за двойки',
         blank=True,
         null=True,
     )
     job_description = models.TextField(
+        verbose_name='Описание на работата',
+        blank=True,
+        null=True,
+    )
+    interesting = models.TextField(
+        verbose_name='Интересно'
+                     '',
+        blank=True,
+        null=True,
+    )
+    students_feedback = models.TextField(
+        verbose_name='Отзиви от студенти',
+        blank=True,
+        null=True,
+    )
+    offer_pic = models.ImageField(
+        upload_to='job_offer_pics/',
+        verbose_name='Снимка',
         blank=True,
         null=True,
     )
@@ -63,8 +125,19 @@ class JobOffer(models.Model):
     )
 
     def __str__(self):
-        result = f'{self.job_position} at {self.employer} - {self.city}, {self.state}'
+        result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
         return result
+
+    def delete(self, *args, **kwargs):
+        pre_delete.send(sender=self.__class__, instance=self)
+
+        super().delete(*args, **kwargs)
+
+    def delete_picture_file(self):
+        if self.offer_pic:
+            path = os.path.join(settings.MEDIA_ROOT, str(self.offer_pic))
+            if os.path.exists(path):
+                os.remove(path)
 
 
 class Prices(models.Model):

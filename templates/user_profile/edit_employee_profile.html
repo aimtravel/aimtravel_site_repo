@@ -1,10 +1,10 @@
-{% extends 'base3.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
     <br><br><br>
     <div>
-        <form method="post" action="{% url 'employee profile edit' user.pk %}">
+        <form method="post" action="{% url 'employee profile edit' employee.pk %}">
             <div align="center">
                 {% if form.errors %}
                     <div class="list-group-item-warning" style="color: whitesmoke; background-color: red; max-width: 300px">

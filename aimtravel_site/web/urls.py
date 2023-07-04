@@ -4,6 +4,7 @@ from aimtravel_site.web.views import *
 
 urlpatterns = (
     path('', OfferViewIndex.as_view(), name='index'),
+    path('under-construction/', under_construction, name='under-construction'),
     path('contacts/', contacts, name='contacts'),
     path('admin_panel/', admin_panel, name='admin panel'),
     path('wat_usa/', include([
