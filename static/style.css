@@ -1942,17 +1942,21 @@ footer .usa-flag {
 
 }
 
-#offers-slides {
+#offer-slides {
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
 }
 
-#offers-slides .row {
+#offer-slides .row {
     display: flex;
     flex-direction: row;
 }
 
-#offers-slides .offer-slide {
+#offer-slides .offer-slide {
     margin: 0 20px;
     flex-basis: calc(25% - 20px);
 }
