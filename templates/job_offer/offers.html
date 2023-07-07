@@ -238,8 +238,8 @@
             {% if offers %}
                 <div class="row">
                     {% for offer in offers %}
-                        <div class="offer-slide" id="offer-1">
-                            <div class="offer-pic" id="offer-1-picture">
+                        <div class="offer-slide">
+                            <div class="offer-pic">
                                 <div class="curve-line">
                                     {% if offer.offer_pic %}
                                         <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
@@ -249,12 +249,12 @@
                                     <a href="">НАУЧИ ПОВЕЧЕ</a>
                                 </div>
                             </div>
-                            <div class="offer-text-container" id="offer-1-text">
+                            <div class="offer-text-container">
                                 <h3 class="offer-header">{{ offer.job_position }}/{{ offer.employer_name }}</h3>
                                 <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
                                 <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus:
-                                    {{ offer.bonus }} {% endif %}</p>
+                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus: Yes
+                                {% endif %}</p>
                             </div>
                         </div>
 
@@ -262,65 +262,15 @@
                             </div>
                             {% if not forloop.last %}
                                 <div class="row">
+
                             {% endif %}
+
                         {% endif %}
                     {% endfor %}
                 </div>
 
             {% endif %}
-        {#            <div class="offer-slide" id="offer-2">#}
-        {#                <div class="offer-pic" id="offer-2-picture">#}
-        {#                    <div class="curve-line">#}
-        {#                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">#}
-        {#                        <div class="white-border"></div>#}
-        {#                    </div>#}
-        {#                    <div class="offer-btn">#}
-        {#                        <a href="">НАУЧИ ПОВЕЧЕ</a>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#                <div class="offer-text-container" id="offer-2-text">#}
-        {#                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>#}
-        {#                    <p class="offer-location">Nantucket, MA</p>#}
-        {#                    <p class="offer-type">Premium Offer</p>#}
-        {#                    <p class="offer-salary">#17.75/H + FREE MEALS</p>#}
-        {#                </div>#}
-        {#            </div>#}
-        {##}
-        {#            <div class="offer-slide" id="offer-3">#}
-        {#                <div class="offer-pic" id="offer-3-picture">#}
-        {#                    <div class="curve-line">#}
-        {#                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">#}
-        {#                        <div class="white-border"></div>#}
-        {#                    </div>#}
-        {#                    <div class="offer-btn">#}
-        {#                        <a href="">НАУЧИ ПОВЕЧЕ</a>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#                <div class="offer-text-container" id="offer-3-text">#}
-        {#                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>#}
-        {#                    <p class="offer-location">Nantucket, MA</p>#}
-        {#                    <p class="offer-type">Premium Offer</p>#}
-        {#                    <p class="offer-salary">#17.75/H + FREE MEALS</p>#}
-        {#                </div>#}
-        {#            </div>#}
-        {##}
-        {#            <div class="offer-slide" id="offer-4">#}
-        {#                <div class="offer-pic" id="offer-4-picture">#}
-        {#                    <div class="curve-line">#}
-        {#                        <img src="../static/img/Ready-stock/about_1.jpg" alt="">#}
-        {#                        <div class="white-border"></div>#}
-        {#                    </div>#}
-        {#                    <div class="offer-btn">#}
-        {#                        <a href="">НАУЧИ ПОВЕЧЕ</a>#}
-        {#                    </div>#}
-        {#                </div>#}
-        {#                <div class="offer-text-container" id="offer-4-text">#}
-        {#                    <h3 class="offer-header">GROUNDSKEEPER/MAINTENANCE</h3>#}
-        {#                    <p class="offer-location">Nantucket, MA</p>#}
-        {#                    <p class="offer-type">Premium Offer</p>#}
-        {#                    <p class="offer-salary">#17.75/H + FREE MEALS</p>#}
-        {#                </div>#}
-        {#            </div>#}
+
         </div>
         <div class="slider-btn" id="offers-more-btn">
             <a href="">ОЩЕ РАБОТНИ ОФЕРТИ</a>
@@ -365,7 +315,7 @@
         <div class="nav-container">
             <h1>БЪРЗИ ВРЪЗКИ</h1>
             <a href="#top-header">Начало</a>
-            <a href="#about">За нас</a>
+            <a href="#index/about">За нас</a>
             <a href="#">Работни оферти</a>
             <a href="#">Блог</a>
             <a href="{% url 'under-construction' %}">Контакти</a>
