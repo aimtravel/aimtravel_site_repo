@@ -123,6 +123,21 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
+    new_offer = models.BooleanField(
+        verbose_name='Нова оферта',
+        blank=True,
+        null=True,
+    )
+    sold_out_offer = models.BooleanField(
+        verbose_name='Sold out',
+        blank=True,
+        null=True,
+    )
+    last_seats = models.BooleanField(
+        verbose_name='Последни места',
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
