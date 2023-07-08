@@ -122,7 +122,7 @@
                         <a href="#">ЦЕНИ</a>
                         <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>
                     </div>
-                    <span class="icon"></span>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li class="dropdown">
                     <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
@@ -131,7 +131,7 @@
                         <a href="#">placeholder</a>
                         <a href="#">placeholder</a>
                     </div>
-                    <span class="icon"></span>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li><img id="logo" src="../../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="">
                 </li>
@@ -142,7 +142,7 @@
                         <a href="#">placeholder</a>
                         <a href="#">placeholder</a>
                     </div>
-                    <span class="icon"></span>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
@@ -205,34 +205,80 @@
 <main>
 
     <section id="offers">
-        <div id="offers-top-row">
-            <div id="offers-section-header">
-                <h1>Работни Оферти</h1>
+        <div id="offers-page-top-row">
+            <div id="text-area">
+                <h1><b>Разгледайте Нашите <span>Premium</span> Оферти</b></h1>
+                <p>Работните оферти са основно в сферата на туризма. Хотели, ресторанти, кафенета, магазини,
+                    увеселителни и национални паркове в най-популярните ваканционни дестинации. Повечето работни
+                    оферти включват осигурено настаняване.</p>
             </div>
-            <div id="offers-buttons">
-                <div class="round-shape-background">
-                    <div class="btn" id="prev-button">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M15 6l-6 6 6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                        </svg>
+            <div class="filter-row">
+                <div id="offer-page-filters">
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">📍 Щат</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
                     </div>
-                </div>
-                <div class="round-shape-background">
-                    <div class="btn" id="next-button">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M9 6l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                        </svg>
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">📍 Град</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">📄 Работна Позиция</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
+                    </div>
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">🗂️ Подходящо За</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
+                    </div>
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">💰 Заплащане</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
+                    </div>
+                    <div class="dropdown offer-filters">
+                        <a class="target-element" href="#">🏠 Housing</a>
+                        <div class="tooltip">
+                            <div class="checkbox-row">
+                                <input id="state-1" type="checkbox">
+                                <label for="state-1">State-1</label>
+                            </div>
+                        </div>
+                        <span class="dropdown-icon"></span>
+                    </div>
 
+                </div>
+            </div>
+
+        </div>
 
         <div id="offer-slides">
             {% if offers %}
@@ -267,13 +313,56 @@
 
                         {% endif %}
                     {% endfor %}
-                </div>
+                    </div>
 
             {% endif %}
 
         </div>
-        <div class="slider-btn" id="offers-more-btn">
-            <a href="">ОЩЕ РАБОТНИ ОФЕРТИ</a>
+
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+            {% else %}
+                <p><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M15 6l-6 6 6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </p>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num == page_obj.number %}
+                    <span class="current-page">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+            {% else %}
+                <p><?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                         xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M9 6l6 6-6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </p>
+            {% endif %}
         </div>
     </section>
     <section id="pricing-section">

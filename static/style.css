@@ -300,7 +300,7 @@ nav a {
     font-size: 18px;
 }
 
-nav .icon {
+.dropdown-icon {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -1942,6 +1942,108 @@ footer .usa-flag {
 
 }
 
+/* OFFERS FILTERING */
+
+#offers-page-top-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#offers-page-top-row #text-area {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: #00355E;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+#offers-page-top-row #text-area h1 {
+    font-size: 32px;
+    text-transform: capitalize;
+    letter-spacing: 1.5px;
+    margin: 16px 0px;
+
+}
+
+#offers-page-top-row #text-area h1 span{
+    color:#9D0A0E;
+    text-decoration: underline;
+}
+
+#offers-page-top-row #text-area p {
+    margin: 0px;
+    width: 70%;
+    font-weight: 550;
+    font-size: 16px;
+    text-align: center;
+    text-transform: none;
+}
+
+
+#offers-page-top-row .filter-row {
+    display: flex;
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+#offers-page-top-row .filter-row #offer-page-filters {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#offer-page-filters .offer-filters {
+    display: flex;
+    align-items: flex-start;
+    box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
+    border: 1px solid #b9bcc0;
+    border-radius: 10px;
+    padding: 2px 10px;
+    background: rgba(160, 160, 160, 0.1);
+}
+
+#offer-page-filters a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
+#offer-page-filters .dropdown-icon {
+    color: #000000;
+    background-image: url('../static/img/nav-arrow-down.svg');
+}
+
+#offer-page-filters .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#offer-page-filters .tooltip {
+    left: 50%;
+    background: #FFFFFF;
+    z-index: 50;
+}
+
+#offer-page-filters .tooltip::before {
+    border: none;
+}
+
+/* OFFERS */
+
 #offer-slides {
     display: flex;
     flex-wrap: wrap;
@@ -1962,4 +2064,34 @@ footer .usa-flag {
 
     margin: 0 20px;
     flex-basis: calc(310px - 20px);
+}
+
+/* PAGINATOR */
+
+.pagination {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 18px;
+}
+
+.pagination .current-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #FFFFFF;
+    background: #00355E;
+    border-radius: 50%;
 }
