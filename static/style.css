@@ -1952,7 +1952,7 @@ footer .usa-flag {
     justify-content: center;
 }
 
-#offers-page-top-row #text-area {
+.text-area {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -1966,7 +1966,7 @@ footer .usa-flag {
     letter-spacing: 1.3px;
 }
 
-#offers-page-top-row #text-area h1 {
+.text-area h1 {
     font-size: 32px;
     text-transform: capitalize;
     letter-spacing: 1.5px;
@@ -1974,12 +1974,12 @@ footer .usa-flag {
 
 }
 
-#offers-page-top-row #text-area h1 span{
-    color:#9D0A0E;
+.text-area h1 span {
+    color: #9D0A0E;
     text-decoration: underline;
 }
 
-#offers-page-top-row #text-area p {
+.text-area p {
     margin: 0px;
     width: 70%;
     font-weight: 550;
@@ -1988,6 +1988,10 @@ footer .usa-flag {
     text-transform: none;
 }
 
+.text-area p span {
+    color: #9D0A0E;
+    text-decoration: underline;
+}
 
 #offers-page-top-row .filter-row {
     display: flex;
@@ -2047,7 +2051,6 @@ footer .usa-flag {
     left: 50%;
     background: #FFFFFF;
     z-index: 50;
-    background: ;
 }
 
 #offer-page-filters .tooltip::before {
@@ -2106,4 +2109,87 @@ footer .usa-flag {
     color: #FFFFFF;
     background: #00355E;
     border-radius: 50%;
+}
+
+/* CONTACT FORM */
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0px;
+
+    gap: 25px;
+}
+
+.query-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    color: #00355E;
+    font-size: 18px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15px 0px;
+}
+
+.sub-line {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 15px;
+}
+
+.form-field-semi {
+    width: 300px;
+    height: 25px;
+    background: #FBFCFF;
+    border: 1px solid #B9BCC0;
+    border-radius: 5px;
+    box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.06);
+}
+
+.form-field-text {
+    width: 640px;
+    height: 100px;
+    background: #FBFCFF;
+    border: 1px solid #B9BCC0;
+    border-radius: 5px;
+    box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.06);
+}
+
+.query-btn {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+    height: 35px;
+    background: #9D0A0E;
+    border-radius: 5px;
+}
+
+.query-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.query-btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    font-size: 12px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 500;
+    text-decoration: none;
 }
