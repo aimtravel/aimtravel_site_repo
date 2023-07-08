@@ -2001,9 +2001,15 @@ footer .usa-flag {
     gap: 20px;
 }
 
-#offer-page-filters .offer-filters {
+#offer-page-filters .dropdown {
+    position: relative;
     display: flex;
-    align-items: flex-start;
+}
+
+#offer-page-filters .offer-filters {
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    align-items: center;
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
     border: 1px solid #b9bcc0;
     border-radius: 10px;
@@ -2011,7 +2017,8 @@ footer .usa-flag {
     background: rgba(160, 160, 160, 0.1);
 }
 
-#offer-page-filters a {
+
+#offer-page-filters button {
     text-decoration: none;
     color: #000000;
     font-size: 18px;
@@ -2020,22 +2027,27 @@ footer .usa-flag {
     font-weight: 550;
     line-height: 20px;
     letter-spacing: 1px;
+    border: none;
+    background: none;
 }
 
-#offer-page-filters .dropdown-icon {
+#offer-page-filters .icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-left: 3px;
+
     color: #000000;
-    background-image: url('../static/img/nav-arrow-down.svg');
-}
 
-#offer-page-filters .dropdown {
-    position: relative;
-    display: inline-block;
 }
 
 #offer-page-filters .tooltip {
     left: 50%;
     background: #FFFFFF;
     z-index: 50;
+    background: ;
 }
 
 #offer-page-filters .tooltip::before {
