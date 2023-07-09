@@ -5,6 +5,9 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django_filters import views as filter_views
+from django.core.mail import send_mail
+from django.views.decorators.http import require_POST
+from django.utils.encoding import smart_str
 
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.filters import OfferFilter
@@ -294,3 +297,22 @@ class OfferViewIndex(views.ListView):
     context_object_name = 'offer_list'
     paginate_by = 4
     ordering = ('-ranking', '-wage',)
+
+
+# FUNCTIONAL VIEWS
+
+@require_POST
+def form_submission_view(request):
+    name = request.POST.get('name')
+    family = request.POST.get('family')
+    email = request.POST.get('email-field')
+    phone = request.POST.get('phone-field')
+
+    message = request.POST.get('message')
+
+    subject = f"New Query from {name} {family} - {email}"
+    mail_message = f"Name: {name}\nFamily: {family}\nEmail: {email}\nPhone: {phone}\n\nMessage: {message}"
+    encoded_message = smart_str(mail_message, encoding='utf-8')
+    send_mail(subject, encoded_message, email, ['vlzahariev26@gmail.com'], fail_silently=False)
+
+    return render(request, 'job_offer/success.html')

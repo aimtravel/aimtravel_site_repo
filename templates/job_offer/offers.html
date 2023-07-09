@@ -437,41 +437,45 @@
                 възможно най-добре
                 за работната оферта и ще ви помогнем да намерите най-добрата за вас.</p>
         </div>
-        <div class="query-form">
-            <div class="name-part line">
-                <div class="sub-line">
-                    <label for="name">Име</label>
-                    <input type="text" id="name" class="form-field-semi">
-                </div>
-                <div class="sub-line">
-                    <label for="family">Фамилия</label>
-                    <input type="text" id="family" class="form-field-semi">
-                </div>
-            </div>
-            <div class="contact-part line">
-                <div class="sub-line">
-                    <label for="email-field">Email</label>
-                    <input type="email" id="email-field" class="form-field-semi">
-                </div>
-                <div class="sub-line">
-                    <label for="phone-field">Телефон</label>
-                    <input type="text" id="phone-field" class="form-field-semi">
-                </div>
-            </div>
-            <div class="message-part line">
-                <div class="sub-line">
-                    <label for="message">Съобщение</label>
-                    <input type="text" id="message" class="form-field-text">
-                </div>
-            </div>
-            <div class="button-part line">
-                <div class="query-btn">
-                    <div class="query-button">
-                        <a href="">ИЗПРАТИ</a>
+
+        <form action="/submit-form/" method="POST">
+            {% csrf_token %}
+            <div class="query-form">
+                <div class="name-part line">
+                    <div class="sub-line">
+                        <label for="name">Име</label>
+                        <input type="text" name="name" id="name" class="form-field-semi">
+                    </div>
+                    <div class="sub-line">
+                        <label for="family">Фамилия</label>
+                        <input type="text" name="family" id="family" class="form-field-semi">
                     </div>
                 </div>
+                <div class="contact-part line">
+                    <div class="sub-line">
+                        <label for="email-field">Email</label>
+                        <input type="email" name="email-field" id="email-field" class="form-field-semi">
+                    </div>
+                    <div class="sub-line">
+                        <label for="phone-field">Телефон</label>
+                        <input type="text" name="phone-field" id="phone-field" class="form-field-semi">
+                    </div>
+                </div>
+                <div class="message-part line">
+                    <div class="sub-line">
+                        <label for="message">Съобщение</label>
+                        <input type="text" name="message" id="message" class="form-field-text">
+                    </div>
+                </div>
+                <div class="button-part line">
+
+                    <button type='submit' class="query-button query-btn">ИЗПРАТИ</button>
+
+                </div>
             </div>
-        </div>
+        </form>
+
+
     </section>
 
 </main>

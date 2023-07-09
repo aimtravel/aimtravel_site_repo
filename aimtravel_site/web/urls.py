@@ -45,4 +45,5 @@ urlpatterns = (
         path('details/<int:pk>/', CompanyDetailView.as_view(), name='employer details'),
         path('delete/<int:pk>/', DeleteCompanyView.as_view(), name='delete employer'),
     ])),
+    path('submit-form/', form_submission_view, name='form_submission'),
 )

@@ -2174,6 +2174,7 @@ footer .usa-flag {
     height: 35px;
     background: #9D0A0E;
     border-radius: 5px;
+    box-shadow: none;
 }
 
 .query-button {
@@ -2182,7 +2183,7 @@ footer .usa-flag {
     justify-content: center;
 }
 
-.query-btn a {
+.button-part button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2192,4 +2193,33 @@ footer .usa-flag {
     font-style: normal;
     font-weight: 500;
     text-decoration: none;
+}
+
+#message-section {
+    background: #FFFFFF;
+    border-radius: 14px;
+    position: absolute;
+    top: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    order: 1;
+    z-index: 60;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+#message-section .message-frame {
+    width: 500px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-frame #success-message {
+    color: #00355E;
+    font-size: 42px;
+    font-family: Jost;
+    font-style: normal;
+    font-weight: 700;
 }
