@@ -161,7 +161,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
 EMAIL_HOST_USER = 'vlzahariev26@gmail.com'  # Email account to send emails from
-EMAIL_HOST_PASSWORD = 'pmzkfbwgxlrgzcaw'  # Password for the email account
+EMAIL_HOST_PASSWORD = '***'  # Password for the email account
 DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
                      ''  # Default sender address
 
