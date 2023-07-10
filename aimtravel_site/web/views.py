@@ -304,14 +304,14 @@ class OfferViewIndex(views.ListView):
 @require_POST
 def form_submission_view(request):
     name = request.POST.get('name')
-    family = request.POST.get('family')
+    university = request.POST.get('university')
     email = request.POST.get('email-field')
     phone = request.POST.get('phone-field')
 
     message = request.POST.get('message')
 
-    subject = f"New Query from {name} {family} - {email}"
-    mail_message = f"Name: {name}\nFamily: {family}\nEmail: {email}\nPhone: {phone}\n\nMessage: {message}"
+    subject = f"HIGH PRIORITY!!! - {name} - Запитване за студентска бригадав"
+    mail_message = f"Име и Фамилия: {name}\nУниверситет: {university}\nEmail: {email}\nТелефон: {phone}\n\nЗапитване: {message}"
     encoded_message = smart_str(mail_message, encoding='utf-8')
     send_mail(subject, encoded_message, email, ['vlzahariev26@gmail.com'], fail_silently=False)
 

@@ -2023,6 +2023,9 @@ footer .usa-flag {
 
 
 #offer-page-filters button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: #000000;
     font-size: 18px;
