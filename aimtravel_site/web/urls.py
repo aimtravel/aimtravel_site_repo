@@ -18,7 +18,6 @@ urlpatterns = (
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),
         path('all/', DisplayOfferView.as_view(), name='offers'),
-        path('all_filter/', DisplayFilterOfferView.as_view(), name='offers_filter'),
         path('edit/<int:pk>/', EditOfferView.as_view(), name='edit offer'),
         path('delete/<int:pk>/', DeleteOfferView.as_view(), name='delete offer'),
         path('details/<int:pk>/', DetailsOfferView.as_view(), name='details offer'),

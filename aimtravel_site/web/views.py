@@ -71,6 +71,14 @@ def taxes(request):
 # END - - - STATIC VIEWS
 
 
+class OfferViewIndex(views.ListView):
+    model = JobOffer
+    template_name = 'index.html'
+    context_object_name = 'offer_list'
+    paginate_by = 4
+    ordering = ('-ranking', '-wage',)
+
+
 class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView):
     fields = '__all__'
     model = JobOffer
@@ -99,10 +107,24 @@ class DisplayOfferView(views.ListView):
         return context
 
 
-class DisplayFilterOfferView(filter_views.FilterView):
-    filterset_class = OfferFilter
-    template_name = 'job_offer/offer_filter.html'
+def job_offer_list(request):
+    states = JobOffer.objects.values_list('state', flat=True).distinct()
+    cities = JobOffer.objects.values_list('city', flat=True).distinct()
+    job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
+    suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
+    wages = JobOffer.objects.values_list('wage', flat=True).distinct()
+    housing = JobOffer.objects.values_list('housing', flat=True).distinct()
 
+    context = {
+        'states': states,
+        'cities': cities,
+        'job_positions': job_positions,
+        'suitable_for': suitable_for,
+        'wages': wages,
+        'housing': housing
+    }
+
+    return render(request, 'job_offer/offers.html', context)
 
 class DetailsOfferView(views.DetailView):
     model = JobOffer
@@ -134,6 +156,8 @@ class DeleteOfferView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView)
 
     def test_func(self):
         return self.request.user.is_staff
+
+# PRICING SECTION
 
 
 class CreatePriceView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView):
@@ -183,6 +207,8 @@ class DeletePriceView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView)
 
     def test_func(self):
         return self.request.user.is_superuser
+
+# SERVICES SECTION
 
 
 class CreateServiceView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView):
@@ -240,6 +266,8 @@ class AllEmployeeView(views.ListView):
     context_object_name = 'employee_list'
     ordering = 'user'
 
+# EMPLOYER`s SECTION
+
 
 class CreateCompanyView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView):
     fields = '__all__'
@@ -291,12 +319,7 @@ class DeleteCompanyView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteVie
         return self.request.user.is_staff
 
 
-class OfferViewIndex(views.ListView):
-    model = JobOffer
-    template_name = 'index.html'
-    context_object_name = 'offer_list'
-    paginate_by = 4
-    ordering = ('-ranking', '-wage',)
+
 
 
 # FUNCTIONAL VIEWS

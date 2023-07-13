@@ -15,6 +15,11 @@ class JobOffer(models.Model):
     STATE_NAME = 20
     SPONSOR_NAME = 20
 
+    SUITABLE_FOR = (
+        ('students', 'Студенти'),
+        ('non-students', 'Нестуденти'),
+    )
+
     employer_name = models.CharField(
         verbose_name='Име на работодател',
         max_length=EMPLOYER,
@@ -92,6 +97,13 @@ class JobOffer(models.Model):
     )
     couples = models.BooleanField(
         verbose_name='Подходящо за двойки',
+        blank=True,
+        null=True,
+    )
+    suitable_for = models.CharField(
+        choices=SUITABLE_FOR,
+        max_length=20,
+        verbose_name="Подходящо за",
         blank=True,
         null=True,
     )
