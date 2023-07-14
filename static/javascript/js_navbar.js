@@ -10,21 +10,21 @@ var stickyOffset = navbar.offsetTop;
 function stickyNav() {
   if (window.pageYOffset >= stickyOffset) {
     navbar.classList.add("sticky");
-    logo.style.width = '60px';
-    logo.style.height = '60px';
+    logo.style.width = '50px';
+    logo.style.height = '50px';
     
     navA.forEach(element => {
-      element.style.fontSize = '15px'
+      element.style.fontSize = '13px'
     });
 
     
   } else {
     navbar.classList.remove("sticky");
-    logo.style.width = '100px';
-    logo.style.height = '100px';
+    logo.style.width = '80px';
+    logo.style.height = '80px';
 
     navA.forEach(element => {
-      element.style.fontSize = '18px'
+      element.style.fontSize = '15px'
     });
   }
 }

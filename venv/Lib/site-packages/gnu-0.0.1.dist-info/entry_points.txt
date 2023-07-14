@@ -1,0 +1,3 @@
+[console_scripts]
+gnu = gnu.shell:run
+
