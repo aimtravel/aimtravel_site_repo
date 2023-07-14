@@ -102,7 +102,13 @@
                 </div>
 
                 <div id="top-header-right-login">
-                    <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
+                    {% if user.is_authenticated %}
+                        {% if user.is_superuser %}
+                            <a id="top-header-right-login-p1" href="https://new.aimtravel.bg/admin">Admin</a>
+                        {% endif %}
+                    {% else %}
+                        <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
+                    {% endif %}
                 </div>
 
             </div>
