@@ -859,8 +859,9 @@ main .main-flag2 {
 }
 
 #offers-slides {
-    width: 100%;
+    width: 80%;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     gap: 50px;
