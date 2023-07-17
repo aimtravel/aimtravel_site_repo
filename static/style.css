@@ -1722,7 +1722,7 @@ footer .usa-flag {
     color: #FFF;
     text-align: center;
     text-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.98);
-    font-size: 24px;
+    font-size: 22px;
     font-family: Jost, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -1749,7 +1749,8 @@ footer .usa-flag {
 
 #text-container h1 {
     color: white;
-    font-size: 60px;
+    font-size: 58px;
+    font-weight: 550;
 }
 
 #text-container p {
@@ -1758,6 +1759,7 @@ footer .usa-flag {
     width: 38%;
     color: white;
     font-size: 20px;
+    font-weight: 350;
 }
 
 
@@ -1845,6 +1847,7 @@ footer .usa-flag {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 180px;
 }
 
 .text-area {
@@ -1862,7 +1865,7 @@ footer .usa-flag {
 }
 
 .text-area h1 {
-    font-size: 32px;
+    font-size: 36px;
     text-transform: capitalize;
     letter-spacing: 1.5px;
     margin: 16px 0px;
@@ -1876,7 +1879,7 @@ footer .usa-flag {
 
 .text-area p {
     margin: 0px;
-    width: 70%;
+    width: 80%;
     font-weight: 550;
     font-size: 16px;
     text-align: center;
