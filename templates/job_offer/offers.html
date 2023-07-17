@@ -334,7 +334,7 @@
 
         </div>
 
-        <div id="offer-slides">
+        <div class="offer-slides">
             {% if offers %}
                 <div class="row">
                     {% for offer in offers %}
@@ -350,7 +350,7 @@
                                 </div>
                             </div>
                             <div class="offer-text-container">
-                                <h3 class="offer-header">{{ offer.job_position }}/{{ offer.employer_name }}</h3>
+                                <h3 class="offer-header">{{ offer.job_position }}</h3>
                                 <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
                                 <p class="offer-type">Premium Offer</p>
                                 <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus: Yes

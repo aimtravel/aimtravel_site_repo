@@ -174,7 +174,7 @@
                             <p id="main-slider-text-heading">AIM TRAVEL</p>
                             <hr>
                             <p id="main-slider-text-subheading">Work & Travel Agency</p>
-                            <div id="main-slider-button">
+                            <div id="main-slider-button" >
                                 <a href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                             </div>
                         </div>
@@ -369,7 +369,7 @@
             </div>
         </div>
 
-        <div id="offer-slides">
+        <div class="offer-slides">
             {% if offer_list %}
                 <div class="row">
                     {% for offer in offer_list %}
@@ -385,10 +385,10 @@
                                 </div>
                             </div>
                             <div class="offer-text-container">
-                                <h3 class="offer-header">{{ offer.job_position }}/{{ offer.employer_name }}</h3>
+                                <h3 class="offer-header">{{ offer.job_position }}</h3>
                                 <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
                                 <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus: Yes
+                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} + Bonus
                                 {% endif %}</p>
                             </div>
                         </div>
@@ -617,7 +617,7 @@
                         <img src="../static/img/last1.png" alt="">
                         <div class="white-border"></div>
                     </div>
-                    <div id="last-4-1-text">
+                    <div id="last-4-1-text" class="last-4-text">
                         <p class="news-date">17 МАРТ 2023</p>
                         <h3>Бригада – направете го, защото си заслужава</h3>
                         <a href="#">Прочети Статия</a>
@@ -628,7 +628,7 @@
                         <img src="../static/img/last2.png" alt="">
                         <div class="white-border"></div>
                     </div>
-                    <div id="last-4-2-text">
+                    <div id="last-4-2-text" class="last-4-text">
                         <p class="news-date">17 МАРТ 2023</p>
                         <h3>Бригада – направете го, защото си заслужава</h3>
                         <a href="#">Прочети Статия</a>
@@ -639,7 +639,7 @@
                         <img src="../static/img/last3.png" alt="">
                         <div class="white-border"></div>
                     </div>
-                    <div id="last-4-3-text">
+                    <div id="last-4-3-text" class="last-4-text">
                         <p class="news-date">17 МАРТ 2023</p>
                         <h3>Бригада – направете го, защото си заслужава</h3>
                         <a href="#">Прочети Статия</a>
@@ -650,7 +650,7 @@
                         <img src="../static/img/last4.png" alt="">
                         <div class="white-border"></div>
                     </div>
-                    <div id="last-4-4-text">
+                    <div id="last-4-4-text" class="last-4-text">
                         <p class="news-date">17 МАРТ 2023</p>
                         <h3>Бригада – направете го, защото си заслужава</h3>
                         <a href="#">Прочети Статия</a>
@@ -697,7 +697,7 @@
         <div id="story">
             <div id="story-1" class="story-container">
                 <div class="story-img">
-                    <img src="" alt="pic1">
+                    <img src="../static/img/subvideo2.JPG" alt="pic1">
                     <div class="white-border"></div>
                 </div>
                 <div class="story-text">
@@ -711,7 +711,7 @@
             </div>
             <div id="story-2" class="story-container">
                 <div class="story-img">
-                    <img src="" alt="pic2">
+                    <img src="../static/img/subvideo3.JPG" alt="pic2">
                     <div class="white-border"></div>
                 </div>
                 <div class="story-text">
@@ -724,7 +724,7 @@
             </div>
             <div id="story-3" class="story-container">
                 <div class="story-img">
-                    <img src="" alt="pic3">
+                    <img src="../static/img/subvideo4.JPG" alt="pic3">
                     <div class="white-border"></div>
                 </div>
                 <div class="story-text">
@@ -847,7 +847,7 @@
     <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
     <div id="footer-nav-container">
         <div id="logo-container">
-            <a href="">
+            <a href="{% url 'index' %}">
                 <img src="../static/img/white-AIM_logo%201.png" alt="">
             </a>
             <p>Work Hard Travel Far</p>
@@ -912,7 +912,7 @@
     </div>
     <div id="footer-link-container">
         <div id="footer-text">
-            <p>Copyright © <b>AIM Travel USA</b> 2023. Всички права запазени.</p>
+            <p>Copyright © AIM Travel USA 2023. Всички права запазени.</p>
         </div>
         <div id="footer-links-icons">
 
