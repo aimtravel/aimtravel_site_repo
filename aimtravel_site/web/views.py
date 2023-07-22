@@ -39,6 +39,7 @@ def error_404(request, exception):
 def under_construction(request):
     return render(request, 'under_construction.html')
 
+
 # END - - - GENERIC VIEWS
 
 
@@ -115,16 +116,44 @@ def job_offer_list(request):
     wages = JobOffer.objects.values_list('wage', flat=True).distinct()
     housing = JobOffer.objects.values_list('housing', flat=True).distinct()
 
+    filtered_offers = JobOffer.objects.all()
+    selected_state = request.GET.getlist('state')
+    selected_city = request.GET.getlist('city')
+    selected_job_position = request.GET.getlist('job_position')
+    selected_suitable_for = request.GET.getlist('suitable_for')
+    selected_wage = request.GET.getlist('wage')
+    selected_housing = request.GET.getlist('housing')
+
+    if selected_state:
+        filtered_offers = filtered_offers.filter(state__in=selected_state)
+    if selected_city:
+        filtered_offers = filtered_offers.filter(city__in=selected_city)
+    if selected_job_position:
+        filtered_offers = filtered_offers.filter(job_position__in=selected_job_position)
+    if selected_suitable_for:
+        filtered_offers = filtered_offers.filter(suitable_for__in=selected_suitable_for)
+    if selected_wage:
+        filtered_offers = filtered_offers.filter(wage__in=selected_wage)
+    if selected_housing:
+        filtered_offers = filtered_offers.filter(housing__in=selected_housing)
+
+    paginator = Paginator(filtered_offers, 12)  # Display 10 offers per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'states': states,
         'cities': cities,
         'job_positions': job_positions,
         'suitable_for': suitable_for,
         'wages': wages,
-        'housing': housing
+        'housing': housing,
+        'filtered_offers': filtered_offers,
+        'page_obj': page_obj
     }
 
     return render(request, 'job_offer/offers.html', context)
+
 
 class DetailsOfferView(views.DetailView):
     model = JobOffer
@@ -156,6 +185,7 @@ class DeleteOfferView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView)
 
     def test_func(self):
         return self.request.user.is_staff
+
 
 # PRICING SECTION
 
@@ -207,6 +237,7 @@ class DeletePriceView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView)
 
     def test_func(self):
         return self.request.user.is_superuser
+
 
 # SERVICES SECTION
 
@@ -266,6 +297,7 @@ class AllEmployeeView(views.ListView):
     context_object_name = 'employee_list'
     ordering = 'user'
 
+
 # EMPLOYER`s SECTION
 
 
@@ -317,9 +349,6 @@ class DeleteCompanyView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteVie
 
     def test_func(self):
         return self.request.user.is_staff
-
-
-
 
 
 # FUNCTIONAL VIEWS

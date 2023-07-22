@@ -20,11 +20,11 @@ function stickyNav() {
     
   } else {
     navbar.classList.remove("sticky");
-    logo.style.width = '100px';
-    logo.style.height = '100px';
+    logo.style.width = '112px';
+    logo.style.height = '118px';
 
     navA.forEach(element => {
-      element.style.fontSize = '16px'
+      element.style.fontSize = '20px'
     });
   }
 }

@@ -60,7 +60,7 @@
                                       stroke-linejoin="round"></path>
                             </svg>
                         </a>
-                        <div id="vl3"></div>
+
                     </div>
                     <div class="vl">
                         <hr>
@@ -77,12 +77,12 @@
                                         stroke="#FFFFFF" stroke-width="1.5"></path>
                             </svg>
                         </a>
-                        <div id="vl3"></div>
+
                     </div>
                     <div class="vl">
                         <hr>
                     </div>
-                    <div class="tiktok-link">
+                    <div id="tiktok-link">
                         <a href="https://www.tiktok.com/@aim_travelusa">
                             <?xml version="1.0" encoding="UTF-8"?>
                             <svg width="24px" height="24px" stroke-width="1.5"
@@ -100,7 +100,6 @@
                     </div>
 
                 </div>
-
                 <div id="top-header-right-login">
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
@@ -110,7 +109,6 @@
                         <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
                     {% endif %}
                 </div>
-
             </div>
         </div>
     </section>
@@ -170,11 +168,13 @@
 
                     <div class="slider-container">
 
-                        <div class='text-container' id='main-slider'>
-                            <p id="main-slider-text-heading">AIM TRAVEL</p>
-                            <hr>
-                            <p id="main-slider-text-subheading">Work & Travel Agency</p>
-                            <div id="main-slider-button" >
+                        <div id="main-slider">
+                            <div class='text-container'>
+                                <p id="main-slider-text-heading">AIM TRAVEL</p>
+                                <hr>
+                                <p id="main-slider-text-subheading">Work & Travel Agency</p>
+                            </div>
+                            <div class="slider-btn main-slider-button">
                                 <a href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                             </div>
                         </div>
@@ -289,9 +289,9 @@
     <section id="cta-section">
         <div id="cta-background-gradient">
             <div id="cta-container">
-                <h3><b>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</b></h3>
+                <h3>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
                 <h1>НЕ СЕ ПРИТЕСНЯВЙТЕ!</h1>
-                <h3>НИЕ СМЕ НАСРЕЩА!</h3>
+                <h3 id="cta-subheading">НИЕ СМЕ НАСРЕЩА!</h3>
                 <div id="cta-subtext">
                     <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за
                         безплатна
@@ -317,10 +317,9 @@
                         <a href="?page={{ page_obj.previous_page_number }}">
                             <div class="btn" id="prev-button">
                                 <?xml version="1.0" encoding="UTF-8"?>
-                                <svg width="24px" height="24px" stroke-width="1.5"
-                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                    <path d="M15 6l-6 6 6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
-                                          stroke-linejoin="round"></path>
+                                <svg width="28px" height="29px" stroke-width="1.5"
+                                     viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg" color="#E8E8E8">
+                                    <path d="M17.5 21.5L10.5 14.5L17.5 7.5" stroke="#757575" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </div>
                         </a>
@@ -380,7 +379,7 @@
                                         <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
                                     <div class="white-border"></div>
                                 </div>
-                                <div class="offer-btn">
+                                <div class="offer-btn slider-btn">
                                     <a href="">НАУЧИ ПОВЕЧЕ</a>
                                 </div>
                             </div>

@@ -78,4 +78,4 @@ function nextHandler() {
   }
 };
 
-setInterval(nextHandler, 10000)
+// setInterval(nextHandler, 10000)

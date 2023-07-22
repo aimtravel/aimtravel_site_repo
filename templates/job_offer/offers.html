@@ -331,13 +331,46 @@
 
                 </div>
             </div>
+            <div>
+                <form id="job-offer-filter-form">
+                    <h3>State:</h3>
+                    {% for state in states %}
+                        <input type="checkbox" name="state" value="{{ state }}"> {{ state }}<br>
+                    {% endfor %}
+
+                    <h3>City:</h3>
+                    {% for city in cities %}
+                        <input type="checkbox" name="city" value="{{ city }}"> {{ city }}<br>
+                    {% endfor %}
+
+                    <h3>Job Position:</h3>
+                    {% for position in job_positions %}
+                        <input type="checkbox" name="job_position" value="{{ position }}"> {{ position }}<br>
+                    {% endfor %}
+
+                    <h3>Suitable for:</h3>
+                    {% for suitable in suitable_for %}
+                        <input type="checkbox" name="suitable_for" value="{{ suitable }}"> {{ suitable }}<br>
+                    {% endfor %}
+
+                    <h3>Wage:</h3>
+                    {% for wage in wages %}
+                        <input type="checkbox" name="wage" value="{{ wages }}"> {{ wages }}<br>
+                    {% endfor %}
+
+                    <h3>Housing:</h3>
+                    {% for house in housing %}
+                        <input type="checkbox" name="housing" value="{{ house }}"> {{ house }}<br>
+                    {% endfor %}
+                </form>
+            </div>
 
         </div>
 
         <div class="offer-slides">
-            {% if offers %}
+            {% if filtered_offers %}
                 <div class="row">
-                    {% for offer in offers %}
+                    {% for offer in filtered_offers %}
                         <div class="offer-slide">
                             <div class="offer-pic">
                                 <div class="curve-line">
@@ -646,6 +679,8 @@
         </div>
     </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../../static/javascript/js_filtering.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_dropdown.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_slider.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_navbar.js"></script>
