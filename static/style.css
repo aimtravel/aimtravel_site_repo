@@ -1304,7 +1304,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     position: absolute;
 }
 
-.subvideo a img {
+.subvideo a .thumbnail {
     background: linear-gradient(0.67deg, rgba(0, 0, 0, 0.8) 0.48%, rgba(0, 0, 0, 0) 99.46%), rgba(1, 49, 86, 0.45);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
