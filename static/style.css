@@ -1067,7 +1067,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #video-section {
     width: 100%;
-    height: 1100px;
+    height: 1150px;
     padding-top: 80px;
 
     display: flex;
@@ -1347,124 +1347,157 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     z-index: 5;
 }
 
-#video-more-btn {
-}
-
 
 /* News */
 
 #news-section {
     width: 100%;
-    height: 980px;
+    height: 1300px;
     display: flex;
     flex-direction: column;
 
     font-family: 'Jost';
     font-style: normal;
+    line-height: normal;
     font-weight: 700;
-    letter-spacing: 0.03em;
     color: #00355E;
 
-    margin-bottom: 0px;
+    /*margin-bottom: 80px;*/
     padding-bottom: 0px;
-}
-
-.news-date {
-    font-weight: 400;
-    font-size: 14px;
-    color: #767676;
-    margin: 20px 0 0 0;
-}
-
-#last-4-news .news-date {
-    margin: 0px;
-    font-size: 13px;
 }
 
 #news-heading {
     display: flex;
-    margin: 0px;
+    align-items: flex-start;
+    align-self: stretch;
+    padding-left: 80px;
 }
 
 #heading-news {
-    display: flex;
-    padding-left: 7%;
-    font-size: 36px;
+    font-size: 42px;
     text-transform: capitalize;
+    letter-spacing: 0.84px;
     color: #00355E;
 }
 
 #news {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 160px;
 }
 
-#news h2 {
-    font-size: 28px;
+.news-date {
+    font-weight: 400;
+    font-size: 18px;
+    color: #767676;
+    margin: 20px 0 0 0;
 }
 
-#news h3 {
-    font-size: 19px;
-    font-weight: 500;
-    margin: 0px;
+#last-4-news .news-date {
+    margin: 0 0 8px 0;
+    font-size: 15px;
 }
 
 #last-news {
-    width: 43%;
-    margin: 0 25px 0 55px;
+    padding-left: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+#last-news p,
+#last-news h2 {
+    margin: 0;
+    padding: 0;
 }
 
 #last-news-img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
     position: relative;
-    border: 1px solid white;
     border-radius: 20px;
 
 }
 
 #last-news-img .white-border {
+    width: 690px;
+    height: 478px;
     position: absolute;
-    bottom: 5.5%;
-    left: 2.1%;
-    width: 85.5%;
-    height: 89.8%;
+    left: 13px;
+    top: 19px;
     border-radius: 20px;
-    border: 1px solid white;
+    border: 1.5px solid white;
 }
 
 #last-news-img img {
-    width: 90%;
-    height: 350px;
+    width: 719px;
+    height: 518px;
     border-radius: 20px;
+    background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%), lightgray 50% / cover no-repeat;
+}
+
+#last-news-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+#last-4-news h3 {
+    color: #00355E;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px; /* 128% */
+    letter-spacing: 0.75px;
+    width: 297px;
+    margin: 0 0 10px 0;
+    padding: 0;
 }
 
 #last-news-main-content {
-    width: 92%;
-    font-size: 16px;
+    width: 671px;
+    font-size: 20px;
     font-weight: 400;
+    letter-spacing: 0.6px;
     color: #000000;
 }
 
+#last-news-text h2 {
+    font-size: 36px;
+    line-height: 42px;
+    letter-spacing: 0.72px;
+}
+
 .news-content {
-    width: 80%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 10px;
+    width: 743px;
+    align-items: flex-start;
+    gap: 32px;
+    flex-shrink: 0;
 }
 
 .last-4-text {
     display: flex;
+    width: 455px;
+    padding-top: 24px;
     flex-direction: column;
-    gap: 5px;
+    align-items: flex-start;
+
+    flex-shrink: 0;
 }
 
 #last-4-news {
-    width: 43%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 48px;
 }
 
 #last-4-news img {
@@ -1489,28 +1522,35 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-4-news a {
-    font-weight: 400;
-    font-size: 16px;
     color: #9D0A0E;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-decoration-line: underline;
 }
 
 #news-button {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #news-more-btn {
     display: flex;
     justify-content: center;
-    margin: 50px 0px;
+    margin: 110px 0 90px 0;
 
 }
 
 /* Pricing section */
 
 #pricing-section {
-    margin-top: 0px;
-    padding-top: 40px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
