@@ -434,9 +434,9 @@ nav a {
 }
 
 #main-slider hr {
-    width: 868px;
+    width: 870px;
     height: 0px;
-    border: 1.8px solid #9D0A0E;
+    border: 2px solid #9D0A0E;
 }
 
 #main-slider-text-subheading {
@@ -1556,62 +1556,63 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 550px;
+    height: 500px;
+    padding: 90px 0;
     background: linear-gradient(91.22deg, #841114 -0.68%, #9D0A0E 51.53%, #841114 100.57%);
 
     font-family: 'Jost';
     font-style: normal;
     font-weight: 600;
-    line-height: 45px;
     text-align: center;
-    letter-spacing: 0.03em;
     color: white;
 }
 
 #pricing-text {
-    margin-top: 0px;
-    padding-top: 0px;
-    width: 34.5%;
+    /*font-size: 20px;*/
+
     display: flex;
+    width: 988px;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    font-size: 20px;
 }
 
 #pricing-text h1 {
     font-weight: 600;
-    letter-spacing: 0.1em;
-    font-size: 50px;
+    letter-spacing: 1.98px;
+    font-size: 66px;
     margin: 0px;
+    line-height: 70px;
 }
 
 #pricing-text h4 {
-    letter-spacing: 0.05em;
-    font-size: 23px;
-    font-weight: 500;
+    letter-spacing: 0.84px;
+    font-size: 28px;
+    font-weight: 600;
     margin: 0px;
+    line-height: 45px;
 }
 
 #pricing-text p {
-    line-height: 29px;
-    font-weight: 300;
-    font-size: 18px;
+    width: 588px;
+    line-height: normal;
+    font-weight: 350;
+    font-size: 20px;
+    letter-spacing: 0.6px;
     text-align: center;
 }
 
 .pricing-btn {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 0 30px;
-    height: 50px;
+
+    gap: 8px;
+    padding: 14px 40px;
+    height: 52px;
     margin-bottom: 40px;
     margin-top: 10px;
     box-sizing: border-box;
-    border: 1.5px solid white;
+    border: 2px solid white;
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     cursor: pointer;
 }
@@ -1622,9 +1623,10 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-family: 'Jost';
     font-style: normal;
     align-items: center;
-    font-size: 12px;
+    font-size: 15px;
 
-    letter-spacing: 0.1em;
+    letter-spacing: 1.5px;
+    line-height: normal;
     text-transform: uppercase;
     text-decoration: none;
     color: #FFFFFF;
@@ -1635,43 +1637,53 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #story-section {
     width: 100%;
 
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
 
-    font-family: 'Jost';
+    font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 700;
-    letter-spacing: 0.02em;
     color: #00355E;
 }
 
 #story-heading {
-    padding-top: 15px;
-    font-size: 36px;
-    line-height: 54px;
+    font-size: 42px;
+    line-height: normal;
     text-transform: capitalize;
-    margin: 0px;
-    padding: 0px;
+    letter-spacing: 0.84px;
+    margin: 0;
+    padding: 15px 0 0 0;
 
+}
+
+#story-heading p {
+    padding: 0;
+    margin: 20px 0 10px 0;
 }
 
 #story {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0px 80px;
+    gap: 180px;
+    padding: 0 80px;
 }
 
 .story-container {
-    width: 25%;
+    display: flex;
+    width: 397px;
+    height: 642px;
+    padding-bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .story-img img {
-    width: 350px;
-    height: 250px;
+    width: 397px;
+    height: 286px;
     border-radius: 20px;
 }
 
@@ -1684,7 +1696,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     position: absolute;
     bottom: 7%;
     left: 3.5%;
-    width: 95%;
+    width: 92.6%;
     height: 88%;
     border-radius: 20px;
     border: 1px solid white;
@@ -1692,18 +1704,24 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 .story-text h3 {
     font-weight: 500;
-    font-size: 20px;
+    font-size: 25px;
+    line-height: 32px;
+    letter-spacing: 0.75px;
 }
 
 .story-text p {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0.6px;
     color: #1D1D1D;;
 }
 
 .story-text a {
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0.6px;
     color: #9D0A0E;
 
 }
@@ -1714,7 +1732,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #story-button {
-    margin-top: 100px;
+    margin-top: 130px;
 }
 
 /* Services Section */
@@ -1723,16 +1741,16 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 50px 0px;
+    padding: 100px 0 0 0;
 
 }
 
 #service-container {
-    width: 85%;
+    width: 1568px;
     height: auto;
     display: flex;
     flex-direction: column;
-    padding: 30px 30px;
+    padding: 40px 0;
     align-items: center;
     justify-content: space-evenly;
     background-color: #FAFAFA;
@@ -1753,8 +1771,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 30%;
     font-family: 'Jost';
     font-style: normal;
-    font-weight: 400;
-    letter-spacing: 0.03em;
+    font-weight: 450;
+    line-height: normal;
+}
+
+#service-container .row {
+    margin-top: 60px;
 }
 
 #service-container .row .service {
@@ -1764,34 +1786,37 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .service .icon {
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     position: relative;
     background-color: #F0F0F0;
     border: 1px solid #FFFFFF;
     border-radius: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .service .icon img {
     position: relative;
-    bottom: 30px;
-    width: 70px;
-    height: 70px;
+    bottom: 40px;
+    width: 100px;
+    height: 100px;
 
 }
 
 .service .service-header h1 {
-    font-weight: 450;
-    font-size: 1.0em;
+    font-size: 20px;
+    letter-spacing: 0.6px;
+    font-weight: 500;
     color: #00355E;
     margin: 10px 0 5px 0;
 }
 
 .service .service-description p {
     font-weight: 400;
-    font-size: 0.93em;
+    font-size: 20px;
+    letter-spacing: 0.6px;
     color: #000000;
     margin: 0px;
 }
@@ -1811,12 +1836,13 @@ footer {
     font-family: 'Jost';
     font-style: normal;
     font-weight: 700;
-    letter-spacing: 0.03em;
+    line-height: normal;
     color: white;
 
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    align-items: center;
     position: relative;
     margin-top: 140px;
 }
@@ -1829,54 +1855,60 @@ footer .usa-flag {
 }
 
 #footer-nav-container {
-    width: 100%;
+    width: 1568px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-bottom: 30px;
+
+    margin-bottom: 60px;
 }
 
 #logo-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     width: 40%;
-    margin-bottom: 50px;
 }
 
 #logo-container img {
-    width: 330px;
-    height: 120px;
+    width: 360px;
+    height: 140px;
     padding: 0px;
     margin: 0px;
 }
 
 #logo-container p {
-    font-weight: 500;
-    font-size: 25px;
-    padding: 0px;
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: 0.84px;
+    padding: 10px 0 0 35px;
     margin: 0px;
 }
 
 .nav-container {
     width: 25%;
+    gap: 5px;
+
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+
 }
 
 .nav-container h1 {
-    font-size: 18px;
+    font-size: 20px;
+    letter-spacing: 0.6px;
 }
 
 .nav-container a,
 .nav-container p {
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 26px;
+    font-size: 17px;
+    font-weight: 350;
+    letter-spacing: 0.51px;
     color: white;
     text-decoration: none;
+    margin-bottom: 8px;
 }
 
 .nav-container p {
@@ -1897,6 +1929,7 @@ footer .usa-flag {
 }
 
 #horizontal-line {
+    width: 1568px;
     padding: 0 50px;
 }
 
@@ -1911,7 +1944,14 @@ footer .usa-flag {
 
 #footer-link-container #footer-text p {
     font-weight: 400;
-    font-size: 18px;
+    font-size: 20px;
+    letter-spacing: 0.6px;
+}
+
+#footer-link-container #footer-text span {
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 0.6px;
 }
 
 #footer-links-icons {
@@ -1937,10 +1977,10 @@ footer .usa-flag {
 #footer-login a {
     font-family: 'Sofia Sans', serif;
     font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: normal;
+    letter-spacing: 0.51px;
     text-decoration-line: underline;
     color: #ECECEC;
 }
