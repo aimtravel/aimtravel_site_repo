@@ -201,7 +201,11 @@
                     оферти включват осигурено настаняване.</p>
             </div>
             <div class="filter-row">
+                <div id="apply-filter">
+                    <p>Филтрирай</p>
+                </div>
                 <div id="offer-page-filters">
+
                     <form id="job-offer-filter-form">
                         <div class="dropdown offer-filters">
                             <button class="target-element ">
@@ -297,7 +301,7 @@
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for wage in wages %}
-                                        <input type="checkbox" name="wage" value="{{ wages }}"> {{ wages }}<br>
+                                        <input type="checkbox" name="wage" value="{{ wage }}"> {{ wage }}<br>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -366,44 +370,46 @@
             {#            </div>#}
 
         </div>
-
-        <div class="offer-slides">
-            {% if filtered_offers %}
-                <div class="row">
-                    {% for offer in filtered_offers %}
-                        <div class="offer-slide">
-                            <div class="offer-pic">
-                                <div class="curve-line">
-                                    {% if offer.offer_pic %}
-                                        <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
-                                    <div class="white-border"></div>
+        <div class="offers-container">
+            <div class="offer-slides">
+                {% if page_obj %}
+                    <div class="row">
+                        {% for offer in page_obj %}
+                            <div class="offer-slide">
+                                <div class="offer-pic">
+                                    <div class="curve-line">
+                                        {% if offer.offer_pic %}
+                                            <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
+                                        <div class="white-border"></div>
+                                    </div>
+                                    <div class="offer-btn">
+                                        <a href="">НАУЧИ ПОВЕЧЕ</a>
+                                    </div>
                                 </div>
-                                <div class="offer-btn">
-                                    <a href="">НАУЧИ ПОВЕЧЕ</a>
+                                <div class="offer-text-container">
+                                    <h3 class="offer-header">{{ offer.job_position }}</h3>
+                                    <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
+                                    <p class="offer-type">Premium Offer</p>
+                                    <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus: Yes
+                                    {% endif %}</p>
                                 </div>
                             </div>
-                            <div class="offer-text-container">
-                                <h3 class="offer-header">{{ offer.job_position }}</h3>
-                                <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
-                                <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} Offer bonus: Yes
-                                {% endif %}</p>
-                            </div>
-                        </div>
 
-                        {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                            </div>
-                            {% if not forloop.last %}
-                                <div class="row">
+                            {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                                </div>
+                                {% if not forloop.last %}
+                                    <div class="row">
+
+                                {% endif %}
 
                             {% endif %}
+                        {% endfor %}
+                        </div>
+                {% else %}
+                    Няма намерени оферти.
+                {% endif %}
 
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-
-            {% endif %}
-
+            </div>
         </div>
 
         <div class="pagination">

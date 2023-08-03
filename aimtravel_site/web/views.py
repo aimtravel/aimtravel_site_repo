@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
@@ -10,7 +12,6 @@ from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
 
 from aimtravel_site.user_profile.models import Employee
-from aimtravel_site.web.filters import OfferFilter
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
 from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company
@@ -117,6 +118,8 @@ def job_offer_list(request):
     housing = JobOffer.objects.values_list('housing', flat=True).distinct()
 
     filtered_offers = JobOffer.objects.all()
+    filtered_offers = filtered_offers.order_by('-ranking', '-wage')
+
     selected_state = request.GET.getlist('state')
     selected_city = request.GET.getlist('city')
     selected_job_position = request.GET.getlist('job_position')
@@ -137,9 +140,11 @@ def job_offer_list(request):
     if selected_housing:
         filtered_offers = filtered_offers.filter(housing__in=selected_housing)
 
-    paginator = Paginator(filtered_offers, 12)  # Display 10 offers per page
+    paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    # formatted_wages = list(map(lambda wage: f"${Decimal(wage):.2f}", wages))
 
     context = {
         'states': states,

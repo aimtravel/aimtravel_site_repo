@@ -16,9 +16,15 @@ class JobOffer(models.Model):
     SPONSOR_NAME = 20
 
     SUITABLE_FOR = (
-        ('students', 'Студенти'),
-        ('non-students', 'Нестуденти'),
+        ('Студенти', 'Студенти'),
+        ('Нестуденти', 'Нестуденти'),
     )
+
+    HOUSING = (
+        ('Да', 'Да'),
+        ('Не', 'Не'),
+    )
+
 
     employer_name = models.CharField(
         verbose_name='Име на работодател',
@@ -69,8 +75,10 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    housing = models.BooleanField(
-        verbose_name='Хаузинг',
+    housing = models.CharField(
+        choices=HOUSING,
+        max_length=2,
+        verbose_name="Housing",
         blank=True,
         null=True,
     )

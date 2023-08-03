@@ -920,6 +920,20 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-items: flex-start;
     /*gap: 59px;*/
 }
+#offers-section .offers-container {
+    display: flex;
+    padding: 0 70px;
+}
+#offers-section .offer-slides {
+    flex-wrap: wrap;
+    /*width: 100%;*/
+    flex-direction: row;
+    justify-content: flex-start;
+    /*margin-left: 65px;*/
+    display: flex;
+    align-items: flex-start;
+    gap: 59px;
+}
 
 .offer-slides .row {
     /*width: 100%;*/
@@ -932,7 +946,19 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 }
 
+#offers-section .offer-slides .row {
+    /*width: 100%;*/
+    height: auto;
+    display: flex;
+    align-self: flex-start;
+    /*flex-direction: row;*/
+    justify-content: flex-start;
+    gap: 67px;
+
+}
+
 .offer-slides .offer-slide {
+
     border-radius: 20px;
     width: 347px;
     height: 460px;
@@ -2259,8 +2285,23 @@ footer .usa-flag {
 
 #offers-page-top-row .filter-row {
     display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     margin-top: 35px;
     margin-bottom: 50px;
+}
+
+#apply-filter p{
+    font-family: Jost;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: normal;
+    color: #9D0A0E;
+    margin: 0 0 20px 0;
+    padding: 0;
+    cursor: pointer;
 }
 
 #offers-page-top-row .filter-row #offer-page-filters {
