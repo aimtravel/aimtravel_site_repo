@@ -61,13 +61,14 @@ body .usa-flag {
     background: #000000;
     box-sizing: border-box;
     z-index: 1;
+    transition: 0.4s ease-out;
 }
 
 #top-header-left {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
 
     font-family: 'Sofia Sans', serif;
     font-style: normal;
@@ -105,7 +106,7 @@ body .usa-flag {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
 
 }
 
@@ -114,7 +115,7 @@ body .usa-flag {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 
 .vl {
@@ -179,7 +180,7 @@ body .usa-flag {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding-top: 25px;
+    padding-top: 40px;
     gap: 40px;
     isolation: isolate;
 
@@ -293,6 +294,7 @@ nav a {
 
 .link-a {
     font-size: 20px;
+    transition: font-size 0.4s ease-in-out;
 }
 
 .dropdown-icon {
@@ -311,6 +313,7 @@ nav a {
 #logo {
     width: 112px;
     height: 118px;
+    transition: 0.4s ease-in-out;
 }
 
 .sticky-logo {
@@ -428,8 +431,8 @@ nav a {
     text-transform: capitalize;
     letter-spacing: 4.2px;
     line-height: 100px;
-    margin: 0 0 22px 0;
-    padding: 45px 0 0 0;
+    margin: 0 0 18px 0;
+    padding: 30px 0 0 0;
 
 }
 
@@ -2042,7 +2045,7 @@ footer .usa-flag {
     flex-direction: row;
     position: absolute;
     width: 100%;
-    height: 656px;
+    height: 882px;
     left: 0px;
     top: 40px;
     z-index: 1;
@@ -2052,16 +2055,10 @@ footer .usa-flag {
     border-radius: 0% 0% 50% 50% / 0% 0% 15% 15%;
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
 
-
     color: #FFF;
     text-align: center;
-    text-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.98);
-    font-size: 22px;
     font-family: Jost, sans-serif;
     font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 0.72px;
 }
 
 #offers-header-sub {
@@ -2073,33 +2070,37 @@ footer .usa-flag {
 
 #text-container {
     position: relative;
-    bottom: 50px;
+    bottom: 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1px;
+    gap: 15px;
     z-index: 1;
 }
 
 #text-container h1 {
-    color: white;
-    font-size: 58px;
-    font-weight: 550;
+    color: #FFFFFF;
+    font-size: 70px;
+    font-weight: 600;
+    line-height: 45px;
+    letter-spacing: 2.1px;
+    text-shadow: 4px 4px 25px 0 #1E1E1E;
 }
 
 #text-container p {
     position: relative;
     bottom: 60px;
-    width: 38%;
+    width: 753px;
     color: white;
-    font-size: 20px;
-    font-weight: 350;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.72px;
 }
 
 
 #offers-video {
     position: absolute;
-    top: 450px;
+    top: 550px;
     font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -2110,13 +2111,26 @@ footer .usa-flag {
 }
 
 #main-offers-video {
-    width: 700px;
-    height: 400px;
+    width: 878px;
+    height: 494px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
+
+}
+
+#main-offers-video .glightbox2 .white-border {
+    display: flex;
+    width: 874px;
+    height: 490px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 2px solid white;
+    border-radius: 20px;
 }
 
 #main-offers-video .fancy-background {
@@ -2133,12 +2147,12 @@ footer .usa-flag {
     position: relative;
     background: linear-gradient(0.67deg, rgba(0, 0, 0, 0.8) 0.48%, rgba(0, 0, 0, 0) 99.46%), rgba(1, 49, 86, 0.45);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 #main-offers-video-logo img {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
 
     position: absolute;
     top: 20px;
@@ -2152,7 +2166,7 @@ footer .usa-flag {
     justify-content: flex-start;
 
     position: absolute;
-    bottom: 0px;
+    top: 400px;
     left: 20px;
 }
 
@@ -2164,7 +2178,7 @@ footer .usa-flag {
 
 #offers-page-flag1 {
     position: absolute;
-    top: 490px;
+    top: 680px;
     right: 70px;
 
     width: 101px;
@@ -2175,13 +2189,27 @@ footer .usa-flag {
 
 /* OFFERS FILTERING */
 
+#offers-section {
+    font-family: 'Jost';
+    font-style: normal;
+    line-height: normal;
+    font-weight: 500;
+    letter-spacing: 0.54px;
+    text-transform: capitalize;
+
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
 #offers-page-top-row {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 180px;
 }
 
 .text-area {
@@ -2195,13 +2223,15 @@ footer .usa-flag {
     font-family: Jost;
     font-style: normal;
     font-weight: 700;
-    letter-spacing: 1.3px;
+    letter-spacing: 1.26px;
+    line-height: normal;
+    margin: 0;
+    padding: 0;
 }
 
 .text-area h1 {
-    font-size: 36px;
+    font-size: 42px;
     text-transform: capitalize;
-    letter-spacing: 1.5px;
     margin: 16px 0px;
 
 }
@@ -2212,11 +2242,13 @@ footer .usa-flag {
 }
 
 .text-area p {
+    color: #000000;
     margin: 0px;
     width: 80%;
-    font-weight: 550;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 20px;
     text-align: center;
+    letter-spacing: 0.6px;
     text-transform: none;
 }
 
@@ -2233,8 +2265,16 @@ footer .usa-flag {
 
 #offers-page-top-row .filter-row #offer-page-filters {
     display: flex;
+    align-items: flex-start;
     flex-direction: row;
-    gap: 20px;
+    gap: 24px;
+}
+
+#offer-page-filters form {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 24px;
 }
 
 #offer-page-filters .dropdown {
@@ -2248,7 +2288,7 @@ footer .usa-flag {
     align-items: center;
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
     border: 1px solid #b9bcc0;
-    border-radius: 10px;
+    border-radius: 14px;
     padding: 2px 10px;
     background: rgba(160, 160, 160, 0.1);
 }
@@ -2260,15 +2300,19 @@ footer .usa-flag {
     justify-content: center;
     text-decoration: none;
     color: #000000;
-    font-size: 18px;
+    font-size: 28px;
     font-family: Jost;
     font-style: normal;
-    font-weight: 550;
+    font-weight: 400;
     line-height: 20px;
     letter-spacing: 1px;
     border: none;
     background: none;
+    padding: 10px 10px;
+    height: 45px;
 }
+
+
 
 #offer-page-filters .icon {
     display: flex;
