@@ -2321,12 +2321,14 @@ footer .usa-flag {
 #offer-page-filters .dropdown {
     position: relative;
     display: flex;
+    justify-content: center;
 }
 
 #offer-page-filters .offer-filters {
     /*display: flex;*/
     /*flex-direction: row;*/
     align-items: center;
+
     box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.08);
     border: 1px solid #b9bcc0;
     border-radius: 14px;
@@ -2368,13 +2370,24 @@ footer .usa-flag {
 }
 
 #offer-page-filters .tooltip {
-    left: 50%;
+    display: flex;
+    justify-content: center;
+    top: 60px;
+    left: 0;
     background: #FFFFFF;
     z-index: 50;
+
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+
+    transform: none;
 }
 
-#offer-page-filters .tooltip::before {
+
+#offer-page-filters .offer-filters .tooltip::before {
     border: none;
+
 }
 
 /* OFFERS */
