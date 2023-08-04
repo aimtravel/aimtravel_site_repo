@@ -920,10 +920,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-items: flex-start;
     /*gap: 59px;*/
 }
+
 #offers-section .offers-container {
     display: flex;
     padding: 0 70px;
 }
+
 #offers-section .offer-slides {
     flex-wrap: wrap;
     /*width: 100%;*/
@@ -965,6 +967,11 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.10);
 
     background-color: white;
+}
+
+.offer-slide .slider-btn a {
+    position: relative;
+    padding: 2px 35px;
 }
 
 .offer-pic {
@@ -1585,7 +1592,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 500px;
+    height: 420px;
     padding: 90px 0;
     background: linear-gradient(91.22deg, #841114 -0.68%, #9D0A0E 51.53%, #841114 100.57%);
 
@@ -1941,9 +1948,18 @@ footer .usa-flag {
 }
 
 .nav-container p {
-    padding: 0px;
+    padding: 0 0 5px 0;
     margin: 0px;
-    text-decoration: underline;
+    color: #ECECEC;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Sofia Sans;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 350;
+    line-height: normal;
+    letter-spacing: 0.51px;
+    text-decoration-line: underline;
 }
 
 #phone-details {
@@ -2291,7 +2307,7 @@ footer .usa-flag {
     margin-bottom: 50px;
 }
 
-#apply-filter p{
+#apply-filter p {
     font-family: Jost;
     font-style: normal;
     font-size: 20px;
@@ -2356,7 +2372,6 @@ footer .usa-flag {
 }
 
 
-
 #offer-page-filters .icon {
     display: flex;
     flex-direction: row;
@@ -2402,22 +2417,31 @@ footer .usa-flag {
     justify-content: center;
     align-items: center;
     gap: 25px;
-    margin-top: 45px;
-    margin-bottom: 45px;
+    margin-top: 35px;
+    margin-bottom: 65px;
 }
 
 .pagination a {
     text-decoration: none;
     color: #000000;
-    font-size: 18px;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 20px;
+    letter-spacing: 0.25px;
 }
 
 .pagination .current-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    width: 40px;
+    height: 40px;
     color: #FFFFFF;
     background: #00355E;
     border-radius: 50%;
@@ -2430,9 +2454,14 @@ footer .usa-flag {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 30px 0px;
+    margin: 40px 0px;
 
     gap: 25px;
+}
+
+#contact-form .text-area p {
+    color: #000;
+    width: 820px;
 }
 
 .query-form {
@@ -2459,40 +2488,46 @@ footer .usa-flag {
     flex-direction: column;
     justify-content: center;
     margin: 0px 15px;
+
+}
+
+.sub-line label {
+    color: #1A1A1A;
+    font-family: Jost;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px; /* 166.667% */
 }
 
 .form-field-semi {
-    width: 300px;
-    height: 25px;
+    width: 459px;
+    height: 45px;
     background: #FBFCFF;
     border: 1px solid #B9BCC0;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.06);
 }
 
 .form-field-text {
-    width: 640px;
-    height: 100px;
+    width: 942px;
+    height: 231px;
+    align-self: stretch;
     background: #FBFCFF;
     border: 1px solid #B9BCC0;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.06);
 }
 
 .query-btn {
     display: flex;
     justify-content: center;
-    width: 120px;
-    height: 35px;
-    background: #9D0A0E;
-    border-radius: 5px;
-    box-shadow: none;
-}
-
-.query-button {
-    display: flex;
     align-items: center;
-    justify-content: center;
+    width: 162px;
+    height: 50px;
+    background: #9D0A0E;
+    border-radius: 8px;
+    box-shadow: none;
 }
 
 .button-part button {
@@ -2500,11 +2535,14 @@ footer .usa-flag {
     align-items: center;
     justify-content: center;
     color: #FFF;
-    font-size: 12px;
+    font-size: 15px;
     font-family: Jost;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 550;
+    line-height: normal;
+    letter-spacing: 1.6px;
     text-decoration: none;
+    border: none;
 }
 
 #message-section {
