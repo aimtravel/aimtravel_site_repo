@@ -208,7 +208,7 @@
 
                     <form id="job-offer-filter-form">
                         <div class="dropdown offer-filters">
-                            <button class="target-element ">
+                            <button class="target-element label">
                                 <svg width="28" height="28" viewBox="0 0 28 29" fill="none"
                                      xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <path d="M0 28.96H28V0.96H0V28.96Z" fill="url(#pattern0)"/>
@@ -226,7 +226,9 @@
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for state in states %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="state" value="{{ state }}"> {{ state }}<br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -240,11 +242,13 @@
 
                         </div>
                         <div class="dropdown offer-filters">
-                            <button class="target-element">📍 Град</button>
+                            <button class="target-element label">📍 Град</button>
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for city in cities %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="city" value="{{ city }}"> {{ city }}<br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -258,13 +262,15 @@
 
                         </div>
                         <div class="dropdown offer-filters">
-                            <button class="target-element">📄 Работна Позиция</button>
+                            <button class="target-element label">📄 Работна Позиция</button>
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for position in job_positions %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="job_position" value="{{ position }}">
                                         {{ position }}
                                         <br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -278,13 +284,15 @@
 
                         </div>
                         <div class="dropdown offer-filters">
-                            <button class="target-element">🗂️ Подходящо За</button>
+                            <button class="target-element label">🗂️ Подходящо За</button>
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for suitable in suitable_for %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="suitable_for" value="{{ suitable }}">
                                         {{ suitable }}
                                         <br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -297,11 +305,13 @@
                                                                                               stroke-linejoin="round"></path></svg></span>
                         </div>
                         <div class="dropdown offer-filters">
-                            <button class="target-element">💰 Заплащане</button>
+                            <button class="target-element label">💰 Заплащане</button>
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for wage in wages %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="wage" value="{{ wage }}"> {{ wage }}<br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>
@@ -315,11 +325,13 @@
 
                         </div>
                         <div class="dropdown offer-filters">
-                            <button class="target-element">🏠 Housing</button>
+                            <button class="target-element label">🏠 Housing</button>
                             <div class="tooltip">
                                 <div class="checkbox-row">
                                     {% for house in housing %}
+                                        <div class="checkbox-container">
                                         <input type="checkbox" name="housing" value="{{ house }}"> {{ house }}<br>
+                                        </div>
                                     {% endfor %}
                                 </div>
                             </div>

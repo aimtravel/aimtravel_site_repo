@@ -1610,6 +1610,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 988px;
     flex-direction: column;
     align-items: center;
+    padding-top: 40px;
 }
 
 #pricing-text h1 {
@@ -2352,6 +2353,57 @@ footer .usa-flag {
     background: rgba(160, 160, 160, 0.1);
 }
 
+.offer-filters .tooltip {
+    border: 1px solid #A1A4A8;
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+
+}
+
+#offer-page-filters .offer-filters .checkbox-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3px;
+    position: relative;
+
+    color: #000;
+    font-family: Jost;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 83.333% */
+    letter-spacing: 0.25px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 2px solid #B9BCC0;
+    background: transparent;
+    appearance: none;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+}
+
+.checkbox-container input[type="checkbox"]:checked {
+    background-color: #00355E; /* Change background color when checked */
+    border-color: #00355E; /* Change border color when checked */
+}
+
+.checkbox-container input[type="checkbox"]:checked::before {
+    content: ""; /* Unicode checkmark character */
+    position: absolute;
+    top: 17px;
+    left: 18px;
+    transform: translate(-50%, -50%);
+    width: 26px;
+    height: 26px;
+    color: red; /* Checkmark color */
+    font-size: 16px; /* Adjust the checkmark size */
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'> <path d= 'M5 13L9 17L19 7' stroke= 'white' stroke-width= '2' stroke-linecap= 'round' stroke-linejoin= 'round' /> </svg> ") center/contain no-repeat;
+}
 
 #offer-page-filters button {
     display: flex;
@@ -2371,17 +2423,13 @@ footer .usa-flag {
     height: 45px;
 }
 
-
 #offer-page-filters .icon {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     margin-left: 3px;
-
     color: #000000;
-
 }
 
 #offer-page-filters .tooltip {
@@ -2391,25 +2439,17 @@ footer .usa-flag {
     left: 0;
     background: #FFFFFF;
     z-index: 50;
-
     flex-direction: column;
     padding: 20px;
     gap: 10px;
-
     transform: none;
 }
 
-
 #offer-page-filters .offer-filters .tooltip::before {
     border: none;
-
 }
 
-/* OFFERS */
-/* see above section OFFERS */
-
-/* PAGINATOR */
-
+/* OFFERS */ /* see above section OFFERS */ /* PAGINATOR */
 .pagination {
     width: 100%;
     display: flex;
@@ -2448,15 +2488,17 @@ footer .usa-flag {
 }
 
 /* CONTACT FORM */
-
 #contact-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 40px 0px;
-
     gap: 25px;
+}
+
+#contact-form .text-area {
+    margin-bottom: 30px;
 }
 
 #contact-form .text-area p {
@@ -2468,7 +2510,6 @@ footer .usa-flag {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     color: #00355E;
     font-size: 18px;
     font-family: Jost;
@@ -2488,7 +2529,6 @@ footer .usa-flag {
     flex-direction: column;
     justify-content: center;
     margin: 0px 15px;
-
 }
 
 .sub-line label {
