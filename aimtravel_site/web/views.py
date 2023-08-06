@@ -1,12 +1,10 @@
-from decimal import Decimal
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic as views
-from django_filters import views as filter_views
+
 from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
@@ -89,24 +87,6 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 
     def test_func(self):
         return self.request.user.is_staff
-
-
-# class DisplayOfferView(views.ListView):
-#     model = JobOffer
-#     template_name = 'job_offer/offers.html'
-#
-#     paginate_by = 12
-#     ordering = ('-ranking', '-wage',)
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         offers = context['object_list']
-#         paginator = Paginator(offers, self.paginate_by)
-#         page = self.request.GET.get('page')
-#         paginated_offers = paginator.get_page(page)
-#
-#         context['offers'] = paginated_offers
-#         return context
 
 
 def job_offer_list(request):
