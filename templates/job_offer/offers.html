@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIM Travel - Home</title>
+    <title>AIM Travel - Offers</title>
 
     <link rel="stylesheet" href="../../static/style.css">
     <link rel="stylesheet" href="../../static/node_modules/glightbox/dist/css/glightbox.min.css">
@@ -119,33 +119,33 @@
                 <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
                 <li class="dropdown link-a">
                     <a class="target-element" id="wat-usa" href="#">Бригада САЩ</a>
-                    <div class="tooltip">
-                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>
-                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>
-                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>
-                        <a href="#">ЦЕНИ</a>
-                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>
-                    </div>
-                    <span class="dropdown-icon"></span>
+{#                    <div class="tooltip">#}
+{#                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>#}
+{#                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>#}
+{#                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>#}
+{#                        <a href="#">ЦЕНИ</a>#}
+{#                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>#}
+{#                    </div>#}
+{#                    <span class="dropdown-icon"></span>#}
                 </li>
                 <li class="dropdown">
                     <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
-                    <div class="tooltip">
-                        <a href="#">Безплатна консултация</a>
-                        <a href="#">Запиши се</a>
-                    </div>
-                    <span class="dropdown-icon"></span>
+{#                    <div class="tooltip">#}
+{#                        <a href="#">Безплатна консултация</a>#}
+{#                        <a href="#">Запиши се</a>#}
+{#                    </div>#}
+{#                    <span class="dropdown-icon"></span>#}
                 </li>
-                <li><img id="logo" src="../../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="">
+                <li><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt="">
                 </li>
                 <li class="dropdown">
                     <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
-                    <div class="tooltip">
-                        <a href="#">i te tuka edno dulgo</a>
-                        <a href="#">placeholder</a>
-                        <a href="#">placeholder</a>
-                    </div>
-                    <span class="dropdown-icon"></span>
+{#                    <div class="tooltip">#}
+{#                        <a href="#">i te tuka edno dulgo</a>#}
+{#                        <a href="#">placeholder</a>#}
+{#                        <a href="#">placeholder</a>#}
+{#                    </div>#}
+{#                    <span class="dropdown-icon"></span>#}
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
@@ -395,7 +395,7 @@
                                         <div class="white-border"></div>
                                     </div>
                                     <div class="offer-btn slider-btn">
-                                        <a href="">НАУЧИ ПОВЕЧЕ</a>
+                                        <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
                                     </div>
                                 </div>
                                 <div class="offer-text-container">

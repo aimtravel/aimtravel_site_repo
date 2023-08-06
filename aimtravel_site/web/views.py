@@ -91,22 +91,22 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
         return self.request.user.is_staff
 
 
-class DisplayOfferView(views.ListView):
-    model = JobOffer
-    template_name = 'job_offer/offers.html'
-
-    paginate_by = 12
-    ordering = ('-ranking', '-wage',)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        offers = context['object_list']
-        paginator = Paginator(offers, self.paginate_by)
-        page = self.request.GET.get('page')
-        paginated_offers = paginator.get_page(page)
-
-        context['offers'] = paginated_offers
-        return context
+# class DisplayOfferView(views.ListView):
+#     model = JobOffer
+#     template_name = 'job_offer/offers.html'
+#
+#     paginate_by = 12
+#     ordering = ('-ranking', '-wage',)
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         offers = context['object_list']
+#         paginator = Paginator(offers, self.paginate_by)
+#         page = self.request.GET.get('page')
+#         paginated_offers = paginator.get_page(page)
+#
+#         context['offers'] = paginated_offers
+#         return context
 
 
 def job_offer_list(request):

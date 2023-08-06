@@ -2613,3 +2613,135 @@ footer .usa-flag {
     font-style: normal;
     font-weight: 700;
 }
+
+/* JOB OFFER DETAILS PAGE */
+
+
+/* Job offer details section */
+
+#offer-detials {
+    margin: 80px 0 0 80px;
+}
+
+#offer-details-header {
+    height: 212px;
+}
+
+#offer-details-header .background {
+    height: 203px;
+    border-radius: 0;
+    background: linear-gradient(180deg, #000 0%, #00355E 100%);
+}
+
+#offer-details-page-flag1 {
+    top: 20px;
+    z-index: -2;
+}
+
+#offer-details-page-flag2 {
+    top: -940px;
+}
+
+#offer-details-top-row {
+    display: flex;
+
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+#offer-details-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    color: #23699E;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+}
+
+#offer-details-nav p {
+    margin: 0;
+    padding: 0;
+}
+
+#offer-details-nav span {
+    color: black;
+}
+
+#offer-details-heading {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    gap: 24px;
+    align-self: stretch;
+}
+
+#offer-details-heading h1 {
+    color: #00355E;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.84px;
+    text-transform: capitalize;
+
+    margin: 0;
+    padding: 0;
+}
+
+#offer-details-heading span {
+    display: flex;
+    padding: 8px;
+    height: 10px;
+    align-items: flex-start;
+    border-radius: 4px;
+    background: #00355E;
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 10px; /* 114.286% */
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+#offer-picture {
+    position: relative;
+    margin-top: 40px;
+}
+
+#offer-picture img{
+    width: 774px;
+    height: 558px;
+    border-radius: 20px;
+background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%), lightgray 50% / cover no-repeat;
+}
+
+#offer-picture .white-border {
+    position: absolute;
+    bottom: 28px;
+    left: 25px;
+    width: 723px;
+    height: 510px;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
+/* CTA section */
+
+#offer-details-page footer {
+    margin-top: 0;
+}
