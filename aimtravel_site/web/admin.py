@@ -1,9 +1,15 @@
 from django.contrib import admin
 
-from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company
+from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, City
 
 
 # Register your models here.
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ['name', 'fact1', 'fact2', 'fact3', 'city_pic']
+    list_filter = ['name']
+
+
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
     list_display = ['job_position', 'employer_name', 'wage', 'city', 'state']

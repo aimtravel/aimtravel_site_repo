@@ -1029,7 +1029,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 .offer-btn {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     height: 37px;
     gap: 10px;
 
@@ -1043,12 +1043,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .offer-btn a {
-    /*display: flex;*/
+    display: flex;
     font-family: 'Jost';
     font-weight: 700;
     font-style: normal;
     font-size: 12px;
-    /*align-items: center;*/
+    align-items: center;
     line-height: 15px;
     letter-spacing: 0.1em;
     text-transform: uppercase;

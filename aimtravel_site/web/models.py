@@ -1,11 +1,52 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import pre_delete
+from django.db.models.signals import pre_delete, pre_save
 from django.dispatch import receiver
 import os
 from model_utils import Choices
 
 from aimtravel_site.web.validators import max_value
+
+
+class City(models.Model):
+
+    CITY = 20
+
+    name = models.CharField(
+        unique=True,
+        verbose_name='Град',
+        max_length=CITY,
+        blank=True,
+        null=True,
+    )
+    fact1 = models.TextField(
+
+        verbose_name='Факт 1',
+        blank=True,
+        null=True,
+    )
+    fact2 = models.TextField(
+
+        verbose_name='Факт 2',
+        blank=True,
+        null=True,
+    )
+    fact3 = models.TextField(
+
+        verbose_name='Факт 3',
+        blank=True,
+        null=True,
+    )
+    city_pic = models.ImageField(
+        upload_to='city_pics/',
+        verbose_name='Снимка',
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        result = f'{self.name}'
+        return result
 
 
 class JobOffer(models.Model):
@@ -25,19 +66,25 @@ class JobOffer(models.Model):
         ('Не', 'Не'),
     )
 
-
     employer_name = models.CharField(
         verbose_name='Име на работодател',
         max_length=EMPLOYER,
         blank=True,
         null=True,
     )
-    city = models.CharField(
-        verbose_name='Град',
-        max_length=CITY_NAME,
-        blank=True,
-        null=True,
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        to_field='name'
+
     )
+    # city = models.CharField(
+    #     verbose_name='Град',
+    #     max_length=CITY_NAME,
+    #     blank=True,
+    #     null=True,
+    # )
+
     state = models.CharField(
         verbose_name='Щат',
         max_length=STATE_NAME,
@@ -120,12 +167,12 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    interesting = models.TextField(
-        verbose_name='Интересно'
-                     '',
-        blank=True,
-        null=True,
-    )
+    # interesting = models.TextField(
+    #     verbose_name='Интересно'
+    #                  '',
+    #     blank=True,
+    #     null=True,
+    # )
     students_feedback = models.TextField(
         verbose_name='Отзиви от студенти',
         blank=True,
@@ -158,6 +205,31 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
+    # fact1 = models.OneToOneField(
+    #     City,
+    #     related_name='fact1_jobs',
+    #     on_delete=models.CASCADE,
+    #     to_field='fact1',
+    #     db_column='fact1',
+    #     db_index=True
+    #
+    # )
+    # fact2 = models.OneToOneField(
+    #     City,
+    #     related_name='fact2_jobs',
+    #     on_delete=models.CASCADE,
+    #     to_field='fact2',
+    #     db_column='fact2',
+    #     db_index=True
+    # )
+    # fact3 = models.OneToOneField(
+    #     City,
+    #     related_name='fact3_jobs',
+    #     on_delete=models.CASCADE,
+    #     to_field='fact3',
+    #     db_column='fact3',
+    #     db_index=True
+    # )
 
     def __str__(self):
         result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
