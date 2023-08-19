@@ -10,7 +10,20 @@
     src: url('../static/fonts/Jost/Jost-VariableFont_wght.ttf') format('woff');
 }
 
+/*#9D0A0E*/
+:root {
+    --section-width: 1730px;
+    --red-color: #9D0A0E;
+    --blue-color: #00355E;
+    --offer-width: 347px;
+    --offer-height: 460px;
+
+}
+
 body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -18,6 +31,11 @@ body {
 }
 
 /* <HEADER> */
+main {
+    display: flex;
+    justify-self: center;
+    max-width: var(--section-width);
+}
 
 header {
 
@@ -131,7 +149,7 @@ body .usa-flag {
     height: 0px;
 
     opacity: 0.8;
-    border: 1.8px solid #9D0A0E;
+    border: 1.8px solid var(--red-color);
     transform: rotate(90deg);
     padding: 0px;
     margin: 0px;
@@ -439,7 +457,7 @@ nav a {
 #main-slider hr {
     width: 870px;
     height: 0px;
-    border: 2px solid #9D0A0E;
+    border: 2px solid var(--red-color);
 }
 
 #main-slider-text-subheading {
@@ -461,7 +479,7 @@ nav a {
     align-items: center;
     gap: 10px;
     border-radius: 8px;
-    background-color: #9D0A0E;
+    background-color: var(--red-color);
     box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
 }
@@ -489,18 +507,18 @@ nav a {
 
 .transperant-btn {
     background: transparent;
-    border: 2px solid #9D0A0E;
+    border: 2px solid var(--red-color);
 }
 
 .transperant-btn a {
-    color: #9D0A0E;
+    color: var(--red-color);
     margin: 0 35px;
     padding: 0 0;
 }
 
 .transperant-btn:hover {
-    background-color: #00355E;
-    border: 1px solid #00355E;
+    background-color: var(--blue-color);
+    border: 1px solid var(--blue-color);
     color: #FFFFFF;
 }
 
@@ -723,7 +741,7 @@ main .main-flag2 {
 #about-text h1 {
     leading-trim: both;
     text-edge: cap;
-    color: #00355E;
+    color: var(--blue-color);
     font-weight: 700;
     font-size: 42px;
     text-transform: capitalize;
@@ -889,7 +907,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #offers-section-header h1 {
-    color: #00355E;
+    color: var(--blue-color);
     font-size: 42px;
     font-weight: 700;
     letter-spacing: 0.84px;
@@ -983,8 +1001,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 .offer-slides .offer-slide {
 
     border-radius: 20px;
-    width: 347px;
-    height: 460px;
+    width: var(--offer-widht);
+    height: var(--offer-height);
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.10);
 
     background-color: white;
@@ -1036,7 +1054,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     position: relative;
     bottom: 25px;
     box-sizing: border-box;
-    background-color: #9D0A0E;
+    background-color: var(--red-color);
     border-radius: 8px;
     box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -1074,7 +1092,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     line-height: 26px;
     letter-spacing: 0.03em;
     text-transform: capitalize;
-    color: #00355E;
+    color: var(--blue-color);
 
 }
 
@@ -1273,7 +1291,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     display: inline-block;
     width: 3px;
     height: 25px;
-    background-color: #9D0A0E;
+    background-color: var(--red-color);
     margin-right: 5px;
 }
 
@@ -1417,7 +1435,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-style: normal;
     line-height: normal;
     font-weight: 700;
-    color: #00355E;
+    color: var(--blue-color);
 
     /*margin-bottom: 80px;*/
     padding-bottom: 0px;
@@ -1434,7 +1452,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-size: 42px;
     text-transform: capitalize;
     letter-spacing: 0.84px;
-    color: #00355E;
+    color: var(--blue-color);
 }
 
 #news {
@@ -1504,7 +1522,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-4-news h3 {
-    color: #00355E;
+    color: var(--blue-color);
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
@@ -1579,7 +1597,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-4-news a {
-    color: #9D0A0E;
+    color: var(--red-color);
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
@@ -1615,7 +1633,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 100%;
     height: 420px;
     padding: 90px 0;
-    background: linear-gradient(91.22deg, #841114 -0.68%, #9D0A0E 51.53%, #841114 100.57%);
+    background: linear-gradient(91.22deg, #841114 -0.68%, var(--red-color) 51.53%, #841114 100.57%);
 
     font-family: 'Jost';
     font-style: normal;
@@ -1703,7 +1721,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 700;
-    color: #00355E;
+    color: var(--blue-color);
 }
 
 #story-heading {
@@ -1780,7 +1798,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-size: 20px;
     line-height: normal;
     letter-spacing: 0.6px;
-    color: #9D0A0E;
+    color: var(--red-color);
 
 }
 
@@ -1867,7 +1885,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-size: 20px;
     letter-spacing: 0.6px;
     font-weight: 500;
-    color: #00355E;
+    color: var(--blue-color);
     margin: 10px 0 5px 0;
 }
 
@@ -2283,7 +2301,7 @@ footer .usa-flag {
     justify-content: center;
     align-items: center;
 
-    color: #00355E;
+    color: var(--blue-color);
     font-family: Jost;
     font-style: normal;
     font-weight: 700;
@@ -2301,7 +2319,7 @@ footer .usa-flag {
 }
 
 .text-area h1 span {
-    color: #9D0A0E;
+    color: var(--red-color);
     text-decoration: underline;
 }
 
@@ -2317,7 +2335,7 @@ footer .usa-flag {
 }
 
 .text-area p span {
-    color: #9D0A0E;
+    color: var(--red-color);
     text-decoration: underline;
 }
 
@@ -2336,7 +2354,7 @@ footer .usa-flag {
     font-weight: 600;
     letter-spacing: 1px;
     line-height: normal;
-    color: #9D0A0E;
+    color: var(--red-color);
     margin: 0 0 20px 0;
     padding: 0;
     cursor: pointer;
@@ -2409,8 +2427,8 @@ footer .usa-flag {
 }
 
 .checkbox-container input[type="checkbox"]:checked {
-    background-color: #00355E; /* Change background color when checked */
-    border-color: #00355E; /* Change border color when checked */
+    background-color: var(--blue-color); /* Change background color when checked */
+    border-color: var(--blue-color); /* Change border color when checked */
 }
 
 .checkbox-container input[type="checkbox"]:checked::before {
@@ -2504,7 +2522,7 @@ footer .usa-flag {
     width: 40px;
     height: 40px;
     color: #FFFFFF;
-    background: #00355E;
+    background: var(--blue-color);
     border-radius: 50%;
 }
 
@@ -2531,7 +2549,7 @@ footer .usa-flag {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    color: #00355E;
+    color: var(--blue-color);
     font-size: 18px;
     font-family: Jost;
     font-style: normal;
@@ -2586,7 +2604,7 @@ footer .usa-flag {
     align-items: center;
     width: 162px;
     height: 50px;
-    background: #9D0A0E;
+    background: var(--red-color);
     border-radius: 8px;
     box-shadow: none;
 }
@@ -2628,7 +2646,7 @@ footer .usa-flag {
 }
 
 .message-frame #success-message {
-    color: #00355E;
+    color: var(--blue-color);
     font-size: 42px;
     font-family: Jost;
     font-style: normal;
@@ -2651,7 +2669,7 @@ footer .usa-flag {
 #offer-details-header .background {
     height: 203px;
     border-radius: 0;
-    background: linear-gradient(180deg, #000 0%, #00355E 100%);
+    background: linear-gradient(180deg, #000 0%, var(--blue-color) 100%);
 }
 
 #offer-details-page-flag1 {
@@ -2705,7 +2723,7 @@ footer .usa-flag {
 }
 
 #offer-details-heading h1 {
-    color: #00355E;
+    color: var(--blue-color);
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
@@ -2726,7 +2744,7 @@ footer .usa-flag {
     height: 10px;
     align-items: flex-start;
     border-radius: 4px;
-    background: #00355E;
+    background: var(--blue-color);
     color: #FFF;
     text-align: center;
     leading-trim: both;
@@ -2841,6 +2859,30 @@ footer .usa-flag {
     font-weight: 400;
 
 }
+
+#offer-details-facts {
+    width: 100%;
+    height: 1069px;
+    display: flex;
+    flex-direction: row;
+    background: #F6F8FA;
+}
+
+#offer-details-facts #city-facts {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#offer-details-facts #city-picture {
+    width: 50%;
+}
+
+#city-picture img {
+    width: 770px;
+    height: 860px;
+}
+
 
 /* CTA section */
 

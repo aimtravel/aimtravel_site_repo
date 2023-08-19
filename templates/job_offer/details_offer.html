@@ -309,11 +309,20 @@
 
         <div id="offer-details-facts">
             <div id="city-facts">
-                <div class="facts" id="fact1"></div>
-                <div class="facts" id="fact2"></div>
-                <div class="facts" id="fact3"></div>
+                <div class="facts" id="fact1">
+                    {{ offer_details.city.fact1 }}
+                </div>
+                <div class="facts" id="fact2">
+                    {{ offer_details.city.fact2 }}
+                </div>
+                <div class="facts" id="fact3">
+                    {{ offer_details.city.fact3 }}
+                </div>
             </div>
-            <div id="city-picture"></div>
+            <div id="city-picture">
+                <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">
+                <p>{{ offer_details.city.name }}</p>
+            </div>
         </div>
 
         <div id="offer-details-feedback">

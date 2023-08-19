@@ -76,15 +76,7 @@ class JobOffer(models.Model):
         City,
         on_delete=models.CASCADE,
         to_field='name'
-
     )
-    # city = models.CharField(
-    #     verbose_name='Град',
-    #     max_length=CITY_NAME,
-    #     blank=True,
-    #     null=True,
-    # )
-
     state = models.CharField(
         verbose_name='Щат',
         max_length=STATE_NAME,
@@ -167,17 +159,6 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    # interesting = models.TextField(
-    #     verbose_name='Интересно'
-    #                  '',
-    #     blank=True,
-    #     null=True,
-    # )
-    students_feedback = models.TextField(
-        verbose_name='Отзиви от студенти',
-        blank=True,
-        null=True,
-    )
     offer_pic = models.ImageField(
         upload_to='job_offer_pics/',
         verbose_name='Снимка',
@@ -205,31 +186,6 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    # fact1 = models.OneToOneField(
-    #     City,
-    #     related_name='fact1_jobs',
-    #     on_delete=models.CASCADE,
-    #     to_field='fact1',
-    #     db_column='fact1',
-    #     db_index=True
-    #
-    # )
-    # fact2 = models.OneToOneField(
-    #     City,
-    #     related_name='fact2_jobs',
-    #     on_delete=models.CASCADE,
-    #     to_field='fact2',
-    #     db_column='fact2',
-    #     db_index=True
-    # )
-    # fact3 = models.OneToOneField(
-    #     City,
-    #     related_name='fact3_jobs',
-    #     on_delete=models.CASCADE,
-    #     to_field='fact3',
-    #     db_column='fact3',
-    #     db_index=True
-    # )
 
     def __str__(self):
         result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
@@ -245,6 +201,29 @@ class JobOffer(models.Model):
             path = os.path.join(settings.MEDIA_ROOT, str(self.offer_pic))
             if os.path.exists(path):
                 os.remove(path)
+
+
+class Feedback(models.Model):
+    job_offer = models.ForeignKey(
+        JobOffer,
+        on_delete=models.CASCADE,
+    )
+    student_name = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    student_pic = models.ImageField(
+        upload_to='feedback_student_pics/',
+        verbose_name='Снимка',
+        blank=True,
+        null=True,
+    )
+    feedback = models.TextField(
+        verbose_name='Отзив',
+        blank=True,
+        null=True,
+    )
 
 
 class Prices(models.Model):
