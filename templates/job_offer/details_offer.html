@@ -16,99 +16,101 @@
 
 <body id="offer-details-page">
 <header id="offer-details-header">
-    <section id="top-header">
-        <div id="top-header-left">
-            <p id="top-header-left-p1">+359 88 99 66 583</p>
-            <div class="vl">
-                <hr>
-            </div>
-            <p id="top-header-left-p2">studentski@aimtravel.bg</p>
-            <div class="vl">
-                <hr>
-            </div>
-            <a href="https://forms.gle/4E3QXoidbTR2LHij9" id="top-header-left-p3">Абонирай се</a>
-        </div>
-        <div id="top-header-right">
-            <p id="top-header-right-p1">Последвай ни в:</p>
-            <div id="top-header-right-links">
-
-                <div id="top-header-right-links-icons">
-
-                    <div id="insta-link">
-                        <a href="https://www.instagram.com/aim_workandtravel/">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="24px" height="24px" stroke-width="1.5"
-                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
-                                      stroke="#FFFFFF" stroke-width="1.5"></path>
-                                <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="vl">
-                        <hr>
-                    </div>
-                    <div id="fb-link">
-                        <a href="https://www.facebook.com/profile.php?id=100072235954652">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="24px" height="24px" stroke-width="1.5"
-                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
-                                      stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                            </svg>
-                        </a>
-
-                    </div>
-                    <div class="vl">
-                        <hr>
-                    </div>
-                    <div id="youtube-link">
-                        <a href="https://www.youtube.com/@aimtravel9347">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="24px" height="24px" stroke-width="1.5"
-                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path
-                                        d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
-                                        stroke="#FFFFFF" stroke-width="1.5"></path>
-                            </svg>
-                        </a>
-
-                    </div>
-                    <div class="vl">
-                        <hr>
-                    </div>
-                    <div id="tiktok-link">
-                        <a href="https://www.tiktok.com/@aim_travelusa">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="24px" height="24px" stroke-width="1.5"
-                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
-                                      stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                                <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                            </svg>
-                        </a>
-                    </div>
-                    <div class="vl">
-                        <hr>
-                    </div>
-
+    <section id="top-header-section">
+        <div id="top-header">
+            <div id="top-header-left">
+                <p id="top-header-left-p1">+359 88 99 66 583</p>
+                <div class="vl">
+                    <hr>
                 </div>
-                <div id="top-header-right-login">
-                    {% if user.is_authenticated %}
-                        {% if user.is_superuser %}
-                            <a id="top-header-right-login-p1" href="https://new.aimtravel.bg/admin">Admin</a>
+                <p id="top-header-left-p2">studentski@aimtravel.bg</p>
+                <div class="vl">
+                    <hr>
+                </div>
+                <a href="https://forms.gle/4E3QXoidbTR2LHij9" id="top-header-left-p3">Абонирай се</a>
+            </div>
+            <div id="top-header-right">
+                <p id="top-header-right-p1">Последвай ни в:</p>
+                <div id="top-header-right-links">
+
+                    <div id="top-header-right-links-icons">
+
+                        <div id="insta-link">
+                            <a href="https://www.instagram.com/aim_workandtravel/">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
+                                          stroke="#FFFFFF" stroke-width="1.5"></path>
+                                    <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="fb-link">
+                            <a href="https://www.facebook.com/profile.php?id=100072235954652">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
+                                          stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="youtube-link">
+                            <a href="https://www.youtube.com/@aimtravel9347">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path
+                                            d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
+                                            stroke="#FFFFFF" stroke-width="1.5"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="tiktok-link">
+                            <a href="https://www.tiktok.com/@aim_travelusa">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
+                                          stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                    <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div id="top-header-right-login">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser %}
+                                <a id="top-header-right-login-p1" href="https://new.aimtravel.bg/admin">Admin</a>
+                            {% endif %}
+                        {% else %}
+                            <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
                         {% endif %}
-                    {% else %}
-                        <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
-                    {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -187,7 +189,7 @@
                     <div class="white-border"></div>
                 {% else %}
                     <div id="no-pic">
-                    <span>Няма снимка.</span>
+                        <span>Няма снимка.</span>
                     </div>
                 {% endif %}
 
@@ -306,32 +308,113 @@
                 </a>
             {% endif %}
         </div>
-
+        <br><br><br>
         <div id="offer-details-facts">
-            <div id="city-facts">
-                <div class="facts" id="fact1">
-                    {{ offer_details.city.fact1 }}
+            <div id="offer-details-facts-container">
+                <div id="city-facts">
+                    <div class="facts" id="fact1">
+                        <p>ФАКТ 1</p>
+                        <span>{{ offer_details.city.fact1 }}</span>
+                    </div>
+                    <div class="facts" id="fact2">
+                        <p>ФАКТ 2</p>
+                        <span>{{ offer_details.city.fact2 }}</span>
+                    </div>
+                    <div class="facts" id="fact3">
+                        <p>ФАКТ 3</p>
+                        <span>{{ offer_details.city.fact3 }}</span>
+                    </div>
                 </div>
-                <div class="facts" id="fact2">
-                    {{ offer_details.city.fact2 }}
+                <div id="city-picture"
+                     style="background: url('{{ offer_details.city.city_pic.url }}'); background-size: 770px 860px;">
+                    <p>{{ offer_details.city.name }}</p>
+                    {#                    <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">#}
+                    <div class="white-border"></div>
+
                 </div>
-                <div class="facts" id="fact3">
-                    {{ offer_details.city.fact3 }}
-                </div>
-            </div>
-            <div id="city-picture">
-                <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">
-                <p>{{ offer_details.city.name }}</p>
             </div>
         </div>
 
         <div id="offer-details-feedback">
-            <div id="heading-feedback"></div>
-            <div id="feedback-slider"></div>
+            <div id="heading-feedback">
+                <p>Отзиви от Студенти</p>
+            </div>
+            <div id="feedback-slider">
+                <div class="feedback-btn" id="prev-button">
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" stroke-width="1.5"
+                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+
+                <div class="slider-container">
+
+                    <div class="text-container">
+
+                        <div id="feedback-text-1">
+                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
+                                от
+                                студента трябва да бъде тук.</p>
+                        </div>
+                        <div id="feedback-text-2">
+                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
+                                от
+                                студента трябва да бъде тук.</p>
+                        </div>
+                        <div id="feedback-text-3">
+                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
+                                от
+                                студента трябва да бъде тук.</p>
+                        </div>
+                        <div id="feedback-text-4">
+                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
+                                от
+                                студента трябва да бъде тук.</p>
+                        </div>
+                        <div id="feedback-text-5">
+                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
+                                от
+                                студента трябва да бъде тук.</p>
+                        </div>
+                    </div>
+
+                    <div id="feedback-picture-container">
+                        <div class="feedback-img" id="feedback-img-1">
+                            <img src="" alt="profile photo">
+                        </div>
+                        <div class="feedback-img" id="feedback-img-2">
+                            <img src="" alt="profile photo">
+                        </div>
+                        <div class="feedback-img" id="feedback-img-3">
+                            <img src="" alt="profile photo">
+                        </div>
+                        <div class="feedback-img" id="feedback-img-4">
+                            <img src="" alt="profile photo">
+                        </div>
+                        <div class="feedback-img" id="feedback-img-5">
+                            <img src="" alt="profile photo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-btn" id="next-button">
+                    <?xml version="1.0" encoding="UTF-8"?>
+                    <svg width="24px" height="24px" stroke-width="1.5"
+                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                        <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+
+            </div>
         </div>
 
 
     </section>
+    <img id="offer-details-page-flag3" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+
     <section id="cta-section">
         <div id="cta-background-gradient">
             <div id="cta-container">

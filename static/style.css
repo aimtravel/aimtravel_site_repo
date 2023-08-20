@@ -12,7 +12,7 @@
 
 /*#9D0A0E*/
 :root {
-    --section-width: 1730px;
+    --max-width: 1730px;
     --red-color: #9D0A0E;
     --blue-color: #00355E;
     --offer-width: 347px;
@@ -34,7 +34,7 @@ body {
 main {
     display: flex;
     justify-self: center;
-    max-width: var(--section-width);
+    max-width: var(--max-width);
 }
 
 header {
@@ -64,6 +64,12 @@ body .usa-flag {
 }
 
 /* Top Header */
+#top-header-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: #000000;
+}
 
 #top-header {
     display: flex;
@@ -73,7 +79,7 @@ body .usa-flag {
     padding: 0 80px;
     gap: 50px;
 
-    width: 100%;
+    width: var(--max-width);
     height: 50px;
 
     background: #000000;
@@ -2659,7 +2665,10 @@ footer .usa-flag {
 /* Job offer details section */
 
 #offer-detials {
-    margin: 80px 80px 0 80px;
+    margin-top: 80px;
+    width: 100%;
+
+
 }
 
 #offer-details-header {
@@ -2681,12 +2690,17 @@ footer .usa-flag {
     top: -940px;
 }
 
+#offer-details-page-flag3 {
+    top: 2240px;
+}
+
 #offer-details-top-row {
     display: flex;
 
     flex-direction: column;
     align-items: flex-start;
     gap: 25px;
+    padding: 0 80px 0 80px;
 }
 
 #offer-details-nav {
@@ -2765,6 +2779,7 @@ footer .usa-flag {
     justify-content: flex-start;
     align-items: center;
     margin-top: 40px;
+    padding: 0 80px 0 80px;
 }
 
 #offer-picture {
@@ -2829,6 +2844,7 @@ footer .usa-flag {
     flex-direction: row;
     justify-content: space-between;
     margin-top: 88px;
+    padding: 0 80px 0 80px;
 }
 
 #offer-details-details .detail-container {
@@ -2861,28 +2877,238 @@ footer .usa-flag {
 }
 
 #offer-details-facts {
-    width: 100%;
-    height: 1069px;
+    /*width: 100%;*/
+    height: 900px;
     display: flex;
     flex-direction: row;
     background: #F6F8FA;
+    padding: 74px 80px 74px 80px;
+}
+
+#offer-details-facts-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }
 
 #offer-details-facts #city-facts {
     width: 50%;
     display: flex;
     flex-direction: column;
+    gap: 48px;
+}
+
+#city-facts .facts {
+    width: 453px;
+    height: 203px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 32px;
+
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 4px 4px 80px 50px rgba(0, 0, 0, 0.03);
+
+    position: relative;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-style: normal;
+    line-height: normal;
+}
+
+#city-facts .facts p {
+    padding: 0;
+    margin: 0;
+    color: #B9BCC0;
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: 0.64px;
+}
+
+#city-facts .facts span {
+    color: #000;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+#fact1 {
+    position: relative;
+    left: 150px;
+}
+
+#fact2 {
+    position: relative;
+    left: 380px;
+    z-index: 6;
 }
 
 #offer-details-facts #city-picture {
-    width: 50%;
-}
-
-#city-picture img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 770px;
     height: 860px;
+    position: relative;
+
+    border-radius: 39px;
+    background: lightgray 50% / cover;
+    background-size: 770px 860px;
+    z-index: 5;
 }
 
+/*#city-picture img {*/
+
+/*    width: 770px;*/
+/*    height: 860px;*/
+/*    border-radius: 39px;*/
+/*    background: lightgray 50% / cover no-repeat;*/
+/*}*/
+
+#city-picture p {
+    position: relative;
+    bottom: 300px;
+
+
+    color: #FBFBFB;
+    leading-trim: both;
+    text-shadow: 4px 4px 60px rgba(0, 0, 0, 0.78);
+    font-family: Jost;
+    font-size: 80px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+#city-picture .white-border {
+    width: 700px;
+    height: 780px;
+    position: absolute;
+    left: 33px;
+    bottom: 40px;
+    border-radius: 20px;
+    border: 1.5px solid #FFF;
+}
+
+
+#offer-details-feedback {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    height: 669px;
+    padding: 0 80px 0 80px;
+}
+
+#heading-feedback {
+    color: var(--blue-color);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.26px;
+    text-transform: capitalize;
+}
+
+#feedback-slider {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 550px;
+}
+
+.feedback-btn {
+    width: 65px;
+    height: 60px;
+    background: var(--blue-color);
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    position: relative;
+    border-radius: 100%;
+}
+
+.feedback-btn svg {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    left: 5px;
+
+}
+
+#feedback-slider .slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 90px;
+    margin-top: 100px;
+
+}
+
+#feedback-slider .slider-container .text-container {
+    width: 535px;
+    height: 192px;
+    display: flex;
+    padding: 80px;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 28px;
+    background: #FFF;
+    border: 2px solid var(--red-color);
+    position: relative;
+}
+
+#feedback-text-1 {
+    display: flex;
+}
+
+#feedback-text-2, #feedback-text-3, #feedback-text-4, #feedback-text-5 {
+    display: none;
+    position: absolute;
+}
+
+#feedback-slider .slider-container .text-container p {
+    color: #000;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.72px;
+}
+
+#feedback-slider .slider-container #feedback-picture-container {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+
+}
+
+.feedback-img {
+    background: #D9D9D9;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 /* CTA section */
 
