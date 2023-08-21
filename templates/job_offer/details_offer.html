@@ -339,76 +339,90 @@
             <div id="heading-feedback">
                 <p>Отзиви от Студенти</p>
             </div>
-            <div id="feedback-slider">
-                <div class="feedback-btn" id="prev-button">
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="24px" height="24px" stroke-width="1.5"
-                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </div>
+            {% if offer_details.feedback %}
+                <div id="feedback-slider">
+                    <div class="feedback-btn" id="prev-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
 
-                <div class="slider-container">
+                    <div class="slider-container">
 
-                    <div class="text-container">
+                        <div class="text-container tooltip">
 
-                        <div id="feedback-text-1">
-                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
-                                от
-                                студента трябва да бъде тук.</p>
+                            <div id="feedback-text-1">
+                                <p>
+                                    {% if offer_details.feedback.feedback_1 %}
+                                        {{ offer_details.feedback.feedback_1 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-2">
+                                <p>
+                                    {% if offer_details.feedback.feedback_2 %}
+                                        {{ offer_details.feedback.feedback_2 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-3">
+                                <p>
+                                    {% if offer_details.feedback.feedback_3 %}
+                                        {{ offer_details.feedback.feedback_3 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+
                         </div>
-                        <div id="feedback-text-2">
-                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
-                                от
-                                студента трябва да бъде тук.</p>
-                        </div>
-                        <div id="feedback-text-3">
-                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
-                                от
-                                студента трябва да бъде тук.</p>
-                        </div>
-                        <div id="feedback-text-4">
-                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
-                                от
-                                студента трябва да бъде тук.</p>
-                        </div>
-                        <div id="feedback-text-5">
-                            <p>Текстът от студента трябва да бъде тук. Текстът от студента трябва да бъде тук. Текстът
-                                от
-                                студента трябва да бъде тук.</p>
+
+                        <div id="feedback-picture-container">
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container1" >
+                                    {% if offer_details.feedback.student_pic_1 %}
+                                        <img id="feedback-img-1" src="{{ offer_details.feedback.student_pic_1.url }}" alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-1">{{ offer_details.feedback.student_name_1 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container2">
+                                    {% if offer_details.feedback.student_pic_2 %}
+                                        <img id="feedback-img-2" src="{{ offer_details.feedback.student_pic_2.url }}" alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-2">{{ offer_details.feedback.student_name_2 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container3">
+                                    {% if offer_details.feedback.student_pic_3 %}
+                                        <img id="feedback-img-3" src="{{ offer_details.feedback.student_pic_3.url }}" alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-3">{{ offer_details.feedback.student_name_3 }}</p>
+                            </div>
+
                         </div>
                     </div>
 
-                    <div id="feedback-picture-container">
-                        <div class="feedback-img" id="feedback-img-1">
-                            <img src="" alt="profile photo">
-                        </div>
-                        <div class="feedback-img" id="feedback-img-2">
-                            <img src="" alt="profile photo">
-                        </div>
-                        <div class="feedback-img" id="feedback-img-3">
-                            <img src="" alt="profile photo">
-                        </div>
-                        <div class="feedback-img" id="feedback-img-4">
-                            <img src="" alt="profile photo">
-                        </div>
-                        <div class="feedback-img" id="feedback-img-5">
-                            <img src="" alt="profile photo">
-                        </div>
+                    <div class="feedback-btn" id="next-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
                 </div>
+            {% else %}
+                <p>Все още няма feedback за тази оферта.</p>
+            {% endif %}
 
-                <div class="feedback-btn" id="next-button">
-                    <?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="24px" height="24px" stroke-width="1.5"
-                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </div>
-
-            </div>
         </div>
 
 
@@ -594,7 +608,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{% static "javascript/js_filtering.js" %}"></script>
 <script type="text/javascript" src="{% static "javascript/js_dropdown.js" %}"></script>
-<script type="text/javascript" src="{% static "javascript/js_slider.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_feedback_slider.js" %}"></script>
 <script type="text/javascript" src="{% static "javascript/js_navbar.js" %}"></script>
 <script type="text/javascript" src="{% static "javascript/js_video.js" %}"></script>
 </body>

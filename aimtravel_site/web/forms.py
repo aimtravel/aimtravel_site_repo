@@ -1,11 +1,17 @@
 from django import forms
 
-from aimtravel_site.web.models import JobOffer, Company, Prices, AdditionalServices
+from aimtravel_site.web.models import JobOffer, Company, Prices, AdditionalServices, Feedback
 
 
 class JobOfferDetailForm(forms.ModelForm):
     class Meta:
         model = JobOffer
+        fields = '__all__'
+
+
+class FeedbackForm(forms.ModelForm):
+    class Meta:
+        model = Feedback
         fields = '__all__'
 
 

@@ -12,7 +12,7 @@ from django.utils.encoding import smart_str
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
-from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company
+from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, Feedback
 
 UserModel = get_user_model()
 

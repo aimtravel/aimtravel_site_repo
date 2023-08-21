@@ -1020,6 +1020,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .offer-pic {
+    width: var(--offer-width);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2907,7 +2908,7 @@ footer .usa-flag {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 24px;
+    gap: 5px;
     padding: 32px;
 
     border-radius: 10px;
@@ -3006,19 +3007,24 @@ footer .usa-flag {
     margin-top: 80px;
     height: 669px;
     padding: 0 80px 0 80px;
-}
 
-#heading-feedback {
     color: var(--blue-color);
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
-    font-size: 42px;
     font-style: normal;
-    font-weight: 700;
     line-height: normal;
     letter-spacing: 1.26px;
+
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#heading-feedback {
+    font-size: 42px;
+    font-weight: 700;
     text-transform: capitalize;
+
 }
 
 #feedback-slider {
@@ -3039,14 +3045,19 @@ footer .usa-flag {
     gap: 17px;
     position: relative;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .feedback-btn svg {
     width: 48px;
     height: 48px;
     position: relative;
-    left: 5px;
+    left: 4px;
 
+}
+
+#feedback-slider #next-feedback-button svg{
+    left: 8px;
 }
 
 #feedback-slider .slider-container {
@@ -3069,6 +3080,21 @@ footer .usa-flag {
     background: #FFF;
     border: 2px solid var(--red-color);
     position: relative;
+}
+
+#feedback-slider .slider-container .tooltip {
+    display: flex;
+    align-items: center;
+    opacity: 100;
+    position: relative;
+    left: 23.5%;
+
+}
+
+#feedback-slider .slider-container .tooltip::before {
+    left: 25%;
+    bottom: -7%;
+    border-color: var(--red-color) transparent transparent transparent;
 }
 
 #feedback-text-1 {
@@ -3096,7 +3122,8 @@ footer .usa-flag {
 #feedback-slider .slider-container #feedback-picture-container {
     display: flex;
     flex-direction: row;
-    gap: 60px;
+    justify-content: center;
+    gap: 100px;
 
 }
 
@@ -3108,6 +3135,39 @@ footer .usa-flag {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+}
+
+#feedback-img-1 {
+    width: 100px;
+    height: 100px;
+}
+
+#feedback-img-container1 {
+    width: 100px;
+    height: 100px;
+}
+
+.feedback-img img {
+    width: 75px;
+    height: 75px;
+
+}
+#student-name-2, #student-name-3 {
+    display: none;
+}
+
+.feedback-picture-container p {
+    color: var(--blue-color);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-transform: capitalize;
 }
 
 /* CTA section */

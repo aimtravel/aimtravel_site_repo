@@ -49,6 +49,72 @@ class City(models.Model):
         return result
 
 
+class Feedback(models.Model):
+    feedback_name = models.CharField(
+        verbose_name='Оферта',
+        max_length=100,
+        unique=True,
+        blank=True,
+        null=True,
+    )
+    student_name_1 = models.CharField(
+        verbose_name='Студент 1',
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    student_pic_1 = models.ImageField(
+        upload_to='feedback_student_pics/',
+        verbose_name='Снимка 1',
+        blank=True,
+        null=True,
+    )
+    feedback_1 = models.TextField(
+        verbose_name='Отзив 1',
+        blank=True,
+        null=True,
+    )
+    student_name_2 = models.CharField(
+        verbose_name='Студент 2',
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    student_pic_2 = models.ImageField(
+        upload_to='feedback_student_pics/',
+        verbose_name='Снимка 2',
+        blank=True,
+        null=True,
+    )
+    feedback_2 = models.TextField(
+        verbose_name='Отзив 2',
+        blank=True,
+        null=True,
+    )
+    student_name_3 = models.CharField(
+        verbose_name='Студент 3',
+        max_length=20,
+        blank=True,
+        null=True,
+    )
+    student_pic_3 = models.ImageField(
+        upload_to='feedback_student_pics/',
+        verbose_name='Снимка 3',
+        blank=True,
+        null=True,
+    )
+    feedback_3 = models.TextField(
+        verbose_name='Отзив 3',
+        blank=True,
+        null=True,
+    )
+
+
+    def __str__(self):
+        result = f'{self.feedback_name}'
+        return result
+
+
 class JobOffer(models.Model):
     POSITION_NAME = 30
     EMPLOYER = 30
@@ -186,6 +252,13 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
+    feedback = models.ForeignKey(
+        Feedback,
+        on_delete=models.CASCADE,
+        to_field='feedback_name',
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
@@ -203,27 +276,7 @@ class JobOffer(models.Model):
                 os.remove(path)
 
 
-class Feedback(models.Model):
-    job_offer = models.ForeignKey(
-        JobOffer,
-        on_delete=models.CASCADE,
-    )
-    student_name = models.CharField(
-        max_length=20,
-        blank=True,
-        null=True,
-    )
-    student_pic = models.ImageField(
-        upload_to='feedback_student_pics/',
-        verbose_name='Снимка',
-        blank=True,
-        null=True,
-    )
-    feedback = models.TextField(
-        verbose_name='Отзив',
-        blank=True,
-        null=True,
-    )
+
 
 
 class Prices(models.Model):
