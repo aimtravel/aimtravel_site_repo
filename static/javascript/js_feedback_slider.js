@@ -14,8 +14,7 @@ var feedbackName1 = document.getElementById('student-name-1')
 var feedbackName2 = document.getElementById('student-name-2')
 var feedbackName3 = document.getElementById('student-name-3')
 
-var tooltip = document.querySelector('.tooltip');
-var tooltipComputed = getComputedStyle(tooltip, '::before');
+var tooltipElement = document.getElementById('feedback-text-container');
 
 var currentFeedbackSlider = feedbackText1;
 
@@ -40,7 +39,8 @@ function prevFeedbackHandler() {
         feedbackImgContainer3.style.height = '100px';
         feedbackName1.style.display = 'none';
         feedbackName3.style.display = 'block';
-
+        tooltipElement.classList.add('tooltip3');
+        tooltipElement.classList.remove('tooltip1');
         currentFeedbackSlider = feedbackText3;
     } else {
         if (currentFeedbackSlider === feedbackText3) {
@@ -56,7 +56,8 @@ function prevFeedbackHandler() {
             feedbackImgContainer2.style.height = '100px';
             feedbackName3.style.display = 'none';
             feedbackName2.style.display = 'block';
-
+            tooltipElement.classList.add('tooltip2');
+            tooltipElement.classList.remove('tooltip3');
             currentFeedbackSlider = feedbackText2;
         } else {
             if (currentFeedbackSlider === feedbackText2) {
@@ -72,7 +73,8 @@ function prevFeedbackHandler() {
                 feedbackImgContainer1.style.height = '100px';
                 feedbackName2.style.display = 'none';
                 feedbackName1.style.display = 'block';
-
+                tooltipElement.classList.add('tooltip1');
+                tooltipElement.classList.remove('tooltip2');
                 currentFeedbackSlider = feedbackText1;
             }
         }
@@ -94,7 +96,8 @@ function nextFeedbackHandler() {
         feedbackImgContainer2.style.height = '100px';
         feedbackName1.style.display = 'none';
         feedbackName2.style.display = 'block';
-
+        tooltipElement.classList.add('tooltip2');
+        tooltipElement.classList.remove('tooltip1');
         currentFeedbackSlider = feedbackText2;
     } else {
         if (currentFeedbackSlider === feedbackText2) {
@@ -110,7 +113,8 @@ function nextFeedbackHandler() {
             feedbackImgContainer3.style.height = '100px';
             feedbackName2.style.display = 'none';
             feedbackName3.style.display = 'block';
-
+            tooltipElement.classList.add('tooltip3');
+            tooltipElement.classList.remove('tooltip2');
             currentFeedbackSlider = feedbackText3;
         } else {
             if (currentFeedbackSlider === feedbackText3) {
@@ -126,9 +130,12 @@ function nextFeedbackHandler() {
                 feedbackImgContainer1.style.height = '100px';
                 feedbackName3.style.display = 'none';
                 feedbackName1.style.display = 'block';
-
+                tooltipElement.classList.add('tooltip1');
+                tooltipElement.classList.remove('tooltip3');
                 currentFeedbackSlider = feedbackText1;
             }
         }
     }
 }
+
+setInterval(nextFeedbackHandler, 8000)
