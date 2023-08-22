@@ -58,7 +58,7 @@ body {
 main {
     display: flex;
     justify-self: center;
-    max-width: var(--max-width);
+    width: 100%;
 }
 
 header {
@@ -380,6 +380,7 @@ nav a {
 .background {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     position: absolute;
     width: 100%;
     height: 882px;
@@ -400,12 +401,16 @@ nav a {
     top: 0px;
     z-index: -1;
     background: linear-gradient(180deg, #D9D9D9 0%, #000000 0.01%, rgba(0, 0, 0, 0) 35.3%);
+    display: flex;
+    justify-content: center;
 }
 
 .slider {
+    width: var(--max-width);
     height: 100%;
     display: flex;
     flex-direction: row;
+
     align-items: center;
     align-content: space-between;
     gap: 10%;
@@ -464,6 +469,8 @@ nav a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+
 }
 
 .slider-container .text-container {
@@ -720,6 +727,7 @@ main {
     position: relative;
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
 }
 
@@ -743,10 +751,17 @@ main .main-flag2 {
 }
 
 /* About Section */
+#about-section {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: var(--max-width);
+}
 
 #about {
-    display: inline-flex;
-    width: 1320px;
+    display: flex;
+    width: 1560px;
     height: 631px;
     align-items: center;
     position: relative;
@@ -761,7 +776,6 @@ main .main-flag2 {
     gap: 32px;
 
     width: 659px;
-    padding-left: 80px;
     font-family: 'Jost';
     font-style: normal;
     line-height: normal;
@@ -843,11 +857,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 100%;
     height: 100%;
     background: linear-gradient(109deg, #000 0%, #01213B 32.19%, rgba(0, 53, 94, 0.00) 93.75%);
+    display: flex;
+    justify-content: center;
 }
 
 #cta-container {
-    /*width: 50%;*/
-    width: 710px;
+    width: var(--max-width);
     height: 366px;
 
 
