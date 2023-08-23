@@ -1186,6 +1186,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 /* Video Section*/
 
+.max-width-size {
+    width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
 #video-section {
     width: 100%;
     height: 1150px;
@@ -1472,7 +1480,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 /* News */
 
 #news-section {
-    width: 100%;
+    width: var(--max-width);
     height: 1300px;
     display: flex;
     flex-direction: column;
@@ -1484,7 +1492,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     color: var(--blue-color);
 
     /*margin-bottom: 80px;*/
-    padding-bottom: 0px;
+    padding: 0px 80px;
 }
 
 #news-heading {
@@ -1504,7 +1512,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #news {
     display: flex;
     align-items: flex-start;
-    gap: 160px;
+    gap: 61px;
 }
 
 .news-date {
@@ -2069,8 +2077,8 @@ footer .usa-flag {
     flex-direction: row;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 50px;
-    width: 100%;
+    padding: 0 80px;
+    width: var(--max-width);
 }
 
 #footer-link-container #footer-text p {
@@ -2706,7 +2714,7 @@ footer .usa-flag {
 
 #offer-detials {
     margin-top: 80px;
-    width: 100%;
+    width: var(--max-width);
 
 
 }
