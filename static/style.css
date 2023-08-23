@@ -12,34 +12,46 @@
 
 /*#9D0A0E*/
 :root {
-    --max-width: 1730px;
+    --max-width: calc(1730px * 0.75);
     --red-color: #9D0A0E;
     --blue-color: #00355E;
-    --offer-width: 347px;
-    --offer-height: 460px;
-    --font-12: 12px;
-    --font-14: 14px;
-    --font-15: 15px;
-    --font-16: 16px;
-    --font-17: 17px;
-    --font-18: 18px;
-    --font-20: 20px;
-    --font-22: 22px;
-    --font-24: 24px;
-    --font-25: 25px;
-    --font-26: 26px;
-    --font-28: 28px;
-    --font-30: 30px;
-    --font-32: 32px;
-    --font-36: 36px;
-    --font-42: 42px;
-    --font-45: 45px;
-    --font-55: 55px;
-    --font-60: 60px;
-    --font-66: 66px;
-    --font-70: 70px;
-    --font-80: 80px;
-    --font-140: 140px;
+    --main-slider-background-height: calc(882px * 0.80);
+    --slider-btn-height: calc(50px * 0.75);
+    --top-destination-width: calc(1132px * 0.75);
+    --top-destination-height: calc(228px * 0.75);
+    --top-destination-row-height: calc(114px * 0.75);
+    --about-img-width: calc(450px * 0.75);
+    --about-img-height: calc(600px * 0.75);
+    --about-img-white-border-width: calc(410px * 0.75);
+    --about-img-white-border-height: calc(560px * 0.75);
+    --offer-width: calc(347px * 0.75);
+    --offer-height: calc(460px * 0.75);
+    --font-12: calc(12px * 0.75);
+    --font-14: calc(14px * 0.75);
+    --font-15: calc(15px * 0.75);
+    --font-16: calc(16px * 0.75);
+    --font-17: calc(17px * 0.75);
+    --font-18: calc(18px * 0.75);
+    --font-20: calc(20px * 0.75);
+    --font-21: calc(21px * 0.75);
+    --font-22: calc(22px * 0.75);
+    --font-24: calc(24px * 0.75);
+    --font-25: calc(25px * 0.75);
+    --font-26: calc(26px * 0.75);
+    --font-28: calc(28px * 0.75);
+    --font-30: calc(30px * 0.75);
+    --font-32: calc(32px * 0.75);
+    --font-36: calc(36px * 0.75);
+    --font-42: calc(42px * 0.75);
+    --font-45: calc(45px * 0.75);
+    --font-55: calc(55px * 0.75);
+    --font-60: calc(60px * 0.75);
+    --font-62: calc(62px * 0.75);
+    --font-64: calc(64px * 0.75);
+    --font-66: calc(66px * 0.75);
+    --font-70: calc(70px * 0.75);
+    --font-80: calc(80px * 0.75);
+    --font-140: calc(140px * 0.75);
 
 
 }
@@ -68,7 +80,7 @@ header {
     align-items: center;
     position: relative;
     width: 100%;
-    height: 1182px;
+    height: 870px;
     left: 0px;
     top: 0px;
 
@@ -81,8 +93,8 @@ body .usa-flag {
     gap: 20px;
 
     position: absolute;
-    top: 930px;
-    left: 1588px;
+    top: 750px;
+    left: 1532px;
 
 
 }
@@ -341,7 +353,7 @@ nav a {
 }
 
 .link-a {
-    font-size: var(--font-20);
+    font-size: var(--font-22);
     transition: font-size 0.4s ease-in-out;
 }
 
@@ -359,8 +371,8 @@ nav a {
 }
 
 #logo {
-    width: 112px;
-    height: 118px;
+    width: 84px;
+    height: 84px;
     transition: 0.4s ease-in-out;
 }
 
@@ -383,7 +395,7 @@ nav a {
     justify-content: center;
     position: absolute;
     width: 100%;
-    height: 882px;
+    height: var(--main-slider-background-height);
     left: 0px;
     top: 40px;
     background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/hero-banner_1.webp');
@@ -429,7 +441,7 @@ nav a {
     padding: 14px;
     cursor: pointer;
     position: relative;
-    bottom: 40px;
+    bottom: 15px;
 
 
 }
@@ -452,7 +464,7 @@ nav a {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
-    bottom: 44px;
+    bottom: 10px;
 }
 
 .slider-container p,
@@ -511,7 +523,7 @@ nav a {
 
 .slider-btn {
     display: flex;
-    height: 50px;
+    height: var(--slider-btn-height);
     justify-content: center;
     align-items: center;
     gap: 10px;
@@ -578,7 +590,7 @@ nav a {
     padding: 48px 80px;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 7px;
 
 
     position: relative;
@@ -599,10 +611,10 @@ nav a {
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
-    font-size: var(--font-45);
+    font-size: var(--font-42);
     font-style: normal;
     font-weight: 400;
-    line-height: 45px;
+    line-height: 35px;
     letter-spacing: 1.35px;
     text-transform: uppercase;
     padding: 0;
@@ -616,10 +628,10 @@ nav a {
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
-    font-size: var(--font-70);
+    font-size: var(--font-62);
     font-style: normal;
     font-weight: 600;
-    line-height: 85px;
+    line-height: 65px;
     letter-spacing: 2.1px;
     text-transform: uppercase;
     padding: 0;
@@ -634,7 +646,7 @@ nav a {
     leading-trim: both;
     text-edge: cap;
     font-family: Jost;
-    font-size: var(--font-26);
+    font-size: var(--font-25);
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -671,12 +683,12 @@ nav a {
     flex-grow: 0;
 
     position: absolute;
-    top: 750px;
+    top: 650px;
     background: #FFFFFF;
     border-radius: 20px;
     box-shadow: 4px 4px 50px rgba(0, 0, 0, 0.06);
-    width: 1132px;
-    height: 228px;
+    width: var(--top-destination-width);
+    height: var(--top-destination-height);
     z-index: 1;
 }
 
@@ -689,7 +701,7 @@ nav a {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 114px;
+    height: var(--top-destination-row-height);
 }
 
 #col-1,
@@ -733,8 +745,8 @@ main {
 
 main .usa-flag {
     position: absolute;
-    top: 2160px;
-    left: 40px;
+    top: 1780px;
+    left: 340px;
 
     width: 101px;
     z-index: -1;
@@ -766,6 +778,7 @@ main .main-flag2 {
     align-items: center;
     position: relative;
     gap: 120px;
+    padding-left: 80px;
 }
 
 #about-text {
@@ -775,7 +788,7 @@ main .main-flag2 {
     align-items: flex-start;
     gap: 32px;
 
-    width: 659px;
+    width: 500px;
     font-family: 'Jost';
     font-style: normal;
     line-height: normal;
@@ -803,16 +816,16 @@ main .main-flag2 {
 }
 
 #about-img {
-    width: 450px;
-    height: 600px;
+    width: var(--about-img-width);
+    height: var(--about-img-height);
     display: flex;
     align-items: flex-start;
     position: relative;
 }
 
 #about-img img {
-    width: 450px;
-    height: 600px;
+    width: var(--about-img-width);
+    height: var(--about-img-height);
     border-radius: 39px;
 drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
@@ -827,7 +840,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #about-img #img-2 {
     position: absolute;
     top: 110px;
-    left: 339px;
+    left: 254px;
     z-index: 2;
 }
 
@@ -835,8 +848,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     position: absolute;
     top: 12px;
     left: 12px;
-    width: 418px;
-    height: 568px;
+    width: var(--about-img-white-border-width);
+    height: var(--about-img-white-border-height);
     border-radius: 39px;
     border: 3px solid #FFFFFF;
     box-shadow: 4px 4px 50px 0 rgba(0, 0, 0, 0.20);
@@ -847,10 +860,10 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #cta-section {
     width: 100%;
-    height: 683px;
+    height: 530px;
     background-image: url('../static/img/Ready-stock/WEBP version/cta-section.webp');
     background-size: cover;
-    margin-top: 180px;
+    margin-top: 80px;
 }
 
 #cta-background-gradient {
@@ -872,7 +885,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
     position: relative;
     left: 80px;
-    top: 150px;
+    top: 110px;
 
     font-family: 'Jost';
     font-style: normal;
@@ -918,7 +931,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 /* OFFERS Section*/
 
 #offers {
-    /*width: 100%;*/
+    width: var(--max-width);
     /*margin-bottom: 30px;*/
     margin-top: 90px;
 
@@ -1028,7 +1041,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-self: flex-start;
     /*flex-direction: row;*/
     /*justify-content: center;*/
-    gap: 59px;
+    gap: 35px;
 
 }
 
@@ -1055,7 +1068,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 .offer-slide .slider-btn a {
     position: relative;
-    padding: 2px 35px;
+
 }
 
 .offer-pic {
@@ -1111,13 +1124,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-family: 'Jost';
     font-weight: 700;
     font-style: normal;
-    font-size: var(--font-12);
+    font-size: var(--font-14);
     align-items: center;
     line-height: 15px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
     color: #FFFFFF;
+    padding: 2px 28px;
 }
 
 .offer-text-container {
@@ -1129,8 +1143,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .offer-header {
-    padding: 0;
-    padding-bottom: 15px;
+    padding: 0 0 5px 0;
     margin: 0;
     display: flex;
     font-weight: 500;
@@ -1155,7 +1168,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .offer-type {
-    padding: 0 0 35px 0;
+    padding: 0 0 24px 0;
     margin: 0;
     font-weight: 400;
     font-size: var(--font-14);
