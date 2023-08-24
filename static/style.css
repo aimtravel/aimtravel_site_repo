@@ -93,8 +93,8 @@ body .usa-flag {
     gap: 20px;
 
     position: absolute;
-    top: 750px;
-    left: 1532px;
+    top: 730px;
+    right: 8%;
 
 
 }
@@ -746,7 +746,7 @@ main {
 main .usa-flag {
     position: absolute;
     top: 1780px;
-    left: 340px;
+    left: 8%;
 
     width: 101px;
     z-index: -1;
@@ -755,7 +755,7 @@ main .usa-flag {
 main .main-flag2 {
     position: absolute;
     top: 2695px;
-    right: 300px;
+    right: 8%;
 
     width: 101px;
     height: 400px;
@@ -1788,7 +1788,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 /* Story Section */
 
 #story-section {
-    width: 100%;
+    width: var(--max-width);
 
     display: flex;
     flex-direction: column;
@@ -1820,14 +1820,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 180px;
+    gap: 110px;
     padding: 0 80px;
 }
 
 .story-container {
     display: flex;
-    width: 397px;
-    height: 642px;
+    width: calc(397px * 0.77);
+    height: calc(642px * 0.77);
     padding-bottom: 0;
     flex-direction: column;
     align-items: center;
@@ -1835,8 +1835,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .story-img img {
-    width: 397px;
-    height: 286px;
+    width: calc(397px * 0.77);
+    height: calc(286px * 0.77);
     border-radius: 20px;
 }
 
@@ -1860,6 +1860,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-size: var(--font-25);
     line-height: 32px;
     letter-spacing: 0.75px;
+    margin: 10px 0 10px 0;
 }
 
 .story-text p {
@@ -1868,6 +1869,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     line-height: normal;
     letter-spacing: 0.6px;
     color: #1D1D1D;;
+    margin: 0 0 5px 0;
 }
 
 .story-text a {
@@ -1885,13 +1887,13 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #story-button {
-    margin-top: 130px;
+    margin-top: 100px;
 }
 
 /* Services Section */
 
 #service-section {
-    width: 100%;
+    width: var(--max-width);
     display: flex;
     justify-content: center;
     padding: 100px 0 0 0;
@@ -1899,7 +1901,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #service-container {
-    width: 1568px;
+    width: calc(1488px * 0.75);
     height: auto;
     display: flex;
     flex-direction: column;
@@ -1983,7 +1985,7 @@ footer {
     width: 100%;
     height: auto;
     background-color: #01182B;
-    padding: 50px 30px 5px 30px;
+    padding: 40px 30px 5px 30px;
     box-sizing: border-box;
 
     font-family: 'Jost';
@@ -2002,18 +2004,17 @@ footer {
 
 footer .usa-flag {
     position: absolute;
-    right: 70px;
     top: -170px;
     z-index: -1;
 }
 
 #footer-nav-container {
-    width: 1568px;
+    width: calc(1568px * 0.75);
     display: flex;
     flex-direction: row;
     justify-content: center;
 
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 #logo-container {
@@ -2024,8 +2025,8 @@ footer .usa-flag {
 }
 
 #logo-container img {
-    width: 360px;
-    height: 140px;
+    width: calc(360px * 0.75);
+    height: calc(140px * 0.75);
     padding: 0px;
     margin: 0px;
 }
@@ -2091,7 +2092,7 @@ footer .usa-flag {
 }
 
 #horizontal-line {
-    width: 1568px;
+    width: calc(1568px * 0.75);
     padding: 0 50px;
 }
 
@@ -2100,8 +2101,7 @@ footer .usa-flag {
     flex-direction: row;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 0 80px;
-    width: var(--max-width);
+    width: calc(1568px * 0.75);
 }
 
 #footer-link-container #footer-text p {
