@@ -167,148 +167,150 @@
 <img id="offer-details-page-flag1" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
 <main>
 
-    <section id="offer-detials">
-        <div id="offer-details-top-row">
-            <div id="offer-details-nav">
-                <p>Начало</p>
-                <span>/</span>
-                <p>Работни Оферти</p>
-                <span>/</span>
-                <span>{{ offer_details.job_position }}</span>
+    <section id="offer-details-section">
+        <div id="offer-details">
+            <div id="offer-details-top-row">
+                <div id="offer-details-nav">
+                    <p>Начало</p>
+                    <span>/</span>
+                    <p>Работни Оферти</p>
+                    <span>/</span>
+                    <span>{{ offer_details.job_position }}</span>
+                </div>
+                <div id="offer-details-heading">
+                    <h1>{{ offer_details.job_position }}</h1>
+                    <span>Подходящо за {{ offer_details.suitable_for }}</span>
+                </div>
             </div>
-            <div id="offer-details-heading">
-                <h1>{{ offer_details.job_position }}</h1>
-                <span>Подходящо за {{ offer_details.suitable_for }}</span>
-            </div>
-        </div>
 
-        <div id="offer-details-highlights">
-            <div id="offer-picture">
-                {% if offer_details.offer_pic %}
-                    <img src="{{ offer_details.offer_pic.url }}" alt="offer picture">
-                    <div class="white-border"></div>
-                {% else %}
-                    <div id="no-pic">
-                        <span>Няма снимка.</span>
+            <div id="offer-details-highlights">
+                <div id="offer-picture">
+                    {% if offer_details.offer_pic %}
+                        <img src="{{ offer_details.offer_pic.url }}" alt="offer picture">
+                        <div class="white-border"></div>
+                    {% else %}
+                        <div id="no-pic">
+                            <span>Няма снимка.</span>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div id="offer-description-container">
+                    <div id="offer-description">
+                        <p>{{ offer_details.job_description }}</p>
                     </div>
+                    <div id="buttons">
+                        <div class="slider-btn transparent-btn">
+                            <a href="">ЗАПАЗИ ОФЕРТА</a>
+                        </div>
+                        <div class="slider-btn">
+                            <a href="">ЗАПИШИ СЕ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offer-details-details">
+
+                <div id="offer-location" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Работна позиция:</div>
+                        <div class="detail-content">{{ offer_details.job_position }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Име на работодател:</div>
+                        <div class="detail-content">{{ offer_details.employer_name }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Град:</div>
+                        <div class="detail-content">{{ offer_details.city }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Щат:</div>
+                        <div class="detail-content">{{ offer_details.state }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-payment" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Заплащане:</div>
+                        <div class="detail-content">${{ offer_details.wage }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Бакшиши:</div>
+                        <div class="detail-content">{{ offer_details.tips }}</div>
+                    </div>
+                    <div class="container">
+                        <div class="header">Минимални часове на седмица:</div>
+                        <div class="detail-content">{{ offer_details.minimum_hours }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Overtime:</div>
+                        <div class="detail-content">{{ offer_details.overtime }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-additional-information" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Housing:</div>
+                        <div class="detail-content">{{ offer_details.housing }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Ниво на английски:</div>
+                        <div class="detail-content">{{ offer_details.english_level }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Стартова дата:</div>
+                        <div class="detail-content">{{ offer_details.begin_date }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Крайна дата:</div>
+                        <div class="detail-content">{{ offer_details.end_date }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-suitable-for" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Подходящо за групи:</div>
+                        <div class="detail-content">{{ offer_details.groups }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Подходящо за двойки:</div>
+                        <div class="detail-content">{{ offer_details.couples }}</div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br><br><br>
+            <div id="staff-buttons">
+                {% if user.is_staff %}
+                    <a href="{% url 'edit offer' pk=offer_details.pk %}">
+                        <button>Промени офертата</button>
+                    </a>
+                    <a href="{% url 'delete offer' pk=offer_details.pk %}">
+                        <button>Изтрий офертата</button>
+                    </a>
                 {% endif %}
-
             </div>
-            <div id="offer-description-container">
-                <div id="offer-description">
-                    <p>{{ offer_details.job_description }}</p>
-                </div>
-                <div id="buttons">
-                    <div class="slider-btn transperant-btn">
-                        <a href="">ЗАПАЗИ ОФЕРТА</a>
-                    </div>
-                    <div class="slider-btn">
-                        <a href="">ЗАПИШИ СЕ</a>
-                    </div>
-                </div>
-            </div>
+            <br><br><br>
         </div>
-
-        <div id="offer-details-details">
-
-            <div id="offer-location" class="detail-container">
-
-                <div class="container">
-                    <div class="header">Работна позиция:</div>
-                    <div class="detail-content">{{ offer_details.job_position }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Име на работодател:</div>
-                    <div class="detail-content">{{ offer_details.employer_name }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Град:</div>
-                    <div class="detail-content">{{ offer_details.city }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Щат:</div>
-                    <div class="detail-content">{{ offer_details.state }}</div>
-                </div>
-
-            </div>
-
-            <div id="offer-payment" class="detail-container">
-
-                <div class="container">
-                    <div class="header">Заплащане:</div>
-                    <div class="detail-content">${{ offer_details.wage }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Бакшиши:</div>
-                    <div class="detail-content">{{ offer_details.tips }}</div>
-                </div>
-                <div class="container">
-                    <div class="header">Минимални часове на седмица:</div>
-                    <div class="detail-content">{{ offer_details.minimum_hours }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Overtime:</div>
-                    <div class="detail-content">{{ offer_details.overtime }}</div>
-                </div>
-
-            </div>
-
-            <div id="offer-additional-information" class="detail-container">
-
-                <div class="container">
-                    <div class="header">Housing:</div>
-                    <div class="detail-content">{{ offer_details.housing }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Ниво на английски:</div>
-                    <div class="detail-content">{{ offer_details.english_level }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Стартова дата:</div>
-                    <div class="detail-content">{{ offer_details.begin_date }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Крайна дата:</div>
-                    <div class="detail-content">{{ offer_details.end_date }}</div>
-                </div>
-
-            </div>
-
-            <div id="offer-suitable-for" class="detail-container">
-
-                <div class="container">
-                    <div class="header">Подходящо за групи:</div>
-                    <div class="detail-content">{{ offer_details.groups }}</div>
-                </div>
-
-                <div class="container">
-                    <div class="header">Подходящо за двойки:</div>
-                    <div class="detail-content">{{ offer_details.couples }}</div>
-                </div>
-
-            </div>
-
-        </div>
-        <br><br><br>
-        <div id="staff-buttons">
-            {% if user.is_staff %}
-                <a href="{% url 'edit offer' pk=offer_details.pk %}">
-                    <button>Промени офертата</button>
-                </a>
-                <a href="{% url 'delete offer' pk=offer_details.pk %}">
-                    <button>Изтрий офертата</button>
-                </a>
-            {% endif %}
-        </div>
-        <br><br><br>
         <div id="offer-details-facts">
             <div id="offer-details-facts-container">
                 <div id="city-facts">
@@ -380,9 +382,11 @@
 
                         <div id="feedback-picture-container">
                             <div class="feedback-picture-container">
-                                <div class="feedback-img" id="feedback-img-container1" >
+                                <div class="feedback-img" id="feedback-img-container1">
                                     {% if offer_details.feedback.student_pic_1 %}
-                                        <img id="feedback-img-1" src="{{ offer_details.feedback.student_pic_1.url }}" alt="profile photo">
+                                        <img id="feedback-img-1"
+                                             src="{{ offer_details.feedback.student_pic_1.url }}"
+                                             alt="profile photo">
                                     {% endif %}
                                 </div>
                                 <p class="student-name"
@@ -391,7 +395,9 @@
                             <div class="feedback-picture-container">
                                 <div class="feedback-img" id="feedback-img-container2">
                                     {% if offer_details.feedback.student_pic_2 %}
-                                        <img id="feedback-img-2" src="{{ offer_details.feedback.student_pic_2.url }}" alt="profile photo">
+                                        <img id="feedback-img-2"
+                                             src="{{ offer_details.feedback.student_pic_2.url }}"
+                                             alt="profile photo">
                                     {% endif %}
                                 </div>
                                 <p class="student-name"
@@ -400,7 +406,9 @@
                             <div class="feedback-picture-container">
                                 <div class="feedback-img" id="feedback-img-container3">
                                     {% if offer_details.feedback.student_pic_3 %}
-                                        <img id="feedback-img-3" src="{{ offer_details.feedback.student_pic_3.url }}" alt="profile photo">
+                                        <img id="feedback-img-3"
+                                             src="{{ offer_details.feedback.student_pic_3.url }}"
+                                             alt="profile photo">
                                     {% endif %}
                                 </div>
                                 <p class="student-name"
@@ -424,7 +432,6 @@
             {% endif %}
 
         </div>
-
 
     </section>
     <img id="offer-details-page-flag3" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
@@ -452,7 +459,7 @@
 </main>
 
 <footer>
-    <img id="offer-details-page-flag2" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+    <img id="offer-details-page-flag2" src="{% static "img/USA Flag.png" %}" alt="">
     <div id="footer-nav-container">
         <div id="logo-container">
             <a href="">
