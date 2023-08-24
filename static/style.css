@@ -754,8 +754,8 @@ main .usa-flag {
 
 main .main-flag2 {
     position: absolute;
-    top: 2665px;
-    right: 70px;
+    top: 2695px;
+    right: 300px;
 
     width: 101px;
     height: 400px;
@@ -1209,8 +1209,9 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #video-section {
     width: 100%;
-    height: 1150px;
-    padding-top: 80px;
+    height: 850px;
+    padding-top: 60px;
+    margin-bottom: 40px;
 
     display: flex;
     flex-direction: column;
@@ -1233,15 +1234,15 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #main-video {
-    width: 924px;
-    height: 514px;
+    width: calc(924px * 0.75);
+    height: calc(514px * 0.75);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
 
-    margin-bottom: 170px;
+    margin-bottom: 80px;
 
 }
 
@@ -1296,8 +1297,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 128px;
-    height: 128px;
+    width: calc(128px * 0.75);
+    height: calc(128px * 0.75);
     border-radius: 50%;
     border: 1px solid #ffffff;
 
@@ -1310,8 +1311,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 .play-button {
 
     /* transform: translate(-50%, -50%); */
-    width: 128px;
-    height: 128px;
+    width: calc(128px * 0.75);
+    height: calc(128px * 0.75);
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     display: flex;
@@ -1325,10 +1326,10 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     justify-content: center;
     align-items: center;
 
-    width: 116px;
-    height: 116px;
+    width: calc(116px * 0.75);
+    height: calc(116px * 0.75);
     border-radius: 100%;
-    border: 3px solid white;
+    border: 2px solid white;
     background-color: rgba(0, 0, 0, 0.28);
     backdrop-filter: blur(1px);
 }
@@ -1381,7 +1382,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    margin-bottom: 110px;
+    margin-bottom: 80px;
 }
 
 .subvideo-logo img {
@@ -1441,8 +1442,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .subvideo {
-    width: 536px;
-    height: 301.56px;
+    width: calc(536px * 0.75);
+    height: calc(301.56px * 0.75);
     position: absolute;
 }
 
@@ -1453,8 +1454,8 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 .subvideo:hover {
-    width: 636px;
-    height: 401.56px;
+    width: calc(636px * 0.75);
+    height: calc(401.56px * 0.75);
     z-index: 6;
     transition: 0.5s ease-in-out;
 }
@@ -1494,7 +1495,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #news-section {
     width: var(--max-width);
-    height: 1300px;
+    height: 1075px;
     display: flex;
     flex-direction: column;
 
@@ -1525,7 +1526,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #news {
     display: flex;
     align-items: flex-start;
-    gap: 61px;
+    gap: 90px;
 }
 
 .news-date {
@@ -1541,6 +1542,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-news {
+    width: calc(719px * 0.75);
     padding-left: 80px;
     display: flex;
     flex-direction: column;
@@ -1565,23 +1567,24 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-news-img .white-border {
-    width: 690px;
-    height: 478px;
+    width: calc(678px * 0.75);
+    height: calc(470px * 0.75);
     position: absolute;
-    left: 13px;
-    top: 19px;
+    left: 15px;
+    top: 18px;
     border-radius: 20px;
     border: 1.5px solid white;
 }
 
 #last-news-img img {
-    width: 719px;
-    height: 518px;
+    width: calc(719px * 0.75);
+    height: calc(518px * 0.75);
     border-radius: 20px;
     background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%), lightgray 50% / cover no-repeat;
 }
 
 #last-news-text {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1604,7 +1607,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-news-main-content {
-    width: 671px;
+
     font-size: var(--font-20);
     font-weight: 400;
     letter-spacing: 0.6px;
@@ -1627,7 +1630,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 .last-4-text {
     display: flex;
-    width: 455px;
+    width: 250px;
     padding-top: 24px;
     flex-direction: column;
     align-items: flex-start;
@@ -1636,6 +1639,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-4-news {
+    width: calc(719px * 0.75);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1644,21 +1648,23 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #last-4-news img {
     width: 100%;
-    height: 70%;
+    height: 100%;
     padding-right: 10px;
     border-radius: 18px;
 }
 
 .last-img {
     position: relative;
+    width: calc(256px * 0.75);
+    height: calc(184px * 0.75);
 }
 
 .last-img .white-border {
     position: absolute;
-    bottom: 10.5%;
-    left: 5.2%;
-    width: 89%;
-    height: 81%;
+    bottom: 7%;
+    left: 5%;
+    width: 88%;
+    height: 83.5%;
     border-radius: 15px;
     border: 1px solid white;
 }
@@ -1699,7 +1705,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     justify-content: center;
     width: 100%;
     height: 420px;
-    padding: 90px 0;
+    padding: 60px 0;
     background: linear-gradient(91.22deg, #841114 -0.68%, var(--red-color) 51.53%, #841114 100.57%);
 
     font-family: 'Jost';
@@ -1750,14 +1756,18 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
     gap: 8px;
     padding: 14px 40px;
-    height: 52px;
+    height: var(--slider-btn-height);
     margin-bottom: 40px;
     margin-top: 10px;
     box-sizing: border-box;
-    border: 2px solid white;
+    border: 1.5px solid white;
     box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     cursor: pointer;
+}
+
+.pricing-btn:hover {
+    background: #841114;
 }
 
 .pricing-btn a {
@@ -1766,7 +1776,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-family: 'Jost';
     font-style: normal;
     align-items: center;
-    font-size: 15px;
+    font-size: var(--font-15);
 
     letter-spacing: 1.5px;
     line-height: normal;
