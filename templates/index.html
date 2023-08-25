@@ -578,7 +578,6 @@
     </section>
     <img class="main-flag2" src="../static/img/USA%20Flag.png" alt="">
     <section id="news-section">
-        {#        <div class="max-width-size">#}
         <div id="news-heading">
             <p id="heading-news">Новини</p>
         </div>
@@ -646,10 +645,9 @@
         </div>
         <div id="news-button">
             <div class="slider-btn" id="news-more-btn">
-                <a href="">ОЩЕ НОВИНИ</a>
+                <a href="{% url 'news' %}">ОЩЕ НОВИНИ</a>
             </div>
         </div>
-        {#        </div>#}
     </section>
     <section id="pricing-section">
         <div id="pricing-text">

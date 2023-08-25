@@ -1590,6 +1590,13 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #last-news-main-content {
+    width: calc(671px * 0.75);
+    height: calc(200px * 0.75);
+    overflow: hidden;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
 
     font-size: var(--font-20);
     font-weight: 400;
