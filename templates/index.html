@@ -421,7 +421,12 @@
                         <div class="white-wrapper">
                             <div class="play-button">
                                 <div class="inner-circle">
-                                    <svg width="34px" height="34px" stroke-width="1.5" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" color="#ffffff"><path d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="white"></path></svg>
+                                    <svg width="34px" height="34px" stroke-width="1.5" viewBox="0 0 22 22" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round" fill="white"></path>
+                                    </svg>
                                 </div>
                             </div>
                         </div>
@@ -573,82 +578,78 @@
     </section>
     <img class="main-flag2" src="../static/img/USA%20Flag.png" alt="">
     <section id="news-section">
-{#        <div class="max-width-size">#}
-            <div id="news-heading">
-                <p id="heading-news">Новини</p>
+        {#        <div class="max-width-size">#}
+        <div id="news-heading">
+            <p id="heading-news">Новини</p>
+        </div>
+        <div id="news">
+            <div id="last-news">
+                <div id="last-news-img">
+                    <img src="{{ very_last_news.news_image }}" alt="last news picture">
+                    <div class="white-border"></div>
+                </div>
+                <div id="last-news-text">
+                    <p class="news-date last">{{ very_last_news.date }}</p>
+                    <h2 id="last-news-header">{{ very_last_news.news_title }}</h2>
+                    <p id="last-news-main-content">{{ very_last_news.news_content }}
+                    </p>
+                </div>
             </div>
-            <div id="news">
-                <div id="last-news">
-                    <div id="last-news-img">
-                        <img src="../static/img/Last-news.png" alt="">
+            <div id="last-4-news">
+                {% for news in last_4_news %}
+                <div id="last-4-1" class="news-content">
+                    <div id="last-4-1-img" class="last-img">
+                        <img src="{{ news.news_image }}" alt="">
                         <div class="white-border"></div>
                     </div>
-                    <div id="last-news-text">
-                        <p class="news-date last">17 МАРТ 2023</p>
-                        <h2 id="last-news-header">Визовите интервюта започват на 6-ти февруари</h2>
-                        <p id="last-news-main-content">Добрите WAT новини не спират да идват, а пoредната е от
-                            Посолството на САЩ в България, които потвърдиха, че няма да има ограничения в броя на
-                            студентите, които ще могат да се явят на интервю за J1 виза и да заминат на бригада през
-                            2023 г.
-                            От Консулството съобщиха, че ще започнат с интервютата на 6 февруари догодина и ще
-                            продължат
-                            чак до 15 юни, като при необходимост...
-                        </p>
+                    <div id="last-4-1-text" class="last-4-text">
+                        <p class="news-date">{{ news.date }}</p>
+                        <h3>{{ news.news_title}}</h3>
+                        <a href="{% url 'news' %}">Прочети Статия</a>
                     </div>
                 </div>
-                <div id="last-4-news">
-                    <div id="last-4-1" class="news-content">
-                        <div id="last-4-1-img" class="last-img">
-                            <img src="../static/img/last1.png" alt="">
-                            <div class="white-border"></div>
-                        </div>
-                        <div id="last-4-1-text" class="last-4-text">
-                            <p class="news-date">17 МАРТ 2023</p>
-                            <h3>Бригада – направете го, защото си заслужава</h3>
-                            <a href="#">Прочети Статия</a>
-                        </div>
-                    </div>
-                    <div id="last-4-2" class="news-content">
-                        <div id="last-4-2-img" class="last-img">
-                            <img src="../static/img/last2.png" alt="">
-                            <div class="white-border"></div>
-                        </div>
-                        <div id="last-4-2-text" class="last-4-text">
-                            <p class="news-date">17 МАРТ 2023</p>
-                            <h3>Бригада – направете го, защото си заслужава</h3>
-                            <a href="#">Прочети Статия</a>
-                        </div>
-                    </div>
-                    <div id="last-4-3" class="news-content">
-                        <div id="last-4-3-img" class="last-img">
-                            <img src="../static/img/last3.png" alt="">
-                            <div class="white-border"></div>
-                        </div>
-                        <div id="last-4-3-text" class="last-4-text">
-                            <p class="news-date">17 МАРТ 2023</p>
-                            <h3>Бригада – направете го, защото си заслужава</h3>
-                            <a href="#">Прочети Статия</a>
-                        </div>
-                    </div>
-                    <div id="last-4-4" class="news-content">
-                        <div id="last-4-4-img" class="last-img">
-                            <img src="../static/img/last4.png" alt="">
-                            <div class="white-border"></div>
-                        </div>
-                        <div id="last-4-4-text" class="last-4-text">
-                            <p class="news-date">17 МАРТ 2023</p>
-                            <h3>Бригада – направете го, защото си заслужава</h3>
-                            <a href="#">Прочети Статия</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+{#                <div id="last-4-2" class="news-content">#}
+{#                    <div id="last-4-2-img" class="last-img">#}
+{#                        <img src="../static/img/last2.png" alt="">#}
+{#                        <div class="white-border"></div>#}
+{#                    </div>#}
+{#                    <div id="last-4-2-text" class="last-4-text">#}
+{#                        <p class="news-date">17 МАРТ 2023</p>#}
+{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+{#                        <a href="#">Прочети Статия</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div id="last-4-3" class="news-content">#}
+{#                    <div id="last-4-3-img" class="last-img">#}
+{#                        <img src="../static/img/last3.png" alt="">#}
+{#                        <div class="white-border"></div>#}
+{#                    </div>#}
+{#                    <div id="last-4-3-text" class="last-4-text">#}
+{#                        <p class="news-date">17 МАРТ 2023</p>#}
+{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+{#                        <a href="#">Прочети Статия</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div id="last-4-4" class="news-content">#}
+{#                    <div id="last-4-4-img" class="last-img">#}
+{#                        <img src="../static/img/last4.png" alt="">#}
+{#                        <div class="white-border"></div>#}
+{#                    </div>#}
+{#                    <div id="last-4-4-text" class="last-4-text">#}
+{#                        <p class="news-date">17 МАРТ 2023</p>#}
+{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+{#                        <a href="#">Прочети Статия</a>#}
+{#                    </div>#}
+{#                </div>#}
             </div>
-            <div id="news-button">
-                <div class="slider-btn" id="news-more-btn">
-                    <a href="">ОЩЕ НОВИНИ</a>
-                </div>
+        </div>
+        <div id="news-button">
+            <div class="slider-btn" id="news-more-btn">
+                <a href="">ОЩЕ НОВИНИ</a>
             </div>
-{#        </div>#}
+        </div>
+        {#        </div>#}
     </section>
     <section id="pricing-section">
         <div id="pricing-text">

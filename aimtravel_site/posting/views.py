@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from django.views import generic as views
 
 from aimtravel_site.posting.models import News
