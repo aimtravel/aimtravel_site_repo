@@ -7,13 +7,14 @@ urlpatterns = (
     path('under-construction/', under_construction, name='under-construction'),
     path('contacts/', contacts, name='contacts'),
     path('admin_panel/', admin_panel, name='admin panel'),
-    path('wat_usa/', include([
-        path('why_usa/', why_usa_tab, name='why usa'),
-        path('who/', who_tab, name='who'),
-        path('how/', how_tab, name='how'),
-        path('price/', price_tab, name='price'),
-        path('needed_docs', needed_docs, name='needed documents'),
-    ])),
+    path('wat_usa/', WatUsaView.as_view(), name='wat usa'),
+    # path('wat_usa/', include([
+    #     path('why_usa/', why_usa_tab, name='why usa'),
+    #     path('who/', who_tab, name='who'),
+    #     path('how/', how_tab, name='how'),
+    #     path('price/', price_tab, name='price'),
+    #     path('needed_docs', needed_docs, name='needed documents'),
+    # ])),
     path('taxes/', taxes, name='taxes'),
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),

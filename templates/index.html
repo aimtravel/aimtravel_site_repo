@@ -120,7 +120,7 @@
             <ul id="header-nav-links-container">
                 <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
                 <li class="dropdown link-a">
-                    <a class="target-element" id="wat-usa" href="#">Бригада САЩ</a>
+                    <a class="target-element" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
                     {#                    <div class="tooltip">#}
                     {#                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>#}
                     {#                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>#}
@@ -596,51 +596,51 @@
             </div>
             <div id="last-4-news">
                 {% for news in last_4_news %}
-                <div id="last-4-1" class="news-content">
-                    <div id="last-4-1-img" class="last-img">
-                        <img src="{{ news.news_image }}" alt="">
-                        <div class="white-border"></div>
+                    <div id="last-4-1" class="news-content">
+                        <div id="last-4-1-img" class="last-img">
+                            <img src="{{ news.news_image }}" alt="">
+                            <div class="white-border"></div>
+                        </div>
+                        <div id="last-4-1-text" class="last-4-text">
+                            <p class="news-date">{{ news.date }}</p>
+                            <h3>{{ news.news_title }}</h3>
+                            <a href="{% url 'news' %}">Прочети Статия</a>
+                        </div>
                     </div>
-                    <div id="last-4-1-text" class="last-4-text">
-                        <p class="news-date">{{ news.date }}</p>
-                        <h3>{{ news.news_title}}</h3>
-                        <a href="{% url 'news' %}">Прочети Статия</a>
-                    </div>
-                </div>
                 {% endfor %}
-{#                <div id="last-4-2" class="news-content">#}
-{#                    <div id="last-4-2-img" class="last-img">#}
-{#                        <img src="../static/img/last2.png" alt="">#}
-{#                        <div class="white-border"></div>#}
-{#                    </div>#}
-{#                    <div id="last-4-2-text" class="last-4-text">#}
-{#                        <p class="news-date">17 МАРТ 2023</p>#}
-{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
-{#                        <a href="#">Прочети Статия</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div id="last-4-3" class="news-content">#}
-{#                    <div id="last-4-3-img" class="last-img">#}
-{#                        <img src="../static/img/last3.png" alt="">#}
-{#                        <div class="white-border"></div>#}
-{#                    </div>#}
-{#                    <div id="last-4-3-text" class="last-4-text">#}
-{#                        <p class="news-date">17 МАРТ 2023</p>#}
-{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
-{#                        <a href="#">Прочети Статия</a>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div id="last-4-4" class="news-content">#}
-{#                    <div id="last-4-4-img" class="last-img">#}
-{#                        <img src="../static/img/last4.png" alt="">#}
-{#                        <div class="white-border"></div>#}
-{#                    </div>#}
-{#                    <div id="last-4-4-text" class="last-4-text">#}
-{#                        <p class="news-date">17 МАРТ 2023</p>#}
-{#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
-{#                        <a href="#">Прочети Статия</a>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <div id="last-4-2" class="news-content">#}
+                {#                    <div id="last-4-2-img" class="last-img">#}
+                {#                        <img src="../static/img/last2.png" alt="">#}
+                {#                        <div class="white-border"></div>#}
+                {#                    </div>#}
+                {#                    <div id="last-4-2-text" class="last-4-text">#}
+                {#                        <p class="news-date">17 МАРТ 2023</p>#}
+                {#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+                {#                        <a href="#">Прочети Статия</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div id="last-4-3" class="news-content">#}
+                {#                    <div id="last-4-3-img" class="last-img">#}
+                {#                        <img src="../static/img/last3.png" alt="">#}
+                {#                        <div class="white-border"></div>#}
+                {#                    </div>#}
+                {#                    <div id="last-4-3-text" class="last-4-text">#}
+                {#                        <p class="news-date">17 МАРТ 2023</p>#}
+                {#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+                {#                        <a href="#">Прочети Статия</a>#}
+                {#                    </div>#}
+                {#                </div>#}
+                {#                <div id="last-4-4" class="news-content">#}
+                {#                    <div id="last-4-4-img" class="last-img">#}
+                {#                        <img src="../static/img/last4.png" alt="">#}
+                {#                        <div class="white-border"></div>#}
+                {#                    </div>#}
+                {#                    <div id="last-4-4-text" class="last-4-text">#}
+                {#                        <p class="news-date">17 МАРТ 2023</p>#}
+                {#                        <h3>Бригада – направете го, защото си заслужава</h3>#}
+                {#                        <a href="#">Прочети Статия</a>#}
+                {#                    </div>#}
+                {#                </div>#}
             </div>
         </div>
         <div id="news-button">
@@ -680,47 +680,44 @@
             <p id="heading-story">Истории На Студенти</p>
         </div>
         <div id="story">
-            <div id="story-1" class="story-container">
-                <div class="story-img">
-                    <img src="../static/img/subvideo2.JPG" alt="pic1">
-                    <div class="white-border"></div>
+            {% if main_feedback %}
+                <div id="story-1" class="story-container">
+                    <div class="story-img">
+                        <img src="{{ main_feedback.feedback_1_image.url }}" alt="pic1">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="story-text">
+                        <h3>{{ main_feedback.feedback_1_title }}</h3>
+                        <p>{{ main_feedback.feedback_1_content }}</p>
+                        <a href="#">Прочети Статия</a>
+                    </div>
                 </div>
-                <div class="story-text">
-                    <h3>Бригада – направете го, защото си заслужава</h3>
-                    <p>Бригада - направете го, защото си заслужава Магдалена Гичева РусеМагдалена учи
-                        специалност "Компютърни системи и технологии" в  Русенски университет "Ангел
-                        Кънчев". Това
-                        лято тя е на своята трета поредна...</p>
-                    <a href="#">Прочети Статия</a>
+                <div id="story-2" class="story-container">
+                    <div class="story-img">
+                        <img src="{{ main_feedback.feedback_2_image.url }}" alt="pic2">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="story-text">
+                        <h3>{{ main_feedback.feedback_2_title }}</h3>
+                        <p>{{ main_feedback.feedback_2_content }}</p>
+                        <a href="#">Прочети Статия</a>
+                    </div>
                 </div>
-            </div>
-            <div id="story-2" class="story-container">
-                <div class="story-img">
-                    <img src="../static/img/subvideo3.JPG" alt="pic2">
-                    <div class="white-border"></div>
+                <div id="story-3" class="story-container">
+                    <div class="story-img">
+                        <img src="{{ main_feedback.feedback_3_image.url }}" alt="pic3">
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="story-text">
+                        <h3>{{ main_feedback.feedback_3_title }}</h3>
+                        <p>{{ main_feedback.feedback_3_content }}</p>
+                        <a href="#">Прочети Статия</a>
+                    </div>
                 </div>
-                <div class="story-text">
-                    <h3>Моето приключение, наречено Америка</h3>
-                    <p>Моето приключение, наречено Америка, никога не би било същото без подкрепата и
-                        всеотдайността
-                        на AIM Travel USA. От самото начало бях убедена...</p>
-                    <a href="#">Прочети Статия</a>
-                </div>
-            </div>
-            <div id="story-3" class="story-container">
-                <div class="story-img">
-                    <img src="../static/img/subvideo4.JPG" alt="pic3">
-                    <div class="white-border"></div>
-                </div>
-                <div class="story-text">
-                    <h3>Първи курс на бригада в САЩ</h3>
-                    <p>Първи курс на бригада в сащ Марио желев ПловдивМарио е първи курс в Пловдивския
-                        университет
-                        "Паисий Хилендарски". Лято 2020 беше неговият първи път на бригада в Америка. Виж какво
-                        сподели за преживяването си...</p>
-                    <a href="#">Прочети Статия</a>
-                </div>
-            </div>
+            {% else %}
+
+                <p> Към момнета няма добавени истории.</p>
+            {% endif %}
         </div>
         <div id="story-button" class="slider-btn">
             <a href="">ВИЖ ОЩЕ ИСТОРИИ</a>
@@ -839,10 +836,10 @@
         </div>
         <div class="nav-container">
             <h1>БЪРЗИ ВРЪЗКИ</h1>
-            <a href="#top-header">Начало</a>
+            <a href="{% url 'index' %}">Начало</a>
             <a href="#about">За нас</a>
-            <a href="#">Работни оферти</a>
-            <a href="#">Блог</a>
+            <a href="{% url 'offers' %}">Работни оферти</a>
+            <a href="{% url 'under-construction' %}">Блог</a>
             <a href="{% url 'under-construction' %}">Контакти</a>
         </div>
         <div class="nav-container">

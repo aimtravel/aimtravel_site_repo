@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.signals import pre_delete, pre_save
-from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 import os
 from model_utils import Choices
 
@@ -9,6 +8,9 @@ from aimtravel_site.web.validators import max_value
 
 
 class City(models.Model):
+    class Meta:
+        verbose_name = 'Град'
+        verbose_name_plural = 'Градове'
 
     CITY = 20
 
@@ -50,6 +52,10 @@ class City(models.Model):
 
 
 class Feedback(models.Model):
+    class Meta:
+        verbose_name = 'Обратна връзка'
+        verbose_name_plural = 'Обратна връзка'
+
     feedback_name = models.CharField(
         verbose_name='Оферта',
         max_length=100,
@@ -109,13 +115,17 @@ class Feedback(models.Model):
         null=True,
     )
 
-
     def __str__(self):
         result = f'{self.feedback_name}'
         return result
 
 
 class JobOffer(models.Model):
+    class Meta:
+
+        verbose_name = 'Работна оферта'
+        verbose_name_plural = 'Работни оферти'
+
     POSITION_NAME = 30
     EMPLOYER = 30
     CITY_NAME = 20
@@ -276,10 +286,11 @@ class JobOffer(models.Model):
                 os.remove(path)
 
 
-
-
-
 class Prices(models.Model):
+    class Meta:
+        verbose_name = 'Цена'
+        verbose_name_plural = 'Цени'
+
     PRICING_TYPE = Choices('Self Arranged', 'Full Placement Standard', 'Premium Full Placement', )
     DEFAULT_PRICING_TYPE = 'Full Placement Standard'
     MAX_NAME = 25
@@ -309,6 +320,10 @@ class Prices(models.Model):
 
 
 class AdditionalServices(models.Model):
+    class Meta:
+        verbose_name = 'Допълнителни услуги'
+        verbose_name_plural = 'Допълнителни услуги'
+
     MAX_NAME = 30
 
     service_type = models.CharField(
@@ -330,6 +345,10 @@ class AdditionalServices(models.Model):
 
 
 class Company(models.Model):
+    class Meta:
+        verbose_name = 'Работодател'
+        verbose_name_plural = 'Работодатели'
+
     EMPLOYER_NAME = 30
     CITY_NAME = 20
     STATE_NAME = 2

@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
 
-from aimtravel_site.posting.models import News
+from aimtravel_site.posting.models import *
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
@@ -35,16 +35,41 @@ class CombinedView(views.ListView):
     def get_last_news(self):
         return News.objects.latest('date')
 
+    def get_main_feedback(self):
+        return MainFeedback.objects.latest('id')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         offer_queryset = JobOffer.objects.order_by('-ranking', '-wage')[:4]
         news_queryset = News.objects.order_by('-date')[:4]
         last_news_item = self.get_last_news()
+        main_feedback = self.get_main_feedback()
 
         context['offer_list'] = offer_queryset
         context['last_4_news'] = news_queryset
         context['very_last_news'] = last_news_item
+        context['main_feedback'] = main_feedback
+
+        return context
+
+
+class WatUsaView(views.ListView):
+    template_name = 'nav/wat-usa.html'
+    context_object_name = 'wat_usa_data'
+
+    def get_queryset(self):
+        return AdditionalFeedback.objects.latest('id')
+
+    def get_additional_feedback(self):
+        return AdditionalFeedback.objects.latest('id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        additional_feedback = self.get_additional_feedback()
+
+        context['additional_feedback'] = additional_feedback
 
         return context
 
