@@ -137,9 +137,20 @@ class JobOffer(models.Model):
         ('Нестуденти', 'Нестуденти'),
     )
 
-    HOUSING = (
+    ENGLISH_LEVEL = (
+        ('Ниско', 'Ниско'),
+        ('Средно', 'Средно'),
+        ('Високо', 'Високо'),
+    )
+
+    YES_NO = (
         ('Да', 'Да'),
         ('Не', 'Не'),
+    )
+
+    TRUE_FALSE = (
+        ('True', 'Да'),
+        ('False', 'Не'),
     )
 
     employer_name = models.CharField(
@@ -170,13 +181,17 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    tips = models.BooleanField(
+    tips = models.CharField(
+        choices=YES_NO,
+        max_length=2,
         verbose_name='Бакшиши',
         blank=True,
         null=True,
     )
-    bonus = models.BooleanField(
+    bonus = models.CharField(
         verbose_name='Бонус',
+        choices=YES_NO,
+        max_length=2,
         blank=True,
         null=True,
     )
@@ -185,20 +200,23 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    overtime = models.BooleanField(
+    overtime = models.CharField(
         verbose_name='Overtime',
+        choices=YES_NO,
+        max_length=2,
         blank=True,
         null=True,
     )
     housing = models.CharField(
-        choices=HOUSING,
-        max_length=2,
+        default="Не",
+        max_length=10,
         verbose_name="Housing",
         blank=True,
         null=True,
     )
     english_level = models.CharField(
         verbose_name='Ниво на английски език',
+        choices=ENGLISH_LEVEL,
         max_length=10,
         blank=True,
         null=True,
@@ -213,13 +231,17 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    groups = models.BooleanField(
+    groups = models.CharField(
         verbose_name='Подходящо за групи',
+        choices=YES_NO,
+        max_length=2,
         blank=True,
         null=True,
     )
-    couples = models.BooleanField(
+    couples = models.CharField(
         verbose_name='Подходящо за двойки',
+        choices=YES_NO,
+        max_length=2,
         blank=True,
         null=True,
     )
@@ -247,18 +269,24 @@ class JobOffer(models.Model):
         blank=True,
         null=True,
     )
-    new_offer = models.BooleanField(
+    new_offer = models.CharField(
         verbose_name='Нова оферта',
+        choices=TRUE_FALSE,
+        max_length=5,
         blank=True,
         null=True,
     )
-    sold_out_offer = models.BooleanField(
+    sold_out_offer = models.CharField(
         verbose_name='Sold out',
+        choices=TRUE_FALSE,
+        max_length=5,
         blank=True,
         null=True,
     )
-    last_seats = models.BooleanField(
+    last_seats = models.CharField(
         verbose_name='Последни места',
+        choices=TRUE_FALSE,
+        max_length=5,
         blank=True,
         null=True,
     )

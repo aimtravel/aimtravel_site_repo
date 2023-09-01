@@ -36,7 +36,7 @@
                     <div id="top-header-right-links-icons">
 
                         <div id="insta-link">
-                            <a href="https://www.instagram.com/aim_workandtravel/">
+                            <a href="https://www.instagram.com/aimtravel_usa/">
                                 <?xml version="1.0" encoding="UTF-8"?>
                                 <svg width="24px" height="24px" stroke-width="1.5"
                                      viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
@@ -120,23 +120,22 @@
             <ul id="header-nav-links-container">
                 <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
                 <li class="dropdown link-a">
-                    <a class="target-element" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
-                    {#                    <div class="tooltip">#}
-                    {#                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>#}
-                    {#                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>#}
-                    {#                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>#}
-                    {#                        <a href="#">ЦЕНИ</a>#}
-                    {#                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>#}
-                    {#                    </div>#}
-                    {#                    <span class="dropdown-icon"></span>#}
+                    <a class="target-element link-a" id="wat-usa" href="#">Бригада САЩ</a>
+                    <div class="tooltip">
+                        <a href="{% url 'wat usa' %}#header-nav">ЗА ПРОГРАМАТА</a>
+                        <a href="{% url 'wat usa' %}#anchor-requirements">ИЗИСКВАНИЯ</a>
+                        <a href="{% url 'wat usa' %}#price-section">ЦЕНАТА</a>
+                        <a href="{% url 'wat usa' %}#anchor-how-to">КАК ДА СЕ ЗАПИШЕШ</a>
+                    </div>
+                    <span class="dropdown-icon"></span>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown link-a">
                     <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
-                    {#                    <div class="tooltip">#}
-                    {#                        <a href="#">Безплатна консултация</a>#}
-                    {#                        <a href="#">Запиши се</a>#}
-                    {#                    </div>#}
-                    {#                    <span class="dropdown-icon"></span>#}
+                    <div class="tooltip">
+                        <a href="#">Безплатна консултация</a>
+                        <a href="#">Запиши се</a>
+                    </div>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt="">
                 </li>
@@ -151,6 +150,11 @@
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
+                <li>
+                    <div class="nav-button">
+                        <a class="nav-button-a" href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </section>
@@ -227,34 +231,36 @@
     <section id="top-destinations">
         <div id="col-1">
             <div class="row-1">
-                <a href="#">📍 Provincetown, MA</a>
+                <a href="{% url 'offers' %}#offers-section">📍 Provincetown, MA</a>
             </div>
             <div class="row-2">
-                <a href="#">📍 New Jersey</a>
+                <a href="{% url 'offers' %}#offers-section">📍 New Jersey</a>
             </div>
         </div>
         <div id="col-2">
             <div class="row-1">
-                <a href="#">📍 Nantucket, MA</a>
+                <a href="{% url 'offers' %}#offers-section">📍 Nantucket, MA</a>
             </div>
             <div class="row-2">
-                <a href="#">📍 California</a>
+                <a href="{% url 'offers' %}#offers-section">📍 California</a>
             </div>
         </div>
         <div id="col-3">
             <div class="row-1">
-                <a href="#">📍 Maine</a>
+                <a href="{% url 'offers' %}#offers-section">📍 Maine</a>
             </div>
             <div class="row-2">
-                <a href="#">📍 Florida</a>
+                <a href="{% url 'offers' %}#offers-section">📍 Florida</a>
 
             </div>
         </div>
     </section>
 
 </header>
-<img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+<img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
+
 <main>
+
     <section id="about-section">
         <div id="about">
             <div id="about-text">
@@ -394,7 +400,7 @@
                                 <h3 class="offer-header">{{ offer.job_position }}</h3>
                                 <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
                                 <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.bonus %} + Bonus
+                                <p class="offer-salary">${{ offer.wage }}/H {% if offer.tips == 'Да' %} + Tips
                                 {% endif %}</p>
                             </div>
                         </div>
@@ -413,10 +419,10 @@
     <section id="video-section">
         <div class="max-width-size">
             <div id="main-video">
-                <a href="https://www.youtube-nocookie.com/embed/EAx-L-U3m_o?controls=0" data-glightbox
+                <a href="{{ video.main_video }}" data-glightbox
                    class="glightbox2" data-effect="fade">
                     <div class="fancy-background"></div>
-                    <img src="../static/img/thumbnail.JPG" alt="">
+                    <img src="{{ video.main_video_image.url }}" alt="">
                     <div class="white-border">
                         <div class="white-wrapper">
                             <div class="play-button">
@@ -432,7 +438,7 @@
                         </div>
                     </div>
                     <div id="main-video-logo">
-                        <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                        <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                     </div>
                     <div id="main-video-details" class="vertical-line">
                         <p>AIM Travel</p>
@@ -441,9 +447,9 @@
             </div>
             <div id="sub-videos">
                 <div class="subvideo sub1">
-                    <a href="https://youtu.be/yDSlvGFYujY" data-glightbox class="glightbox2" data-effect="fade">
+                    <a href="{{ video.video_1 }}" data-glightbox class="glightbox2" data-effect="fade">
                         <div class="fancy-background"></div>
-                        <img class='thumbnail' src="../static/img/subvideo1.JPG" alt="">
+                        <img class='thumbnail' src="{{ video.video_1_image.url }}" alt="">
                         <div class="white-border">
                             <div class="white-wrapper">
                                 <div class="play-button">
@@ -459,7 +465,7 @@
                             </div>
                         </div>
                         <div class="subvideo-logo">
-                            <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                         </div>
                         <div id="main-video-details" class="vertical-line">
                             <p>AIM Travel</p>
@@ -467,9 +473,9 @@
                     </a>
                 </div>
                 <div class="subvideo sub2">
-                    <a href="https://youtu.be/faVqXlIy9UY" data-glightbox class="glightbox2" data-effect="fade">
+                    <a href="{{ video.video_2 }}" data-glightbox class="glightbox2" data-effect="fade">
                         <div class="fancy-background"></div>
-                        <img class='thumbnail' src="../static/img/subvideo2.JPG" alt="">
+                        <img class='thumbnail' src="{{ video.video_2_image.url }}" alt="">
                         <div class="white-border">
                             <div class="white-wrapper">
                                 <div class="play-button">
@@ -485,7 +491,7 @@
                             </div>
                         </div>
                         <div class="subvideo-logo">
-                            <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                         </div>
                         <div id="main-video-details" class="vertical-line">
                             <p>AIM Travel</p>
@@ -493,9 +499,9 @@
                     </a>
                 </div>
                 <div class="subvideo sub3">
-                    <a href="https://youtu.be/buj_rAg_orI" data-glightbox class="glightbox2" data-effect="fade">
+                    <a href="{{ video.video_3 }}" data-glightbox class="glightbox2" data-effect="fade">
                         <div class="fancy-background"></div>
-                        <img class='thumbnail' src="../static/img/subvideo3.JPG" alt="">
+                        <img class='thumbnail' src="{{ video.video_3_image.url }}" alt="">
                         <div class="white-border">
                             <div class="white-wrapper">
                                 <div class="play-button">
@@ -511,7 +517,7 @@
                             </div>
                         </div>
                         <div class="subvideo-logo">
-                            <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                         </div>
                         <div id="main-video-details" class="vertical-line">
                             <p>AIM Travel</p>
@@ -519,9 +525,9 @@
                     </a>
                 </div>
                 <div class="subvideo sub4">
-                    <a href="https://youtu.be/0Z1InOm9RZo" data-glightbox class="glightbox2" data-effect="fade">
+                    <a href="{{ video.video_4 }}" data-glightbox class="glightbox2" data-effect="fade">
                         <div class="fancy-background"></div>
-                        <img class='thumbnail' src="../static/img/subvideo4.JPG" alt="">
+                        <img class='thumbnail' src="{{ video.video_4_image.url }}" alt="">
                         <div class="white-border">
                             <div class="white-wrapper">
                                 <div class="play-button">
@@ -537,7 +543,7 @@
                             </div>
                         </div>
                         <div class="subvideo-logo">
-                            <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                         </div>
                         <div id="main-video-details" class="vertical-line">
                             <p>AIM Travel</p>
@@ -545,9 +551,9 @@
                     </a>
                 </div>
                 <div class="subvideo sub5">
-                    <a href="https://youtu.be/x99rABFPwPA" data-glightbox class="glightbox2" data-effect="fade">
+                    <a href="{{ video.video_5 }}" data-glightbox class="glightbox2" data-effect="fade">
                         <div class="fancy-background"></div>
-                        <img class='thumbnail' src="../static/img/subvideo5.JPG" alt="">
+                        <img class='thumbnail' src="{{ video.video_5_image.url }}" alt="">
                         <div class="white-border">
                             <div class="white-wrapper">
                                 <div class="play-button">
@@ -563,7 +569,7 @@
                             </div>
                         </div>
                         <div class="subvideo-logo">
-                            <img src="../static/img/Ready-stock/Logo/AIM_logo-ROUNDED.png" alt="logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
                         </div>
                         <div id="main-video-details" class="vertical-line">
                             <p>AIM Travel</p>
@@ -576,7 +582,7 @@
             </div>
         </div>
     </section>
-    <img class="main-flag2" src="../static/img/USA%20Flag.png" alt="">
+    <img class="main-flag2" src="{% static 'img/USA Flag.png' %}" alt="">
     <section id="news-section">
         <div id="news-heading">
             <p id="heading-news">Новини</p>
@@ -826,29 +832,29 @@
 </main>
 
 <footer>
-    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
     <div id="footer-nav-container">
         <div id="logo-container">
             <a href="{% url 'index' %}">
-                <img src="../static/img/white-AIM_logo%201.png" alt="">
+                <img src="{% static 'img/white-AIM_logo 1.png' %}" alt="">
             </a>
             <p>Work Hard Travel Far</p>
         </div>
         <div class="nav-container">
             <h1>БЪРЗИ ВРЪЗКИ</h1>
             <a href="{% url 'index' %}">Начало</a>
-            <a href="#about">За нас</a>
+            <a href="{% url 'index' %}#about">За нас</a>
             <a href="{% url 'offers' %}">Работни оферти</a>
-            <a href="{% url 'under-construction' %}">Блог</a>
+            <a href="{% url 'news' %}">Блог</a>
             <a href="{% url 'under-construction' %}">Контакти</a>
         </div>
         <div class="nav-container">
             <h1>БРИГАДА В САЩ</h1>
-            <a href="#">Защо на бригада в САШ?</a>
-            <a href="#">Кой може да участва?</a>
-            <a href="#">Как да се запишеш?</a>
-            <a href="#">Цена</a>
-            <a href="#">Необходими документи</a>
+            <a href="{% url 'wat usa' %}#header-nav">Бригадата</a>
+            <a href="{% url 'wat usa' %}#anchor-requirements">Изисквания</a>
+            <a href="{% url 'wat usa' %}#price-section">Цената</a>
+            <a href="{% url 'wat usa' %}#anchor-how-to">Как да се запишеш?</a>
+
         </div>
         <div class="nav-container">
             <h1>ОНЛАЙН УСЛУГИ</h1>
@@ -907,7 +913,7 @@
                     <hr>
                 </div>
                 <div id="insta-link">
-                    <a href="https://www.instagram.com/aim_workandtravel/">
+                    <a href="https://www.instagram.com/aimtravel_usa/">
                         <?xml version="1.0" encoding="UTF-8"?>
                         <svg width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">

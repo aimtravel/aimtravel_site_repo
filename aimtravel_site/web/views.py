@@ -13,7 +13,7 @@ from aimtravel_site.posting.models import *
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
-from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, Feedback
+from aimtravel_site.web.models import *
 
 UserModel = get_user_model()
 
@@ -38,6 +38,9 @@ class CombinedView(views.ListView):
     def get_main_feedback(self):
         return MainFeedback.objects.latest('id')
 
+    def get_videos(self):
+        return Video.objects.latest('id')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -45,11 +48,13 @@ class CombinedView(views.ListView):
         news_queryset = News.objects.order_by('-date')[:4]
         last_news_item = self.get_last_news()
         main_feedback = self.get_main_feedback()
+        video = self.get_videos()
 
         context['offer_list'] = offer_queryset
         context['last_4_news'] = news_queryset
         context['very_last_news'] = last_news_item
         context['main_feedback'] = main_feedback
+        context['video'] = video
 
         return context
 
@@ -86,6 +91,10 @@ def error_404(request, exception):
     return render(request, '404.html')
 
 
+def error_500(request):
+    return render(request, '404.html', status=500)
+
+
 def under_construction(request):
     return render(request, 'under_construction.html')
 
@@ -120,9 +129,6 @@ def taxes(request):
 
 
 # END - - - STATIC VIEWS
-
-
-
 
 
 class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView):

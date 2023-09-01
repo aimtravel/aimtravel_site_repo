@@ -27,6 +27,11 @@ class News(models.Model):
         blank=True,
         null=True,
     )
+    news_url = models.URLField(
+        verbose_name='Линк към Facebook/Instagram',
+        blank=True,
+        null=True,
+    )
 
     news_image = models.URLField(
         blank=True,
@@ -40,8 +45,8 @@ class News(models.Model):
 
 class MainFeedback(models.Model):
     class Meta:
-        verbose_name = 'Feedback Начална страница'
-        verbose_name_plural = 'Feedback Начална страница'
+        verbose_name = 'Истории на студенти'
+        verbose_name_plural = 'Истории на студенти'
 
     TITLE = 50
 
@@ -100,8 +105,8 @@ class MainFeedback(models.Model):
 
 class AdditionalFeedback(models.Model):
     class Meta:
-        verbose_name = 'Feedback допълнителна страница'
-        verbose_name_plural = 'Feedback допълнителна страница'
+        verbose_name = 'Отзиви от студенти'
+        verbose_name_plural = 'Отзиви от студенти'
 
     TITLE = 50
 
@@ -156,3 +161,77 @@ class AdditionalFeedback(models.Model):
         blank=True,
         null=True,
     )
+
+
+class Video(models.Model):
+    class Meta:
+        verbose_name = 'Видео'
+        verbose_name_plural = 'Видеа - Начална страница'
+
+    main_video = models.URLField(
+        verbose_name='Основно видео',
+        blank=True,
+        null=True,
+    )
+    main_video_image = models.ImageField(
+            upload_to='video_pics/',
+            verbose_name='Корица',
+            blank=True,
+            null=True,
+        )
+    video_1 = models.URLField(
+        verbose_name='Видео 1',
+        blank=True,
+        null=True,
+    )
+    video_1_image = models.ImageField(
+        upload_to='video_pics/',
+        verbose_name='Корица 1',
+        blank=True,
+        null=True,
+    )
+    video_2 = models.URLField(
+        verbose_name='Видео 2',
+        blank=True,
+        null=True,
+    )
+    video_2_image = models.ImageField(
+        upload_to='video_pics/',
+        verbose_name='Корица 2',
+        blank=True,
+        null=True,
+    )
+    video_3 = models.URLField(
+        verbose_name='Видео 3',
+        blank=True,
+        null=True,
+    )
+    video_3_image = models.ImageField(
+        upload_to='video_pics/',
+        verbose_name='Корица 3',
+        blank=True,
+        null=True,
+    )
+    video_4 = models.URLField(
+        verbose_name='Видео 4',
+        blank=True,
+        null=True,
+    )
+    video_4_image = models.ImageField(
+        upload_to='video_pics/',
+        verbose_name='Корица 4',
+        blank=True,
+        null=True,
+    )
+    video_5 = models.URLField(
+        verbose_name='Видео 5',
+        blank=True,
+        null=True,
+    )
+    video_5_image = models.ImageField(
+        upload_to='video_pics/',
+        verbose_name='Корица 5',
+        blank=True,
+        null=True,
+    )
+

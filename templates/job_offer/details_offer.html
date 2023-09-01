@@ -120,23 +120,22 @@
             <ul id="header-nav-links-container">
                 <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
                 <li class="dropdown link-a">
-                    <a class="target-element" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
-                    {#                    <div class="tooltip">#}
-                    {#                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>#}
-                    {#                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>#}
-                    {#                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>#}
-                    {#                        <a href="#">ЦЕНИ</a>#}
-                    {#                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>#}
-                    {#                    </div>#}
-                    {#                    <span class="dropdown-icon"></span>#}
+                    <a class="target-element link-a" id="wat-usa" href="#">Бригада САЩ</a>
+                    <div class="tooltip">
+                        <a href="{% url 'wat usa' %}#header-nav">ЗА ПРОГРАМАТА</a>
+                        <a href="{% url 'wat usa' %}#anchor-requirements">ИЗИСКВАНИЯ</a>
+                        <a href="{% url 'wat usa' %}#price-section">ЦЕНАТА</a>
+                        <a href="{% url 'wat usa' %}#anchor-how-to">КАК ДА СЕ ЗАПИШЕШ</a>
+                    </div>
+                    <span class="dropdown-icon"></span>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown link-a">
                     <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
-                    {#                    <div class="tooltip">#}
-                    {#                        <a href="#">Безплатна консултация</a>#}
-                    {#                        <a href="#">Запиши се</a>#}
-                    {#                    </div>#}
-                    {#                    <span class="dropdown-icon"></span>#}
+                    <div class="tooltip">
+                        <a href="#">Безплатна консултация</a>
+                        <a href="#">Запиши се</a>
+                    </div>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt="">
                 </li>
@@ -151,6 +150,11 @@
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
+                <li>
+                    <div class="nav-button">
+                        <a class="nav-button-a" href="#">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                    </div>
+                </li>
             </ul>
         </nav>
     </section>
@@ -225,13 +229,13 @@
                     </div>
 
                     <div class="container">
-                        <div class="header">Град:</div>
-                        <div class="detail-content">{{ offer_details.city }}</div>
+                        <div class="header">Стартова дата:</div>
+                        <div class="detail-content">{{ offer_details.begin_date }}</div>
                     </div>
 
                     <div class="container">
-                        <div class="header">Щат:</div>
-                        <div class="detail-content">{{ offer_details.state }}</div>
+                        <div class="header">Крайна дата:</div>
+                        <div class="detail-content">{{ offer_details.end_date }}</div>
                     </div>
 
                 </div>
@@ -244,22 +248,47 @@
                     </div>
 
                     <div class="container">
-                        <div class="header">Бакшиши:</div>
-                        <div class="detail-content">{{ offer_details.tips }}</div>
+                        <div class="header">Град:</div>
+                        <div class="detail-content">{{ offer_details.city }}</div>
                     </div>
+
                     <div class="container">
                         <div class="header">Минимални часове на седмица:</div>
                         <div class="detail-content">{{ offer_details.minimum_hours }}</div>
                     </div>
 
                     <div class="container">
-                        <div class="header">Overtime:</div>
-                        <div class="detail-content">{{ offer_details.overtime }}</div>
+                        <div class="header">Подходящо за групи:</div>
+                        <div class="detail-content">{{ offer_details.groups }}</div>
                     </div>
 
                 </div>
 
                 <div id="offer-additional-information" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Overtime:</div>
+                        <div class="detail-content">{{ offer_details.overtime }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Щат:</div>
+                        <div class="detail-content">{{ offer_details.state }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Бакшиши:</div>
+                        <div class="detail-content">{{ offer_details.tips }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Подходящо за двойки:</div>
+                        <div class="detail-content">{{ offer_details.couples }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-suitable-for" class="detail-container">
 
                     <div class="container">
                         <div class="header">Housing:</div>
@@ -272,28 +301,11 @@
                     </div>
 
                     <div class="container">
-                        <div class="header">Стартова дата:</div>
-                        <div class="detail-content">{{ offer_details.begin_date }}</div>
+                        <div class="header">Бонус:</div>
+                        <div class="detail-content">{{ offer_details.bonus }}</div>
                     </div>
 
-                    <div class="container">
-                        <div class="header">Крайна дата:</div>
-                        <div class="detail-content">{{ offer_details.end_date }}</div>
-                    </div>
 
-                </div>
-
-                <div id="offer-suitable-for" class="detail-container">
-
-                    <div class="container">
-                        <div class="header">Подходящо за групи:</div>
-                        <div class="detail-content">{{ offer_details.groups }}</div>
-                    </div>
-
-                    <div class="container">
-                        <div class="header">Подходящо за двойки:</div>
-                        <div class="detail-content">{{ offer_details.couples }}</div>
-                    </div>
 
                 </div>
 
@@ -312,6 +324,9 @@
             <br><br><br>
         </div>
         <div id="offer-details-facts">
+            <div id="offer-details-facts-header">
+                    <p>Интересни факти за града</p>
+                </div>
             <div id="offer-details-facts-container">
                 <div id="city-facts">
                     <div class="facts" id="fact1">
@@ -459,29 +474,29 @@
 </main>
 
 <footer>
-    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
     <div id="footer-nav-container">
         <div id="logo-container">
             <a href="{% url 'index' %}">
-                <img src="../static/img/white-AIM_logo%201.png" alt="">
+                <img src="{% static 'img/white-AIM_logo 1.png' %}" alt="">
             </a>
             <p>Work Hard Travel Far</p>
         </div>
         <div class="nav-container">
             <h1>БЪРЗИ ВРЪЗКИ</h1>
             <a href="{% url 'index' %}">Начало</a>
-            <a href="#about">За нас</a>
+            <a href="{% url 'index' %}#about">За нас</a>
             <a href="{% url 'offers' %}">Работни оферти</a>
-            <a href="{% url 'under-construction' %}">Блог</a>
+            <a href="{% url 'news' %}">Блог</a>
             <a href="{% url 'under-construction' %}">Контакти</a>
         </div>
         <div class="nav-container">
             <h1>БРИГАДА В САЩ</h1>
-            <a href="#">Защо на бригада в САШ?</a>
-            <a href="#">Кой може да участва?</a>
-            <a href="#">Как да се запишеш?</a>
-            <a href="#">Цена</a>
-            <a href="#">Необходими документи</a>
+            <a href="{% url 'wat usa' %}#header-nav">Бригадата</a>
+            <a href="{% url 'wat usa' %}#anchor-requirements">Изисквания</a>
+            <a href="{% url 'wat usa' %}#price-section">Цената</a>
+            <a href="{% url 'wat usa' %}#anchor-how-to">Как да се запишеш?</a>
+
         </div>
         <div class="nav-container">
             <h1>ОНЛАЙН УСЛУГИ</h1>
@@ -540,7 +555,7 @@
                     <hr>
                 </div>
                 <div id="insta-link">
-                    <a href="https://www.instagram.com/aim_workandtravel/">
+                    <a href="https://www.instagram.com/aimtravel_usa/">
                         <?xml version="1.0" encoding="UTF-8"?>
                         <svg width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">

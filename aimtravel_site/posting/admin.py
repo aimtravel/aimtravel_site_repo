@@ -21,3 +21,8 @@ class MainFeedbackAdmin(admin.ModelAdmin):
 class AdditionalFeedbackAdmin(admin.ModelAdmin):
     list_display = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
     search_fields = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
+
+
+@admin.register(Video)
+class VideoAdmin(admin.ModelAdmin):
+    list_display = ['main_video']

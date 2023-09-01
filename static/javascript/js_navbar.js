@@ -2,6 +2,8 @@
 var navbar = document.querySelector("nav");
 var logo = document.querySelector("#logo")
 var navA = document.querySelectorAll(".link-a");
+var btn = document.querySelector(".nav-button");
+var navCont = document.querySelector("#header-nav-links-container");
 
 // Get the initial offset position of the navigation bar
 var stickyOffset = navbar.offsetTop;
@@ -12,6 +14,9 @@ function stickyNav() {
     navbar.classList.add("sticky");
     logo.style.width = '50px';
     logo.style.height = '50px';
+    btn.style.display = 'flex';
+    btn.classList.add("active")
+    navCont.style.left = '95px'
     
     navA.forEach(element => {
       element.style.fontSize = '13px'
@@ -22,6 +27,9 @@ function stickyNav() {
     navbar.classList.remove("sticky");
     logo.style.width = '84px';
     logo.style.height = '84px';
+    btn.style.display = 'none';
+    btn.classList.remove("active")
+    navCont.style.left = '1px'
 
     navA.forEach(element => {
       element.style.fontSize = '16.5px'

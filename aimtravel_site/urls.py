@@ -17,7 +17,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.conf.urls import handler404
+from django.conf.urls import handler404, handler500
 
 from aimtravel_site import settings
 
@@ -41,4 +41,5 @@ urlpatterns = [
 ]
 
 handler404 = 'aimtravel_site.web.views.error_404'
+handler500 = 'aimtravel_site.web.views.error_500'
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

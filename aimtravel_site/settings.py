@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_social_share',
 
-    'aimtravel_site.web',
+    'aimtravel_site.web.apps.WebConfig',
     'aimtravel_site.user_auth',
     'aimtravel_site.user_profile',
-    'aimtravel_site.posting',
+    'aimtravel_site.posting.apps.PostingConfig',
 ]
 
 MIDDLEWARE = [
