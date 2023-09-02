@@ -73,6 +73,10 @@ main {
     width: 100%;
 }
 
+.font-jost {
+    font-family: 'Jost', sans-serif;
+}
+
 header {
 
     display: flex;
@@ -2817,6 +2821,10 @@ footer .usa-flag {
 
 #offer-details-page-flag3 {
     top: 1800px;
+}
+
+#news-page-flag3 {
+    top: 900px;
 }
 
 #offer-details-top-row {
