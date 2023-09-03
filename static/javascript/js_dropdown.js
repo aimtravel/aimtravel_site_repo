@@ -18,7 +18,7 @@ var targetElements = document.querySelectorAll('.target-element');
 // Loop through each target element
 targetElements.forEach(function(element) {
   // Add an onclick event listener to each target element
-  element.addEventListener('click', function() {
+  element.addEventListener('onmouseover', function() {
     // Get the corresponding tooltip element
     var tooltip = this.nextElementSibling;
 

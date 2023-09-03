@@ -197,7 +197,6 @@
 </header>
 <img id="offers-page-flag1" class="usa-flag" src="../../static/img/USA%20Flag.png" alt="">
 <main>
-
     <section id="offers-section">
         <div id="offers-page-top-row">
             <div class="text-area">
@@ -432,7 +431,7 @@
 
         <div class="pagination">
             {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg" color="#000000">
                         <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -453,12 +452,12 @@
                 {% if num == page_obj.number %}
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a href="?page={{ num }}">{{ num }}</a>
+                    <a href="{% url 'offers' %}?page={{ num }}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg" color="#000000">
                         <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -706,9 +705,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_filtering.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_dropdown.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_slider.js"></script>
+{#<script type="text/javascript" src="../../static/javascript/js_slider.js"></script>#}
 <script type="text/javascript" src="../../static/javascript/js_navbar.js"></script>
 <script type="text/javascript" src="../../static/javascript/js_video.js"></script>
+<script type="text/javascript" src="../../static/javascript/dynamic_refresh.js"></script>
 </body>
 
 </html>

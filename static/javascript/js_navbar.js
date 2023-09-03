@@ -16,7 +16,7 @@ function stickyNav() {
     logo.style.height = '50px';
     btn.style.display = 'flex';
     btn.classList.add("active")
-    navCont.style.left = '95px'
+    navCont.style.left = '120px'
     
     navA.forEach(element => {
       element.style.fontSize = '13px'
@@ -29,7 +29,7 @@ function stickyNav() {
     logo.style.height = '84px';
     btn.style.display = 'none';
     btn.classList.remove("active")
-    navCont.style.left = '1px'
+    navCont.style.left = '25px'
 
     navA.forEach(element => {
       element.style.fontSize = '16.5px'

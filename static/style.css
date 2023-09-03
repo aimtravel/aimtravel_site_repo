@@ -114,10 +114,10 @@ body .usa-flag {
 #top-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
-    padding: 0 80px;
-    gap: 50px;
+    padding: 0 0 0 55px;
+    gap: 33%;
 
     width: var(--max-width);
     height: 50px;
@@ -270,7 +270,7 @@ body .usa-flag {
 
 #header-nav-links-container {
     position: relative;
-    left: 1px;
+    left: 25px;
     display: flex;
     flex-direction: row;
     justify-content: center;

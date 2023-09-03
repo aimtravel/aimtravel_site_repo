@@ -26,12 +26,6 @@ class CombinedView(views.ListView):
     context_object_name = 'combined_data'
     paginate_by = 4
 
-    def get_queryset(self):
-        offer_queryset = JobOffer.objects.order_by('-ranking', '-wage')[:4]
-        news_queryset = News.objects.order_by('-date')[:4]
-        combined_queryset = list(offer_queryset) + list(news_queryset)
-        return combined_queryset
-
     def get_last_news(self):
         return News.objects.latest('date')
 
@@ -41,22 +35,28 @@ class CombinedView(views.ListView):
     def get_videos(self):
         return Video.objects.latest('id')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get(self, request):
+        page_number = self.request.GET.get('page')
+        offer_queryset = JobOffer.objects.order_by('-ranking', '-wage')
+        offer_paginator = Paginator(offer_queryset, self.paginate_by)
+        offer_page = offer_paginator.get_page(page_number)
 
-        offer_queryset = JobOffer.objects.order_by('-ranking', '-wage')[:4]
+        # Get the first 4 News items
         news_queryset = News.objects.order_by('-date')[:4]
+
         last_news_item = self.get_last_news()
         main_feedback = self.get_main_feedback()
         video = self.get_videos()
 
-        context['offer_list'] = offer_queryset
-        context['last_4_news'] = news_queryset
-        context['very_last_news'] = last_news_item
-        context['main_feedback'] = main_feedback
-        context['video'] = video
+        context = {
+            'offer_list': offer_page,
+            'last_4_news': news_queryset,
+            'very_last_news': last_news_item,
+            'main_feedback': main_feedback,
+            'video': video,
+        }
 
-        return context
+        return render(request, self.template_name, context)
 
 
 class WatUsaView(views.ListView):
@@ -186,7 +186,7 @@ def job_offer_list(request):
         'wages': wages,
         'housing': housing,
         'filtered_offers': filtered_offers,
-        'page_obj': page_obj
+        'page_obj': page_obj,
     }
 
     return render(request, 'job_offer/offers.html', context)

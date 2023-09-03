@@ -141,12 +141,12 @@
                 </li>
                 <li class="dropdown">
                     <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
-                    {#                    <div class="tooltip">#}
-                    {#                        <a href="#">i te tuka edno dulgo</a>#}
-                    {#                        <a href="#">placeholder</a>#}
-                    {#                        <a href="#">placeholder</a>#}
-                    {#                    </div>#}
-                    {#                    <span class="dropdown-icon"></span>#}
+                                        <div class="tooltip">
+                                            <a href="#">ДАНЪЦИ ОТ САЩ</a>
+                                            <a href="#">СТАЖОВЕ В САЩ</a>
+                                            <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
+                                        </div>
+                                        <span class="dropdown-icon"></span>
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
@@ -315,6 +315,7 @@
                 <div class="slider-btn">
                     <a href="">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                 </div>
+                <div id="pagination-anchor"></div>
             </div>
         </div>
     </section>
@@ -324,9 +325,9 @@
                 <h1>Работни Оферти</h1>
             </div>
             <div id="offers-buttons">
-                {% if page_obj.has_previous %}
+                {% if offer_list.has_previous %}
                     <div class="round-shape-background">
-                        <a href="?page={{ page_obj.previous_page_number }}">
+                        <a href="?page={{ offer_list.previous_page_number }}">
                             <div class="btn" id="prev-button">
                                 <?xml version="1.0" encoding="UTF-8"?>
                                 <svg width="28px" height="29px" stroke-width="1.5"
@@ -351,9 +352,9 @@
 
                     </div>
                 {% endif %}
-                {% if page_obj.has_next %}
+                {% if offer_list.has_next %}
                     <div class="round-shape-background">
-                        <a href="?page={{ page_obj.next_page_number }}">
+                        <a href="?page={{ offer_list.next_page_number }}">
                             <div class="btn" id="next-button">
                                 <?xml version="1.0" encoding="UTF-8"?>
                                 <svg width="24px" height="24px" stroke-width="1.5"
@@ -393,7 +394,7 @@
                                     <div class="white-border"></div>
                                 </div>
                                 <div class="offer-btn slider-btn">
-                                    <a href="">НАУЧИ ПОВЕЧЕ</a>
+                                    <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
                                 </div>
                             </div>
                             <div class="offer-text-container">
@@ -412,10 +413,10 @@
         </div>
 
         <div class="slider-btn" id="offers-more-btn">
-            <a href="http://new.aimtravel.bg/offer/all/">ОЩЕ РАБОТНИ ОФЕРТИ</a>
+            <a href="{% url 'offers' %}">ОЩЕ РАБОТНИ ОФЕРТИ</a>
         </div>
     </section>
-    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
     <section id="video-section">
         <div class="max-width-size">
             <div id="main-video">
@@ -984,10 +985,12 @@
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="../static/javascript/js_dropdown.js"></script>
-<script type="text/javascript" src="../static/javascript/js_slider.js"></script>
-<script type="text/javascript" src="../static/javascript/js_navbar.js"></script>
-<script type="text/javascript" src="../static/javascript/js_video.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dynamic_refresh_index.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 </body>
 
 </html>
