@@ -4,6 +4,8 @@ function attachPaginationHandlers() {
         var pageUrl = $(this).attr("href");
         var slideOffersContent = $('.offer-slides').html();
         var paginator = $('#offers-buttons').html();
+        console.log(pageUrl)
+
         $.ajax({
             url: pageUrl,
             type: "GET",
