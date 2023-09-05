@@ -10,10 +10,10 @@ function attachPaginationHandlers() {
             url: pageUrl,
             type: "GET",
             dataType: "html",
-            data: {
-                slide_offers_content: slideOffersContent,
-                paginator: paginator,
-            },
+            // data: {
+            //     slide_offers_content: slideOffersContent,
+            //     paginator: paginator,
+            // },
             success: function (data) {
 
                 var newContent = $(data).find('.offer-slides').html();

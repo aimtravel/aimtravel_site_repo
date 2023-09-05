@@ -5,15 +5,15 @@ function attachPaginationHandlers() {
         var pageUrl = $(this).attr("href");
         var slideOffersContent = $('.offer-slides').html();
         var paginator = $('.pagination').html();
-        console.log("data:", slideOffersContent);
+
         $.ajax({
             url: pageUrl,
             type: "GET",
             dataType: "html",
-            data: {
-                slide_offers_content: slideOffersContent,
-                paginator: paginator,
-            },
+            // data: {
+            //     slide_offers_content: slideOffersContent,
+            //     paginator: paginator,
+            // },
             success: function (data) {
 
                 var newContent = $(data).find('.offer-slides').html();
