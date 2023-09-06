@@ -145,6 +145,7 @@
                                             <a href="#">ДАНЪЦИ ОТ САЩ</a>
                                             <a href="#">СТАЖОВЕ В САЩ</a>
                                             <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
+                                            <a href="{% url 'news' %}">НОВИНИ</a>
                                         </div>
                                         <span class="dropdown-icon"></span>
                 </li>
@@ -405,9 +406,9 @@
                                 </div>
                                 <div class="offer-text-container">
                                     <h3 class="offer-header">{{ offer.job_position }}</h3>
-                                    <p class="offer-location">{{ offer.city }}, {{ offer.state }}</p>
+                                    <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
                                     <p class="offer-type">Premium Offer</p>
-                                    <p class="offer-salary">${{ offer.wage }}/H {% if offer.tips == 'Да' %} +
+                                    <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour{% if offer.tips == 'Да' %} +
                                         Tips {% endif %}</p>
                                 </div>
                             </div>

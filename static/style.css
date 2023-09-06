@@ -116,7 +116,7 @@ body .usa-flag {
     flex-direction: row;
     /*justify-content: space-between;*/
     align-items: center;
-    padding: 0 0 0 55px;
+    padding: 0 0 0 35px;
     gap: 33%;
 
     width: var(--max-width);

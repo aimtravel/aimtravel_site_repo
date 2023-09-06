@@ -145,6 +145,7 @@
                                             <a href="#">ДАНЪЦИ ОТ САЩ</a>
                                             <a href="#">СТАЖОВЕ В САЩ</a>
                                             <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
+                                            <a href="{% url 'news' %}">НОВИНИ</a>
                                         </div>
                                         <span class="dropdown-icon"></span>
                 </li>
@@ -244,7 +245,7 @@
 
                     <div class="container">
                         <div class="header">Заплащане:</div>
-                        <div class="detail-content">${{ offer_details.wage }}</div>
+                        <div class="detail-content">${{ offer_details.wage|floatformat:2 }}</div>
                     </div>
 
                     <div class="container">
@@ -254,7 +255,7 @@
 
                     <div class="container">
                         <div class="header">Минимални часове на седмица:</div>
-                        <div class="detail-content">{{ offer_details.minimum_hours }}</div>
+                        <div class="detail-content">{{ offer_details.minimum_hours|floatformat:0 }}</div>
                     </div>
 
                     <div class="container">
@@ -273,7 +274,7 @@
 
                     <div class="container">
                         <div class="header">Щат:</div>
-                        <div class="detail-content">{{ offer_details.state }}</div>
+                        <div class="detail-content">{{ offer_details.city.state }}</div>
                     </div>
 
                     <div class="container">
@@ -292,7 +293,7 @@
 
                     <div class="container">
                         <div class="header">Housing:</div>
-                        <div class="detail-content">{{ offer_details.housing }}</div>
+                        <div class="detail-content">${{ offer_details.housing|floatformat:2 }}</div>
                     </div>
 
                     <div class="container">
