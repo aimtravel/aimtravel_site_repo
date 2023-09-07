@@ -133,6 +133,10 @@ def taxes(request):
     return render(request, template_name='nav/taxes.html')
 
 
+def online(request):
+    return render(request, template_name='nav/online-services.html')
+
+
 # END - - - STATIC VIEWS
 
 

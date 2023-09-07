@@ -4086,3 +4086,276 @@ footer .usa-flag {
 
 /* WAT USA PAGE */
 /* END*/
+
+
+/* ONLINE SERVICES PAGE*/
+
+#online-header .offers-background {
+    background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/online-background.png');
+    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
+
+    color: var(--white-color);
+    text-align: center;
+    text-shadow: 4px 4px 25px #1E1E1E;
+    font-family: Jost, sans-serif;
+    font-size: var(--font-70);
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+}
+
+#online-header h1 {
+    width: calc(1286px * 0.75);
+    line-height: calc(85px * 0.75);
+    margin: 0;
+}
+
+#online-page-flag1 {
+    top: 600px;
+}
+
+#online-general-section .general-section-container {
+
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-style: normal;
+    line-height: normal;
+    gap: 120px;
+}
+
+#online-general-section .general-section-text-container {
+    justify-content: center;
+    width: calc(659px * 0.77);
+    padding: 0;
+    gap: 0;
+    box-shadow: none;
+}
+
+#online-general-section .general-section-container h3 {
+    color: var(--blue-color);
+    font-size: var(--font-42);
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin: 0;
+}
+
+#online-general-section .general-section-container p {
+    color: #000;
+    font-size: var(--font-20);
+    font-weight: 400;
+    letter-spacing: 0.6px;
+}
+
+.general-section-image-container img {
+    position: relative;
+    top: 8px;
+    width: calc(598px * 0.75);
+    height: calc(592px * 0.75);
+}
+
+#online-price-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: #9D0A0E;
+}
+
+#online-price-section #price-section-inner-container {
+    width: var(--max-width);
+}
+
+#online-price-section #pricing-container {
+    gap: calc(60px * 0.75);
+    margin-bottom: calc(90px * 0.85);
+}
+
+#online-price-section #price-container {
+    width: calc(500px * 0.75);
+}
+
+#online-price-section .price-container-text {
+    padding: 40px 24px 5px 24px;
+    gap: 10px;
+}
+
+#online-price-section .option-list p {
+    color: #FFF;
+    text-align: justify;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: var(--font-20);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0.6px;
+    text-transform: none;
+
+    padding: 24px;
+    margin: 0;
+}
+
+#service-section.online-service-section {
+    padding: 80px 0 0 0;
+}
+
+#service-container-header p {
+    color: var(--blue-color);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: var(--font-42);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.26px;
+    text-transform: capitalize;
+
+    margin: 0 0 50px 0;
+}
+
+.online-service-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#online-free {
+    margin: calc(90px * 0.75) 0;
+}
+
+#online-free .general-section-text-container {
+    width: calc(718px * 0.75);
+    height: calc(732px * 0.75);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-style: normal;
+    line-height: normal;
+
+    padding: 0;
+    gap: calc(20px * 0.75);
+    box-shadow: none;
+    background: none;
+}
+
+#online-free .general-section-text-container h3 {
+    color: var(--blue-color);
+    font-size: var(--font-42);
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    margin: 0;
+}
+
+#online-free .general-section-text-container p {
+    color: #000;
+    font-size: var(--font-24);
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+#online-free .general-section-image-container .white-border {
+    width: calc(660px * 0.75);
+    height: calc(680px * 0.75);
+    top: 26px;
+    left: 20px;
+}
+
+#online-free .general-section-image-container img {
+    width: calc(718px * 0.75);
+    height: calc(731px * 0.75);
+}
+
+#online-register .general-section-text-container {
+    width: calc(718px * 0.75);
+    height: calc(732px * 0.75);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-style: normal;
+    line-height: normal;
+
+    padding: 0;
+    gap: calc(20px * 0.75);
+    box-shadow: none;
+    background: none;
+}
+
+#online-register .general-section-text-container h3 {
+    color: var(--blue-color);
+    font-size: var(--font-42);
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    margin: 0;
+}
+
+#online-register .general-section-text-container p {
+    color: #000;
+    font-size: var(--font-24);
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+#online-register .general-section-image-container .white-border {
+    width: calc(660px * 0.75);
+    height: calc(680px * 0.75);
+    top: 26px;
+    left: 20px;
+}
+
+#online-register .general-section-image-container img {
+    width: calc(718px * 0.75);
+    height: calc(731px * 0.75);
+}
+
+.free-consult-btn {
+    margin-top: 40px;
+}
+
+#online-cta-section {
+    width: 100%;
+    height: calc(530px * 0.85);
+    background-image: url('../static/img/Ready-stock/WEBP version/background-for-subscribe.png');
+    background-size: cover;
+    margin-top: 80px;
+}
+
+#online-cta-section #cta-container {
+    top: 70px;
+}
+
+#online-cta-section h1 {
+    width: calc(718px * 0.75);
+    font-size: var(--font-42);
+    font-weight: 700;
+    margin: 0 0 25px 0;
+    line-height: normal;
+}
+
+#online-cta-section p {
+    width: calc(718px * 0.75);
+    font-size: var(--font-24);
+    font-weight: 400;
+}
+
+#online-cta-section .slider-btn {
+    margin-top: 50px;
+}
+
+#online-services footer {
+    margin-top: 0;
+}
+
+#online-services footer .usa-flag {
+    top: -700px;
+}
+/* ONLINE SERVICES PAGE*/
+/* END */

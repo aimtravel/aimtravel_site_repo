@@ -16,6 +16,7 @@ urlpatterns = (
     #     path('needed_docs', needed_docs, name='needed documents'),
     # ])),
     path('taxes/', taxes, name='taxes'),
+    path('onlineservices/', online, name='online'),
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),
         path('all/', job_offer_list, name='offers'),
