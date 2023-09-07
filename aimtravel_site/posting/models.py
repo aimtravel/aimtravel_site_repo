@@ -235,3 +235,21 @@ class Video(models.Model):
         null=True,
     )
 
+
+class Faq(models.Model):
+    class Meta:
+        verbose_name = 'FAQ'
+        verbose_name_plural = 'FAQ'
+
+    faq_title = models.CharField(
+        max_length=100,
+        verbose_name='Въпрос',
+        blank=True,
+        null=True,
+    )
+    faq_description = models.CharField(
+        max_length=255,
+        verbose_name='Отговор',
+        blank=True,
+        null=True,
+    )

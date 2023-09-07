@@ -400,12 +400,12 @@ nav a {
 }
 
 .fade-in {
-  opacity: 0;             /* Start with 0 opacity (completely transparent) */
-  transition: opacity 2s ease-in-out; /* Apply a transition to the opacity property */
+    opacity: 0; /* Start with 0 opacity (completely transparent) */
+    transition: opacity 2s ease-in-out; /* Apply a transition to the opacity property */
 }
 
 .fade-in .active {
-  opacity: 1;             /* When the element has the 'active' class, set opacity to 1 (fully visible) */
+    opacity: 1; /* When the element has the 'active' class, set opacity to 1 (fully visible) */
 }
 
 .nav-button-a {
@@ -3988,6 +3988,100 @@ footer .usa-flag {
 .how-to-element li {
     margin-bottom: 5px;
     width: calc(500px * 0.75);
+}
+
+#faq-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: calc(100px * 0.75);
+}
+
+#faq-header {
+    color: var(--blue-color);
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-size: var(--font-42);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.26px;
+    text-transform: capitalize;
+    margin-bottom: calc(60px * 0.75);
+}
+
+#faq-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-row {
+    display: flex;
+    flex-direction: row;
+    gap: calc(68px * 0.75);
+    margin-bottom: calc(35px * 0.75);
+}
+
+.faq-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(34px * 0.75);
+    width: calc(718px * 0.75);
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-size: var(--font-24);
+    font-style: normal;
+
+    position: relative;
+}
+
+.faq-content p {
+    padding: 16px 0 16px 16px;
+    margin: 0;
+}
+
+.faq-content svg {
+    padding: 16px 16px 16px 0;
+    margin: 0;
+}
+
+.faq-content-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    line-height: normal;
+    font-weight: 600;
+
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 4px 4px 50px 0px rgba(0, 0, 0, 0.06);
+}
+
+.faq-content-header .arrow-down {
+    display: flex;
+}
+
+.faq-content-header .arrow-up {
+    display: none;
+}
+
+.faq-content-description {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    font-weight: 400;
+    line-height: calc(40px * 0.75); /* 166.667% */
+
+    z-index: 50;
 }
 
 /* WAT USA PAGE */

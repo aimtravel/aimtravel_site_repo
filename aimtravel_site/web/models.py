@@ -353,7 +353,7 @@ class JobOffer(models.Model):
     )
 
     def __str__(self):
-        result = f'{self.job_position} at {self.employer_name} - {self.city}, {self.state}'
+        result = f'{self.job_position} at {self.employer_name} - {self.city}'
         return result
 
     def delete(self, *args, **kwargs):

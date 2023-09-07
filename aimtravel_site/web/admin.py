@@ -13,18 +13,18 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
-    list_display = ['name', 'fact1', 'fact2', 'fact3', 'city_pic']
-    list_filter = ['name']
-    search_fields = ['name']
-    sortable_by = ['name']
+    list_display = ['name', 'state', 'fact1', 'fact2', 'fact3', 'city_pic']
+    list_filter = ['name', 'state']
+    search_fields = ['name', 'state']
+    sortable_by = ['name', 'state']
 
 
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
-    list_display = ['job_position', 'employer_name', 'wage', 'city', 'state']
-    list_filter = ['state']
-    search_fields = ['job_position', 'employer_name', 'wage', 'city', 'state']
-    sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'state']
+    list_display = ['job_position', 'employer_name', 'wage', 'city']
+    list_filter = ['city']
+    search_fields = ['job_position', 'employer_name', 'wage', 'city']
+    sortable_by = ['job_position', 'employer_name', 'wage', 'city']
 
 
 @admin.register(Prices)

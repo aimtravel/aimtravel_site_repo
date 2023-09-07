@@ -141,13 +141,13 @@
                 </li>
                 <li class="dropdown">
                     <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
-                                        <div class="tooltip">
-                                            <a href="#">ДАНЪЦИ ОТ САЩ</a>
-                                            <a href="#">СТАЖОВЕ В САЩ</a>
-                                            <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
-                                            <a href="{% url 'news' %}">НОВИНИ</a>
-                                        </div>
-                                        <span class="dropdown-icon"></span>
+                    <div class="tooltip">
+                        <a href="#">ДАНЪЦИ ОТ САЩ</a>
+                        <a href="#">СТАЖОВЕ В САЩ</a>
+                        <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
+                        <a href="{% url 'news' %}">НОВИНИ</a>
+                    </div>
+                    <span class="dropdown-icon"></span>
                 </li>
                 <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
                 <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
@@ -546,6 +546,44 @@
         </div>
     </section>
     <section id="faq-section">
+        <div id="faq-header">Често задавани въпроси</div>
+        <div id="faq-container">
+            {% if faq %}
+                {% for element in faq %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        <div class="faq-row">
+                    {% endif %}
+                <div class="faq-content">
+                    <div class="faq-content-header">
+                        <p>{{ element.faq_title }}</p>
+                        <div class="arrow-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="arrow-up">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="faq-content-description">
+                        <p>{{ element.faq_description }}</p>
+                    </div>
+                </div>
+
+                {% if forloop.counter|divisibleby:2 or forloop.last %}
+
+                    </div>
+                {% endif %}
+
+                {% endfor %}
+            {% endif %}
+        </div>
 
     </section>
 
@@ -705,11 +743,12 @@
     </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_filtering.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_dropdown.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_slider.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_navbar.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_video.js"></script>
+<script type="text/javascript" src="{% static 'javascript/js_filtering.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_faq.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 </body>
 
 </html>

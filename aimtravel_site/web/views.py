@@ -69,12 +69,17 @@ class WatUsaView(views.ListView):
     def get_additional_feedback(self):
         return AdditionalFeedback.objects.latest('id')
 
+    def get_faq(self):
+        return Faq.objects.all()
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         additional_feedback = self.get_additional_feedback()
+        faq = self.get_faq()
 
         context['additional_feedback'] = additional_feedback
+        context['faq'] = faq
 
         return context
 
@@ -142,7 +147,7 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 
 
 def job_offer_list(request):
-    states = JobOffer.objects.values_list('state', flat=True).distinct()
+    states = JobOffer.objects.values_list('city__state', flat=True).distinct()
     cities = JobOffer.objects.values_list('city', flat=True).distinct()
     job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
     suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
@@ -160,7 +165,7 @@ def job_offer_list(request):
     selected_housing = request.GET.getlist('housing')
 
     if selected_state:
-        filtered_offers = filtered_offers.filter(state__in=selected_state)
+        filtered_offers = filtered_offers.filter(city__state__in=selected_state)
     if selected_city:
         filtered_offers = filtered_offers.filter(city__in=selected_city)
     if selected_job_position:
