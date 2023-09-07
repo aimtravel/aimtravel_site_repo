@@ -33,7 +33,9 @@ class News(models.Model):
         null=True,
     )
 
-    news_image = models.URLField(
+    news_image = models.ImageField(
+        upload_to='news_pics/',
+        verbose_name='Снимка',
         blank=True,
         null=True,
     )

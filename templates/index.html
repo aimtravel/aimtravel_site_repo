@@ -595,7 +595,7 @@
         <div id="news">
             <div id="last-news">
                 <div id="last-news-img">
-                    <img src="{{ very_last_news.news_image }}" alt="last news picture">
+                    <img src="{{ very_last_news.news_image.url }}" alt="last news picture">
                     <div class="white-border"></div>
                 </div>
                 <div id="last-news-text">
@@ -609,7 +609,7 @@
                 {% for news in last_4_news %}
                     <div id="last-4-1" class="news-content">
                         <div id="last-4-1-img" class="last-img">
-                            <img src="{{ news.news_image }}" alt="">
+                            <img src="{{ news.news_image.url }}" alt="">
                             <div class="white-border"></div>
                         </div>
                         <div id="last-4-1-text" class="last-4-text">

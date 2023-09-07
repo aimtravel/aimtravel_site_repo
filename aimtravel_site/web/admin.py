@@ -21,10 +21,10 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
-    list_display = ['job_position', 'employer_name', 'wage', 'city']
-    list_filter = ['city']
-    search_fields = ['job_position', 'employer_name', 'wage', 'city']
-    sortable_by = ['job_position', 'employer_name', 'wage', 'city']
+    list_display = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
+    list_filter = ['city', 'ranking']
+    search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
+    sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
 
 
 @admin.register(Prices)
