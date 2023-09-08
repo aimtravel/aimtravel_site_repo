@@ -4406,12 +4406,13 @@ footer .usa-flag {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 15px;
+    gap: 35px;
     padding: 40px 0;
 }
 
 #contacts-container .price-container {
     width: calc(450px * 0.75);
+    border: 2px solid var(--white-color);
 }
 
 #contacts-container .price-container .price-container-text {
@@ -4431,7 +4432,7 @@ footer .usa-flag {
 
 #phone-container .pricing-btn {
     padding: 5px;
-
+    border: 2px solid var(--white-color);
     height: 30px;
     margin: 0;
 }
