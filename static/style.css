@@ -4159,6 +4159,9 @@ footer .usa-flag {
     display: flex;
     justify-content: center;
     width: 100%;
+}
+
+.red-background {
     background: #9D0A0E;
 }
 
@@ -4358,4 +4361,119 @@ footer .usa-flag {
     top: -700px;
 }
 /* ONLINE SERVICES PAGE*/
+/* END */
+
+
+/* CONTACTS PAGE*/
+
+#contacts-header-section {
+    width: var(--max-width);
+    margin: 80px 0 40px 0;
+
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost, sans-serif;
+    font-style: normal;
+    line-height: normal;
+}
+
+#contacts-header-section h2 {
+    color: var(--blue-color);
+    font-size: var(--font-42);
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0 100px;
+    margin: 0 0 20px 0;
+}
+
+#contacts-header-section p {
+    color: #000;
+    font-size: var(--font-24);
+    font-weight: 400;
+    margin: 0;
+    padding: 0 300px 0 100px;
+}
+
+#contacts-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contacts-container {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    padding: 40px 0;
+}
+
+#contacts-container .price-container {
+    width: calc(450px * 0.75);
+}
+
+#contacts-container .price-container .price-container-text {
+    margin-top: 30px;
+}
+
+#contacts-container .price-container .option-list {
+    margin-top: 20px;
+}
+
+#phone-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+#phone-container .pricing-btn {
+    padding: 5px;
+
+    height: 30px;
+    margin: 0;
+}
+
+#phone-container .pricing-btn a {
+    height: 25px;
+    line-height: normal;
+}
+
+#contacts-query-form {
+    margin-bottom: 60px;
+}
+
+#contacts-container .price-container .option-list .vl {
+    color: #00355E;
+}
+
+#contacts-query-form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+}
+#contacts-query-form-image {
+    position: absolute;
+    z-index: -1;
+}
+
+#contacts-location-section {
+    margin-bottom: 50px;
+}
+
+#location-container .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+}
+
+#location-container .location-div {
+    box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.2);
+}
+
+/* CONTACTS PAGE*/
 /* END */

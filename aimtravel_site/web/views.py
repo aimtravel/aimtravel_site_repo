@@ -85,7 +85,7 @@ class WatUsaView(views.ListView):
 
 
 def contacts(request):
-    return render(request, template_name='about_us/contact_us.html')
+    return render(request, template_name='nav/contacts.html')
 
 
 def admin_panel(request):
