@@ -15,7 +15,7 @@
             <a href="{% url 'index' %}#about">За нас</a>
             <a href="{% url 'offers' %}">Работни оферти</a>
             <a href="{% url 'news' %}">Блог</a>
-            <a href="{% url 'under-construction' %}">Контакти</a>
+            <a href="{% url 'contacts' %}">Контакти</a>
         </div>
         <div class="nav-container">
             <h1>БРИГАДА В САЩ</h1>
@@ -27,8 +27,8 @@
         </div>
         <div class="nav-container">
             <h1>ОНЛАЙН УСЛУГИ</h1>
-            <a href="#">Безплатна консултация</a>
-            <a href="#">Регистрация за бригада</a>
+            <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
+            <a href="{% url 'online' %}#online-register-anchor">Регистрация за бригада</a>
             <br>
             <div id="phone-details">
                 <?xml version="1.0" encoding="UTF-8"?>

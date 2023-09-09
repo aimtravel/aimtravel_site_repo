@@ -51,6 +51,7 @@
     --font-66: calc(66px * 0.75);
     --font-70: calc(70px * 0.75);
     --font-80: calc(80px * 0.75);
+    --font-100: calc(100px * 0.75);
     --font-140: calc(140px * 0.75);
 
 
@@ -66,12 +67,13 @@ body {
 
 }
 
-/* <HEADER> */
 main {
     display: flex;
     justify-self: center;
     width: 100%;
 }
+
+/* <HEADER> */
 
 .font-jost {
     font-family: 'Jost', sans-serif;
@@ -239,6 +241,7 @@ body .usa-flag {
 /* Nav Header*/
 
 #header-nav {
+    width: 100%;
     position: relative;
     display: flex;
     flex-direction: row;
@@ -458,6 +461,13 @@ nav a {
     filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
 }
 
+@media screen and (max-width: 1700px) {
+    .background {
+        width: 100%;
+        height: calc(var(--main-slider-background-height) * 0.71);
+    }
+}
+
 .background-gradient {
     width: 100%;
     height: 100%;
@@ -519,6 +529,13 @@ nav a {
     bottom: 10px;
 }
 
+@media screen and (max-width: 1700px) {
+    .slider-container {
+        bottom: 0;
+        top: 20px;
+    }
+}
+
 .slider-container p,
 .slider-container h1,
 .slider-container h4 {
@@ -555,10 +572,27 @@ nav a {
 
 }
 
+@media screen and (max-width: 1700px) {
+    #main-slider-text-heading {
+        font-size: calc(var(--font-140) * 0.71);
+        letter-spacing: 3.2px;
+        line-height: 80px;
+        margin: 0 0 8px 0;
+    }
+}
+
 #main-slider hr {
     width: 870px;
     height: 0;
     border: 2px solid var(--red-color);
+}
+
+@media screen and (max-width: 1700px) {
+    #main-slider hr {
+        width: calc(870px * 0.71);
+        height: 0;
+        border: 2px solid var(--red-color);
+    }
 }
 
 #main-slider-text-subheading {
@@ -571,6 +605,16 @@ nav a {
     text-transform: capitalize;
     margin: 20px 0 85px 0;
     padding: 0;
+}
+
+@media screen and (max-width: 1700px) {
+    #main-slider-text-subheading {
+        font-size: calc(var(--font-60) * 0.71);
+        line-height: 45px;
+        letter-spacing: 1px;
+        margin: 10px 0 45px 0;
+        padding: 0;
+    }
 }
 
 .slider-btn {
@@ -656,6 +700,16 @@ nav a {
     box-sizing: border-box;
 }
 
+@media screen and (max-width: 1700px) {
+    #slider-1,
+    #slider-2,
+    #slider-3 {
+        padding: calc(48px * 0.71) calc(80px * 0.71);
+
+    }
+}
+
+
 #slider-1 h4,
 #slider-2 h4,
 #slider-3 h4 {
@@ -670,6 +724,17 @@ nav a {
     text-transform: uppercase;
     padding: 0;
     margin: 0;
+}
+
+@media screen and (max-width: 1700px) {
+    #slider-1 h4,
+    #slider-2 h4,
+    #slider-3 h4 {
+        font-size: calc(var(--font-42) * 0.71);
+        line-height: 28px;
+        letter-spacing: 1.12px;
+
+    }
 }
 
 #slider-1 h1,
@@ -687,6 +752,16 @@ nav a {
     margin: 0;
 }
 
+@media screen and (max-width: 1700px) {
+    #slider-1 h1,
+    #slider-2 h1,
+    #slider-3 h1 {
+        font-size: calc(var(--font-62) * 0.71);
+        line-height: calc(65px * 0.71);
+        letter-spacing: 1.6px;
+    }
+}
+
 #slider-1 p,
 #slider-2 p,
 #slider-3 p {
@@ -700,6 +775,14 @@ nav a {
     letter-spacing: 0.78px;
     padding: 0;
     margin: 0;
+}
+
+@media screen and (max-width: 1700px) {
+    #slider-1 p,
+    #slider-2 p,
+    #slider-3 p {
+        font-size: calc(var(--font-25) * 0.71);
+    }
 }
 
 #slider-1 {
@@ -739,6 +822,14 @@ nav a {
     z-index: 1;
 }
 
+@media screen and (max-width: 1700px) {
+    #top-destinations {
+        top: calc(650px * 0.75);
+        width: calc(var(--top-destination-width) * 0.75);
+        height: calc(var(--top-destination-height) * 0.75);
+    }
+}
+
 #top-destinations .row-1 {
     border-bottom: 3px solid var(--gray-color);
 }
@@ -749,6 +840,13 @@ nav a {
     align-items: center;
     justify-content: center;
     height: var(--top-destination-row-height);
+}
+
+@media screen and (max-width: 1700px) {
+    .row-1,
+    .row-2 {
+        height: calc(var(--top-destination-row-height) * 0.75);
+    }
 }
 
 #col-1,
@@ -777,6 +875,11 @@ nav a {
     cursor: pointer;
 }
 
+@media screen and (max-width: 1700px) {
+    #top-destinations a {
+        font-size: calc(var(--font-30) * 0.75);
+    }
+}
 
 /* </HEADER> */
 
@@ -4360,6 +4463,7 @@ footer .usa-flag {
 #online-services footer .usa-flag {
     top: -700px;
 }
+
 /* ONLINE SERVICES PAGE*/
 /* END */
 
@@ -4456,6 +4560,7 @@ footer .usa-flag {
     justify-content: center;
     position: relative;
 }
+
 #contacts-query-form-image {
     position: absolute;
     z-index: -1;
