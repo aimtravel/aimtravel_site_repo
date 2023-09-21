@@ -158,6 +158,13 @@ def job_offer_list(request):
     wages = JobOffer.objects.values_list('wage', flat=True).distinct()
     housing = JobOffer.objects.values_list('housing', flat=True).distinct()
 
+    states = sorted(states)
+    cities = sorted(cities)
+    job_positions = sorted(job_positions)
+    suitable_for = sorted(suitable_for)
+    wages = sorted(wages)
+    housing = sorted(housing)
+
     filtered_offers = JobOffer.objects.all()
     filtered_offers = filtered_offers.order_by('-ranking', '-wage')
 

@@ -174,7 +174,7 @@
                                 <div class="checkbox-row">
                                     {% for wage in wages %}
                                         <div class="checkbox-container">
-                                            <input type="checkbox" name="wage" value="{{ wage }}"> {{ wage }}<br>
+                                            <input type="checkbox" name="wage" value="{{ wage }}">$ {{ wage }}<br>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -194,7 +194,7 @@
                                 <div class="checkbox-row">
                                     {% for house in housing %}
                                         <div class="checkbox-container">
-                                            <input type="checkbox" name="housing" value="{{ house }}"> {{ house }}<br>
+                                            <input type="checkbox" name="housing" value="{{ house }}">$ {{ house }}<br>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -211,40 +211,6 @@
                     </form>
                 </div>
             </div>
-            {#            <div>#}
-            {#                <form id="job-offer-filter-form">#}
-            {#                    <h3>State:</h3>#}
-            {#                    {% for state in states %}#}
-            {#                        <input type="checkbox" name="state" value="{{ state }}"> {{ state }}<br>#}
-            {#                    {% endfor %}#}
-            {##}
-            {#                    <h3>City:</h3>#}
-            {#                    {% for city in cities %}#}
-            {#                        <input type="checkbox" name="city" value="{{ city }}"> {{ city }}<br>#}
-            {#                    {% endfor %}#}
-            {##}
-            {#                    <h3>Job Position:</h3>#}
-            {#                    {% for position in job_positions %}#}
-            {#                        <input type="checkbox" name="job_position" value="{{ position }}"> {{ position }}<br>#}
-            {#                    {% endfor %}#}
-            {##}
-            {#                    <h3>Suitable for:</h3>#}
-            {#                    {% for suitable in suitable_for %}#}
-            {#                        <input type="checkbox" name="suitable_for" value="{{ suitable }}"> {{ suitable }}<br>#}
-            {#                    {% endfor %}#}
-            {##}
-            {#                    <h3>Wage:</h3>#}
-            {#                    {% for wage in wages %}#}
-            {#                        <input type="checkbox" name="wage" value="{{ wages }}"> {{ wages }}<br>#}
-            {#                    {% endfor %}#}
-            {##}
-            {#                    <h3>Housing:</h3>#}
-            {#                    {% for house in housing %}#}
-            {#                        <input type="checkbox" name="housing" value="{{ house }}"> {{ house }}<br>#}
-            {#                    {% endfor %}#}
-            {#                </form>#}
-            {#            </div>#}
-
         </div>
         <div class="offers-container">
             <div class="offer-slides">
@@ -346,7 +312,7 @@
         </div>
         <div id="pricing-button">
             <div id="pricing-btn" class="pricing-btn">
-                <a href="">ВИЖ НАШИТЕ СПЕЦИАЛНИ ЦЕНИ</a>
+                <a href="{% url 'wat usa' %}#price-section">ВИЖ НАШИТЕ СПЕЦИАЛНИ ЦЕНИ</a>
                 <?xml version="1.0" encoding="UTF-8"?>
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
                      stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
