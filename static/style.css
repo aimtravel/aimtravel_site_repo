@@ -2925,6 +2925,13 @@ footer .usa-flag {
     width: var(--max-width);
 }
 
+#news-details {
+    width: var(--max-width);
+    display: flex;
+    flex-direction: column;
+
+}
+
 #offer-details-header {
     height: 212px;
 }
