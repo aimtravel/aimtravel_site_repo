@@ -3158,7 +3158,8 @@ footer .usa-flag {
 
 #offer-details-facts {
     width: 100%;
-    height: calc(980px * 0.80);
+    height: auto;
+    /*height: calc(980px * 0.80);*/
     display: flex;
     flex-direction: column;
     align-items: center;
