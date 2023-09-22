@@ -11,3 +11,11 @@ class NewsView(views.ListView):
     context_object_name = 'news'
     paginate_by = 4
     ordering = ('-date',)
+
+
+class StoryView(views.ListView):
+    model = MainFeedback
+    template_name = 'nav/students-story.html'
+    context_object_name = 'story'
+    paginate_by = 4
+    ordering = ('-id',)

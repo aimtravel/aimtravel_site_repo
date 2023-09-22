@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- =======================
+        Main banner START -->
+
+        <section id="offer-details-section">
+            <div id="offer-details">
+                {% if page_obj %}
+                    <div class="pagination font-jost">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <span class="current-page">{{ num }}</span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
+                </div>
+                    {% for story in page_obj %}
+                        <div id="offer-details-top-row">
+                            <div id="offer-details-heading">
+                                <h1>{{ story.feedback_1_title }}</h1>
+                            </div>
+                        </div>
+
+                        <div id="offer-details-highlights">
+                            <div id="offer-picture">
+                                {% if story.feedback_1_image %}
+                                    <img src="{{ story.feedback_1_image.url }}" alt="offer picture">
+                                    <div class="white-border"></div>
+                                {% else %}
+                                    <div id="no-pic">
+                                        <span>Няма снимка.</span>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                            <div id="offer-description-container">
+                                <div id="offer-description">
+                                    <p>{{ story.feedback_1_content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <br><br><br><br><br>
+                    {% endfor %}
+                {% else %}
+                    <p>В момента няма нищо ново.</p>
+                {% endif %}
+
+                <div class="pagination font-jost">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <span class="current-page">{{ num }}</span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a href="?page={{ num }}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </section>
+        <img id="news-page-flag3" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+
+
+        <!-- =======================
+        Blog content END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+
+{% endblock %}

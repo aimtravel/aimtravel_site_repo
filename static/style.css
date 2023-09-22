@@ -1959,7 +1959,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #story-heading p {
     padding: 0;
-    margin: 20px 0 10px 0;
+    margin: 20px 0 40px 0;
 }
 
 #story {
@@ -2041,7 +2041,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #story-button {
-    margin-top: 100px;
+    margin-top: 40px;
 }
 
 /* Services Section */

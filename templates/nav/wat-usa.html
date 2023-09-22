@@ -351,50 +351,31 @@
     </section>
     <section id="story-section">
         <div id="story-heading">
-            <p id="heading-story">Отзиви От Студенти</p>
+            <p id="heading-story">Истории на Студенти</p>
         </div>
         <div id="story">
-            {% if additional_feedback %}
+            {% if main_feedback %}
+                {% for feedback in main_feedback %}
                 <div id="story-1" class="story-container">
                     <div class="story-img">
-                        <img src="{{ additional_feedback.feedback_1_image.url }}" alt="pic1">
+                        <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
                         <div class="white-border"></div>
                     </div>
                     <div class="story-text">
-                        <h3>{{ additional_feedback.feedback_1_title }}</h3>
-                        <p>{{ additional_feedback.feedback_1_content }}</p>
-                        <a href="#">Прочети Статия</a>
+                        <h3>{{ feedback.feedback_1_title }}</h3>
+                        <p>{{ feedback.feedback_1_content }}</p>
+                        <a href="{% url 'story' %}">Прочети Статия</a>
                     </div>
                 </div>
-                <div id="story-2" class="story-container">
-                    <div class="story-img">
-                        <img src="{{ additional_feedback.feedback_2_image.url }}" alt="pic2">
-                        <div class="white-border"></div>
-                    </div>
-                    <div class="story-text">
-                        <h3>{{ additional_feedback.feedback_2_title }}</h3>
-                        <p>{{ additional_feedback.feedback_2_content }}</p>
-                        <a href="#">Прочети Статия</a>
-                    </div>
-                </div>
-                <div id="story-3" class="story-container">
-                    <div class="story-img">
-                        <img src="{{ additional_feedback.feedback_3_image.url }}" alt="pic3">
-                        <div class="white-border"></div>
-                    </div>
-                    <div class="story-text">
-                        <h3>{{ additional_feedback.feedback_3_title }}</h3>
-                        <p>{{ additional_feedback.feedback_3_content }}</p>
-                        <a href="#">Прочети Статия</a>
-                    </div>
-                </div>
+                {% endfor %}
+
             {% else %}
 
                 <p> Към момнета няма добавени истории.</p>
             {% endif %}
         </div>
         <div id="story-button" class="slider-btn">
-            <a href="">ВИЖ ОЩЕ ИСТОРИИ</a>
+            <a href="{% url 'story' %}">ВИЖ ОЩЕ ИСТОРИИ</a>
         </div>
     </section>
     <section id="faq-section">

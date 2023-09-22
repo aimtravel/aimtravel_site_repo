@@ -13,14 +13,8 @@ class NewsAdmin(admin.ModelAdmin):
 
 @admin.register(MainFeedback)
 class MainFeedbackAdmin(admin.ModelAdmin):
-    list_display = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
-    search_fields = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
-
-
-@admin.register(AdditionalFeedback)
-class AdditionalFeedbackAdmin(admin.ModelAdmin):
-    list_display = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
-    search_fields = ['feedback_1_title', 'feedback_2_title', 'feedback_3_title']
+    list_display = ['feedback_1_title']
+    search_fields = ['feedback_1_title']
 
 
 @admin.register(Video)

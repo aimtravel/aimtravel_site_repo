@@ -30,7 +30,7 @@ class CombinedView(views.ListView):
         return News.objects.latest('date')
 
     def get_main_feedback(self):
-        return MainFeedback.objects.latest('id')
+        return MainFeedback.objects.order_by('-id')[:3]
 
     def get_videos(self):
         return Video.objects.latest('id')
@@ -64,22 +64,25 @@ class WatUsaView(views.ListView):
     context_object_name = 'wat_usa_data'
 
     def get_queryset(self):
-        return AdditionalFeedback.objects.latest('id')
-
-    def get_additional_feedback(self):
-        return AdditionalFeedback.objects.latest('id')
+        faq = Faq.objects.all()
+        return faq
 
     def get_faq(self):
         return Faq.objects.all()
 
+    def get_main_feedback(self):
+        return MainFeedback.objects.order_by('-id')[:3]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        additional_feedback = self.get_additional_feedback()
         faq = self.get_faq()
+        main_feedback = self.get_main_feedback()
 
-        context['additional_feedback'] = additional_feedback
-        context['faq'] = faq
+        context = {
+            'faq': faq,
+            'main_feedback': main_feedback,
+        }
 
         return context
 
