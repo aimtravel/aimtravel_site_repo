@@ -19,7 +19,7 @@ urlpatterns = (
     path('onlineservices/', online, name='online'),
     path('offer/', include([
         path('add/', CreateOfferView.as_view(), name='add offer'),
-        path('all/', job_offer_list, name='offers'),
+        path('all/', JobOfferListView.as_view(), name='offers'),
         path('edit/<int:pk>/', EditOfferView.as_view(), name='edit offer'),
         path('delete/<int:pk>/', DeleteOfferView.as_view(), name='delete offer'),
         path('details/<int:pk>/', DetailsOfferView.as_view(), name='details offer'),

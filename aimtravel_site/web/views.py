@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from django.core.mail import send_mail
@@ -153,62 +153,68 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
         return self.request.user.is_staff
 
 
-def job_offer_list(request):
-    states = JobOffer.objects.values_list('city__state', flat=True).distinct()
-    cities = JobOffer.objects.values_list('city', flat=True).distinct()
-    job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
-    suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
-    wages = JobOffer.objects.values_list('wage', flat=True).distinct()
-    housing = JobOffer.objects.values_list('housing', flat=True).distinct()
+class JobOfferListView(views.ListView):
+    template_name = 'job_offer/offers.html'
 
-    states = sorted(states)
-    cities = sorted(cities)
-    job_positions = sorted(job_positions)
-    suitable_for = sorted(suitable_for)
-    wages = sorted(wages)
-    housing = sorted(housing)
+    def get(self, request):
+        states = JobOffer.objects.values_list('city__state', flat=True).distinct()
+        cities = JobOffer.objects.values_list('city', flat=True).distinct()
+        job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
+        suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
+        wages = JobOffer.objects.values_list('wage', flat=True).distinct()
+        housing = JobOffer.objects.values_list('housing', flat=True).distinct()
 
-    filtered_offers = JobOffer.objects.all()
-    filtered_offers = filtered_offers.order_by('-ranking', '-wage')
+        states = sorted(states)
+        cities = sorted(cities)
+        job_positions = sorted(job_positions)
+        suitable_for = sorted(suitable_for)
+        wages = sorted(wages)
+        housing = sorted(housing)
 
-    selected_state = request.GET.getlist('state')
-    selected_city = request.GET.getlist('city')
-    selected_job_position = request.GET.getlist('job_position')
-    selected_suitable_for = request.GET.getlist('suitable_for')
-    selected_wage = request.GET.getlist('wage')
-    selected_housing = request.GET.getlist('housing')
+        filtered_offers = JobOffer.objects.all()
+        filtered_offers = filtered_offers.order_by('-ranking', '-wage')
 
-    if selected_state:
-        filtered_offers = filtered_offers.filter(city__state__in=selected_state)
-    if selected_city:
-        filtered_offers = filtered_offers.filter(city__in=selected_city)
-    if selected_job_position:
-        filtered_offers = filtered_offers.filter(job_position__in=selected_job_position)
-    if selected_suitable_for:
-        filtered_offers = filtered_offers.filter(suitable_for__in=selected_suitable_for)
-    if selected_wage:
-        filtered_offers = filtered_offers.filter(wage__in=selected_wage)
-    if selected_housing:
-        filtered_offers = filtered_offers.filter(housing__in=selected_housing)
+        selected_state = request.GET.getlist('state')
+        selected_city = request.GET.getlist('city')
+        selected_job_position = request.GET.getlist('job_position')
+        selected_suitable_for = request.GET.getlist('suitable_for')
+        selected_wage = request.GET.getlist('wage')
+        selected_housing = request.GET.getlist('housing')
 
-    paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+        if selected_state:
+            filtered_offers = filtered_offers.filter(city__state__in=selected_state)
+        if selected_city:
+            filtered_offers = filtered_offers.filter(city__in=selected_city)
+        if selected_job_position:
+            filtered_offers = filtered_offers.filter(job_position__in=selected_job_position)
+        if selected_suitable_for:
+            filtered_offers = filtered_offers.filter(suitable_for__in=selected_suitable_for)
+        if selected_wage:
+            filtered_offers = filtered_offers.filter(wage__in=selected_wage)
+        if selected_housing:
+            filtered_offers = filtered_offers.filter(housing__in=selected_housing)
 
-    # formatted_wages = list(map(lambda wage: f"${Decimal(wage):.2f}", wages))
+        paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-    context = {
-        'states': states,
-        'cities': cities,
-        'job_positions': job_positions,
-        'suitable_for': suitable_for,
-        'wages': wages,
-        'housing': housing,
-        'filtered_offers': filtered_offers,
-        'page_obj': page_obj,
-    }
+        # formatted_wages = list(map(lambda wage: f"${Decimal(wage):.2f}", wages))
 
-    return render(request, 'job_offer/offers.html', context)
+        context = {
+            'states': states,
+            'cities': cities,
+            'job_positions': job_positions,
+            'suitable_for': suitable_for,
+            'wages': wages,
+            'housing': housing,
+            'filtered_offers': filtered_offers,
+            'page_obj': page_obj,
+        }
+
+        return render(request, self.template_name, context)
+
+    def get_success_url(self):
+        return '/offer/all#offers-page-top-row'
 
 
 class DetailsOfferView(views.DetailView):

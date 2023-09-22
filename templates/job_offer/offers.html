@@ -65,8 +65,14 @@
                     оферти включват осигурено настаняване.</p>
             </div>
             <div class="filter-row">
-                <div id="apply-filter">
-                    <p>Филтрирай</p>
+                <div id="filter-button-container">
+                    <div id="clear-filter" class="filter-button">
+                        <a href="{% url 'offers' %}#offers-page-top-row">ИЗЧИСТИ</a>
+                    </div>
+                    <div id="apply-filter" class="slider-btn filter-button">
+                        <p>ФИЛТРИРАЙ</p>
+                    </div>
+
                 </div>
                 <div id="offer-page-filters">
 
@@ -94,7 +100,9 @@
                                             <input type="checkbox" name="state" value="{{ state }}"> {{ state }}<br>
                                         </div>
                                     {% endfor %}
+
                                 </div>
+
                             </div>
                             <span class="icon"><?xml version="1.0" encoding="UTF-8"?>
                                 <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
@@ -210,6 +218,7 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
         <div class="offers-container">
@@ -232,8 +241,9 @@
                                     <h3 class="offer-header">{{ offer.job_position }}</h3>
                                     <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
                                     <p class="offer-type">Premium Offer</p>
-                                    <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour{% if offer.tips == 'Да' %} +
-                                        Tips {% endif %}</p>
+                                    <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                                        {% if offer.tips == 'Да' %} +
+                                            Tips {% endif %}</p>
                                 </div>
                             </div>
 

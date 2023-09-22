@@ -314,7 +314,7 @@ nav .dropdown {
     gap: 10px;
 
     position: absolute;
-    top: 40px;
+    top: 30px;
     /* adjust as needed */
     left: 90%;
     transform: translateX(-50%);
@@ -333,7 +333,7 @@ nav .dropdown {
     bottom: 100%;
     left: 20%;
     margin-left: -5px;
-    border: 12px solid #c4c4c4;
+    border: 8px solid #c4c4c4;
     border-color: transparent transparent #c4c4c4 transparent;
 }
 
@@ -2580,17 +2580,39 @@ footer .usa-flag {
     margin-bottom: 30px;
 }
 
-#apply-filter p {
+#filter-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0;
+}
+
+.filter-button {
     font-family: Jost, sans-serif;
     font-style: normal;
     font-size: var(--font-20);
     font-weight: 600;
     letter-spacing: 1px;
     line-height: normal;
-    color: var(--red-color);
     margin: 0 0 20px 0;
     padding: 0;
     cursor: pointer;
+}
+
+#apply-filter p {
+    color: var(--white-color);
+    margin: 0;
+    padding: 0 20px;
+}
+
+#clear-filter a {
+    color: var(--red-color);
+    font-weight: 700;
+    margin: 0;
+    padding: 0 20px;
+    text-decoration: none;
 }
 
 #offers-page-top-row .filter-row #offer-page-filters {
@@ -2723,6 +2745,7 @@ footer .usa-flag {
 
 #offer-page-filters .offer-filters .tooltip::before {
     border: none;
+    display: none;
 }
 
 /* OFFERS */ /* see above section OFFERS */ /* PAGINATOR */
@@ -3021,10 +3044,18 @@ footer .usa-flag {
     padding: 0 80px 0 80px;
 }
 
+#news-details-highlights {
+    width: calc(1440px * 0.75);
+    margin-top: 40px;
+    padding: 0 80px 0 80px;
+}
+
 #offer-picture {
     position: relative;
     width: calc(774px * 0.75);
     height: calc(558px * 0.75);
+    float: left;
+    margin-right: 20px;
 
 }
 
@@ -3060,6 +3091,10 @@ footer .usa-flag {
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
+}
+
+#news-description-container {
+    margin-left: 30px;
 }
 
 #offer-description p {
@@ -3165,8 +3200,8 @@ footer .usa-flag {
 
 #city-facts .facts {
     width: calc(420px * 0.75);
-    height: calc(200px * 0.75);
-
+    /*height: calc(200px * 0.75);*/
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
