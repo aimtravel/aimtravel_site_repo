@@ -19,7 +19,7 @@
 
                 <div id="top-header-right-links-icons">
 
-                    <div id="insta-link">
+                    <div id="insta-link" class="link-icon">
                         <a href="https://www.instagram.com/aimtravel_usa/" target="_blank">
                             <?xml version="1.0" encoding="UTF-8"?>
                             <svg width="24px" height="24px" stroke-width="1.5"
@@ -36,7 +36,7 @@
                     <div class="vl">
                         <hr>
                     </div>
-                    <div id="fb-link">
+                    <div id="fb-link" class="link-icon">
                         <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank">
                             <?xml version="1.0" encoding="UTF-8"?>
                             <svg width="24px" height="24px" stroke-width="1.5"
@@ -51,7 +51,7 @@
                     <div class="vl">
                         <hr>
                     </div>
-                    <div id="youtube-link">
+                    <div id="youtube-link" class="link-icon">
                         <a href="https://www.youtube.com/@aimtravel9347" target="_blank">
                             <?xml version="1.0" encoding="UTF-8"?>
                             <svg width="24px" height="24px" stroke-width="1.5"
@@ -68,7 +68,7 @@
                     <div class="vl">
                         <hr>
                     </div>
-                    <div id="tiktok-link">
+                    <div id="tiktok-link" class="link-icon">
                         <a href="https://www.tiktok.com/@aim_travelusa" target="_blank">
                             <?xml version="1.0" encoding="UTF-8"?>
                             <svg width="24px" height="24px" stroke-width="1.5"
@@ -81,7 +81,7 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="vl">
+                    <div class="vl last">
                         <hr>
                     </div>
 
@@ -102,7 +102,8 @@
 <section id="header-nav">
     <nav>
         <ul id="header-nav-links-container">
-            <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
+            <li class="dropdown link-a">
+                <a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
             <li class="dropdown link-a">
                 <a class="target-element link-a" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
                 <div class="tooltip">
@@ -134,8 +135,12 @@
                 </div>
                 <span class="dropdown-icon"></span>
             </li>
-            <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
-            <li><a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a></li>
+            <li class="dropdown link-a">
+                <a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a>
+            </li>
+            <li class="dropdown link-a">
+                <a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a>
+            </li>
             <li>
                 <div class="nav-button">
                     <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>

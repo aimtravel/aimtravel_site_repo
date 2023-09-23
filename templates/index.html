@@ -40,8 +40,9 @@
                                 <hr>
                                 <p id="main-slider-text-subheading">Work & Travel Agency</p>
                             </div>
-                            <div class="slider-btn main-slider-button">
-                                <a href="https://calendly.com/aimtravelusa/consultation" target="_blank">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                            <div class="slider-btn">
+                                <a href="https://calendly.com/aimtravelusa/consultation" target="_blank">БЕЗПЛАТНА
+                                    КОНСУЛТАЦИЯ</a>
                             </div>
                         </div>
 
@@ -50,7 +51,8 @@
                             <h1>СТУДЕНТСКА БРИГАДА В САЩ</h1>
                             <p>Запиши се до края на Октомври на най-ниските цени.</p>
                             <div class="slider-btn" id="slider-1-button">
-                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform" target="_blank">ЗАПИШИ СЕ</a>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                                   target="_blank">ЗАПИШИ СЕ</a>
                             </div>
                         </div>
                         <div id="slider-2">
@@ -261,8 +263,9 @@
                                 <h3 class="offer-header">{{ offer.job_position }}</h3>
                                 <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
                                 <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour {% if offer.tips == 'Да' %} + Tips
-                                {% endif %}</p>
+                                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                                    {% if offer.tips == 'Да' %} + Tips
+                                    {% endif %}</p>
                             </div>
                         </div>
 
@@ -440,7 +443,8 @@
                 </div>
             </div>
             <div class="slider-btn" id="video-more-btn">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform" target="_blank">ЗАПИШИ СЕ</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                   target="_blank">ЗАПИШИ СЕ</a>
             </div>
         </div>
     </section>
@@ -517,17 +521,17 @@
         <div id="story">
             {% if main_feedback %}
                 {% for feedback in main_feedback %}
-                <div id="story-1" class="story-container">
-                    <div class="story-img">
-                        <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
-                        <div class="white-border"></div>
+                    <div id="story-1" class="story-container">
+                        <div class="story-img">
+                            <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
+                            <div class="white-border"></div>
+                        </div>
+                        <div class="story-text">
+                            <h3>{{ feedback.feedback_1_title }}</h3>
+                            <p>{{ feedback.feedback_1_content }}</p>
+                            <a href="{% url 'story' %}">Прочети Статия</a>
+                        </div>
                     </div>
-                    <div class="story-text">
-                        <h3>{{ feedback.feedback_1_title }}</h3>
-                        <p>{{ feedback.feedback_1_content }}</p>
-                        <a href="{% url 'story' %}">Прочети Статия</a>
-                    </div>
-                </div>
                 {% endfor %}
             {% else %}
 
