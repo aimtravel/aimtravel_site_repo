@@ -4506,12 +4506,85 @@ footer .usa-flag {
     margin-top: 50px;
 }
 
+#useful-links {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+#heading-useful-links {
+    display: flex;
+    justify-content: center;
+}
+
+#heading-useful-links h1 {
+    color: var(--blue-color);
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: var(--font-42);
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.26px;
+    text-transform: capitalize;
+
+    margin: 50px 0 50px 0;
+}
+
+
+#useful-links-container {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.useful-links-text-container {
+    width: calc(659px * 0.77);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    gap: 30px;
+}
+
+.useful-links-text-container a {
+    color: var(--red-color);
+    font-weight: 600;
+    font-size: var(--font-28);
+    margin: 0;
+    padding: 0 20px;
+    text-decoration: none;
+}
+
+#useful-links-picture {
+    position: relative;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+#useful-links-picture img {
+    border-radius: 20px;
+    background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%), lightgray 50% / cover no-repeat;
+}
+
+#useful-links-picture .white-border {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    width: calc(542px * 0.75);
+    height: calc(537px * 0.75);
+    border-radius: 20px;
+    border: 1px solid white;
+}
+
 #online-services footer {
     margin-top: 0;
 }
 
 #online-services footer .usa-flag {
-    top: -700px;
+    top: -200px;
 }
 
 /* ONLINE SERVICES PAGE*/
@@ -4635,7 +4708,7 @@ footer .usa-flag {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
 
 }
@@ -4661,6 +4734,7 @@ footer .usa-flag {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 2px;
 }
 
 #contacts-location-section {
