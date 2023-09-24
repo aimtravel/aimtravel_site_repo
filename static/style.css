@@ -155,6 +155,7 @@ body .usa-flag {
     #top-header-left-p1, #top-header-left-p2 {
         display: none;
     }
+
     #top-header-left {
         font-size: 10px;
     }
@@ -194,6 +195,7 @@ body .usa-flag {
     #top-header-right {
         font-size: 10px;
     }
+
     #top-header-right p {
         display: none;
     }
@@ -226,6 +228,7 @@ body .usa-flag {
         height: 16px;
     }
 }
+
 .vl {
     padding: 0;
     margin: 0;
@@ -235,6 +238,7 @@ body .usa-flag {
     #top-header-left .vl {
         display: none;
     }
+
     #top-header-right .vl.last {
         display: none;
     }
@@ -302,6 +306,7 @@ body .usa-flag {
         display: none;
     }
 }
+
 /* Nav Header*/
 
 #header-nav {
@@ -370,6 +375,7 @@ nav li {
         gap: 10px;
         left: 5px;
     }
+
     nav li {
         margin: 0;
         padding: 0;
@@ -449,6 +455,7 @@ nav a {
     nav a {
         line-height: 15px;
     }
+
     .link-a {
         font-size: calc(var(--font-22) * 0.35);
     }
@@ -616,7 +623,6 @@ nav a {
 }
 
 
-
 #slider #prev-button svg {
     position: relative;
     right: 2px;
@@ -635,10 +641,12 @@ nav a {
         height: 28px;
         padding: 6px;
     }
-    #slider #prev-button svg{
+
+    #slider #prev-button svg {
         width: 16px;
         height: 16px;
     }
+
     #slider #next-button svg {
         width: 16px;
         height: 16px;
@@ -702,7 +710,6 @@ nav a {
 }
 
 
-
 #main-slider hr {
     width: 870px;
     height: 0;
@@ -729,11 +736,13 @@ nav a {
         margin: 0 0 8px 0;
         padding: 10px 0 0 0;
     }
-        #main-slider hr {
+
+    #main-slider hr {
         width: calc(870px * 0.31);
         height: 0;
         border: 2px solid var(--red-color);
     }
+
     #main-slider-text-subheading {
         font-size: calc(var(--font-60) * 0.31);
         line-height: 16px;
@@ -2792,7 +2801,7 @@ footer .usa-flag {
 
 }
 
-.offer-filters .tooltip .checkbox-row{
+.offer-filters .tooltip .checkbox-row {
     height: auto;
     max-height: 160px;
     overflow-y: auto;
@@ -3193,7 +3202,7 @@ footer .usa-flag {
 
 #news-details-highlights {
     width: calc(1440px * 0.75);
-    margin-top: 40px;
+    margin: 40px 30px 0 0;
     padding: 0 80px 0 80px;
 }
 
@@ -3240,10 +3249,6 @@ footer .usa-flag {
     gap: 60px;
 }
 
-#news-description-container {
-    margin-left: 30px;
-}
-
 #offer-description p {
     align-self: stretch;
     color: #000;
@@ -3252,6 +3257,7 @@ footer .usa-flag {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-top: 0;
 }
 
 #offer-details-highlights #buttons {
@@ -4827,24 +4833,40 @@ footer .usa-flag {
 
 #contacts-offices-section {
     width: var(--max-width);
+    margin-bottom: 70px;
+}
+
+#contacts-offices-section #contacts-header-section {
+    margin: 80px 0 0 0;
+}
+#contacts-offices-section #contacts-header-section h2{
+    margin: 0;
+}
+
+.centered {
+    display: flex;
+    justify-content: center;
+    margin: 0;
 }
 
 #contacts-office-container {
     height: 200px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    /*gap: 75px;*/
+    justify-content: center;
+    gap: 40px;
     padding: 40px 0;
 }
 
 .office-container {
-    width: calc(500px * 0.75);
-    height: auto;
-    border: 3px solid var(--red-color);
+    width: 450px;
+    height: 260px;
+
+    /*border: 3px solid var(--red-color);*/
     box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    /*overflow: hidden;*/
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
@@ -4853,11 +4875,17 @@ footer .usa-flag {
 
 }
 
+.office-container img {
+    width: 450px;
+    border-radius: 8px;
+
+}
+
 .red-text {
     width: 100%;
 }
 
-.red-text p{
+.red-text p {
     padding-top: 15px;
     color: #9D0A0E;
 }
@@ -4885,11 +4913,14 @@ footer .usa-flag {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 100px;
+    gap: 40px;
 }
 
 #location-container .location-div {
     box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
 }
 
 /* CONTACTS PAGE*/
