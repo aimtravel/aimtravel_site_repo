@@ -4,7 +4,7 @@ var logo = document.querySelector("#logo")
 var navA = document.querySelectorAll(".link-a");
 var btn = document.querySelector(".nav-button");
 var navCont = document.querySelector("#header-nav-links-container");
-
+const mediaQuery = window.matchMedia('(max-width: 800px)');
 // Get the initial offset position of the navigation bar
 var stickyOffset = navbar.offsetTop;
 
@@ -12,27 +12,27 @@ var stickyOffset = navbar.offsetTop;
 function stickyNav() {
   if (window.pageYOffset >= stickyOffset) {
     navbar.classList.add("sticky");
-    logo.style.width = '50px';
-    logo.style.height = '50px';
-    btn.style.display = 'flex';
-    btn.classList.add("active")
-    navCont.style.left = '120px'
-    
+    logo.classList.add("sticky-logo");
+    btn.classList.add("flex-on");
+    // btn.classList.add("active");
+    navCont.classList.add("sticky-left");
+    navCont.classList.remove("normal-left");
+
     navA.forEach(element => {
-      element.style.fontSize = '13px'
+      element.classList.add("sticky-font");
     });
 
     
   } else {
     navbar.classList.remove("sticky");
-    logo.style.width = '84px';
-    logo.style.height = '84px';
-    btn.style.display = 'none';
-    btn.classList.remove("active")
-    navCont.style.left = '25px'
+    logo.classList.remove("sticky-logo");
+    btn.classList.remove("flex-on");
+    // btn.classList.remove("active")
+    navCont.classList.remove("sticky-left");
+    navCont.classList.add("normal-left");
 
     navA.forEach(element => {
-      element.style.fontSize = '16.5px'
+      element.classList.remove("sticky-font");
     });
   }
 }

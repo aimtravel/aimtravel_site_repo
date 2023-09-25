@@ -357,9 +357,16 @@ body .usa-flag {
     transition: background 0.8s ease-in-out;
 }
 
+@media screen and (max-width: 800px) {
+    .sticky {
+        top: 0;
+    }
+
+}
+
 #header-nav-links-container {
     position: relative;
-    left: 25px;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -376,6 +383,10 @@ body .usa-flag {
     padding: 0;
 }
 
+.normal-left {
+    left: 25px;
+}
+
 nav li {
     float: left;
     position: relative;
@@ -384,6 +395,10 @@ nav li {
 @media screen and (max-width: 800px) {
     #header-nav-links-container {
         gap: 10px;
+        justify-content: normal;
+    }
+
+    .normal-left {
         left: 5px;
     }
 
@@ -497,6 +512,7 @@ nav a {
     transition: 0.4s ease-in-out;
 }
 
+
 @media screen and (max-width: 800px) {
     #logo {
         width: calc(84px * 0.51);
@@ -507,6 +523,13 @@ nav a {
 .sticky-logo {
     width: 50px;
     height: 50px;
+}
+
+@media screen and (max-width: 800px) {
+    #logo {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 .nav-button {
@@ -549,10 +572,39 @@ nav a {
     transition: font-size 0.5s ease-in-out;
 }
 
-
 .sticky-button {
     width: 50px;
     height: 50px;
+}
+
+.sticky-font {
+    font-size: 13px;
+}
+
+@media screen and (max-width: 800px) {
+    .sticky-font {
+        font-size: 6px;
+    }
+}
+
+.sticky-left {
+    left: 120px;
+}
+
+@media screen and (max-width: 800px) {
+    .sticky-left {
+        left: 15px;
+    }
+}
+
+.flex-on {
+    display: flex;
+}
+
+@media screen and (max-width: 800px) {
+    .flex-on {
+        display: none;
+    }
 }
 
 /* Slider */
@@ -1255,6 +1307,13 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     margin-top: 80px;
 }
 
+@media screen and (max-width: 800px) {
+    #cta-section {
+        height: 225px;
+        margin-top: 40px;
+    }
+}
+
 #cta-background-gradient {
     width: 100%;
     height: 100%;
@@ -1280,6 +1339,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-style: normal;
     color: #ffffff;
     font-weight: 600;
+}
+
+@media screen and (max-width: 800px) {
+    #cta-container {
+        height: 180px;
+        left: 40px;
+        top: 40px;
+    }
 }
 
 #cta-container h3 {
@@ -1315,6 +1382,32 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-weight: 400;
 }
 
+@media screen and (max-width: 800px) {
+    #cta-container h3 {
+        font-size: calc(var(--font-28) * 0.5);
+        line-height: calc(45px * 0.5);
+        letter-spacing: calc(0.84px * 0.5);
+    }
+
+    #cta-container h1 {
+        font-size: calc(var(--font-55) * 0.5);
+        line-height: calc(60px * 0.5);
+        letter-spacing: calc(1.65px * 0.5);
+    }
+
+    #cta-subheading {
+        font-size: calc(var(--font-26) * 0.5);
+        line-height: calc(38px * 0.5);
+        letter-spacing: calc(0.81px * 0.5);
+    }
+
+    #cta-subtext {
+        width: calc(515px * 0.5);
+        font-size: calc(var(--font-20) * 0.5);
+    }
+
+}
+
 /* OFFERS Section*/
 
 #offers {
@@ -1345,6 +1438,18 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     align-self: stretch;
 }
 
+@media screen and (max-width: 800px) {
+    #offers {
+        width: 100%;
+        margin-top: 45px;
+        gap: 20px;
+    }
+
+    #offers-top-row {
+        padding: 0 40px;
+    }
+}
+
 #offers-section-header {
     display: flex;
     align-items: flex-start;
@@ -1358,6 +1463,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
     margin: 0;
     padding: 0;
+}
+
+@media screen and (max-width: 800px) {
+    #offers-section-header h1 {
+        font-size: calc(var(--font-42) * 0.5);
+    }
 }
 
 #offers-buttons {
@@ -1379,6 +1490,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     box-sizing: border-box;
     padding: 10px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    #offers-buttons .btn {
+        width: 30px;
+        height: 30px;
+        padding: 4px;
+    }
 }
 
 #offers-buttons .btn:hover {
@@ -1442,6 +1561,13 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 }
 
+@media screen and (max-width: 800px) {
+    .offer-slides .row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
 .offer-slides .offer-slide {
 
     border-radius: 20px;
@@ -1450,6 +1576,14 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.10);
 
     background-color: white;
+}
+
+@media screen and (max-width: 800px) {
+    .offer-slides .offer-slide {
+        width: calc(var(--offer-width) * 0.6);
+        height: calc(var(--offer-height) * 0.6);
+        border-radius: 10px;
+    }
 }
 
 .offer-slide .slider-btn a {
@@ -1463,8 +1597,6 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     flex-direction: column;
     align-items: center;
     height: 60%;
-
-
 }
 
 .curve-line .white-border {
@@ -1488,6 +1620,21 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     width: 100%;
     height: 100%;
     border-radius: 20px;
+}
+
+@media screen and (max-width: 800px) {
+    .offer-pic {
+        width: calc(var(--offer-width) * 0.6);
+    }
+
+    .curve-line .white-border {
+        border-radius: 10px;
+        border: 1px solid white;
+    }
+
+    .curve-line img {
+        border-radius: 10px;
+    }
 }
 
 .offer-btn {
@@ -1518,6 +1665,24 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     text-decoration: none;
     color: var(--white-color);
     padding: 2px 28px;
+    margin: 0;
+}
+
+@media screen and (max-width: 800px) {
+    .offer-btn {
+        height: 20px;
+        bottom: 15px;
+    }
+
+    .offer-btn a {
+        font-size: calc(var(--font-14) * 0.6);
+        padding: 2px 15px;
+    }
+
+    .offer-pic .slider-btn a {
+        top: 0;
+        left: 0;
+    }
 }
 
 .offer-text-container {
@@ -1572,6 +1737,30 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     letter-spacing: 0.03em;
     font-weight: 700;
     color: #000000;
+}
+
+@media screen and (max-width: 800px) {
+    .offer-header {
+        padding: 0;
+        font-size: calc(var(--font-18) * 0.65);
+        line-height: calc(26px * 0.65);
+    }
+
+    .offer-location {
+        font-size: calc(var(--font-18) * 0.65);
+        line-height: calc(26px * 0.65);
+    }
+
+    .offer-type {
+        padding: 0 0 10px 0;
+        font-size: calc(var(--font-14) * 0.65);
+        line-height: calc(20.23px * 0.65);
+    }
+
+    .offer-salary {
+        font-size: calc(var(--font-20) * 0.65);
+        line-height: calc(28.9px * 0.65);
+    }
 }
 
 #offers-more-btn {
