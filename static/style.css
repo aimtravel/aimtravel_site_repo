@@ -4783,12 +4783,16 @@ footer .usa-flag {
 .price-container-text h2 {
     margin: 0;
     padding: 19px 0 0 0;
+    text-transform: none;
 }
 .price-container-text h3 {
     margin: 0;
     padding: 19px 0 0 0;
-    text-decoration: line-through;
     font-size: var(--font-28);
+}
+
+.line-thru {
+    text-decoration: line-through;
 }
 
 .price-container-text p {
