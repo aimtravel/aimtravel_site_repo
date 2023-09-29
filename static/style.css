@@ -359,9 +359,8 @@ body .usa-flag {
 
 @media screen and (max-width: 800px) {
     .sticky {
-        top: 0;
+        width: 393px;
     }
-
 }
 
 #header-nav-links-container {
@@ -1358,9 +1357,10 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 @media screen and (max-width: 800px) {
     #cta-container {
+        width: 200px;
         height: 180px;
-        left: 40px;
-        top: 40px;
+        left: -54px;
+        top: 20px;
     }
 }
 
@@ -2257,7 +2257,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 
 #news-section {
     width: var(--max-width);
-    height: 1075px;
+    height: auto;
     display: flex;
     flex-direction: column;
 
@@ -2289,7 +2289,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     #news-section {
         width: 100%;
         height: auto;
-        padding: 0 40px;
+        padding: 0;
     }
 
     #news-heading {
@@ -2531,7 +2531,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     }
 
     #last-4-news a {
-        font-size: var(--font-20);
+        font-size: calc(var(--font-20) * 0.7);
         letter-spacing: 0.6px;
     }
 }
@@ -2617,7 +2617,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     }
 
     #pricing-text {
-        width: calc(988px * 0.5);
+        width: 393px;
         padding-top: 20px;
     }
 
@@ -2980,6 +2980,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
         width: 80%;
         margin-top: 30px;
     }
+
     .service .icon {
         width: calc(50px * 0.7);
         height: calc(50px * 0.7);
@@ -3206,6 +3207,62 @@ footer .usa-flag {
     margin: 0;
 }
 
+#footer-responsive {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    #footer {
+        padding: 0;
+    }
+    #footer-nav-container, #horizontal-line, #footer-link-container {
+        display: none;
+    }
+    #footer-responsive {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    #footer-responsive h4 {
+        font-size: var(--font-28);
+    }
+    #footer-responsive p {
+        font-weight: 400;
+        padding: 0;
+    }
+    #footer-responsive #logo-container {
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+    }
+    #footer-responsive #logo-container img {
+        width: calc(270px * 0.5);
+        height: calc(105px * 0.5);
+    }
+    #footer-responsive #logo-container p {
+        padding: 0 0 10px 30px;
+    }
+    #footer-responsive #footer-contacts p {
+        padding: 0;
+        margin: 0;
+        font-size: var(--font-17);
+    }
+    #footer-responsive .nav-container {
+        width: 50%;
+        margin-top: 10px;
+    }
+    #footer-responsive .nav-container h4 {
+        margin: 16px 0 10px 0;
+    }
+    #footer-responsive .nav-container a {
+        font-weight: 500;
+        font-size: var(--font-20);
+        margin: 0;
+    }
+
+
+}
 
 /* </FOOTER> */
 
@@ -4717,9 +4774,21 @@ footer .usa-flag {
     align-items: center;
 }
 
+.price-container-text #prices {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
 .price-container-text h2 {
     margin: 0;
     padding: 19px 0 0 0;
+}
+.price-container-text h3 {
+    margin: 0;
+    padding: 19px 0 0 0;
+    text-decoration: line-through;
+    font-size: var(--font-28);
 }
 
 .price-container-text p {

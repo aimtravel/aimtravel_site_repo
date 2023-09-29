@@ -33,7 +33,7 @@
             <a href="https://www.youtube-nocookie.com/embed/EAx-L-U3m_o?controls=0" data-glightbox
                class="glightbox2" data-effect="fade">
                 <div class="fancy-background"></div>
-                <img src="../../static/img/thumbnail.JPG" alt="">
+                <img src="../../static/img/tumbnail.JPG" alt="">
                 <div class="white-border">
 
                 </div>
@@ -125,7 +125,10 @@
                         <p>SELF ARRANGED</p>
                     </div>
                     <div class="price-container-text">
-                        <h2>999$</h2>
+                        <div id="prices">
+                            <h2>1099$</h2>
+                            <h3>1199$</h3>
+                        </div>
                         <p>Цена на програмата със Самостоятелна Работна Оферта</p>
                     </div>
                     <div class="option-list">
@@ -144,7 +147,10 @@
                         <p>FULL PLACEMENT STANDART</p>
                     </div>
                     <div class="price-container-text">
-                        <h2>1299$</h2>
+                        <div id="prices">
+                            <h2>1339$</h2>
+                            <h3>1439$</h3>
+                        </div>
                         <p>Цена на програмата с осигурена от агенцията Работна Оферта</p>
                     </div>
                     <div class="option-list">
@@ -164,7 +170,10 @@
                         <p>PREMIUN FULL PLACEMENT</p>
                     </div>
                     <div class="price-container-text">
-                        <h2>1399$</h2>
+                        <div id="prices">
+                            <h2>1399$</h2>
+                            <h3>1499$</h3>
+                        </div>
                         <p>Бутикова Премиум <br>Работна Оферта</p>
                     </div>
                     <div class="option-list">
@@ -221,7 +230,8 @@
             </div>
             <div id="pricing-button">
                 <div id="pricing-btn" class="pricing-btn">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform" target="_blank">ЗАПИШИ СЕ СЕГА</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                       target="_blank">ЗАПИШИ СЕ СЕГА</a>
                 </div>
             </div>
         </div>
@@ -346,7 +356,8 @@
             </div>
         </div>
         <div id="story-button" class="slider-btn">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform" target="_blank">ЗАПИШИ СЕ</a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+               target="_blank">ЗАПИШИ СЕ</a>
         </div>
     </section>
     <section id="story-section">
@@ -356,17 +367,17 @@
         <div id="story">
             {% if main_feedback %}
                 {% for feedback in main_feedback %}
-                <div id="story-1" class="story-container">
-                    <div class="story-img">
-                        <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
-                        <div class="white-border"></div>
+                    <div id="story-1" class="story-container">
+                        <div class="story-img">
+                            <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
+                            <div class="white-border"></div>
+                        </div>
+                        <div class="story-text">
+                            <h3>{{ feedback.feedback_1_title }}</h3>
+                            <p>{{ feedback.feedback_1_content }}</p>
+                            <a href="{% url 'story' %}">Прочети Статия</a>
+                        </div>
                     </div>
-                    <div class="story-text">
-                        <h3>{{ feedback.feedback_1_title }}</h3>
-                        <p>{{ feedback.feedback_1_content }}</p>
-                        <a href="{% url 'story' %}">Прочети Статия</a>
-                    </div>
-                </div>
                 {% endfor %}
 
             {% else %}
