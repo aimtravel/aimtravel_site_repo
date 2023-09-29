@@ -143,7 +143,7 @@ body .usa-flag {
 
 @media screen and (max-width: 800px) {
     #top-header {
-        gap: 40%;
+        gap: 28%;
     }
 }
 
@@ -176,6 +176,9 @@ body .usa-flag {
 
     #top-header-left {
         font-size: 10px;
+    }
+    #top-header-left-p1 {
+        width: 110px;
     }
 
 }
@@ -1065,6 +1068,9 @@ nav a {
     .row-1,
     .row-2 {
         height: calc(var(--top-destination-row-height) * 0.38);
+    }
+    .row-1 {
+        border-bottom: 1px solid var(--gray-color);
     }
 }
 
