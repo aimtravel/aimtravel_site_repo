@@ -143,7 +143,9 @@ body .usa-flag {
 
 @media screen and (max-width: 800px) {
     #top-header {
+        justify-content: center;
         gap: 28%;
+        padding: 0;
     }
 }
 
@@ -403,7 +405,7 @@ nav li {
 
 @media screen and (max-width: 800px) {
     #header-nav-links-container {
-        gap: 10px;
+        gap: 5px;
         justify-content: normal;
     }
 
@@ -3241,6 +3243,7 @@ footer .usa-flag {
         font-size: var(--font-28);
     }
     #footer-responsive p {
+        font-size: 1.2em;
         font-weight: 400;
         padding: 0;
     }
@@ -3262,7 +3265,7 @@ footer .usa-flag {
         font-size: var(--font-17);
     }
     #footer-responsive .nav-container {
-        width: 50%;
+        width: 60%;
         margin-top: 10px;
     }
     #footer-responsive .nav-container h4 {
