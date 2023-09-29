@@ -163,7 +163,7 @@ body .usa-flag {
 }
 
 @media screen and (max-width: 800px) {
-    #top-header-left-p1, #top-header-left-p2 {
+    #top-header-left-p3, #top-header-left-p2 {
         display: none;
     }
 
@@ -359,7 +359,7 @@ body .usa-flag {
 
 @media screen and (max-width: 800px) {
     .sticky {
-        width: 393px;
+        width: 100%;
     }
 }
 
