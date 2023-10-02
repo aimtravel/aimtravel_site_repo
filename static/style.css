@@ -3231,50 +3231,62 @@ footer .usa-flag {
     #footer {
         padding: 0;
     }
+
     footer .usa-flag {
         top: -90px;
     }
+
     #footer-nav-container, #horizontal-line, #footer-link-container {
         display: none;
     }
+
     #footer-responsive {
         display: flex;
         flex-direction: column;
         width: 90%;
         margin-bottom: 20px;
     }
+
     #footer-responsive h4 {
         font-size: var(--font-28);
     }
+
     #footer-responsive p {
         font-size: 1.2em;
         font-weight: 400;
         padding: 0;
     }
+
     #footer-responsive #logo-container {
         flex-direction: row;
         align-items: center;
         width: 100%;
     }
+
     #footer-responsive #logo-container img {
         width: calc(270px * 0.5);
         height: calc(105px * 0.5);
     }
+
     #footer-responsive #logo-container p {
         padding: 0 0 10px 30px;
     }
+
     #footer-responsive #footer-contacts p {
         padding: 0;
         margin: 0;
         font-size: var(--font-17);
     }
+
     #footer-responsive .nav-container {
         width: 60%;
         margin-top: 10px;
     }
+
     #footer-responsive .nav-container h4 {
         margin: 16px 0 10px 0;
     }
+
     #footer-responsive .nav-container a {
         font-weight: 500;
         font-size: var(--font-20);
@@ -4661,6 +4673,45 @@ footer .usa-flag {
     padding: 0 0 10px 0;
 }
 
+@media screen and (max-width: 800px) {
+    #wat-header {
+        width: 100%;
+        height: 340px;
+    }
+
+    #wat-usa-header .offers-background {
+        width: 100%;
+        height: 230px;
+    }
+
+    #wat-usa-header .offers-background .background-gradient #text-container {
+        position: relative;
+    }
+
+    #wat-usa-header #text-container {
+        position: absolute;
+        top: -35px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    }
+
+    #wat-usa-header #text-container h1 {
+        line-height: 28px;
+        letter-spacing: 1px;
+        font-size: calc(var(--font-70) * 0.3);
+        margin: 0;
+        padding: 0;
+    }
+
+    #wat-header #offers-video {
+        position: absolute;
+        top: 200px;
+    }
+}
+
 #wat-usa-page-flag1 {
     position: absolute;
     right: 8%;
@@ -4709,6 +4760,34 @@ footer .usa-flag {
 
 .general-section-text-container p {
     font-weight: 400;
+}
+
+@media screen and (max-width: 800px) {
+    #wat-usa-page-flag1 {
+        position: absolute;
+        right: 8%;
+        top: 230px;
+    }
+
+    #general-section {
+        margin-bottom: calc(70px * 0.5);
+    }
+
+    .general-section-container {
+        padding: 0 40px;
+        gap: 15px;
+        font-size: calc(var(--font-24) * 0.5);
+        line-height: calc(30px * 0.5); /* 166.667% */
+        flex-direction: column;
+    }
+
+    .general-section-text-container {
+        width: calc(517px * 0.5);
+        padding: 8px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
 }
 
 #requirements-section {
@@ -4812,6 +4891,62 @@ footer .usa-flag {
     padding: 0;
 }
 
+@media screen and (max-width: 800px) {
+    #requirements-section {
+        margin-bottom: 40px;
+    }
+
+    #requirements-section-header {
+        font-size: calc(var(--font-42) * 0.5);
+        margin-bottom: 20px;
+    }
+
+    #requirements-section-information {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .requirements-section-information-container {
+        width: calc(370px * 0.7);
+    }
+
+    .information-container {
+        font-size: calc(var(--font-24) * 0.6);
+        letter-spacing: 0.72px;
+    }
+
+    .icon-container {
+        width: calc(75px * 0.5);
+        height: calc(75px * 0.5);
+    }
+
+    #icon1 {
+        width: calc(90px * 0.5);
+        height: calc(45px * 0.5);
+    }
+
+    #icon2 {
+        width: calc(60px * 0.5);
+        height: calc(62px * 0.5);
+    }
+
+    #icon3 {
+        width: calc(61px * 0.5);
+        height: calc(62px * 0.5);
+    }
+
+    .information-container h4 {
+        margin: 0;
+        padding: 10px 0 0 0;
+    }
+
+    .information-container p {
+        font-size: calc(var(--font-20) * 0.6);
+    }
+}
 
 #price-section {
     width: 100%;
@@ -6287,7 +6422,8 @@ footer .usa-flag {
     #contacts-container .price-container .price-container-text {
         margin-top: 15px;
     }
-    #contacts-container .price-container .price-container-text p{
+
+    #contacts-container .price-container .price-container-text p {
         font-size: calc(var(--font-22) * 0.75);
     }
 
@@ -6369,12 +6505,15 @@ footer .usa-flag {
         display: flex;
         z-index: -1;
     }
+
     .responsive-map .location-div {
         z-index: -1;
     }
+
     .responsive-map iframe {
         z-index: -1;
     }
+
     #contacts-query-form-container {
         width: 100%;
     }
