@@ -3231,58 +3231,50 @@ footer .usa-flag {
     #footer {
         padding: 0;
     }
-
+    footer .usa-flag {
+        top: -90px;
+    }
     #footer-nav-container, #horizontal-line, #footer-link-container {
         display: none;
     }
-
     #footer-responsive {
         display: flex;
         flex-direction: column;
         width: 90%;
         margin-bottom: 20px;
     }
-
     #footer-responsive h4 {
         font-size: var(--font-28);
     }
-
     #footer-responsive p {
         font-size: 1.2em;
         font-weight: 400;
         padding: 0;
     }
-
     #footer-responsive #logo-container {
         flex-direction: row;
         align-items: center;
         width: 100%;
     }
-
     #footer-responsive #logo-container img {
         width: calc(270px * 0.5);
         height: calc(105px * 0.5);
     }
-
     #footer-responsive #logo-container p {
         padding: 0 0 10px 30px;
     }
-
     #footer-responsive #footer-contacts p {
         padding: 0;
         margin: 0;
         font-size: var(--font-17);
     }
-
     #footer-responsive .nav-container {
         width: 60%;
         margin-top: 10px;
     }
-
     #footer-responsive .nav-container h4 {
         margin: 16px 0 10px 0;
     }
-
     #footer-responsive .nav-container a {
         font-weight: 500;
         font-size: var(--font-20);
@@ -3892,6 +3884,106 @@ footer .usa-flag {
     font-weight: 700;
 }
 
+@media screen and (max-width: 800px) {
+    #contacts-query-form {
+        width: 100%;
+    }
+
+    #contacts-query-form #contact-form {
+        width: 100%;
+        margin: 0;
+        gap: 25px;
+    }
+
+    #contact-form .text-area h1 {
+        font-size: calc(var(--font-42) * 0.5);
+    }
+
+    #contact-form .text-area p {
+        width: calc(615px * 0.35);
+        font-size: calc(var(--font-25) * 0.5);
+    }
+
+    .query-form {
+        font-size: calc(var(--font-18) * 0.5);
+    }
+
+    .line {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 0;
+    }
+
+    .sub-line {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 10px;
+    }
+
+    .sub-line label {
+        color: #1A1A1A;
+        font-family: Jost, sans-serif;
+        font-size: calc(var(--font-24) * 0.7);
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px; /* 166.667% */
+    }
+
+    .sub-line input {
+        width: 150px;
+        height: 20px;
+    }
+
+    .sub-line #message {
+        width: calc(707px * 0.35);
+        height: calc(231px * 0.35);
+    }
+
+    .query-btn {
+        width: calc(122px * 0.6);
+        height: calc(37px * 0.6);
+        border-radius: 6px;
+    }
+
+    .button-part button {
+        font-size: calc(var(--font-15) * 0.7);
+        letter-spacing: 0.55px;
+    }
+
+    #message-section {
+        background: var(--white-color);
+        border-radius: 14px;
+        position: absolute;
+        top: 550px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        order: 1;
+        z-index: 60;
+        box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    #message-section .message-frame {
+        width: 500px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .message-frame #success-message {
+        color: var(--blue-color);
+        font-size: var(--font-42);
+        font-family: Jost, sans-serif;
+        font-style: normal;
+        font-weight: 700;
+    }
+}
+
 /* JOB OFFER DETAILS PAGE */
 
 
@@ -3923,6 +4015,16 @@ footer .usa-flag {
     height: calc(203px * 0.75);
     border-radius: 0;
     background: linear-gradient(180deg, #000 0%, var(--blue-color) 100%);
+}
+
+@media screen and (max-width: 800px) {
+    #offer-details-header {
+        height: 60px;
+    }
+
+    #offer-details-header .background {
+        height: 100%;
+    }
 }
 
 #offer-details-page-flag1 {
@@ -5688,20 +5790,25 @@ footer .usa-flag {
     #online-register {
         width: 100%;
     }
+
     #online-register .general-section-container {
         padding: 0 40px;
     }
+
     #online-register .general-section-text-container {
         width: 250px;
         height: auto;
         gap: calc(15px * 0.5);
     }
+
     #online-register .general-section-text-container h3 {
         font-size: calc(var(--font-42) * 0.5);
     }
+
     #online-register .general-section-text-container p {
         font-size: calc(var(--font-24) * 0.5);
     }
+
     #online-register .general-section-image-container {
         position: absolute;
         z-index: -1;
@@ -5709,9 +5816,11 @@ footer .usa-flag {
         top: 1910px;
         left: 150px;
     }
+
     #online-register #offer-picture {
         width: 100%;
     }
+
     #online-register .general-section-image-container .white-border {
         width: 169px;
         height: 173px;
@@ -6132,5 +6241,170 @@ footer .usa-flag {
     overflow: hidden;
 }
 
+.responsive-map {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    #contacts-header-section {
+        width: 100%;
+        margin: 80px 0 30px 0;
+    }
+
+    #contacts-header-section h2 {
+        font-size: calc(var(--font-42) * 0.5);
+        text-align: center;
+        letter-spacing: 1px;
+        padding: 0 30px;
+        margin: 0 0 20px 0;
+    }
+
+    #contacts-header-section p {
+        font-size: calc(var(--font-24) * 0.5);
+        padding: 0 30px;
+    }
+
+    #contacts-section {
+        height: 650px;
+    }
+
+    #contacts-section .inner-container {
+        width: 100%;
+    }
+
+    #contacts-container {
+        flex-direction: column;
+
+        height: 100%;
+        gap: 35px;
+        padding: 40px 0 0 0;
+    }
+
+    #contacts-container .price-container {
+        width: calc(450px * 0.6);
+    }
+
+    #contacts-container .price-container .price-container-text {
+        margin-top: 15px;
+    }
+    #contacts-container .price-container .price-container-text p{
+        font-size: calc(var(--font-22) * 0.75);
+    }
+
+    #contacts-container .price-container .option-list {
+        margin: 20px 0;
+    }
+
+    #phone-container .pricing-btn {
+        height: 20px;
+    }
+
+    #phone-container .pricing-btn a {
+        height: 25px;
+        font-size: calc(var(--font-25) * 0.5);
+    }
+
+    #contacts-offices-section {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+
+    #contacts-offices-section #contacts-header-section {
+        margin: 40px 0 0 0;
+    }
+
+    #contacts-office-container {
+        position: relative;
+        height: 300px;
+        gap: 20px;
+        padding: 20px 30px;
+        flex-direction: column;
+    }
+
+    #vs-varna {
+        position: relative;
+        left: 120px;
+        top: 10px;
+    }
+
+    /*.map-sofia {*/
+    /*    position: absolute;*/
+    /*    left: 140px;*/
+    /*    top: 20px;*/
+    /*}*/
+    /*.map-varna {*/
+    /*    position: absolute;*/
+    /*    left: 40px;*/
+    /*    top: 200px;*/
+    /*}*/
+    .office-container {
+        width: 200px;
+        height: 117px;
+        border-radius: 8px;
+    }
+
+    .office-container img {
+        width: 200px;
+        border-radius: 8px;
+    }
+
+    .red-text {
+        width: 100%;
+    }
+
+    .red-text p {
+        padding-top: 15px;
+    }
+
+    .pad-left-20 {
+        padding-left: 40px;
+        gap: 2px;
+    }
+
+    #contacts-location-section {
+        margin-bottom: 50px;
+        display: none;
+    }
+
+    #location-container .row {
+        gap: 40px;
+        flex-direction: column;
+    }
+
+    #location-container .location-div {
+        box-shadow: 4px 4px 70px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: 1px solid #D9D9D9;
+
+        width: 200px;
+        height: 200px;
+    }
+
+    /*.responsive-map {*/
+    /*    display: flex;*/
+    /*    z-index: -1;*/
+    /*}*/
+    /*.responsive-map .location-div {*/
+    /*    z-index: -1;*/
+    /*}*/
+    /*.responsive-map iframe {*/
+    /*    z-index: -1;*/
+    /*}*/
+    #contacts-query-form-container {
+        width: 100%;
+    }
+
+    #contacts-query-form-image {
+        display: flex;
+        overflow: hidden;
+        justify-content: center;
+    }
+
+    #contacts-query-form-image img {
+        width: 160%;
+    }
+}
+
 /* CONTACTS PAGE*/
 /* END */
+
