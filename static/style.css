@@ -6315,36 +6315,21 @@ footer .usa-flag {
 
     #contacts-office-container {
         position: relative;
-        height: 300px;
+        height: 780px;
         gap: 20px;
         padding: 20px 30px;
         flex-direction: column;
+        align-items: center;
     }
 
-    #vs-varna {
-        position: relative;
-        left: 120px;
-        top: 10px;
-    }
-
-    /*.map-sofia {*/
-    /*    position: absolute;*/
-    /*    left: 140px;*/
-    /*    top: 20px;*/
-    /*}*/
-    /*.map-varna {*/
-    /*    position: absolute;*/
-    /*    left: 40px;*/
-    /*    top: 200px;*/
-    /*}*/
     .office-container {
-        width: 200px;
-        height: 117px;
+        width: 280px;
+        height: 165px;
         border-radius: 8px;
     }
 
     .office-container img {
-        width: 200px;
+        width: 280px;
         border-radius: 8px;
     }
 
@@ -6376,20 +6361,20 @@ footer .usa-flag {
         border-radius: 10px;
         border: 1px solid #D9D9D9;
 
-        width: 200px;
+        width: 280px;
         height: 200px;
     }
 
-    /*.responsive-map {*/
-    /*    display: flex;*/
-    /*    z-index: -1;*/
-    /*}*/
-    /*.responsive-map .location-div {*/
-    /*    z-index: -1;*/
-    /*}*/
-    /*.responsive-map iframe {*/
-    /*    z-index: -1;*/
-    /*}*/
+    .responsive-map {
+        display: flex;
+        z-index: -1;
+    }
+    .responsive-map .location-div {
+        z-index: -1;
+    }
+    .responsive-map iframe {
+        z-index: -1;
+    }
     #contacts-query-form-container {
         width: 100%;
     }
