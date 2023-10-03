@@ -15,7 +15,7 @@ function stickyNav() {
     logo.classList.add("sticky-logo");
     btn.classList.add("flex-on");
     // btn.classList.add("active");
-    // navCont.classList.add("sticky-left");
+    navCont.classList.add("sticky-left");
     navCont.classList.remove("normal-left");
 
     navA.forEach(element => {
@@ -28,7 +28,7 @@ function stickyNav() {
     logo.classList.remove("sticky-logo");
     btn.classList.remove("flex-on");
     // btn.classList.remove("active")
-    // navCont.classList.remove("sticky-left");
+    navCont.classList.remove("sticky-left");
     navCont.classList.add("normal-left");
 
     navA.forEach(element => {

@@ -604,7 +604,7 @@ nav a {
 
 @media screen and (max-width: 800px) {
     .sticky-left {
-        left: 0px;
+        left: 4px;
     }
 }
 
@@ -3244,7 +3244,7 @@ footer .usa-flag {
     #footer-responsive {
         display: flex;
         flex-direction: column;
-        width: 90%;
+        width: 85%;
         margin-bottom: 20px;
     }
 
@@ -5539,6 +5539,14 @@ footer .usa-flag {
     width: calc(500px * 0.75);
 }
 
+.needed-docs-resp {
+    display: none;
+}
+
+#how-to-section #story-button {
+        margin-top: 120px;
+    }
+
 @media screen and (max-width: 800px) {
     #how-to-section {
         width: 100%;
@@ -5764,15 +5772,18 @@ footer .usa-flag {
     #faq-section {
         margin-top: calc(100px * 0.5);
     }
+
     #faq-header {
         font-size: calc(var(--font-42) * 0.5);
         margin-bottom: calc(60px * 0.5);
     }
+
     .faq-row {
         flex-direction: column;
         gap: calc(35px * 0.3);
         margin-bottom: calc(35px * 0.3);
     }
+
     .faq-content {
         gap: calc(35px * 0.3);
         width: 100%;
@@ -5940,9 +5951,11 @@ footer .usa-flag {
     #online-services-header {
         height: 340px;
     }
+
     #online-general-section {
         width: 100%;
     }
+
     #online-general-section .general-section-container {
         display: flex;
         flex-direction: row;
