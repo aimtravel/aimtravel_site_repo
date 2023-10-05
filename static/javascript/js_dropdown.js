@@ -18,16 +18,16 @@ var targetElements = document.querySelectorAll('.target-element');
 // Loop through each target element
 targetElements.forEach(function(element) {
   // Add an onclick event listener to each target element
-  element.addEventListener('onmouseover', function() {
+  element.addEventListener('click', function() {
     // Get the corresponding tooltip element
     var tooltip = this.nextElementSibling;
 
     // Check the current display property value
     var currentDisplay = window.getComputedStyle(tooltip).display;
-    var currentOpacity = window.getComputedStyle(tooltip).opacity;
+    // var currentOpacity = window.getComputedStyle(tooltip).opacity;
 
     // Toggle the display property of the tooltip element
     tooltip.style.display = currentDisplay === 'flex' ? 'none' : 'flex';
-    tooltip.style.opacity = currentOpacity === '1' ? '0' : '1';
+    // tooltip.style.opacity = currentOpacity === '1' ? '0' : '1';
   });
 });

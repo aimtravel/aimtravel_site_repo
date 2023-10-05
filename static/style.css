@@ -1559,6 +1559,12 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     padding: 0 70px;
 }
 
+@media screen and (max-width: 800px) {
+    #offers-section .offers-container {
+        padding: 0 10px;
+    }
+}
+
 #offers-section .offer-slides {
     flex-wrap: wrap;
     /*width: 100%;*/
@@ -1595,6 +1601,11 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 @media screen and (max-width: 800px) {
     .offer-slides .row {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    #offers-section .offer-slides .row {
+        gap: 25px;
         justify-content: center;
     }
 }
@@ -3244,7 +3255,7 @@ footer .usa-flag {
     #footer-responsive {
         display: flex;
         flex-direction: column;
-        width: 85%;
+        width: 80%;
         margin-bottom: 20px;
     }
 
@@ -3360,7 +3371,11 @@ footer .usa-flag {
 }
 
 @media screen and (max-width: 800px) {
-
+    .offers-background {
+        height: 230px;
+        left: 0;
+        top: 40px;
+    }
 }
 
 #offers-header-sub {
@@ -3397,6 +3412,30 @@ footer .usa-flag {
     font-size: var(--font-24);
     font-weight: 400;
     letter-spacing: 0.72px;
+}
+
+@media screen and (max-width: 800px) {
+    header#offers-header {
+        height: 350px;
+    }
+
+    #text-container {
+        bottom: 20px;
+        gap: 0;
+    }
+
+    #text-container h1 {
+        font-size: calc(var(--font-70) * 0.3);
+        line-height: 25px;
+        letter-spacing: 1.2px;
+    }
+
+    #text-container p {
+        bottom: 20px;
+        width: 280px;
+        font-size: calc(var(--font-24) * 0.5);
+        letter-spacing: 0.72px;
+    }
 }
 
 
@@ -3485,7 +3524,17 @@ footer .usa-flag {
     width: 101px;
     height: 400px;
     z-index: -1;
+}
 
+@media screen and (max-width: 800px) {
+    #offers-page-flag1 {
+        position: absolute;
+        top: 180px;
+        right: 30px;
+
+        width: 35px;
+        height: 180px;
+    }
 }
 
 /* OFFERS FILTERING */
@@ -3560,6 +3609,40 @@ footer .usa-flag {
     text-decoration: underline;
 }
 
+@media screen and (max-width: 800px) {
+    #offers-section {
+        letter-spacing: 0.54px;
+        gap: 5px;
+        width: 100%;
+    }
+
+    #offers-page-top-row {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 10px;
+        margin: 0 0 0 20px;
+    }
+
+    .text-area {
+        width: 100%;
+        letter-spacing: 0.6px;
+    }
+
+    .text-area h1 {
+        font-size: calc(var(--font-42) * 0.5);
+        margin: 12px 0;
+
+    }
+
+    .text-area p {
+        font-size: calc(var(--font-20) * 0.7);
+        letter-spacing: 0.4px;
+    }
+}
+
 #offers-page-top-row .filter-row {
     display: flex;
     flex-direction: column;
@@ -3603,6 +3686,19 @@ footer .usa-flag {
     text-decoration: none;
 }
 
+@media screen and (max-width: 800px) {
+    #offers-page-top-row .filter-row {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        align-items: center;
+    }
+
+    .filter-button {
+        font-size: calc(var(--font-20) * 0.6);
+    }
+}
+
 #offers-page-top-row .filter-row #offer-page-filters {
     display: flex;
     align-items: flex-start;
@@ -3615,6 +3711,26 @@ footer .usa-flag {
     align-items: flex-start;
     flex-direction: row;
     gap: 24px;
+}
+
+@media screen and (max-width: 800px) {
+    #offer-page-filters {
+        width: 100%;
+        align-self: flex-start;
+    }
+
+    #offer-page-filters form {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+        margin-left: 30px;
+    }
+
+    #offer-page-filters form div.target-element {
+        width: 110px;
+        height: 18px;
+    }
 }
 
 #offer-page-filters .dropdown {
@@ -3638,6 +3754,24 @@ footer .usa-flag {
     box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.25);
     border-radius: 15px;
 
+    display: none;
+    justify-content: center;
+    top: 37px;
+    left: 0;
+    background: var(--white-color);
+    z-index: 50;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    transform: none;
+}
+
+@media screen and (max-width: 800px) {
+    .offer-filters .tooltip {
+        left: 160px;
+        top: -2px;
+        padding: 10px;
+    }
 }
 
 .offer-filters .tooltip .checkbox-row {
@@ -3691,7 +3825,51 @@ footer .usa-flag {
     background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'> <path d= 'M5 13L9 17L19 7' stroke= 'white' stroke-width= '2' stroke-linecap= 'round' stroke-linejoin= 'round' /> </svg> ") center/contain no-repeat;
 }
 
-#offer-page-filters button {
+@media screen and (max-width: 800px) {
+    .offer-filters .tooltip .checkbox-row {
+        height: auto;
+        max-height: 160px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    #offer-page-filters .offer-filters .checkbox-container {
+        gap: 3px;
+        font-size: calc(var(--font-22) * 0.5);
+        line-height: 12px; /* 83.333% */
+        letter-spacing: 0.25px;
+    }
+
+    .checkbox-container input[type="checkbox"] {
+        width: calc(28px * 0.45);
+        height: calc(28px * 0.45);
+        border-radius: 3px;
+        border: 1px solid #B9BCC0;
+        background: transparent;
+        appearance: none;
+
+    }
+
+    .checkbox-container input[type="checkbox"]:checked {
+        background-color: var(--blue-color); /* Change background color when checked */
+        border-color: var(--blue-color); /* Change border color when checked */
+    }
+
+    .checkbox-container input[type="checkbox"]:checked::before {
+        content: ""; /* Unicode checkmark character */
+        position: absolute;
+        top: 8px;
+        left: 11px;
+        transform: translate(-50%, -50%);
+        width: 17px;
+        height: 17px;
+        color: red; /* Checkmark color */
+        font-size: var(--font-16); /* Adjust the checkmark size */
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'> <path d= 'M5 13L9 17L19 7' stroke= 'white' stroke-width= '2' stroke-linecap= 'round' stroke-linejoin= 'round' /> </svg> ") center/contain no-repeat;
+    }
+}
+
+#offer-page-filters div.target-element {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3705,8 +3883,8 @@ footer .usa-flag {
     letter-spacing: 1px;
     border: none;
     background: none;
-    padding: 10px 10px;
-    height: calc(45px * 0.75);
+    padding: 5px 10px;
+    height: calc(45px * 0.5);
 }
 
 #offer-page-filters .icon {
@@ -3718,17 +3896,30 @@ footer .usa-flag {
     color: #000000;
 }
 
-#offer-page-filters .tooltip {
-    display: flex;
-    justify-content: center;
-    top: 60px;
-    left: 0;
-    background: var(--white-color);
-    z-index: 50;
-    flex-direction: column;
-    padding: 20px;
-    gap: 10px;
-    transform: none;
+@media screen and (max-width: 800px) {
+    #offer-page-filters div.target-element {
+        font-size: calc(var(--font-24) * 0.5);
+        text-align: justify-all;
+        line-height: 10px;
+        padding: 2px 5px;
+        height: calc(45px * 0.5);
+    }
+
+    #offer-page-filters .icon {
+        width: 15px;
+        height: 15px;
+        margin-left: 3px;
+        color: #000000;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .offers-container .offer-slides .row {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
 }
 
 #offer-page-filters .offer-filters .tooltip::before {
@@ -3772,6 +3963,29 @@ footer .usa-flag {
     color: var(--white-color);
     background: var(--blue-color);
     border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+    .pagination {
+        gap: 15px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        color: #000000;
+        font-size: calc(var(--font-22) * 0.7);
+        line-height: 15px;
+    }
+
+    .pagination .current-page {
+        font-size: calc(var(--font-22) * 0.7);
+        line-height: 15px;
+        letter-spacing: 0.25px;
+        width: 25px;
+        height: 25px;
+    }
 }
 
 /* CONTACT FORM */
@@ -5544,8 +5758,8 @@ footer .usa-flag {
 }
 
 #how-to-section #story-button {
-        margin-top: 120px;
-    }
+    margin-top: 120px;
+}
 
 @media screen and (max-width: 800px) {
     #how-to-section {
