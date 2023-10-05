@@ -161,7 +161,7 @@ EMAIL_HOST = 'mail.aimtravel.bg'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
 EMAIL_HOST_USER = 'studentski@aimtravel.bg'  # Email account to send emails from
-EMAIL_HOST_PASSWORD = '***'  # Password for the email account
+EMAIL_HOST_PASSWORD = 'Q1w2e3r4t5AIM'  # Password for the email account
 DEFAULT_FROM_EMAIL = 'studentski@aimtravel.bg' \
                      ''  # Default sender address
 
