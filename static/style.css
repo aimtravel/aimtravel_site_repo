@@ -3965,7 +3965,14 @@ footer .usa-flag {
     border-radius: 50%;
 }
 
+#resp-pagination {
+    display: none;
+}
+
 @media screen and (max-width: 800px) {
+    #resp-pagination {
+        display: flex;
+    }
     .pagination {
         gap: 15px;
         margin-top: 5px;
