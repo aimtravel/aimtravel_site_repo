@@ -3925,6 +3925,7 @@ footer .usa-flag {
 #offer-page-filters .offer-filters .tooltip::before {
     border: none;
     display: none;
+    width: 0;
 }
 
 /* OFFERS */ /* see above section OFFERS */ /* PAGINATOR */
