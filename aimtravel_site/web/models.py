@@ -276,12 +276,12 @@ class JobOffer(models.Model):
         null=True,
     )
     begin_date = models.DateField(
-        verbose_name='Стартова дата',
+        verbose_name='Най-ранно заминаване',
         blank=True,
         null=True,
     )
     end_date = models.DateField(
-        verbose_name='Крайна дата',
+        verbose_name='Най-късно заминаване',
         blank=True,
         null=True,
     )

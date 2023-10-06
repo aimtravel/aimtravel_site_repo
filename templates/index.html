@@ -95,29 +95,30 @@
     </section>
     <section id="top-destinations">
         <div id="col-1">
-            <div class="row-1">
-                <a href="{% url 'offers' %}#offers-section">📍 Provincetown, MA</a>
-            </div>
-            <div class="row-2">
-                <a href="{% url 'offers' %}#offers-section">📍 New Jersey</a>
-            </div>
+
+            <a href="{% url 'offers' %}#offers-section" class="row-1">
+                <p>📍 Provincetown, MA</p>
+            </a>
+            <a href="{% url 'offers' %}#offers-section" class="row-2">
+                <p>📍 New Jersey</p>
+            </a>
         </div>
         <div id="col-2">
-            <div class="row-1">
-                <a href="{% url 'offers' %}#offers-section">📍 Nantucket, MA</a>
-            </div>
-            <div class="row-2">
-                <a href="{% url 'offers' %}#offers-section">📍 California</a>
-            </div>
+            <a href="{% url 'offers' %}#offers-section" class="row-1">
+                <p>📍 Nantucket, MA</p>
+            </a>
+            <a href="{% url 'offers' %}#offers-section" class="row-2">
+                <p>📍 California</p>
+            </a>
         </div>
         <div id="col-3">
-            <div class="row-1">
-                <a href="{% url 'offers' %}#offers-section">📍 Maine</a>
-            </div>
-            <div class="row-2">
-                <a href="{% url 'offers' %}#offers-section">📍 Florida</a>
+            <a href="{% url 'offers' %}#offers-section" class="row-1">
+                <p>📍 Maine</p>
+            </a>
+            <a href="{% url 'offers' %}#offers-section" class="row-2">
+                <p>📍 Florida</p>
 
-            </div>
+            </a>
         </div>
     </section>
 
@@ -472,17 +473,19 @@
             </div>
             <div id="last-4-news">
                 {% for news in last_4_news %}
-                    <div id="last-4-1" class="news-content">
-                        <div id="last-4-1-img" class="last-img">
-                            <img src="{{ news.news_image.url }}" alt="">
-                            <div class="white-border"></div>
+                    <a href="{% url 'news' %}">
+                        <div id=" last-4-1" class="news-content">
+                            <div id="last-4-1-img" class="last-img">
+                                <img src="{{ news.news_image.url }}" alt="">
+                                <div class="white-border"></div>
+                            </div>
+                            <div id="last-4-1-text" class="last-4-text">
+                                <p class="news-date">{{ news.date }}</p>
+                                <h3>{{ news.news_title }}</h3>
+                                <p class="underline">Прочети Статия</p>
+                            </div>
                         </div>
-                        <div id="last-4-1-text" class="last-4-text">
-                            <p class="news-date">{{ news.date }}</p>
-                            <h3>{{ news.news_title }}</h3>
-                            <a href="{% url 'news' %}">Прочети Статия</a>
-                        </div>
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         </div>

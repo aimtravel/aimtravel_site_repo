@@ -164,6 +164,11 @@ body .usa-flag {
     color: #ECECEC;
 }
 
+#top-header-left a {
+    color: #ECECEC;
+    text-decoration: none;
+}
+
 #top-header-left-p1 {
     display: flex;
     flex-direction: row;
@@ -463,6 +468,7 @@ nav .dropdown {
 .dropdown:hover .tooltip {
     display: flex;
     opacity: 1;
+    z-index: 50;
 }
 
 nav a {
@@ -556,6 +562,10 @@ nav a {
     transition: 0.5s ease-in-out;
 }
 
+.nav-button:hover {
+    background-color: #841114;
+}
+
 .fade-in {
     opacity: 0; /* Start with 0 opacity (completely transparent) */
     transition: opacity 2s ease-in-out; /* Apply a transition to the opacity property */
@@ -641,7 +651,6 @@ nav a {
     overflow: hidden;
     border-radius: 0 0 50% 50% / 0 0 15% 15%;
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
-    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
 }
 
 @media screen and (max-width: 800px) {
@@ -1043,6 +1052,7 @@ nav a {
     width: var(--top-destination-width);
     height: var(--top-destination-height);
     z-index: 1;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 800px) {
@@ -1110,6 +1120,11 @@ nav a {
     cursor: pointer;
 }
 
+#top-destinations a:hover {
+    background: #ECECEC;
+    transition: 0.5s ease-in-out;
+}
+
 @media screen and (max-width: 800px) {
     #top-destinations a {
         font-size: calc(var(--font-30) * 0.38);
@@ -1169,6 +1184,7 @@ main .main-flag2 {
     align-items: center;
     justify-content: center;
     width: var(--max-width);
+    margin-bottom: 30px;
 }
 
 @media screen and (max-width: 800px) {
@@ -1538,6 +1554,9 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #offers-buttons .btn svg path {
     stroke: #757575;
 }
+#offers-buttons .btn:hover svg path {
+    stroke: #ffffff;
+}
 
 #offers-buttons .btn svg:hover path {
     stroke: #ffffff;
@@ -1864,6 +1883,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     position: relative;
 
     margin-bottom: 80px;
+    margin-top: 30px;
 }
 
 @media screen and (max-width: 800px) {
@@ -2534,7 +2554,11 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.6px;
-    text-decoration-line: underline;
+    text-decoration-line: none;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 800px) {
@@ -2675,7 +2699,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
     padding: 14px 40px;
     height: var(--slider-btn-height);
     margin-bottom: 40px;
-    margin-top: 10px;
+    margin-top: 30px;
     box-sizing: border-box;
     border: 1.5px solid white;
     box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.25);
@@ -2717,6 +2741,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
         height: 40px;
         font-size: calc(var(--font-15) * 0.5);
         letter-spacing: 0.5px;
+        font-weight: 600;
     }
 
     .pricing-btn svg {
@@ -2730,6 +2755,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 #story-section {
     width: var(--max-width);
 
+    margin: 35px 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -2877,7 +2903,7 @@ drop-shadow(4 px 4 px 50 px rgba(0, 0, 0, 0.2));
 }
 
 #story-button {
-    margin-top: 40px;
+    margin-top: 60px;
 }
 
 @media screen and (max-width: 800px) {
@@ -3166,6 +3192,11 @@ footer .usa-flag {
     color: white;
 }
 
+#phone-details a, #email-details a {
+    color: #ECECEC;
+    text-decoration: underline;
+}
+
 #horizontal-line {
     width: calc(1568px * 0.75);
     padding: 0 50px;
@@ -3222,6 +3253,11 @@ footer .usa-flag {
     color: #ECECEC;
 }
 
+#footer-login a:hover {
+    font-size: var(--font-18);
+    color: #FFFFFF;
+}
+
 
 #footer-right-links-icons #insta-link,
 #footer-right-links-icons #fb-link,
@@ -3236,6 +3272,13 @@ footer .usa-flag {
 
 #footer-responsive {
     display: none;
+}
+
+footer a:hover {
+    /*color: #d9d7d7;*/
+    color: #FFFFFF;
+    transition: 0.5s ease-in-out;
+    font-weight: 500;
 }
 
 @media screen and (max-width: 800px) {
@@ -3363,7 +3406,6 @@ footer .usa-flag {
     overflow: hidden;
     border-radius: 0 0 50% 50% / 0 0 15% 15%;
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
-    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
     color: var(--white-color);
     text-align: center;
     font-family: Jost, sans-serif;
@@ -3460,7 +3502,8 @@ footer .usa-flag {
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
-
+    border: 3px solid #FFFFFF;
+    border-radius: 20px;
 }
 
 #main-offers-video .glightbox2 .white-border {
@@ -4873,7 +4916,6 @@ footer .usa-flag {
 
 #wat-usa-header .offers-background {
     background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/hero-banner-wat-usa.jpg');
-    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
 
     color: var(--white-color);
     text-align: center;
@@ -5447,6 +5489,7 @@ footer .usa-flag {
 
 #pricing-button {
     margin-bottom: 20px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 800px) {
@@ -5544,7 +5587,7 @@ footer .usa-flag {
 
 #picture-information img {
     position: absolute;
-    top: -340px;
+    top: -330px;
     left: -240px;
     width: calc(1196px * 0.75);
     height: calc(795px * 0.75);
@@ -5616,7 +5659,6 @@ footer .usa-flag {
 
     border-radius: 0 0 50% 50% / 0 0 15% 15%;
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
-    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
 
     color: var(--gray-color);
     leading-trim: both;
@@ -6053,7 +6095,6 @@ footer .usa-flag {
 
 #online-header .offers-background {
     background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/online-background.png');
-    filter: drop-shadow(4px 4px 30px rgba(0, 0, 0, 0.90));
 
     color: var(--white-color);
     text-align: center;

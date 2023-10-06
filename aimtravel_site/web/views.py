@@ -424,9 +424,9 @@ def form_submission_view(request):
 
     message = request.POST.get('message')
 
-    subject = f"HIGH PRIORITY!!! - {name} - Запитване за студентска бригадав"
+    subject = f"HIGH PRIORITY!!! - {name} - Запитване за студентска бригада"
     mail_message = f"Име и Фамилия: {name}\nУниверситет: {university}\nEmail: {email}\nТелефон: {phone}\n\nЗапитване: {message}"
     encoded_message = smart_str(mail_message, encoding='utf-8')
-    send_mail(subject, encoded_message, email, ['vlzahariev26@gmail.com'], fail_silently=False)
+    send_mail(subject, encoded_message, email, ['studentski@aimtravel.bg'], fail_silently=False)
 
     return render(request, 'job_offer/success.html')
