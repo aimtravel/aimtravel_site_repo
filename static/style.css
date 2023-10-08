@@ -3498,7 +3498,7 @@ footer a:hover {
 
 #offers-video {
     position: absolute;
-    top: calc(550px * 0.75);
+    top: calc(550px * 0.85);
     font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -5010,6 +5010,7 @@ footer a:hover {
 }
 
 #general-section {
+    margin-top: calc(90px * 0.75);;
     margin-bottom: calc(90px * 0.75);
 }
 
@@ -5086,7 +5087,7 @@ footer a:hover {
     flex-direction: column;
     align-items: flex-start;
 
-    margin-bottom: 90px;
+    margin: 40px 0 110px 0;
 }
 
 #requirements-section-header {
@@ -5248,6 +5249,7 @@ footer a:hover {
     background: linear-gradient(124deg, #841114 0%, var(--red-color) 51.56%, #841114 100%);
 
     margin-bottom: 60px;
+    padding: 30px 0;
 }
 
 .inner-container {
@@ -5584,6 +5586,7 @@ footer a:hover {
 
 #financial-option-section {
     margin-bottom: 50px;
+    padding: 40px 0;
 }
 
 #financial-inner-container {
@@ -5644,7 +5647,7 @@ footer a:hover {
 
 #picture-information img {
     position: absolute;
-    top: -330px;
+    top: -290px;
     left: -240px;
     width: calc(1196px * 0.75);
     height: calc(795px * 0.75);
@@ -5728,7 +5731,7 @@ footer a:hover {
     align-items: center;
 
     margin-bottom: 40px;
-    padding-top: 20px;
+    padding: 60px 0 20px 0;
 }
 
 #how-to-inner-container {
@@ -6233,6 +6236,10 @@ footer a:hover {
     }
 }
 
+#online-general-section {
+    margin-top: calc(90px * 0.75);
+}
+
 #online-general-section .general-section-container {
 
     leading-trim: both;
@@ -6249,6 +6256,7 @@ footer a:hover {
     padding: 0;
     gap: 0;
     box-shadow: none;
+    margin-bottom: 60px;
 }
 
 #online-general-section .general-section-container h3 {
@@ -6269,8 +6277,8 @@ footer a:hover {
 .general-section-image-container img {
     position: relative;
     top: 8px;
-    width: calc(598px * 0.75);
-    height: calc(592px * 0.75);
+    width: calc(598px * 0.85);
+    height: calc(592px * 0.85);
 }
 
 @media screen and (max-width: 800px) {
@@ -6318,6 +6326,7 @@ footer a:hover {
     display: flex;
     justify-content: center;
     width: 100%;
+    padding: 40px 0;
 }
 
 .red-background {
@@ -6413,7 +6422,8 @@ footer a:hover {
 }
 
 #service-section.online-service-section {
-    padding: 80px 0 0 0;
+    padding: 80px 0;
+    margin: 20px 0;
 }
 
 #service-container-header p {
@@ -6452,7 +6462,8 @@ footer a:hover {
 }
 
 #online-free {
-    margin: calc(90px * 0.75) 0;
+    margin: 30px 0;
+    padding: 30px 0;
 }
 
 #online-free .general-section-text-container {
@@ -6556,6 +6567,11 @@ footer a:hover {
 
 
     }
+}
+
+#online-register {
+    margin: 70px 0;
+    padding: 40px 0;
 }
 
 #online-register .general-section-text-container {
@@ -6663,14 +6679,19 @@ footer a:hover {
 
 #online-cta-section {
     width: 100%;
-    height: calc(530px * 0.85);
+    height: calc(530px * 0.95);
     background: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(1, 24, 43, 0.7484243697478992) 24%, rgba(65, 65, 92, 0.6531862745098039) 49%, rgba(1, 24, 43, 0.7484243697478992) 77%, rgba(0, 0, 0, 1) 100%), url('../static/img/Ready-stock/WEBP version/background-for-subscribe.png');
     background-size: cover;
-    margin-top: 80px;
+    margin: 80px 0;
+}
+
+#online-cta-section #cta-background-gradient {
+    height: 100%;
 }
 
 #online-cta-section #cta-container {
     top: 70px;
+    padding-top: 20px;
 }
 
 #online-cta-section h1 {
@@ -6720,7 +6741,7 @@ footer a:hover {
 #useful-links {
     display: flex;
     flex-direction: column;
-    margin: 60px 0;
+    margin: 30px 0 100px 0;
 }
 
 
@@ -6749,6 +6770,12 @@ footer a:hover {
     margin: 0;
     /*padding: 0 20px;*/
     text-decoration: none;
+    transition: 0.5s ease-in-out;
+}
+
+.useful-links-text-container a:hover {
+    font-size: var(--font-30);
+    transition: 0.5s ease-in-out;
 }
 
 #heading-useful-links {
@@ -6797,8 +6824,8 @@ footer a:hover {
     position: absolute;
     bottom: 15px;
     left: 20px;
-    width: calc(542px * 0.75);
-    height: calc(537px * 0.75);
+    width: calc(542px * 0.86);
+    height: calc(537px * 0.86);
     border-radius: 20px;
     border: 1px solid white;
 }
