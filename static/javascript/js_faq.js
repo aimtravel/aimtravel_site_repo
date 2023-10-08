@@ -1,35 +1,21 @@
-// Get all elements with class "arrow-down" and "arrow-up"
-  var arrowDownButtons = document.querySelectorAll(".arrow-down");
-  var arrowUpButtons = document.querySelectorAll(".arrow-up");
+const faqHeaders = document.querySelectorAll(".faq-content-header");
 
-  // Add click event listeners to all "arrow-down" buttons
-  arrowDownButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-      // Toggle the visibility of the description
-      var description = this.parentElement.nextElementSibling;
-      description.style.display = "flex";
+faqHeaders.forEach((header) => {
+    header.addEventListener("click", function () {
+        const contentDescription = this.nextElementSibling;
+        const arrowUp = this.querySelector(".arrow-up");
+        const arrowDown = this.querySelector(".arrow-down");
 
-      // Hide the arrow-down button
-      this.style.display = "none";
-
-      // Show the arrow-up button
-      var arrowUpButton = this.parentElement.querySelector(".arrow-up");
-      arrowUpButton.style.display = "flex";
+        if (contentDescription.style.display === "none" || contentDescription.style.display === "") {
+            contentDescription.style.display = "flex";
+            arrowUp.style.display = "flex";
+            arrowDown.style.display = "none";
+        } else {
+            contentDescription.style.display = "none";
+            arrowUp.style.display = "none";
+            arrowDown.style.display = "flex";
+        }
     });
-  });
+});
 
-  // Add click event listeners to all "arrow-up" buttons
-  arrowUpButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-      // Toggle the visibility of the description
-      var description = this.parentElement.nextElementSibling;
-      description.style.display = "none";
 
-      // Hide the arrow-up button
-      this.style.display = "none";
-
-      // Show the arrow-down button
-      var arrowDownButton = this.parentElement.querySelector(".arrow-down");
-      arrowDownButton.style.display = "flex";
-    });
-  });

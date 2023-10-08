@@ -34,9 +34,9 @@
         <div id="offer-details">
             <div id="offer-details-top-row">
                 <div id="offer-details-nav">
-                    <p>Начало</p>
+                    <a href="{% url 'index' %}">Начало</a>
                     <span>/</span>
-                    <p>Работни Оферти</p>
+                    <a href="{% url 'offers' %}">Работни Оферти</a>
                     <span>/</span>
                     <span>{{ offer_details.job_position }}</span>
                 </div>
