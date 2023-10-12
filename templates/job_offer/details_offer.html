@@ -67,7 +67,27 @@
                             <a href="">ЗАПАЗИ ОФЕРТА</a>
                         </div>
                         <div class="slider-btn">
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform">ЗАПИШИ СЕ</a>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform">
+                                <script>
+                                    function gtag_report_conversion(url) {
+                                        var callback = function () {
+                                            if (typeof (url) != 'undefined') {
+                                                window.location = url;
+                                            }
+                                        };
+                                        gtag('event', 'conversion', {
+                                            'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                            'event_callback': callback
+                                        });
+                                        return false;
+                                    }
+                                </script>
+                                <script type="text/javascript">
+                                    $('#$addToCartButton').click(function () {
+                                        fbq('track', 'Subscribe');
+                                    });
+                                </script>
+                                ЗАПИШИ СЕ</a>
                         </div>
                     </div>
                 </div>
@@ -165,7 +185,6 @@
                     </div>
 
 
-
                 </div>
 
             </div>
@@ -184,8 +203,8 @@
         </div>
         <div id="offer-details-facts">
             <div id="offer-details-facts-header">
-                    <p>Интересни факти за града</p>
-                </div>
+                <p>Интересни факти за града</p>
+            </div>
             <div id="offer-details-facts-container">
                 <div id="city-facts">
                     <div class="facts" id="fact1">
