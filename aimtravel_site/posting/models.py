@@ -18,7 +18,7 @@ class News(models.Model):
         blank=True,
         null=True,
     )
-    news_content = RichTextField(
+    news_content = models.TextField(
         verbose_name='Текст',
         blank=True,
         null=True,
