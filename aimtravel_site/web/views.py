@@ -214,7 +214,7 @@ class JobOfferListView(views.ListView):
         return render(request, self.template_name, context)
 
     def get_success_url(self):
-        return '/offer/all#offers-page-top-row'
+        return '/rabotnioferti#offers-page-top-row'
 
 
 class DetailsOfferView(views.DetailView):

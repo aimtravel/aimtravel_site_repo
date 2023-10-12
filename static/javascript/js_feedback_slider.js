@@ -29,14 +29,12 @@ function prevFeedbackHandler() {
     if (currentFeedbackSlider === feedbackText1) {
         feedbackText1.style.display = 'none';
         feedbackText3.style.display = 'flex';
-        feedbackImg1.style.width = '75px';
-        feedbackImg1.style.height = '75px';
-        feedbackImg3.style.width = '100px';
-        feedbackImg3.style.height = '100px';
-        feedbackImgContainer1.style.width = '75px';
-        feedbackImgContainer1.style.height = '75px';
-        feedbackImgContainer3.style.width = '100px';
-        feedbackImgContainer3.style.height = '100px';
+        feedbackImg1.classList.remove('on-focus-img');
+        feedbackImg1.classList.add('background-img');
+        feedbackImg3.classList.add('on-focus-img');
+        feedbackImg3.classList.remove('background-img');
+        feedbackImgContainer1.classList.remove('on-focus-container');
+        feedbackImgContainer3.classList.add('on-focus-container');
         feedbackName1.style.display = 'none';
         feedbackName3.style.display = 'block';
         tooltipElement.classList.add('tooltip3');
@@ -46,14 +44,12 @@ function prevFeedbackHandler() {
         if (currentFeedbackSlider === feedbackText3) {
             feedbackText3.style.display = 'none';
             feedbackText2.style.display = 'flex';
-            feedbackImg3.style.width = '75px';
-            feedbackImg3.style.height = '75px';
-            feedbackImg2.style.width = '100px';
-            feedbackImg2.style.height = '100px';
-            feedbackImgContainer3.style.width = '75px';
-            feedbackImgContainer3.style.height = '75px';
-            feedbackImgContainer2.style.width = '100px';
-            feedbackImgContainer2.style.height = '100px';
+            feedbackImg3.classList.remove('on-focus-img');
+            feedbackImg3.classList.add('background-img');
+            feedbackImg2.classList.add('on-focus-img');
+            feedbackImg2.classList.remove('background-img');
+            feedbackImgContainer3.classList.remove('on-focus-container');
+            feedbackImgContainer2.classList.add('on-focus-container');
             feedbackName3.style.display = 'none';
             feedbackName2.style.display = 'block';
             tooltipElement.classList.add('tooltip2');
@@ -63,14 +59,12 @@ function prevFeedbackHandler() {
             if (currentFeedbackSlider === feedbackText2) {
                 feedbackText2.style.display = 'none';
                 feedbackText1.style.display = 'flex';
-                feedbackImg2.style.width = '75px';
-                feedbackImg2.style.height = '75px';
-                feedbackImg1.style.width = '100px';
-                feedbackImg1.style.height = '100px';
-                feedbackImgContainer2.style.width = '75px';
-                feedbackImgContainer2.style.height = '75px';
-                feedbackImgContainer1.style.width = '100px';
-                feedbackImgContainer1.style.height = '100px';
+                feedbackImg2.classList.remove('on-focus-img');
+                feedbackImg2.classList.add('background-img');
+                feedbackImg1.classList.add('on-focus-img');
+                feedbackImg1.classList.remove('background-img');
+                feedbackImgContainer2.classList.remove('on-focus-container');
+                feedbackImgContainer1.classList.add('on-focus-container');
                 feedbackName2.style.display = 'none';
                 feedbackName1.style.display = 'block';
                 tooltipElement.classList.add('tooltip1');
@@ -86,14 +80,12 @@ function nextFeedbackHandler() {
     if (currentFeedbackSlider === feedbackText1) {
         feedbackText1.style.display = 'none';
         feedbackText2.style.display = 'flex';
-        feedbackImg1.style.width = '75px';
-        feedbackImg1.style.height = '75px';
-        feedbackImg2.style.width = '100px';
-        feedbackImg2.style.height = '100px';
-        feedbackImgContainer1.style.width = '75px';
-        feedbackImgContainer1.style.height = '75px';
-        feedbackImgContainer2.style.width = '100px';
-        feedbackImgContainer2.style.height = '100px';
+        feedbackImg1.classList.remove('on-focus-img');
+        feedbackImg1.classList.add('background-img');
+        feedbackImg2.classList.add('on-focus-img');
+        feedbackImg2.classList.remove('background-img');
+        feedbackImgContainer1.classList.remove('on-focus-container');
+        feedbackImgContainer2.classList.add('on-focus-container');
         feedbackName1.style.display = 'none';
         feedbackName2.style.display = 'block';
         tooltipElement.classList.add('tooltip2');
@@ -103,14 +95,12 @@ function nextFeedbackHandler() {
         if (currentFeedbackSlider === feedbackText2) {
             feedbackText2.style.display = 'none';
             feedbackText3.style.display = 'flex';
-            feedbackImg2.style.width = '75px';
-            feedbackImg2.style.height = '75px';
-            feedbackImg3.style.width = '100px';
-            feedbackImg3.style.height = '100px';
-            feedbackImgContainer2.style.width = '75px';
-            feedbackImgContainer2.style.height = '75px';
-            feedbackImgContainer3.style.width = '100px';
-            feedbackImgContainer3.style.height = '100px';
+            feedbackImg2.classList.remove('on-focus-img');
+            feedbackImg2.classList.add('background-img');
+            feedbackImg3.classList.add('on-focus-img');
+            feedbackImg3.classList.remove('background-img');
+            feedbackImgContainer2.classList.remove('on-focus-container');
+            feedbackImgContainer3.classList.add('on-focus-container');
             feedbackName2.style.display = 'none';
             feedbackName3.style.display = 'block';
             tooltipElement.classList.add('tooltip3');
@@ -120,14 +110,12 @@ function nextFeedbackHandler() {
             if (currentFeedbackSlider === feedbackText3) {
                 feedbackText3.style.display = 'none';
                 feedbackText1.style.display = 'flex';
-                feedbackImg3.style.width = '75px';
-                feedbackImg3.style.height = '75px';
-                feedbackImg1.style.width = '100px';
-                feedbackImg1.style.height = '100px';
-                feedbackImgContainer3.style.width = '75px';
-                feedbackImgContainer3.style.height = '75px';
-                feedbackImgContainer1.style.width = '100px';
-                feedbackImgContainer1.style.height = '100px';
+                feedbackImg3.classList.remove('on-focus-img');
+                feedbackImg3.classList.add('background-img');
+                feedbackImg1.classList.add('on-focus-img');
+                feedbackImg1.classList.remove('background-img');
+                feedbackImgContainer3.classList.remove('on-focus-container');
+                feedbackImgContainer1.classList.add('on-focus-container');
                 feedbackName3.style.display = 'none';
                 feedbackName1.style.display = 'block';
                 tooltipElement.classList.add('tooltip1');

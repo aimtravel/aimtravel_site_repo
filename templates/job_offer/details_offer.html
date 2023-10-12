@@ -201,10 +201,9 @@
                         <span>{{ offer_details.city.fact3 }}</span>
                     </div>
                 </div>
-                <div id="city-picture"
-                     style="background: url('{{ offer_details.city.city_pic.url }}'); background-size: 770px 860px;">
+                <div id="city-picture">
+                    <img src="{{ offer_details.city.city_pic.url }}" alt="">
                     <p>{{ offer_details.city.name }}</p>
-                    {#                    <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">#}
                     <div class="white-border"></div>
 
                 </div>
@@ -256,9 +255,9 @@
 
                         <div id="feedback-picture-container">
                             <div class="feedback-picture-container">
-                                <div class="feedback-img" id="feedback-img-container1">
+                                <div class="feedback-img on-focus-container" id="feedback-img-container1">
                                     {% if offer_details.feedback.student_pic_1 %}
-                                        <img id="feedback-img-1"
+                                        <img id="feedback-img-1" class="on-focus-img"
                                              src="{{ offer_details.feedback.student_pic_1.url }}"
                                              alt="profile photo">
                                     {% endif %}
@@ -269,7 +268,7 @@
                             <div class="feedback-picture-container">
                                 <div class="feedback-img" id="feedback-img-container2">
                                     {% if offer_details.feedback.student_pic_2 %}
-                                        <img id="feedback-img-2"
+                                        <img id="feedback-img-2" class="background-img"
                                              src="{{ offer_details.feedback.student_pic_2.url }}"
                                              alt="profile photo">
                                     {% endif %}
@@ -280,7 +279,7 @@
                             <div class="feedback-picture-container">
                                 <div class="feedback-img" id="feedback-img-container3">
                                     {% if offer_details.feedback.student_pic_3 %}
-                                        <img id="feedback-img-3"
+                                        <img id="feedback-img-3" class="background-img"
                                              src="{{ offer_details.feedback.student_pic_3.url }}"
                                              alt="profile photo">
                                     {% endif %}

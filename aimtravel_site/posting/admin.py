@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from aimtravel_site.posting.models import *
+from aimtravel_site.posting.forms import *
 
 
 # Register your models here.
@@ -9,12 +10,14 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ['news_title', 'date']
     list_filter = ['news_title', 'date']
     sortable_by = ['news_title', 'date']
+    # form = NewsAdminForm
 
 
 @admin.register(MainFeedback)
 class MainFeedbackAdmin(admin.ModelAdmin):
     list_display = ['feedback_1_title']
     search_fields = ['feedback_1_title']
+    # form = FeedbackAdminForm
 
 
 @admin.register(Video)

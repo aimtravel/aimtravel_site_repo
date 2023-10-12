@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -17,7 +18,7 @@ class News(models.Model):
         blank=True,
         null=True,
     )
-    news_content = models.TextField(
+    news_content = RichTextField(
         verbose_name='Текст',
         blank=True,
         null=True,

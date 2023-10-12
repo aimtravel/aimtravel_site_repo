@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_social_share',
+    'ckeditor',
 
     'aimtravel_site.web.apps.WebConfig',
     'aimtravel_site.user_auth',
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'aimtravel_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates',]
+        'DIRS': [BASE_DIR / 'templates', ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -123,9 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (
-    BASE_DIR / 'static/',
-)
+STATICFILES_DIRS = (BASE_DIR / 'static/'),
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -167,3 +166,15 @@ DEFAULT_FROM_EMAIL = 'studentski@aimtravel.bg' \
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# CKEDITOR_BASEPATH = "https://cdn.ckeditor.com/4.16.0/standard/"
+# CKEDITOR_UPLOAD_PATH = "uploads/"  # Define the path where uploaded files will be stored.
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Custom',  # You can customize the toolbar options.
+#         'height': 300,  # Set the height of the CKEditor textarea.
+#         'width': 800,  # Set the width of the CKEditor textarea.
+#         'fillEmptyBlocks': False,  # prevent from adding extra <p> in front and behind the actual paragraph
+#         'allowedContent': True,
+#     },
+# }

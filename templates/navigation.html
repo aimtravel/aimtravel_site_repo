@@ -152,8 +152,26 @@
             </li>
             <li>
                 <div class="nav-button">
-                    <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">БЕЗПЛАТНА
-                        КОНСУЛТАЦИЯ</a>
+                    <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">
+                        <script>
+                            function gtag_report_conversion(url) {
+                                var callback = function () {
+                                    if (typeof (url) != 'undefined') {
+                                        window.location = url;
+                                    }
+                                };
+                                gtag('event', 'conversion', {
+                                    'send_to': 'AW-825631983/UYIiCLOC--gYEO_J2IkD',
+                                    'event_callback': callback
+                                });
+                                return false;
+                            } </script>
+                        <script type="text/javascript">
+                            $('#$addToCartButton').click(function () {
+                                fbq('track', 'SubmitApplication');
+                            });
+                        </script>
+                        БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                 </div>
             </li>
         </ul>
