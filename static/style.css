@@ -4394,9 +4394,10 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #offer-details-top-row {
-        width: 100%;
+       margin-left: 40px;
+        width: 80%;
         gap: 15px;
-        padding: 20px 40px 0 40px;
+        padding: 20px 0 0 0;
     }
 
     #offer-details-nav {
@@ -4521,19 +4522,21 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #offer-details-highlights {
-        width: 100%;
+        width: 89%;
         flex-direction: column;
         gap: 20px;
         justify-content: flex-start;
         align-items: flex-start;
-        margin-top: 30px;
-        padding: 0 40px 0 40px;
+        margin: 30px 0 0 40px;
+        padding: 0 ;
     }
 
     #news-details-highlights {
-        width: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 89%;
         margin: 0 30px 0 0;
-        padding: 0 40px 0 40px;
+        padding: 0 0 0 40px;
     }
 
     #offer-picture {
@@ -4645,7 +4648,7 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #offer-details-details {
-        width: 100%;
+        width: 80%;
         flex-direction: column;
         margin: 40px;
         gap: 30px;
@@ -4820,7 +4823,6 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #offer-details-facts {
         width: 100%;
-        padding: 40px;
         margin: 0 40px;
 
     }
@@ -4961,7 +4963,7 @@ footer a:hover {
         width: 100%;
         margin-top: 30px;
         height: auto;
-        padding: 0 80px 0 80px;
+        padding: 0;
         letter-spacing: 0.8px;
         font-size: calc(var(--font-24) * 0.7);
     }
