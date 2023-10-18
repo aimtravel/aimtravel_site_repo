@@ -109,8 +109,8 @@
     </div>
 </section>
 <section id="header-nav">
-    <nav>
-        <ul id="header-nav-links-container" class="normal-left">
+    <nav id="navbar-normal">
+        <ul id="" class="header-nav-links-container normal-left">
             <li class="dropdown link-a">
                 <a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
             <li class="dropdown link-a">
@@ -148,6 +148,80 @@
                 <a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a>
             </li>
             <li class="dropdown link-a">
+                <a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a>
+            </li>
+            <li>
+                <div class="nav-button">
+                    <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">
+                        <script>
+                            function gtag_report_conversion(url) {
+                                var callback = function () {
+                                    if (typeof (url) != 'undefined') {
+                                        window.location = url;
+                                    }
+                                };
+                                gtag('event', 'conversion', {
+                                    'send_to': 'AW-825631983/UYIiCLOC--gYEO_J2IkD',
+                                    'event_callback': callback
+                                });
+                                return false;
+                            } </script>
+                        <script type="text/javascript">
+                            $('#$addToCartButton').click(function () {
+                                fbq('track', 'SubmitApplication');
+                            });
+                        </script>
+                        БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <nav id="navbar-responsive" class="responsive-left">
+        <ul id="" class="header-nav-links-container">
+
+            <li>
+                <img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt="">
+            </li>
+
+        </ul>
+        <div class="hamburger-button ">
+        </div>
+        <ul id="ham-but-content">
+            <li class="dropdown">
+                <a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
+            <li class="dropdown">
+                <a class="target-element link-a" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
+                <div class="tooltip">
+                    <a href="{% url 'wat usa' %}#header-nav">ЗА ПРОГРАМАТА</a>
+                    <a href="{% url 'wat usa' %}#anchor-requirements">ИЗИСКВАНИЯ</a>
+                    <a href="{% url 'wat usa' %}#price-section">ЦЕНАТА</a>
+                    <a href="{% url 'wat usa' %}#anchor-how-to">КАК ДА СЕ ЗАПИШЕШ</a>
+                    <a href="{% url 'story' %}">ИСТОРИИ НА СТУДЕНТИ</a>
+                </div>
+                <span class="dropdown-icon"></span>
+            </li>
+            <li class="dropdown">
+                <a class="target-element link-a" id="online-services" href="{% url 'online' %}">Онлайн услуги</a>
+                <div class="tooltip">
+                    <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
+                    <a href="{% url 'online' %}#online-register-anchor">Запиши се</a>
+                </div>
+                <span class="dropdown-icon"></span>
+            </li>
+            <li class="dropdown">
+                <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
+                <div class="tooltip">
+                    <a href="#">ДАНЪЦИ ОТ САЩ</a>
+                    <a href="#">СТАЖОВЕ В САЩ</a>
+                    <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
+                    <a href="{% url 'news' %}">НОВИНИ</a>
+                </div>
+                <span class="dropdown-icon"></span>
+            </li>
+            <li class="dropdown">
+                <a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a>
+            </li>
+            <li class="dropdown">
                 <a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a>
             </li>
             <li>

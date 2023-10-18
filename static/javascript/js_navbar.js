@@ -3,10 +3,12 @@ var navbar = document.querySelector("nav");
 var logo = document.querySelector("#logo")
 var navA = document.querySelectorAll(".link-a");
 var btn = document.querySelector(".nav-button");
-var navCont = document.querySelector("#header-nav-links-container");
+var navCont = document.querySelector(".header-nav-links-container");
 const mediaQuery = window.matchMedia('(max-width: 800px)');
 // Get the initial offset position of the navigation bar
 var stickyOffset = navbar.offsetTop;
+var menuButton = document.querySelector(".hamburger-button");
+var hamButContent = document.querySelector("#ham-but-content");
 
 // Function to add the sticky class to the navigation bar when scrolling
 function stickyNav() {
@@ -39,3 +41,13 @@ function stickyNav() {
 
 // Add the stickyNav function as a scroll event listener
 window.addEventListener("scroll", stickyNav);
+
+function showMenu() {
+  if (hamButContent.style.display === "none") {
+    hamButContent.style.display = 'flex';
+  } else {
+    hamButContent.style.display = 'none';
+  }
+}
+
+menuButton.addEventListener("click", showMenu);
