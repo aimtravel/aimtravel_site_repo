@@ -18,12 +18,24 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf.urls import handler404, handler500
+from django.contrib.sitemaps import views as sitemaps_views
 
 from aimtravel_site import settings
+from aimtravel_site.sitemap import *
+
+sitemaps = {
+    'News': NewsSitemap,
+    # 'Faq': FaqSitemap,
+    # 'Video': VideoSitemap,
+    'MainFeedback': MainFeedbackSitemap,
+    # 'City': CitySitemap,
+    # 'Feedback': FeedbackSitemap,
+    'JobOffer': JobOffer,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('sitemap.xml', sitemaps_views.sitemap, {'sitemaps': sitemaps}),
     path('', include('aimtravel_site.web.urls')),
     path('user_auth/', include('aimtravel_site.user_auth.urls')),
     path('user_profile/', include('aimtravel_site.user_profile.urls')),

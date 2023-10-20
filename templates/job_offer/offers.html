@@ -127,9 +127,11 @@
             </div>
             <div class="filter-row">
                 <div id="filter-button-container">
-                    <div id="clear-filter" class="filter-button">
-                        <a href="{% url 'offers' %}#offers-page-top-row">ИЗЧИСТИ</a>
-                    </div>
+                    {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
+                        <div id="clear-filter" class="filter-button">
+                            <a href="?clear_filter=1">ИЗЧИСТИ</a>
+                        </div>
+                    {% endif %}
                     <div id="apply-filter" class="slider-btn filter-button">
                         <p>ФИЛТРИРАЙ</p>
                     </div>
@@ -307,7 +309,8 @@
                 {% if num == page_obj.number %}
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a href="{% url 'offers' %}?page={{ num }}">{{ num }}</a>
+                    <a href="{% url 'offers' %}?page=
+                            {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 
@@ -395,7 +398,8 @@
                 {% if num == page_obj.number %}
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a href="{% url 'offers' %}?page={{ num }}">{{ num }}</a>
+                    <a href="{% url 'offers' %}?page=
+                            {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 

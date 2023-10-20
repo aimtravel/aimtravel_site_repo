@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 
 # Create your models here.
+from django.urls import reverse
 
 
 class News(models.Model):
@@ -45,6 +46,9 @@ class News(models.Model):
         result = f'{self.news_title}'
         return result
 
+    def get_absolute_url(self):
+        return reverse('news')
+
 
 class MainFeedback(models.Model):
     class Meta:
@@ -70,6 +74,9 @@ class MainFeedback(models.Model):
             blank=True,
             null=True,
         )
+
+    def get_absolute_url(self):
+        return reverse('story')
 
 
 class Video(models.Model):

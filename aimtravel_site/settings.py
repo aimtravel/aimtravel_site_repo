@@ -178,3 +178,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #         'allowedContent': True,
 #     },
 # }
+
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_CACHE_ALIAS = 'default'
+SESSION_COOKIE_AGE = 1800
+SESSION_SAVE_EVERY_REQUEST = True

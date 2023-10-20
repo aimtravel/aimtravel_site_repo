@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_delete
 import os
+
+from django.urls import reverse
 from model_utils import Choices
 
 from aimtravel_site.web.validators import max_value
@@ -366,6 +368,9 @@ class JobOffer(models.Model):
             path = os.path.join(settings.MEDIA_ROOT, str(self.offer_pic))
             if os.path.exists(path):
                 os.remove(path)
+
+    def get_absolute_url(self):
+        return reverse('offers')
 
 
 class Prices(models.Model):

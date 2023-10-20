@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
@@ -157,6 +158,27 @@ class JobOfferListView(views.ListView):
     template_name = 'job_offer/offers.html'
 
     def get(self, request):
+        # Retrieve the selected filter options from the session
+        selected_state = request.session.get('selected_state', [])
+        selected_city = request.session.get('selected_city', [])
+        selected_job_position = request.session.get('selected_job_position', [])
+        selected_suitable_for = request.session.get('selected_suitable_for', [])
+        selected_wage = request.session.get('selected_wage', [])
+        selected_housing = request.session.get('selected_housing', [])
+
+        # Check if the "clear_filter" parameter is present in the request's GET parameters
+        if 'clear_filter' in request.GET:
+            # Remove filter options from the session
+            request.session.pop('selected_state', None)
+            request.session.pop('selected_city', None)
+            request.session.pop('selected_job_position', None)
+            request.session.pop('selected_suitable_for', None)
+            request.session.pop('selected_wage', None)
+            request.session.pop('selected_housing', None)
+
+            # Redirect to the same page to clear the URL query parameters
+            return redirect(request.path)
+
         states = JobOffer.objects.values_list('city__state', flat=True).distinct()
         cities = JobOffer.objects.values_list('city', flat=True).distinct()
         job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
@@ -174,13 +196,37 @@ class JobOfferListView(views.ListView):
         filtered_offers = JobOffer.objects.all()
         filtered_offers = filtered_offers.order_by('-ranking', '-wage')
 
-        selected_state = request.GET.getlist('state')
-        selected_city = request.GET.getlist('city')
-        selected_job_position = request.GET.getlist('job_position')
-        selected_suitable_for = request.GET.getlist('suitable_for')
-        selected_wage = request.GET.getlist('wage')
-        selected_housing = request.GET.getlist('housing')
+        # Check if the filter parameters are present in the request's GET parameters
+        if 'state' in request.GET:
+            selected_state = request.GET.getlist('state')
+        if 'city' in request.GET:
+            selected_city = request.GET.getlist('city')
+        if 'job_position' in request.GET:
+            selected_job_position = request.GET.getlist('job_position')
+        if 'suitable_for' in request.GET:
+            selected_suitable_for = request.GET.getlist('suitable_for')
+        if 'wage' in request.GET:
+            selected_wage = request.GET.getlist('wage')
+        if 'housing' in request.GET:
+            selected_housing = request.GET.getlist('housing')
 
+        # selected_state = request.GET.getlist('state')
+        # selected_city = request.GET.getlist('city')
+        # selected_job_position = request.GET.getlist('job_position')
+        # selected_suitable_for = request.GET.getlist('suitable_for')
+        # selected_wage = request.GET.getlist('wage')
+        # selected_housing = request.GET.getlist('housing')
+
+        # Store the selected filter options in the session
+        request.session['selected_state'] = selected_state
+        request.session['selected_city'] = selected_city
+        request.session['selected_job_position'] = selected_job_position
+        request.session['selected_suitable_for'] = selected_suitable_for
+        request.session['selected_wage'] = selected_wage
+        request.session['selected_housing'] = selected_housing
+        request.session.save()
+
+        # Apply the selected filter options to the queryset
         if selected_state:
             filtered_offers = filtered_offers.filter(city__state__in=selected_state)
         if selected_city:
@@ -209,6 +255,12 @@ class JobOfferListView(views.ListView):
             'housing': housing,
             'filtered_offers': filtered_offers,
             'page_obj': page_obj,
+            'selected_state': selected_state,
+            'selected_city': selected_city,
+            'selected_job_position': selected_job_position,
+            'selected_suitable_for': selected_suitable_for,
+            'selected_wage': selected_wage,
+            'selected_housing': selected_housing,
         }
 
         return render(request, self.template_name, context)
