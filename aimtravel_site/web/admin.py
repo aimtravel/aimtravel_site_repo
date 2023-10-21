@@ -3,6 +3,15 @@ from django.contrib import admin
 from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, City, Feedback
 
 
+def duplicate_selected(modeladmin, request, queryset):
+    for obj in queryset:
+        obj.pk = None  # Set the primary key to None to create a new instance
+        obj.save()
+
+
+duplicate_selected.short_description = "Duplicate selected entries"
+
+
 # Register your models here.
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
@@ -21,6 +30,7 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
+    actions = [duplicate_selected]
     list_display = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
     list_filter = ['city', 'ranking']
     search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
@@ -43,3 +53,6 @@ class AdditionalServicesAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['employer_name', 'employer_city', 'employer_state']
     list_filter = ['employer_name']
+
+
+

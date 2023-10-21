@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+
 
 # Create your models here.
 from django.urls import reverse
