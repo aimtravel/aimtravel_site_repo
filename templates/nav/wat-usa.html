@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIM Travel - WAT USA</title>
-    <meta name="description" content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
-    <meta name="keywords" content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
+    <meta name="description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta name="keywords"
+          content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
     <meta name="cta-action" content="Sign Up Now for an Adventure">
 
-    <meta property="og:title" content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
-    <meta property="og:description" content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta property="og:title"
+          content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
+    <meta property="og:description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
     <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
     <meta property="og:url" content="https://www.aimtravel.bg">
 
@@ -194,8 +198,12 @@
                     </div>
                     <div class="price-container-text">
                         <div id="prices">
-                            <h2>Промо 1099$ -</h2>
-                            <h3 class="line-thru">1199$</h3>
+                            {% if prices.discounted_self_arrange %}
+                                <h2>Промо {{ prices.actual_self_arrange|floatformat }}$ -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_self_arrange|floatformat }}$</h3>
+                            {% else %}
+                                <h2>{{ prices.actual_self_arrange|floatformat }}$</h2>
+                            {% endif %}
                         </div>
                         <p>Цена на програмата със Самостоятелна Работна Оферта</p>
                     </div>
@@ -216,8 +224,12 @@
                     </div>
                     <div class="price-container-text">
                         <div id="prices">
-                            <h2>Промо 1349$ -</h2>
-                            <h3 class="line-thru">1449$</h3>
+                            {% if prices.discounted_standard %}
+                                <h2>Промо {{ prices.actual_standard|floatformat }}$ -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_standard|floatformat }}$</h3>
+                            {% else %}
+                                <h2>{{ prices.actual_standard|floatformat }}$</h2>
+                            {% endif %}
                         </div>
                         <p>Цена на програмата с осигурена от агенцията Работна Оферта</p>
                     </div>
@@ -239,8 +251,12 @@
                     </div>
                     <div class="price-container-text">
                         <div id="prices">
-                            <h2>Промо 1449$ -</h2>
-                            <h3 class="line-thru">1549$</h3>
+                            {% if prices.discounted_premium %}
+                                <h2>Промо {{ prices.actual_premium|floatformat }}$ -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_premium|floatformat }}$</h3>
+                            {% else %}
+                                <h2>{{ prices.actual_premium|floatformat }}$</h2>
+                            {% endif %}
                         </div>
                         <p>Бутикова Премиум <br>Работна Оферта</p>
                     </div>
@@ -263,15 +279,17 @@
                 </div>
                 <div id="pricing-row1">
                     <div class="element">
-                        <div class="price">35$</div>
+                        <div class="price">{{ prices.sevis|floatformat }}$</div>
                         <div class="description">Такса Sevis</div>
                     </div>
                     <div class="element">
-                        <div class="price">160$</div>
+                        <div class="price">{{ prices.visa_interview|floatformat }}$</div>
                         <div class="description">Такса визово интервю</div>
                     </div>
                     <div class="element">
-                        <div class="price">700$ – 1100$</div>
+                        <div class="price">{{ prices.plane_ticket_lowest|floatformat }}$
+                            – {{ prices.plane_ticket_highest|floatformat }}$
+                        </div>
                         <div class="description">Самолетен билет
                             <div class="info-tooltip">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
@@ -296,7 +314,7 @@
                 </div>
                 <div id="pricing-row2">
                     <div class="element">
-                        <div class="price">0$</div>
+                        <div class="price">{{ prices.sign_up_fees|floatformat }}$</div>
                         <div class="description">При записване. Запиши се сега в офис или онлайн.</div>
                     </div>
                 </div>

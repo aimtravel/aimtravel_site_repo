@@ -68,6 +68,9 @@ class WatUsaView(views.ListView):
         faq = Faq.objects.all()
         return faq
 
+    def get_price(self):
+        return Prices.objects.latest('id')
+
     def get_faq(self):
         return Faq.objects.all()
 
@@ -79,10 +82,12 @@ class WatUsaView(views.ListView):
 
         faq = self.get_faq()
         main_feedback = self.get_main_feedback()
+        prices = self.get_price()
 
         context = {
             'faq': faq,
             'main_feedback': main_feedback,
+            'prices': prices,
         }
 
         return context

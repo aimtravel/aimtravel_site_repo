@@ -39,8 +39,7 @@ class JobOfferAdmin(admin.ModelAdmin):
 
 @admin.register(Prices)
 class PricesAdmin(admin.ModelAdmin):
-    list_display = ['pricing_type', 'price']
-    list_filter = ['pricing_type']
+    list_display = ('actual_self_arrange', 'actual_standard', 'actual_premium')
 
 
 @admin.register(AdditionalServices)

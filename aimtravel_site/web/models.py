@@ -378,32 +378,71 @@ class Prices(models.Model):
         verbose_name = 'Цена'
         verbose_name_plural = 'Цени'
 
-    PRICING_TYPE = Choices('Self Arranged', 'Full Placement Standard', 'Premium Full Placement', )
-    DEFAULT_PRICING_TYPE = 'Full Placement Standard'
-    MAX_NAME = 25
-
-    pricing_type = models.CharField(
-        verbose_name='Ценови план:',
-        max_length=MAX_NAME,
-        default=DEFAULT_PRICING_TYPE,
-        choices=PRICING_TYPE,
+    actual_self_arrange = models.FloatField(
+        verbose_name='Актуална цена за Self Arranged:',
+        blank=True,
+        null=True,
+    )
+    discounted_self_arrange = models.FloatField(
+        verbose_name='Цена преди отстъпката за Self Arranged:',
         blank=True,
         null=True,
     )
 
-    price = models.FloatField(
-        verbose_name='Цена:',
-    )
-
-    price_description = models.TextField(
-        verbose_name='В цената е включено:',
+    actual_standard = models.FloatField(
+        verbose_name='Актуална цена за Full Standard:',
         blank=True,
         null=True,
-        help_text="Моля добавете описание",
+    )
+    discounted_standard = models.FloatField(
+        verbose_name='Цена преди отстъпката за Full Standard:',
+        blank=True,
+        null=True,
+    )
+
+    actual_premium = models.FloatField(
+        verbose_name='Актуална цена за Full Premium:',
+        blank=True,
+        null=True,
+    )
+    discounted_premium = models.FloatField(
+        verbose_name='Цена преди отстъпката за Full Premium:',
+        blank=True,
+        null=True,
+    )
+
+    sevis = models.FloatField(
+        verbose_name='Такса Sevis:',
+        blank=True,
+        null=True,
+    )
+
+    visa_interview = models.FloatField(
+        verbose_name='Такса визово интервю:',
+        blank=True,
+        null=True,
+    )
+
+    plane_ticket_lowest = models.FloatField(
+        verbose_name='Самолетен билет - най-ниска цена:',
+        blank=True,
+        null=True,
+    )
+
+    plane_ticket_highest = models.FloatField(
+        verbose_name='Самолетен билет - най-висока цена:',
+        blank=True,
+        null=True,
+    )
+
+    sign_up_fees = models.FloatField(
+        verbose_name='Такса при записване:',
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
-        return f"{self.pricing_type}: $ {self.price:.2f}"
+        return f"Ценови план"
 
 
 class AdditionalServices(models.Model):
