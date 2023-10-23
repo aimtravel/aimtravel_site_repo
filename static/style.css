@@ -1617,6 +1617,7 @@ main .main-flag2 {
     #cta-subtext {
         width: 80%;
         font-size: 13px;
+        margin-bottom: 15px;
     }
 
 }
