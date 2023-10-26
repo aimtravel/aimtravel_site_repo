@@ -385,16 +385,19 @@ body .usa-flag {
     width: 100%;
     align-items: center;
     position: relative;
+    transition: 0.5s ease-in-out;
 }
 
 @media screen and (max-width: 800px) {
     #navbar-responsive {
         display: flex;
+        transition: 0.5s ease-in-out;
 
     }
 
     #navbar-normal {
         display: none;
+        transition: 0.5s ease-in-out;
     }
 
 }
@@ -751,30 +754,12 @@ nav a:hover {
     justify-content: center;
 }
 
-.normal-slider {
-    display: flex;
-}
-
-.resp-slider {
-    display: none;
-    flex-direction: row;
-}
-
-@media screen and (max-width: 800px) {
-    .normal-slider {
-        display: none;
-    }
-
-    .resp-slider {
-        display: flex;
-    }
-}
 
 
 .slider {
     width: var(--max-width);
     /*height: 100%;*/
-
+    display: flex;
     flex-direction: row;
 
     align-items: center;
@@ -821,16 +806,16 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     #slider .btn {
         width: 28px;
-        /*height: auto;*/
-        padding: 6px;
+        height: 28px;
+        padding: 2px;
     }
 
-    #slider #prev-button svg {
+    #slider #prev-button-resp svg {
         width: 16px;
         height: 16px;
     }
 
-    #slider #next-button svg {
+    #slider #next-button-resp svg {
         width: 16px;
         height: 16px;
     }
@@ -950,6 +935,14 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     .slider-btn {
         height: auto;
+        align-self: center
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #cta-container .slider-btn {
+        height: auto;
+        align-self: flex-start;
     }
 }
 
@@ -1357,6 +1350,7 @@ main .main-flag2 {
 
     #about-text p {
         font-size: 13px;
+        text-align: justify;
     }
 }
 
@@ -2550,7 +2544,7 @@ main .main-flag2 {
     #news {
         gap: 0;
         padding-left: 32px;
-
+        justify-content: center;
     }
 
     #last-news {
@@ -2690,6 +2684,7 @@ main .main-flag2 {
     #last-4-news {
         width: 90%;
         gap: 8px;
+        align-items: center;
     }
 }
 
@@ -2854,6 +2849,7 @@ main .main-flag2 {
         width: 90%;
         font-size: 13px;
         letter-spacing: 0.2px;
+        text-align: justify;
     }
 }
 
@@ -3082,6 +3078,7 @@ main .main-flag2 {
         font-size: 13px;
         letter-spacing: 0.3px;
         margin: 0;
+        text-align: justify;
     }
 
     .story-text a {

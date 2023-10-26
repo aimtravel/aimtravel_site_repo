@@ -384,7 +384,7 @@ class Prices(models.Model):
         null=True,
     )
     discounted_self_arrange = models.FloatField(
-        verbose_name='Цена преди отстъпката за Self Arranged:',
+        verbose_name='Промо цена за Self Arranged(задраскана):',
         blank=True,
         null=True,
     )
@@ -395,7 +395,7 @@ class Prices(models.Model):
         null=True,
     )
     discounted_standard = models.FloatField(
-        verbose_name='Цена преди отстъпката за Full Standard:',
+        verbose_name='Промо цена за Full Standard(задраскана):',
         blank=True,
         null=True,
     )
@@ -406,7 +406,7 @@ class Prices(models.Model):
         null=True,
     )
     discounted_premium = models.FloatField(
-        verbose_name='Цена преди отстъпката за Full Premium:',
+        verbose_name='Промо цена за Full Premium(задраскана):',
         blank=True,
         null=True,
     )
