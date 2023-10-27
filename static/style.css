@@ -3511,10 +3511,16 @@ footer a:hover {
         padding: 0 0 10px 30px;
     }
 
-    #footer-responsive #footer-contacts p {
+    #footer-responsive #footer-contacts {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #footer-responsive #footer-contacts p, #footer-responsive #footer-contacts a {
         padding: 0;
         margin: 0;
         font-size: var(--font-17);
+        color: white;
     }
 
     #footer-responsive .nav-container {
