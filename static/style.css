@@ -755,7 +755,6 @@ nav a:hover {
 }
 
 
-
 .slider {
     width: var(--max-width);
     /*height: 100%;*/
@@ -2509,7 +2508,8 @@ main .main-flag2 {
     }
 
     #heading-news {
-        font-size: 18px;    }
+        font-size: 18px;
+    }
 
 }
 
@@ -5557,7 +5557,7 @@ footer a:hover {
 
     #wat-usa-header #text-container {
         position: absolute;
-        top: -35px;
+        top: -10px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -5634,15 +5634,15 @@ footer a:hover {
     #wat-usa-page-flag1 {
         position: absolute;
         right: 8%;
-        top: 230px;
+        top: 185px;
     }
 
     #general-section {
-        margin-bottom: calc(70px * 0.5);
+        margin: 20px 0;
     }
 
     .general-section-container {
-        padding: 0 40px;
+        padding: 0 18px;
         gap: 15px;
         font-size: calc(var(--font-24) * 0.5);
         line-height: calc(30px * 0.5); /* 166.667% */
@@ -5650,11 +5650,18 @@ footer a:hover {
     }
 
     .general-section-text-container {
-        width: calc(517px * 0.5);
-        padding: 8px 12px;
+        width: 100%;
+        padding: 0;
         flex-direction: column;
         align-items: flex-start;
         gap: 20px;
+    }
+
+    .general-section-text-container p {
+        font-weight: 400;
+        font-size: 12px;
+        margin: 10px 20px;
+        text-align: justify;
     }
 }
 
@@ -5761,12 +5768,14 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #requirements-section {
-        margin-bottom: 40px;
+        margin-bottom: 60px;
+        margin-top: 20px;
     }
 
     #requirements-section-header {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         margin-bottom: 20px;
+        text-align: center;
     }
 
     #requirements-section-information {
@@ -5778,12 +5787,16 @@ footer a:hover {
     }
 
     .requirements-section-information-container {
-        width: calc(370px * 0.7);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .information-container {
-        font-size: calc(var(--font-24) * 0.6);
+        font-size: 14px;
         letter-spacing: 0.72px;
+        width: 90%;
     }
 
     .icon-container {
@@ -5812,7 +5825,7 @@ footer a:hover {
     }
 
     .information-container p {
-        font-size: calc(var(--font-20) * 0.6);
+        font-size: 11px;
     }
 }
 
@@ -5873,7 +5886,7 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #price-section {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
     }
 
     #price-section-inner-container {
@@ -5964,6 +5977,7 @@ footer a:hover {
     text-decoration: line-through;
 }
 
+
 .price-container-text p {
     width: calc(460px * 0.75);
     margin: 0;
@@ -6000,15 +6014,17 @@ footer a:hover {
     #pricing-container {
         flex-direction: column;
         gap: 25px;
+        width: 100%;
+        align-items: center;
     }
 
     .price-container {
-        width: 250px;
+        width: 90%;
         border: 1px solid var(--gray-color);
     }
 
     .price-container-header {
-        font-size: calc(var(--font-32) * 0.5);
+        font-size: 14px;
     }
 
     .price-container-header p {
@@ -6020,20 +6036,20 @@ footer a:hover {
     }
 
     .price-container-text h2 {
-        font-size: calc(var(--font-32) * 0.5);
+        font-size: 14px;
     }
 
     .price-container-text h3 {
-        font-size: calc(var(--font-28) * 0.5);
+        font-size: 12px;
     }
 
     .price-container-text p {
         width: 82%;
-        font-size: calc(var(--font-22) * 0.5);
+        font-size: 12px;
     }
 
     .option-list li {
-        font-size: calc(var(--font-20) * 0.6);
+        font-size: 11px;
     }
 }
 
@@ -6129,7 +6145,7 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #pricing-sub-header {
-        font-size: calc(var(--font-28) * 0.5);
+        font-size: 16px;
         line-height: 20px;
     }
 
@@ -6147,16 +6163,16 @@ footer a:hover {
     }
 
     .price {
-        font-size: calc(var(--font-28) * 0.6);
+        font-size: 14px;
         line-height: 20px;
     }
 
     .description {
-        font-size: calc(var(--font-20) * 0.7);
+        font-size: 11px;
     }
 
     #pricing-button {
-        margin-bottom: 10px;
+        margin: 14px 0 10px 0;
     }
 }
 
@@ -6233,7 +6249,8 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #financial-option-section {
         width: 100%;
-        margin-bottom: 50px;
+        margin-bottom: 0;
+        padding: 38px 0;
     }
 
     #financial-inner-container {
@@ -6243,6 +6260,7 @@ footer a:hover {
     }
 
     #text-information {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -6250,7 +6268,7 @@ footer a:hover {
     }
 
     #text-information h1 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         letter-spacing: 0.8px;
         margin: 0 0 20px 0;
         /*text-align: center;*/
@@ -6258,15 +6276,16 @@ footer a:hover {
     }
 
     #text-information ul {
-        width: 68%;
-        padding: 20px;
+        width: 80%;
+        padding: 20px 20px 0 20px;
         /*margin-left: 40px;*/
         gap: 25px;
         background: rgba(255, 255, 255, 0.5);
+        text-align: justify;
     }
 
     #text-information li {
-        font-size: calc(var(--font-24) * 0.55);
+        font-size: 12px;
     }
 
     #text-information li span {
@@ -6449,9 +6468,10 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #how-to-section {
         width: 100%;
-        height: 1052px;
+        height: auto;
         margin-bottom: 40px;
-        padding-top: 20px;
+        padding-top: 40px;
+        border-radius: 0 0 50% 50% / 0 0 5% 5%;
     }
 
     #how-to-inner-container {
@@ -6467,15 +6487,16 @@ footer a:hover {
     }
 
     #how-to-sect1 h1 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         letter-spacing: 0.8px;
         text-align: center;
     }
 
     #how-to-sect1 p {
         width: 100%;
-        font-size: calc(var(--font-24) * 0.5);
-        text-align: center;
+        font-size: 12px;
+        text-align: justify;
+
     }
 
     #how-to-sect2 {
@@ -6488,7 +6509,7 @@ footer a:hover {
 
     .how-to-sect-header {
         text-align: center;
-        font-size: calc(var(--font-24) * 0.7);
+        font-size: 14px;
     }
 
     .how-to-sect-content {
@@ -6521,7 +6542,7 @@ footer a:hover {
 
     .how-to-element p {
         color: #F1F1F1;
-        font-size: calc(var(--font-20) * 0.7);
+        font-size: 12px;
         font-weight: 400;
         line-height: normal;
     }
@@ -6555,13 +6576,14 @@ footer a:hover {
     }
 
     .how-to-element li {
-        font-size: calc(var(--font-22) * 0.6);
+        font-size: 11px;
         margin-bottom: 5px;
         width: 270px;
     }
 
     #how-to-section #story-button {
-        margin-top: 170px;
+        margin-top: 180px;
+        margin-bottom: 20px;
     }
 
     .needed-docs-normal {
@@ -6679,7 +6701,7 @@ footer a:hover {
     }
 
     #faq-header {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         margin-bottom: calc(60px * 0.5);
     }
 
@@ -6692,7 +6714,7 @@ footer a:hover {
     .faq-content {
         gap: calc(35px * 0.3);
         width: 100%;
-        font-size: calc(var(--font-24) * 0.5);
+        font-size: 12px;
     }
 
     .faq-content p {
