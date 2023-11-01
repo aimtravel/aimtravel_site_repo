@@ -1799,6 +1799,7 @@ main .main-flag2 {
     box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.10);
 
     background-color: white;
+    position: relative;
 }
 
 /*@media screen and (max-width: 800px) {*/
@@ -1999,6 +2000,41 @@ main .main-flag2 {
         margin-bottom: 60px;
 
     }
+}
+
+.sold-out {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    border: 1px solid white;
+    background-color: #00355E;
+    position: absolute;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+    left: -15px;
+    top: -15px;
+}
+
+.sold-out p {
+    color: #FFF;
+
+    text-align: center;
+    leading-trim: both;
+
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 114.286% */
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+
+.grayed-out {
+    background-color: #ababab;
 }
 
 /* Video Section*/
@@ -6596,6 +6632,7 @@ footer a:hover {
     .needed-docs-resp {
         display: flex;
     }
+
     #how-to-sect3 {
         width: 100%;
     }

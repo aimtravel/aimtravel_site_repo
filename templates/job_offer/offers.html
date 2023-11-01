@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIM Travel - Offers</title>
-    <meta name="description" content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
-    <meta name="keywords" content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
+    <meta name="description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta name="keywords"
+          content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
     <meta name="cta-action" content="Sign Up Now for an Adventure">
 
-    <meta property="og:title" content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
-    <meta property="og:description" content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta property="og:title"
+          content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
+    <meta property="og:description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
     <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
     <meta property="og:url" content="https://www.aimtravel.bg">
 
@@ -318,6 +322,7 @@
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                     <a href="{% url 'offers' %}?page=
+
                             {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
@@ -346,6 +351,11 @@
                     <div class="row">
                         {% for offer in page_obj %}
                             <div class="offer-slide">
+                            {% if offer.sold_out_offer == "True" %}
+                                <div class="sold-out">
+                                    <p>SOLD OUT</p>
+                                </div>
+                            {% endif %}
                                 <div class="offer-pic">
                                     <div class="curve-line">
                                         {% if offer.offer_pic %}
@@ -407,6 +417,7 @@
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                     <a href="{% url 'offers' %}?page=
+
                             {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
@@ -506,12 +517,12 @@
 
 {% include 'footer.html' %}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_filtering.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_dropdown.js"></script>
-{#<script type="text/javascript" src="../../static/javascript/js_slider.js"></script>#}
-<script type="text/javascript" src="../../static/javascript/js_navbar.js"></script>
-<script type="text/javascript" src="../../static/javascript/js_video.js"></script>
-<script type="text/javascript" src="../../static/javascript/dynamic_refresh.js"></script>
+<script type="text/javascript" src="{% static 'javascript/js_filtering.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_offers_stat.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/dynamic_refresh.js' %}"></script>
 </body>
 
 </html>
