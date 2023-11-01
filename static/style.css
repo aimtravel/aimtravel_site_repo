@@ -3230,6 +3230,10 @@ main .main-flag2 {
         height: calc(100px * 0.7);
 
     }
+
+    .online-service-section #service-container .row .service {
+        display: flex;
+    }
 }
 
 .service .service-header h1 {
