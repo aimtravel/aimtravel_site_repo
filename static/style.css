@@ -2034,7 +2034,7 @@ main .main-flag2 {
 }
 
 .grayed-out {
-    background-color: #ababab;
+    opacity: 60%;
 }
 
 /* Video Section*/

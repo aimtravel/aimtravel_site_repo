@@ -391,44 +391,53 @@
         <div class="offer-slides">
             {% if offer_list %}
                 <div class="row">
-                    {% for offer in offer_list %}
+                {% for offer in offer_list %}
 
-                        <div class="offer-slide">
-                            {% if offer.sold_out_offer == "True" %}
-                                <div class="sold-out">
-                                    <p>SOLD OUT</p>
-                                </div>
-                            {% endif %}
-                            <div class="offer-pic">
-                                <div class="curve-line">
-                                    {% if offer.offer_pic %}
-                                        <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
-                                    <div class="white-border"></div>
-                                </div>
-                                <div class="offer-btn slider-btn">
-                                    <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
-                                </div>
-                            </div>
-                            <div class="offer-text-container">
-                                <h3 class="offer-header">{{ offer.job_position }}</h3>
-                                <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
-                                <p class="offer-type">Premium Offer</p>
-                                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
-                                    {% if offer.tips == 'Да' %} + Tips
-                                    {% endif %}</p>
-                            </div>
+                    <div class="offer-slide">
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="sold-out">
+                            <p>SOLD OUT</p>
                         </div>
+                    {% endif %}
 
-                    {% endfor %}
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="offer-pic grayed-out">
+                    {% else %}
+                        <div class="offer-pic">
+                    {% endif %}
+                <div class="curve-line">
+                    {% if offer.offer_pic %}
+                        <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
+                    <div class="white-border"></div>
                 </div>
+                <div class="offer-btn slider-btn">
+                    <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
+                </div>
+                </div>
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="offer-text-container grayed-out">
+                    {% else %}
+                        <div class="offer-text-container">
+                    {% endif %}
+                <h3 class="offer-header">{{ offer.job_position }}</h3>
+                <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
+                <p class="offer-type">Premium Offer</p>
+                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                    {% if offer.tips == 'Да' %} + Tips
+                    {% endif %}</p>
+                </div>
+                </div>
+
+                {% endfor %}
+            </div>
 
             {% endif %}
 
-        </div>
+            </div>
 
-        <div class="slider-btn" id="offers-more-btn">
-            <a href="{% url 'offers' %}">ОЩЕ РАБОТНИ ОФЕРТИ</a>
-        </div>
+            <div class="slider-btn" id="offers-more-btn">
+                <a href="{% url 'offers' %}">ОЩЕ РАБОТНИ ОФЕРТИ</a>
+            </div>
     </section>
     <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
     <section id="video-section">
@@ -916,7 +925,6 @@
 <script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_dynamic_refresh_index.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_offers_stat.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_service_resp.js' %}"></script>

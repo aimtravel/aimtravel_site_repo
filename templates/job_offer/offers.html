@@ -323,6 +323,8 @@
                 {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                     <a href="{% url 'offers' %}?page=
 
+
+
                             {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
@@ -349,97 +351,107 @@
             <div class="offer-slides">
                 {% if page_obj %}
                     <div class="row">
-                        {% for offer in page_obj %}
-                            <div class="offer-slide">
-                            {% if offer.sold_out_offer == "True" %}
-                                <div class="sold-out">
-                                    <p>SOLD OUT</p>
-                                </div>
-                            {% endif %}
-                                <div class="offer-pic">
-                                    <div class="curve-line">
-                                        {% if offer.offer_pic %}
-                                            <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
-                                        <div class="white-border"></div>
-                                    </div>
-                                    <div class="offer-btn slider-btn">
-                                        <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
-                                    </div>
-                                </div>
-                                <div class="offer-text-container">
-                                    <h3 class="offer-header">{{ offer.job_position }}</h3>
-                                    <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
-                                    <p class="offer-type">Premium Offer</p>
-                                    <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
-                                        {% if offer.tips == 'Да' %} +
-                                            Tips {% endif %}</p>
-                                </div>
+                    {% for offer in page_obj %}
+                        <div class="offer-slide">
+                        {% if offer.sold_out_offer == "True" %}
+                            <div class="sold-out">
+                                <p>SOLD OUT</p>
                             </div>
+                        {% endif %}
+                        {% if offer.sold_out_offer == "True" %}
+                            <div class="offer-pic grayed-out">
+                        {% else %}
+                            <div class="offer-pic">
+                        {% endif %}
+                    <div class="curve-line">
+                        {% if offer.offer_pic %}
+                            <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
+                        <div class="white-border"></div>
+                    </div>
+                    <div class="offer-btn slider-btn">
+                        <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
+                    </div>
+                    </div>
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="offer-text-container grayed-out">
+                    {% else %}
+                        <div class="offer-text-container">
+                    {% endif %}
+                    <h3 class="offer-header">{{ offer.job_position }}</h3>
+                    <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
+                    <p class="offer-type">Premium Offer</p>
+                    <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                        {% if offer.tips == 'Да' %} +
+                            Tips {% endif %}</p>
+                    </div>
+                    </div>
 
-                            {% if forloop.counter|divisibleby:4 and not forloop.last %}
-                                </div>
-                                {% if not forloop.last %}
-                                    <div class="row">
-
-                                {% endif %}
-
-                            {% endif %}
-                        {% endfor %}
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
                         </div>
+                        {% if not forloop.last %}
+                            <div class="row">
+
+                        {% endif %}
+
+                    {% endif %}
+                    {% endfor %}
+                </div>
                 {% else %}
                     Няма намерени оферти.
                 {% endif %}
 
-            </div>
-        </div>
+                </div>
+                </div>
 
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </a>
-            {% else %}
-                <p><?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M15 6l-6 6 6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </p>
-            {% endif %}
+                <div class="pagination">
+                    {% if page_obj.has_previous %}
+                        <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-                {% if num == page_obj.number %}
-                    <span class="current-page">{{ num }}</span>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a href="{% url 'offers' %}?page=
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if num == page_obj.number %}
+                            <span class="current-page">{{ num }}</span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a href="{% url 'offers' %}?page=
 
-                            {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
 
-            {% if page_obj.has_next %}
-                <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </a>
-            {% else %}
-                <p><?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                         xmlns="http://www.w3.org/2000/svg" color="#000000">
-                        <path d="M9 6l6 6-6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                    </svg>
-                </p>
-            {% endif %}
-        </div>
+
+                                    {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </a>
+                    {% else %}
+                        <p><?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#757575" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </p>
+                    {% endif %}
+                </div>
     </section>
     <section id="pricing-section">
         <div id="pricing-text">
@@ -519,7 +531,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{% static 'javascript/js_filtering.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_offers_stat.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/dynamic_refresh.js' %}"></script>
