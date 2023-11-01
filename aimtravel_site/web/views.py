@@ -199,7 +199,7 @@ class JobOfferListView(views.ListView):
         housing = sorted(housing)
 
         filtered_offers = JobOffer.objects.all()
-        filtered_offers = filtered_offers.order_by('-ranking', '-wage')
+        filtered_offers = filtered_offers.order_by('-new_offer', '-ranking', '-wage')
 
         # Check if the filter parameters are present in the request's GET parameters
         if 'state' in request.GET:
