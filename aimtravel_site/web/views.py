@@ -38,7 +38,7 @@ class CombinedView(views.ListView):
 
     def get(self, request):
         page_number = self.request.GET.get('page')
-        offer_queryset = JobOffer.objects.order_by('-ranking', '-wage')
+        offer_queryset = JobOffer.objects.order_by('sold_out_offer', '-new_offer', '-ranking', '-wage')
         offer_paginator = Paginator(offer_queryset, self.paginate_by)
         offer_page = offer_paginator.get_page(page_number)
 
@@ -199,7 +199,7 @@ class JobOfferListView(views.ListView):
         housing = sorted(housing)
 
         filtered_offers = JobOffer.objects.all()
-        filtered_offers = filtered_offers.order_by('-new_offer', '-ranking', '-wage')
+        filtered_offers = filtered_offers.order_by('sold_out_offer', '-new_offer', '-ranking', '-wage')
 
         # Check if the filter parameters are present in the request's GET parameters
         if 'state' in request.GET:

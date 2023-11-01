@@ -399,6 +399,11 @@
                             <p>SOLD OUT</p>
                         </div>
                     {% endif %}
+                    {% if offer.new_offer == "True" %}
+                        <div class="new-offer">
+                            <p>NEW</p>
+                        </div>
+                    {% endif %}
 
                     {% if offer.sold_out_offer == "True" %}
                         <div class="offer-pic grayed-out">

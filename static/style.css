@@ -2033,6 +2033,35 @@ main .main-flag2 {
     text-transform: uppercase;
 }
 
+.new-offer {
+    display: flex;
+    width: 51px;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid white;
+    background-color: #00355E;
+    position: absolute;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+    left: 25px;
+    top: 25px;
+}
+
+.new-offer p {
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 114.286% */
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+
 .grayed-out {
     opacity: 60%;
 }
