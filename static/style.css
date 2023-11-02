@@ -6862,7 +6862,7 @@ footer a:hover {
     }
 
     #online-header #text-container {
-        margin-top: 70px;
+        margin-top: 20px;
     }
 
     #offers-video {
@@ -6960,34 +6960,40 @@ footer a:hover {
     }
 
     #online-general-section .general-section-container {
+        width: 90%;
         display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 0 40px 20px 40px;
+        flex-direction: column;
+        align-items: stretch;
         overflow: hidden;
+        gap: 0;
     }
 
     #online-general-section .general-section-text-container {
-        width: calc(507px * 0.35);
+        width: 100%;
+        margin-bottom: 0;
     }
 
     #online-general-section .general-section-container h3 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         letter-spacing: 0.2px;
-        width: 280px;
+        align-self: center;
     }
 
     #online-general-section .general-section-container p {
-        font-size: calc(var(--font-20) * 0.5);
-        letter-spacing: 0.3px;
+        font-size: 12px;
+        letter-spacing: 0.4px;
+    }
+
+    .general-section-image-container {
+        display: flex;
+        justify-content: center;
     }
 
     .general-section-image-container img {
-        position: absolute;
-        top: 38px;
-        left: 190px;
-        width: calc(430px * 0.43);
-        height: calc(430px * 0.43);
+        position: relative;
+        display: flex;
+        width: 250px;
+        height: 250px;
     }
 }
 
@@ -7038,8 +7044,13 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
+    #online-price-section {
+        padding: 0;
+    }
+
     #online-price-section #price-section-inner-container {
-        width: 100%;
+        width: 90%;
+        margin-top: 10px;
     }
 
     #price-section-header {
@@ -7047,23 +7058,24 @@ footer a:hover {
     }
 
     #price-section-header h2 {
-        line-height: calc(52.5px * 0.5);
-        font-size: calc(var(--font-42) * 0.5);
+        line-height: 26px;
+        font-size: 18px;
     }
 
     #price-section-header p {
-        line-height: calc(33px * 0.5);
-        font-size: calc(var(--font-28) * 0.5);
+        line-height: 16px;
+        font-size: 12px;
     }
 
     #online-price-section #pricing-container {
         gap: calc(60px * 0.75);
-        margin-bottom: 33px;
+        margin-bottom: 50px;
         flex-direction: column;
+        width: 100%;
     }
 
     #online-price-section .price-container {
-        width: 250px;
+        width: 90%;
     }
 
     #online-price-section .price-container-text {
@@ -7074,12 +7086,12 @@ footer a:hover {
     #online-price-section .price-container-text p {
         width: 200px;
         padding: 5px 0;
-        font-size: calc(var(--font-22) * 0.7);
+        font-size: 12px;
         letter-spacing: 0.33px;
     }
 
     #online-price-section .option-list p {
-        font-size: calc(var(--font-20) * 0.5);
+        font-size: 11px;
         letter-spacing: 0.3px;
         padding: 0 16px 16px 16px;
     }
@@ -7123,8 +7135,12 @@ footer a:hover {
         padding: 40px 0 0 0;
     }
 
+    #service-section.online-service-section {
+        margin: 0;
+    }
+
     #service-container-header p {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         letter-spacing: 0.63px;
         margin: 0 0 25px 0;
     }
@@ -7183,47 +7199,51 @@ footer a:hover {
     #online-free {
         width: 100%;
         margin: 40px 0;
+        padding: 0;
         position: relative;
+        display: flex;
+        justify-content: center;
     }
 
     #online-free .general-section-container {
-        width: 70%;
+        width: 85%;
         flex-direction: column;
-        padding: 0 40px;
+        padding: 0;
     }
 
     #online-free .general-section-text-container {
-        width: 250px;
+        width: 100%;
         height: auto;
-        gap: calc(15px * 0.5);
+        gap: 10px;
     }
 
     #online-free .general-section-text-container h3 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
     }
 
     #online-free .general-section-text-container p {
-        font-size: calc(var(--font-24) * 0.5);
+        font-size: 13px;
     }
 
     #online-free .general-section-image-container {
-        width: 180px;
-        height: 182px;
+        display: none;
+        width: 200px;
+        height: 200px;
         position: absolute;
         top: 60px;
-        left: 170px;
+        left: 155px;
         z-index: -1;
         opacity: 0.3;
     }
 
     #online-free .general-section-image-container #offer-picture {
-        width: 180px;
-        height: 182px;
+        width: 200px;
+        height: 200px;
     }
 
     #online-free .general-section-image-container .white-border {
         width: 168px;
-        height: 170px;
+        height: 171px;
         top: 5px;
         left: 5px;
     }
@@ -7295,27 +7315,33 @@ footer a:hover {
     #online-register {
         width: 100%;
         position: relative;
+        margin: 40px 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
     }
 
     #online-register .general-section-container {
-        padding: 0 40px;
+        padding: 0;
+        width: 85%;
     }
 
     #online-register .general-section-text-container {
-        width: 250px;
+        width: 100%;
         height: auto;
         gap: calc(15px * 0.5);
     }
 
     #online-register .general-section-text-container h3 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
     }
 
     #online-register .general-section-text-container p {
-        font-size: calc(var(--font-24) * 0.5);
+        font-size: 13px;
     }
 
     #online-register .general-section-image-container {
+        display: none;
         position: absolute;
         z-index: -1;
         opacity: 0.26;
@@ -7383,23 +7409,25 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #online-cta-section {
-        height: calc(530px * 0.43);
-        margin-top: 40px;
+        height: auto;
+        margin-top: 20px;
+        margin-bottom: 30px;
     }
 
     #online-cta-section #cta-container {
-        top: 30px;
+        top: 0;
+        padding: 0;
     }
 
     #online-cta-section h1 {
         width: calc(538.5px * 0.5);
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         margin: 0 0 12px 0;
     }
 
     #online-cta-section p {
         width: calc(538.5px * 0.5);
-        font-size: calc(var(--font-24) * 0.5);
+        font-size: 13px;
     }
 
     #online-cta-section .slider-btn {
@@ -7507,16 +7535,22 @@ footer a:hover {
 
 @media screen and (max-width: 800px) {
     #useful-links {
-        margin: 0 40px 30px 40px;
+        width: 100%;
+        margin: 0 0 30px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
 
     #heading-useful-links h1 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
         letter-spacing: 0.63px;
         margin: 25px 0 25px 0;
     }
 
     #useful-links-container {
+        width: 85%;
         justify-content: flex-start;
         gap: 15px;
     }
@@ -7528,7 +7562,7 @@ footer a:hover {
     }
 
     .useful-links-text-container a {
-        font-size: calc(var(--font-28) * 0.5);
+        font-size: 13px;
         padding: 0;
     }
 
@@ -7536,10 +7570,10 @@ footer a:hover {
         width: 150px;
         height: 150px;
         position: absolute;
-        left: 150px;
+        left: 170px;
         bottom: 20px;
         z-index: -1;
-        opacity: 0.2;
+        opacity: 0.3;
     }
 
     #useful-links-picture {
@@ -7551,20 +7585,20 @@ footer a:hover {
     }
 
     #useful-links-picture img {
-        width: 150px;
-        height: 150px;
-        top: 0;
-        left: 0;
+        width: 160px;
+        height: 160px;
+        top: -20px;
+        left: 20px;
         border-radius: 20px;
         background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0.00) 100%), lightgray 50% / cover no-repeat;
     }
 
     #useful-links-picture .white-border {
         position: absolute;
-        bottom: 6px;
-        left: 6px;
-        width: 140px;
-        height: 140px;
+        bottom: 14px;
+        left: 24px;
+        width: 150px;
+        height: 150px;
         border-radius: 20px;
         border: 1px solid white;
     }
