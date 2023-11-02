@@ -739,6 +739,7 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     .background {
         width: 100%;
+        top: 46px;
         height: calc(var(--main-slider-background-height) * 0.51);
     }
 }
@@ -933,7 +934,6 @@ nav a:hover {
 
 @media screen and (max-width: 800px) {
     .slider-btn {
-        height: auto;
         align-self: center
     }
 }
@@ -1742,7 +1742,7 @@ main .main-flag2 {
 
 @media screen and (max-width: 800px) {
     #offers-section .offers-container {
-        padding: 0 32px;
+        padding: 0;
     }
 }
 
@@ -1785,9 +1785,14 @@ main .main-flag2 {
         justify-content: center;
     }
 
+    #offers-section .offer-slides {
+        gap: 25px;
+    }
+
     #offers-section .offer-slides .row {
         gap: 25px;
         justify-content: center;
+        align-items: center;
     }
 }
 
@@ -2892,7 +2897,7 @@ main .main-flag2 {
 
 @media screen and (max-width: 800px) {
     #pricing-section {
-        padding: 15px 0 5px 0;
+        padding: 15px 0;
     }
 
     #pricing-text {
@@ -3675,7 +3680,7 @@ footer a:hover {
     .offers-background {
         height: 230px;
         left: 0;
-        top: 40px;
+        top: 46px;
     }
 }
 
@@ -3732,6 +3737,7 @@ footer a:hover {
     }
 
     #text-container p {
+        display: none;
         bottom: 20px;
         width: 280px;
         font-size: calc(var(--font-24) * 0.5);
@@ -3925,7 +3931,7 @@ footer a:hover {
         align-items: flex-start;
         justify-content: center;
         gap: 10px;
-        margin: 0 0 0 20px;
+        margin: 0;
     }
 
     .text-area {
@@ -3934,14 +3940,16 @@ footer a:hover {
     }
 
     .text-area h1 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 17px;
         margin: 12px 0;
 
     }
 
     .text-area p {
-        font-size: calc(var(--font-20) * 0.7);
+        width: 90%;
+        font-size: 12px;
         letter-spacing: 0.4px;
+        text-align: justify;
     }
 }
 
@@ -3997,8 +4005,10 @@ footer a:hover {
     }
 
     .filter-button {
-        font-size: calc(var(--font-20) * 0.6);
+        font-size: 13px;
     }
+
+    #apply-filter.slider-btn
 }
 
 #offers-page-top-row .filter-row #offer-page-filters {
@@ -4280,8 +4290,8 @@ footer a:hover {
 
     .pagination {
         gap: 15px;
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 15px;
+        margin-bottom: 15px;
     }
 
     .pagination a {
@@ -4435,16 +4445,16 @@ footer a:hover {
     }
 
     #contact-form .text-area h1 {
-        font-size: calc(var(--font-42) * 0.5);
+        font-size: 18px;
     }
 
     #contact-form .text-area p {
-        width: calc(615px * 0.35);
-        font-size: calc(var(--font-25) * 0.5);
+        width: 90%;
+        font-size: 13px;
     }
 
     .query-form {
-        font-size: calc(var(--font-18) * 0.5);
+        font-size: 15px;
     }
 
     .line {
@@ -4452,7 +4462,7 @@ footer a:hover {
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        margin: 5px 0;
+        margin: 15px 0;
     }
 
     .sub-line {
@@ -4466,7 +4476,7 @@ footer a:hover {
     .sub-line label {
         color: #1A1A1A;
         font-family: Jost, sans-serif;
-        font-size: calc(var(--font-24) * 0.7);
+        font-size: 15px;
         font-style: normal;
         font-weight: 500;
         line-height: 20px; /* 166.667% */
@@ -4474,7 +4484,7 @@ footer a:hover {
 
     .sub-line input {
         width: 150px;
-        height: 20px;
+        height: 40px;
     }
 
     .sub-line #message {
@@ -4484,13 +4494,14 @@ footer a:hover {
 
     .query-btn {
         width: calc(122px * 0.6);
-        height: calc(37px * 0.6);
         border-radius: 6px;
     }
 
     .button-part button {
-        font-size: calc(var(--font-15) * 0.7);
-        letter-spacing: 0.55px;
+        width: 110px;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 1.5px;
     }
 
     #message-section {
