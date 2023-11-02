@@ -32,7 +32,7 @@ class CityAdmin(admin.ModelAdmin):
 class JobOfferAdmin(admin.ModelAdmin):
     actions = [duplicate_selected]
     list_display = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
-    list_filter = ['city', 'ranking']
+    list_filter = ['new_offer', 'sold_out_offer', 'city', 'ranking']
     search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
     sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
 
