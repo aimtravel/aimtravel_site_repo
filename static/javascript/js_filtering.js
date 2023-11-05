@@ -1,20 +1,9 @@
 $(document).ready(function () {
     // Handle checkbox change event
     $('input[type="checkbox"]').on('change', function () {
-
-    });
-});
-
-$(document).ready(function () {
-    // Add event listener to Apply Filters button
-    $('#apply-filter').click(function () {
-
-        // Automatically submit the form
         $('#job-offer-filter-form').submit();
-
     });
 });
-
 
 $(document).ready(function scrollBarChecker() {
     var dropdown = document.querySelector(".checkbox-row");
@@ -33,3 +22,17 @@ $(document).ready(function scrollBarChecker() {
     checkScrollbar();
     $(window).on("resize", checkScrollbar);
 });
+
+const filterButton = document.querySelector('#filter-button-icon-container');
+const filterContainer = document.querySelector('#filter-container');
+
+filterButton.addEventListener('click', filterDropdown);
+
+function filterDropdown() {
+    if (filterContainer.style.display === 'none') {
+        filterContainer.style.display = 'flex'
+    } else {
+        filterContainer.style.display = 'none'
+    }
+}
+

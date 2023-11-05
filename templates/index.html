@@ -131,8 +131,10 @@
                         <div id="slider-1" class="slider1">
                             <h4>ПРОМО</h4>
                             <h1>СТУДЕНТСКА БРИГАДА В САЩ</h1>
-                            <p>ПРОМО ОФЕРТА - ВАЖИ ДО 31 ОКТОМВРИ 2023</p>
-                            <p><span style="text-decoration: line-through;">100$</span> ОТСТЪПКА</p>
+                            {% if prices.validity_date_day %}
+                                <p>ПРОМО ОФЕРТА - ВАЖИ ДО {{ prices.validity_date_day }} {{ prices.validity_date_month }} {{ prices.validity_date_year }}</p>
+                                <p><span style="text-decoration: line-through;">100$</span> ОТСТЪПКА</p>
+                            {% endif %}
                             <div class="slider-btn" id="slider-1-button">
                                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
                                    target="_blank">

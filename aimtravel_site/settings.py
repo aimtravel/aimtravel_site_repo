@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_social_share',
     'ckeditor',
+    'aimtravel_site',
 
     'aimtravel_site.web.apps.WebConfig',
     'aimtravel_site.user_auth',

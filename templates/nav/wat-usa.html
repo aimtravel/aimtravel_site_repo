@@ -189,7 +189,9 @@
         <div id="price-section-inner-container" class="inner-container">
             <div id="price-section-header">
                 <h2>Колко струва програмата?</h2>
-                <p>САМО ДО 31 Октомври</p>
+                {% if prices.validity_date_day %}
+                    <p>САМО ДО {{ prices.validity_date_day }} {{ prices.validity_date_month }}</p>
+                {% endif %}
             </div>
             <div id="pricing-container">
                 <div class="price-container">

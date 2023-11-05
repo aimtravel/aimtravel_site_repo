@@ -36,6 +36,9 @@ class CombinedView(views.ListView):
     def get_videos(self):
         return Video.objects.latest('id')
 
+    def get_prices(self):
+        return Prices.objects.latest('id')
+
     def get(self, request):
         page_number = self.request.GET.get('page')
         offer_queryset = JobOffer.objects.order_by('sold_out_offer', '-new_offer', '-ranking', '-wage')
@@ -48,6 +51,7 @@ class CombinedView(views.ListView):
         last_news_item = self.get_last_news()
         main_feedback = self.get_main_feedback()
         video = self.get_videos()
+        prices = self.get_prices()
 
         context = {
             'offer_list': offer_page,
@@ -55,6 +59,7 @@ class CombinedView(views.ListView):
             'very_last_news': last_news_item,
             'main_feedback': main_feedback,
             'video': video,
+            'prices': prices,
         }
 
         return render(request, self.template_name, context)
@@ -165,11 +170,17 @@ class JobOfferListView(views.ListView):
     def get(self, request):
         # Retrieve the selected filter options from the session
         selected_state = request.session.get('selected_state', [])
+        print("Selected State (from session):", selected_state)
         selected_city = request.session.get('selected_city', [])
+        print("Selected City (from session):", selected_city)
         selected_job_position = request.session.get('selected_job_position', [])
+        print("Selected Job (from session):", selected_job_position)
         selected_suitable_for = request.session.get('selected_suitable_for', [])
+        print("Selected Suitable (from session):", selected_suitable_for)
         selected_wage = request.session.get('selected_wage', [])
+        print("Selected wage (from session):", selected_wage)
         selected_housing = request.session.get('selected_housing', [])
+        print("Selected housing (from session):", selected_housing)
 
         # Check if the "clear_filter" parameter is present in the request's GET parameters
         if 'clear_filter' in request.GET:
@@ -250,6 +261,13 @@ class JobOfferListView(views.ListView):
         page_obj = paginator.get_page(page_number)
 
         # formatted_wages = list(map(lambda wage: f"${Decimal(wage):.2f}", wages))
+
+        print("After processing filters, updated Selected State (from session):", selected_state)
+        print("After processing filters, updated Selected City (from session):", selected_city)
+        print("After processing filters, updated Selected Job (from session):", selected_job_position)
+        print("After processing filters, updated Selected Suitable (from session):", selected_suitable_for)
+        print("After processing filters, updated Selected Wage (from session):", selected_wage)
+        print("After processing filters, updated Selected Housing (from session):", selected_housing)
 
         context = {
             'states': states,

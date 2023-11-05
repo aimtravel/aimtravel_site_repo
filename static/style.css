@@ -1094,6 +1094,7 @@ nav a:hover {
     font-weight: 400;
     line-height: normal;
     letter-spacing: 0.78px;
+    text-transform: capitalize;
     padding: 0;
     margin: 0;
 }
@@ -3870,6 +3871,7 @@ footer a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
 }
 
 .text-area {
@@ -3929,7 +3931,7 @@ footer a:hover {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 10px;
         margin: 0;
     }
@@ -3953,6 +3955,16 @@ footer a:hover {
     }
 }
 
+#filter-container {
+    display: flex;
+}
+
+@media screen and (max-width: 800px) {
+    #filter-container {
+        display: none;
+    }
+}
+
 #offers-page-top-row .filter-row {
     display: flex;
     flex-direction: column;
@@ -3962,12 +3974,24 @@ footer a:hover {
 }
 
 #filter-button-container {
+    width: var(--max-width);
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+}
+
+#filter-button-icon-container {
+    display: none;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
+}
 
-    margin: 0;
+#filter-button-icon-container img {
+    width: 40px;
+    height: 40px;
 }
 
 .filter-button {
@@ -3977,16 +4001,16 @@ footer a:hover {
     font-weight: 600;
     letter-spacing: 1px;
     line-height: normal;
-    margin: 0 0 20px 0;
+    margin: 20px 0 5px 0;
     padding: 0;
     cursor: pointer;
 }
 
-#apply-filter p {
-    color: var(--white-color);
-    margin: 0;
-    padding: 0 20px;
-}
+/*.apply-filter p {*/
+/*    color: var(--white-color);*/
+/*    margin: 0;*/
+/*    padding: 0 20px;*/
+/*}*/
 
 #clear-filter a {
     color: var(--red-color);
@@ -3997,7 +4021,34 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
+    #filter-button-container {
+        width: 100%;
+        justify-content: flex-start;
+        margin: 10px 0 0 20px;
+    }
+
+    #filter-button-icon-container {
+        display: flex;
+    }
+
+    .filter-button {
+        font-family: Jost, sans-serif;
+        font-style: normal;
+        font-size: var(--font-20);
+        font-weight: 600;
+        letter-spacing: 1px;
+        line-height: normal;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 800px) {
+
+
     #offers-page-top-row .filter-row {
+        display: flex;
         width: 100%;
         margin-top: 20px;
         margin-bottom: 15px;
@@ -4008,7 +4059,7 @@ footer a:hover {
         font-size: 13px;
     }
 
-    #apply-filter.slider-btn
+    /*.apply-filter.slider-btn*/
 }
 
 #offers-page-top-row .filter-row #offer-page-filters {
@@ -4036,7 +4087,7 @@ footer a:hover {
         align-items: flex-start;
         flex-direction: column;
         gap: 10px;
-        margin-left: 30px;
+        margin-left: 20px;
     }
 
     #offer-page-filters form div.target-element {
@@ -4079,6 +4130,16 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
+    #offer-page-filters .offer-filters {
+        align-items: center;
+
+        box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.08);
+        border: 1px solid #b9bcc0;
+        border-radius: 8px;
+        padding: 2px 10px;
+        background: rgba(160, 160, 160, 0.1);
+    }
+
     .offer-filters .tooltip {
         left: 160px;
         top: -2px;

@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_delete
@@ -329,12 +330,14 @@ class JobOffer(models.Model):
         verbose_name='Нова оферта',
         choices=TRUE_FALSE,
         max_length=5,
+        default=False,
         blank=True,
         null=True,
     )
     sold_out_offer = models.CharField(
         verbose_name='Sold out',
         choices=TRUE_FALSE,
+        default=False,
         max_length=5,
         blank=True,
         null=True,
@@ -343,6 +346,7 @@ class JobOffer(models.Model):
         verbose_name='Последни места',
         choices=TRUE_FALSE,
         max_length=5,
+        default=False,
         blank=True,
         null=True,
     )
@@ -437,6 +441,24 @@ class Prices(models.Model):
 
     sign_up_fees = models.FloatField(
         verbose_name='Такса при записване:',
+        blank=True,
+        null=True,
+    )
+
+    validity_date_day = models.IntegerField(
+        verbose_name='Валидно до - Ден:',
+        blank=True,
+        null=True,
+    )
+    validity_date_month = models.CharField(
+        max_length=15,
+        verbose_name='Валидно до - Месец:',
+        validators=[RegexValidator('^[A-ZА-Я]*$', 'Използвай само главни букви.')],
+        blank=True,
+        null=True,
+    )
+    validity_date_year = models.IntegerField(
+        verbose_name='Валидно до - Година:',
         blank=True,
         null=True,
     )
