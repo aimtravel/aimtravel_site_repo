@@ -7836,15 +7836,65 @@ footer a:hover {
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
+    background: url("img/Ready-stock/AIM_businesscard.jpg");
+    background-size: cover;
+}
 
+#office-container-text {
+    font-family: 'Jost', sans-serif;
+    color: var(--blue-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#office-container-text h4 {
+    margin: 0;
+    padding: 0;
+}
+
+#office-container-text p {
+    margin: 0;
+    padding: 0;
+}
+
+#office-container-text a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: var(--blue-color);
+}
+
+.office-container .hr {
+    width: 230px;
+    border: 1px solid #9D0A0E;
 }
 
 .office-container img {
-    width: 450px;
+    width: 200px;
     border-radius: 8px;
+}
 
+#phone-div, #mail-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#phone-div .vl, #mail-div .vl {
+    display: flex;
+    position: relative;
+}
+
+#phone-div .vl hr, #mail-div .vl hr {
+    border: 1.5px solid #9D0A0E;
+    align-self: center;
+    position: relative;
+    top: 1px;
 }
 
 .red-text {
@@ -7978,8 +8028,47 @@ footer a:hover {
     }
 
     .office-container img {
-        width: 280px;
+        width: 130px;
         border-radius: 8px;
+    }
+
+    #office-container-text {
+        font-family: 'Jost', sans-serif;
+        color: var(--blue-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #office-container-text h4 {
+        margin: 0;
+        padding: 0;
+        font-size: 11px;
+    }
+
+    #office-container-text p {
+        margin: 0;
+        padding: 0;
+        font-size: 11px;
+    }
+
+    #office-container-text a {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        color: var(--blue-color);
+        font-size: 11px;
+    }
+
+    .office-container .hr {
+        width: 160px;
+        border: 1px solid #9D0A0E;
+        margin: 0;
+    }
+
+    #phone-div .vl hr, #mail-div .vl hr {
+        border: 1.5px solid #9D0A0E;
     }
 
     .red-text {
