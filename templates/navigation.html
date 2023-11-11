@@ -10,7 +10,7 @@
                     <path stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                           d="M18.118 14.702 14 15.5c-2.782-1.396-4.5-3-5.5-5.5l.77-4.13L7.815 2H4.064c-1.128 0-2.016.932-1.847 2.047.42 2.783 1.66 7.83 5.283 11.453 3.805 3.805 9.286 5.456 12.302 6.113 1.165.253 2.198-.655 2.198-1.848v-3.584l-3.882-1.479Z"></path>
                 </svg>
-                <a href="tel:0889966583">+359 88 99 66 583</a>
+                <a href="viber://chat/?number=%2B889966583">+359 88 99 66 583</a>
             </div>
             <div class="vl">
                 <hr>
@@ -132,7 +132,8 @@
                 </div>
                 <span class="dropdown-icon"></span>
             </li>
-            <li><a href="{% url 'index' %}"><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt=""></a>
+            <li><a href="{% url 'index' %}"><img id="logo"
+                                                 src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt=""></a>
             </li>
             <li class="dropdown link-a">
                 <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
@@ -180,52 +181,125 @@
         <ul id="" class="header-nav-links-container">
 
             <li>
-                <a href="{% url 'index' %}"><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt=""></a>
+                <a href="{% url 'index' %}"><img id="logo"
+                                                 src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt=""></a>
             </li>
 
         </ul>
         <div class="hamburger-button ">
         </div>
         <ul id="ham-but-content">
-            <li class="dropdown">
-                <a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
-            <li class="dropdown">
-                <a class="target-element link-a" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
-                <div class="tooltip">
+            <li>
+                <div id="home-page" >
+                    <div class="main-element-header">
+                        <a href="{% url 'index' %}">НАЧАЛО</a>
+                    </div>
+                </div>
+
+            </li>
+            <li>
+                <div class="main-element" id="wat-usa" >
+                    <div class="main-element-header">
+                        <p>Бригада САЩ</p>
+                        <div class="arrow-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="arrow-up">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-element">
+                    <a href="{% url 'wat usa' %}">БРИГАДА САЩ</a>
                     <a href="{% url 'wat usa' %}#header-nav">ЗА ПРОГРАМАТА</a>
                     <a href="{% url 'wat usa' %}#anchor-requirements">ИЗИСКВАНИЯ</a>
                     <a href="{% url 'wat usa' %}#price-section">ЦЕНАТА</a>
                     <a href="{% url 'wat usa' %}#anchor-how-to">КАК ДА СЕ ЗАПИШЕШ</a>
                     <a href="{% url 'story' %}">ИСТОРИИ НА СТУДЕНТИ</a>
                 </div>
-                <span class="dropdown-icon"></span>
+
             </li>
-            <li class="dropdown">
-                <a class="target-element link-a" id="online-services" href="{% url 'online' %}">Онлайн услуги</a>
-                <div class="tooltip">
+            <li>
+                <div class="main-element" id="online-services">
+                    <div class="main-element-header">
+                        <p>Онлайн услуги</p>
+                        <div class="arrow-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="arrow-up">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-element">
+                    <a href="{% url 'online' %}">Онлайн услуги</a>
                     <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
                     <a href="{% url 'online' %}#online-register-anchor">Запиши се</a>
                 </div>
-                <span class="dropdown-icon"></span>
+
             </li>
-            <li class="dropdown">
-                <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
-                <div class="tooltip">
+            <li>
+                <div class="main-element" id="other-services">
+                    <div class="main-element-header">
+                        <p>Други услуги</p>
+                        <div class="arrow-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="arrow-up">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
+                                 fill="none">
+                                <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3" stroke-linecap="round"
+                                      stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-element">
+                    <a href="#">Други услуги</a>
                     <a href="#">ДАНЪЦИ ОТ САЩ</a>
                     <a href="#">СТАЖОВЕ В САЩ</a>
                     <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
                     <a href="{% url 'news' %}">НОВИНИ</a>
                 </div>
-                <span class="dropdown-icon"></span>
+
             </li>
-            <li class="dropdown">
-                <a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a>
+            <li>
+                <a id="job-offers" href="{% url 'offers' %}">
+                    <div class="main-element-header">
+                        <p>Работни оферти</p>
+                    </div>
+                </a>
             </li>
-            <li class="dropdown">
-                <a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a>
+            <li>
+                <a id="contacts" href="{% url 'contacts' %}">
+                    <div class="main-element-header">
+                        <p>Контакти</p>
+                    </div>
+                </a>
             </li>
             <li class="nav-button">
-                <div >
+                <div>
                     <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">
                         <script>
                             function gtag_report_conversion(url) {

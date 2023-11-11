@@ -386,6 +386,8 @@ body .usa-flag {
     align-items: center;
     position: relative;
     transition: 0.5s ease-in-out;
+
+
 }
 
 @media screen and (max-width: 800px) {
@@ -435,6 +437,16 @@ body .usa-flag {
 }
 
 @media screen and (max-width: 800px) {
+    #navbar-responsive .header-nav-links-container li {
+        width: 50px;
+        height: 50px;
+        position: fixed;
+        top: 50px;
+        left: 20px;
+        border-radius: 50%;
+        background-color: rgba(0,0,0,0.35);
+    }
+
     .header-nav-links-container {
         justify-content: normal;
         margin: 0 0 0 32px;
@@ -457,19 +469,83 @@ body .usa-flag {
     background-size: 35px 35px;
     margin: 0 32px 0 0;
     padding: 0;
-    position: relative;
+    position: fixed;
+    right: 5px;
+    top: 60px;
     z-index: 2;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.35);
 }
 
 #ham-but-content {
     display: none;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: -20px;
     width: 100%;
+    height:83vh;
     z-index: 1;
-    background: linear-gradient(180deg, rgba(189, 189, 189, 1) 0%, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 1) 85%, rgba(233, 233, 233, 1) 100%);
-    padding: 64px 0 24px 0;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 150px 0 24px 0;
+    overflow-x: hidden;
+    overflow-x: auto;
+}
+
+#ham-but-content li {
+    margin: 25px 0 10px 30px;
+    width: fit-content;
+}
+#ham-but-content li p{
+    margin: 0;
+    padding: 0;
+}
+
+#ham-but-content li a {
+    color: white;
+}
+#ham-but-content li .main-element {
+    display: flex;
+    flex-direction: row;
+}
+
+#ham-but-content li .main-element-header {
+    font-family: 'Jost', sans-serif;
+    color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#ham-but-content li .main-element-header .arrow-down{
+    display: flex;
+
+}
+
+#ham-but-content li .main-element-header .arrow-down svg path{
+    stroke: white;
+}
+
+#ham-but-content li .main-element-header .arrow-up{
+    display: none;
+}
+
+#ham-but-content li .main-element-header .arrow-up svg path{
+    stroke: white;
+}
+
+#ham-but-content li .sub-element {
+    display: none;
+    flex-direction: column;
+    margin: 0 0 0 50px;
+}
+#ham-but-content li .sub-element a {
+    font-size: 13px;
+    margin: 10px 0;
+    font-style: italic;
 }
 
 nav li {
@@ -519,6 +595,7 @@ nav .dropdown {
 }
 
 @media screen and (max-width: 800px) {
+
     .tooltip {
         font-size: 10px;
         padding: 10px;
@@ -6256,6 +6333,13 @@ footer a:hover {
     position: relative;
 }
 
+@media screen and (max-width: 800px) {
+    .info-tooltip svg{
+        width: 12px;
+        height: 12px;
+    }
+}
+
 .info-tooltip-element {
     display: none;
     width: 200px;
@@ -6842,6 +6926,7 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #faq-section {
         margin-top: calc(100px * 0.5);
+        width: 100%;
     }
 
     #faq-header {
@@ -6849,10 +6934,15 @@ footer a:hover {
         margin-bottom: calc(60px * 0.5);
     }
 
+    #faq-container {
+        width: 90%;
+    }
+
     .faq-row {
         flex-direction: column;
         gap: calc(35px * 0.3);
         margin-bottom: calc(35px * 0.3);
+        width: 100%;
     }
 
     .faq-content {
@@ -6873,7 +6963,6 @@ footer a:hover {
     }
 
     .faq-content-header {
-        width: 240px;
         gap: 3px;
     }
 
@@ -6887,7 +6976,6 @@ footer a:hover {
 
     .faq-content-description {
         display: none;
-        width: 240px;
         line-height: calc(40px * 0.4); /* 166.667% */
 
         z-index: 50;
