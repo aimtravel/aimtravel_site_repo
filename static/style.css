@@ -4054,9 +4054,30 @@ footer a:hover {
     width: var(--max-width);
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     margin: 0;
+}
+
+#job-offer-sort-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+}
+
+#job-offer-sort-form select {
+    border-radius: 8px;
+    font-family: "Jost", sans-serif;
+    font-size: 18px;
+}
+
+#filtering-buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 #filter-button-icon-container {
@@ -4073,13 +4094,14 @@ footer a:hover {
 
 .filter-button {
     font-family: Jost, sans-serif;
+    color: white;
     font-style: normal;
     font-size: var(--font-20);
     font-weight: 600;
     letter-spacing: 1px;
     line-height: normal;
-    margin: 20px 0 5px 0;
-    padding: 0;
+    margin: 0;
+    padding: 0 15px;
     cursor: pointer;
 }
 

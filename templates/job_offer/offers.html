@@ -140,18 +140,34 @@
                     оферти включват осигурено настаняване.</p>
             </div>
             <div id="filter-button-container">
-                <div id="filter-button-icon-container">
-                    <img id="filter-button-icon" src="{% static 'img/icons/filtering-button-red.png' %}" alt="filt-btn">
+                <div id="filtering-buttons-container">
+                    <div class="apply-filter slider-btn filter-button">
+                        <p>ФИЛТРИРАЙ</p>
+                    </div>
+                    {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
+                        <div id="clear-filter" class="filter-button">
+                            <a href="?clear_filter=1">ИЗЧИСТИ</a>
+                        </div>
+                    {% endif %}
 
                 </div>
-                {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
-                    <div id="clear-filter" class="filter-button">
-                        <a href="?clear_filter=1">ИЗЧИСТИ</a>
+                <form id="job-offer-sort-form" method="get" action="{% url 'offers' %}">
+                    <select name="sort_by">
+                        <option value="new">Най-нови оферти</option>
+                        <option value="decrease_wage">Най-високо заплащане</option>
+                        <option value="increase_wage">Най-ниско заплащане</option>
+                        <option value="last_offer">Последни места</option>
+                        <option value="popular">Най-популярни</option>
+                    </select>
+                    {#                    <button class="slider-btn" type="submit">Сортирай</button>#}
+                    <div class="apply-sort slider-btn filter-button">
+                        <p>СОРТИРАЙ</p>
                     </div>
-                {% endif %}
-                {#                        <div class="apply-filter slider-btn filter-button">#}
-                {#                            <p>ФИЛТРИРАЙ</p>#}
-                {#                        </div>#}
+                </form>
+                {#                <div id="filter-button-icon-container">#}
+                {#                    <img id="filter-button-icon" src="{% static 'img/icons/filtering-button-red.png' %}" alt="filt-btn">#}
+                {##}
+                {#                </div>#}
 
             </div>
 
@@ -316,7 +332,7 @@
 
         <div id='resp-pagination' class="pagination">
             {% if page_obj.has_previous %}
-                <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}&sort_by={{ sort_by }}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg" color="#000000">
                         <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -336,23 +352,17 @@
             {% for num in page_obj.paginator.page_range %}
                 {% if num == page_obj.number %}
                     <span class="current-page">{{ num }}</span>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'3' %}
                     <a href="{% url 'offers' %}?page=
 
 
 
-
-
-                            
-
-
-
-                            {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
+                            {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}&sort_by={{ sort_by }}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}&sort_by={{ sort_by }}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                          xmlns="http://www.w3.org/2000/svg" color="#000000">
                         <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -432,7 +442,7 @@
 
                 <div class="pagination">
                     {% if page_obj.has_previous %}
-                        <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                        <a href="{% url 'offers' %}?page={{ page_obj.previous_page_number }}&sort_by={{ sort_by }}"><?xml version="1.0" encoding="UTF-8"?>
                             <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" color="#000000">
                                 <path d="M15 6l-6 6 6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
@@ -457,18 +467,12 @@
 
 
 
-
-
-                                    
-
-
-
-                                    {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}">{{ num }}</a>
+                                    {{ num }}{% if request.GET.state %}&state={{ request.GET.state|urlencode }}{% endif %}{% if request.GET.city %}&city={{ request.GET.city|urlencode }}{% endif %}{% if request.GET.job_position %}&job_position={{ request.GET.job_position|urlencode }}{% endif %}{% if request.GET.suitable_for %}&suitable_for={{ request.GET.suitable_for|urlencode }}{% endif %}{% if request.GET.wage %}&wage={{ request.GET.wage|urlencode }}{% endif %}{% if request.GET.housing %}&housing={{ request.GET.housing|urlencode }}{% endif %}&sort_by={{ sort_by }}">{{ num }}</a>
                         {% endif %}
                     {% endfor %}
 
                     {% if page_obj.has_next %}
-                        <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}"><?xml version="1.0" encoding="UTF-8"?>
+                        <a href="{% url 'offers' %}?page={{ page_obj.next_page_number }}&sort_by={{ sort_by }}"><?xml version="1.0" encoding="UTF-8"?>
                             <svg width="18px" height="18px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg" color="#000000">
                                 <path d="M9 6l6 6-6 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"

@@ -210,7 +210,14 @@ class JobOfferListView(views.ListView):
         housing = sorted(housing)
 
         filtered_offers = JobOffer.objects.all()
-        filtered_offers = filtered_offers.order_by('sold_out_offer', '-new_offer', '-ranking', '-wage')
+        filtered_offers = filtered_offers.order_by(
+            '-ranking',
+            '-last_seats',
+            '-new_offer',
+            '-wage',
+            'job_position',
+            'sold_out_offer'
+        )
 
         # Check if the filter parameters are present in the request's GET parameters
         if 'state' in request.GET:
@@ -256,6 +263,18 @@ class JobOfferListView(views.ListView):
         if selected_housing:
             filtered_offers = filtered_offers.filter(housing__in=selected_housing)
 
+        sort_by = request.GET.get('sort_by')
+        if sort_by == 'new':
+            filtered_offers = filtered_offers.order_by('-new_offer')
+        elif sort_by == 'decrease_wage':
+            filtered_offers = filtered_offers.order_by('-wage')
+        elif sort_by == 'increase_wage':
+            filtered_offers = filtered_offers.order_by('wage')
+        elif sort_by == 'last_offer':
+            filtered_offers = filtered_offers.order_by('-last_seats')
+        elif sort_by == 'popular':
+            filtered_offers = filtered_offers.order_by('-ranking')
+
         paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
@@ -284,6 +303,7 @@ class JobOfferListView(views.ListView):
             'selected_suitable_for': selected_suitable_for,
             'selected_wage': selected_wage,
             'selected_housing': selected_housing,
+            'sort_by': sort_by,  # Pass the current sort option to the template
         }
 
         return render(request, self.template_name, context)
