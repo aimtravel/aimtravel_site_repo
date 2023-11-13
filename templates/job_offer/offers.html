@@ -152,9 +152,9 @@
 
                     </select>
                     {#                    <button class="slider-btn" type="submit">Сортирай</button>#}
-{#                    <div class="apply-sort slider-btn filter-button">#}
-{#                        <p>СОРТИРАЙ</p>#}
-{#                    </div>#}
+                    {#                    <div class="apply-sort slider-btn filter-button">#}
+                    {#                        <p>СОРТИРАЙ</p>#}
+                    {#                    </div>#}
                 </form>
                 {#                <div id="filter-button-icon-container">#}
                 {#                    <img id="filter-button-icon" src="{% static 'img/icons/filtering-button-red.png' %}" alt="filt-btn">#}
@@ -163,12 +163,12 @@
                 <div id="filtering-buttons-container">
                     {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
                         <div id="clear-filter" class="filter-button">
-                            <a href="?clear_filter=1">ИЗЧИСТИ</a>
+                            <a href="?clear_filter=1">ИЗЧИСТИ ВСИЧКИ</a>
                         </div>
                     {% endif %}
-{#                    <div class="apply-filter slider-btn filter-button">#}
-{#                        <p>ФИЛТРИРАЙ</p>#}
-{#                    </div>#}
+                    {#                    <div class="apply-filter slider-btn filter-button">#}
+                    {#                        <p>ФИЛТРИРАЙ</p>#}
+                    {#                    </div>#}
 
 
                 </div>
@@ -180,7 +180,7 @@
 
                     <div id="offer-page-filters">
 
-                        <form id="job-offer-filter-form" method="GET" action="{% url 'offers' %}#offers-page-top-row" >
+                        <form id="job-offer-filter-form" method="GET" action="{% url 'offers' %}#offers-page-top-row">
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">
                                     <svg width="28" height="28" viewBox="0 0 28 29" fill="none"
@@ -198,6 +198,9 @@
                                     &nbsp Щат
                                 </div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for state in states %}
                                             <div class="checkbox-container">
@@ -221,6 +224,9 @@
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">📍 Град</div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for city in cities %}
                                             <div class="checkbox-container">
@@ -242,6 +248,9 @@
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">📄 Работна Позиция</div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for position in job_positions %}
                                             <div class="checkbox-container">
@@ -265,6 +274,9 @@
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">🗂️ Подходящо За</div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for suitable in suitable_for %}
                                             <div class="checkbox-container">
@@ -287,6 +299,9 @@
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">💰 Заплащане</div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for wage in wages %}
                                             <div class="checkbox-container">
@@ -308,6 +323,9 @@
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">🏠 Housing</div>
                                 <div class="tooltip">
+                                    <div class="apply-filter slider-btn filter-button">
+                                        <p>ФИЛТРИРАЙ</p>
+                                    </div>
                                     <div class="checkbox-row">
                                         {% for house in housing %}
                                             <div class="checkbox-container">
@@ -358,6 +376,10 @@
                     <span class="current-page">{{ num }}</span>
                 {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'3' %}
                     <a href="{% url 'offers' %}?page=
+
+
+
+
 
 
 
@@ -468,6 +490,10 @@
                             <span class="current-page">{{ num }}</span>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                             <a href="{% url 'offers' %}?page=
+
+
+
+
 
 
 
