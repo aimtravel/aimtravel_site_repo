@@ -444,7 +444,7 @@ body .usa-flag {
         top: 50px;
         left: 20px;
         border-radius: 50%;
-        background-color: rgba(0,0,0,0.35);
+        background-color: rgba(0, 0, 0, 0.35);
     }
 
     .header-nav-links-container {
@@ -474,7 +474,7 @@ body .usa-flag {
     top: 60px;
     z-index: 2;
     border-radius: 50%;
-    background-color: rgba(0,0,0,0.35);
+    background-color: rgba(0, 0, 0, 0.35);
 }
 
 #ham-but-content {
@@ -483,7 +483,7 @@ body .usa-flag {
     position: fixed;
     top: -20px;
     width: 100%;
-    height:83vh;
+    height: 83vh;
     z-index: 1;
     background: rgba(0, 0, 0, 0.95);
     padding: 150px 0 24px 0;
@@ -495,7 +495,8 @@ body .usa-flag {
     margin: 25px 0 10px 30px;
     width: fit-content;
 }
-#ham-but-content li p{
+
+#ham-but-content li p {
     margin: 0;
     padding: 0;
 }
@@ -503,6 +504,7 @@ body .usa-flag {
 #ham-but-content li a {
     color: white;
 }
+
 #ham-but-content li .main-element {
     display: flex;
     flex-direction: row;
@@ -520,20 +522,20 @@ body .usa-flag {
     align-items: center;
 }
 
-#ham-but-content li .main-element-header .arrow-down{
+#ham-but-content li .main-element-header .arrow-down {
     display: flex;
 
 }
 
-#ham-but-content li .main-element-header .arrow-down svg path{
+#ham-but-content li .main-element-header .arrow-down svg path {
     stroke: white;
 }
 
-#ham-but-content li .main-element-header .arrow-up{
+#ham-but-content li .main-element-header .arrow-up {
     display: none;
 }
 
-#ham-but-content li .main-element-header .arrow-up svg path{
+#ham-but-content li .main-element-header .arrow-up svg path {
     stroke: white;
 }
 
@@ -542,6 +544,7 @@ body .usa-flag {
     flex-direction: column;
     margin: 0 0 0 50px;
 }
+
 #ham-but-content li .sub-element a {
     font-size: 13px;
     margin: 10px 0;
@@ -2691,7 +2694,6 @@ main .main-flag2 {
 @media screen and (max-width: 800px) {
     #news {
         gap: 0;
-        padding-left: 32px;
         justify-content: center;
     }
 
@@ -2818,6 +2820,7 @@ main .main-flag2 {
 @media screen and (max-width: 800px) {
     .news-content {
         width: calc(743px * 0.42);
+        flex-direction: column;
         gap: 16px;
         align-items: center;
         justify-content: flex-start;
@@ -2826,7 +2829,8 @@ main .main-flag2 {
     .last-4-text {
         width: 56.4%;
         padding-top: calc(24px * 0.5);
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
     }
 
     #last-4-news {
@@ -2881,8 +2885,8 @@ main .main-flag2 {
     }
 
     .last-img {
-        width: calc(192px * 0.7);
-        height: calc(138px * 0.7);
+        width: 70%;
+        /*height: calc(138px * 0.7);*/
 
     }
 
@@ -3552,6 +3556,13 @@ footer .usa-flag {
     letter-spacing: 0.6px;
 }
 
+@media screen and (max-width: 800px) {
+    #footer-responsive #footer-text p {
+        font-size: 12px;
+        margin-top: 40px;
+    }
+}
+
 #footer-link-container #footer-text span {
     font-weight: 500;
     font-size: var(--font-20);
@@ -3568,7 +3579,17 @@ footer .usa-flag {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    /* gap: 10px; */
+}
+
+@media screen and (max-width: 800px) {
+    #footer-links-icons {
+        justify-content: center;
+        margin: 20px 0
+    }
+
+    #footer-right-links-icons {
+        gap: 10px;
+    }
 }
 
 #footer-login {
@@ -3634,6 +3655,7 @@ footer a:hover {
     #footer-responsive {
         display: flex;
         flex-direction: column;
+        align-items: center;
         width: 80%;
         margin-bottom: 20px;
     }
@@ -3649,14 +3671,22 @@ footer a:hover {
     }
 
     #footer-responsive #logo-container {
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         width: 100%;
+        justify-content: center;
+    }
+
+    #footer-responsive #logo-container a {
+        display: flex;
+        justify-content: center;
     }
 
     #footer-responsive #logo-container img {
-        width: calc(270px * 0.5);
-        height: calc(105px * 0.5);
+        width: 70%;
+        height: 70%;
+        display: flex;
+        align-self: center;
     }
 
     #footer-responsive #logo-container p {
@@ -3666,18 +3696,22 @@ footer a:hover {
     #footer-responsive #footer-contacts {
         display: flex;
         flex-direction: column;
+        align-items: center;
     }
 
     #footer-responsive #footer-contacts p, #footer-responsive #footer-contacts a {
         padding: 0;
-        margin: 0;
+        margin: 5px 0;
         font-size: var(--font-17);
         color: white;
+        text-align: center;
     }
 
     #footer-responsive .nav-container {
         width: 60%;
         margin-top: 10px;
+        display: flex;
+        align-items: center;
     }
 
     #footer-responsive .nav-container h4 {
@@ -3687,7 +3721,7 @@ footer a:hover {
     #footer-responsive .nav-container a {
         font-weight: 500;
         font-size: var(--font-20);
-        margin: 0;
+        margin: 10px 0;
     }
 
 
@@ -4598,7 +4632,7 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
-    #contact-form form{
+    #contact-form form {
         width: 100%;
     }
 
@@ -4623,6 +4657,7 @@ footer a:hover {
     #message-section.message-frame #success-message {
         font-size: calc(var(--font-42) * 0.7);
     }
+
     #contacts-query-form {
         width: 100%;
     }
@@ -6390,7 +6425,7 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
-    .info-tooltip svg{
+    .info-tooltip svg {
         width: 12px;
         height: 12px;
     }
