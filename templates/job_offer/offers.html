@@ -140,34 +140,38 @@
                     оферти включват осигурено настаняване.</p>
             </div>
             <div id="filter-button-container">
-                <div id="filtering-buttons-container">
-                    <div class="apply-filter slider-btn filter-button">
-                        <p>ФИЛТРИРАЙ</p>
-                    </div>
-                    {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
-                        <div id="clear-filter" class="filter-button">
-                            <a href="?clear_filter=1">ИЗЧИСТИ</a>
-                        </div>
-                    {% endif %}
 
-                </div>
-                <form id="job-offer-sort-form" method="get" action="{% url 'offers' %}">
-                    <select name="sort_by">
+                <form id="job-offer-sort-form" method="get" action="{% url 'offers' %}#offers-section">
+                    <p id="sort-label">СОРТИРАЙ ПО:</p>
+                    <select name="sort_by" id="sort-by-select">
+                        <option value="popular">Най-популярни</option>
                         <option value="new">Най-нови оферти</option>
                         <option value="decrease_wage">Най-високо заплащане</option>
                         <option value="increase_wage">Най-ниско заплащане</option>
                         <option value="last_offer">Последни места</option>
-                        <option value="popular">Най-популярни</option>
+
                     </select>
                     {#                    <button class="slider-btn" type="submit">Сортирай</button>#}
-                    <div class="apply-sort slider-btn filter-button">
-                        <p>СОРТИРАЙ</p>
-                    </div>
+{#                    <div class="apply-sort slider-btn filter-button">#}
+{#                        <p>СОРТИРАЙ</p>#}
+{#                    </div>#}
                 </form>
                 {#                <div id="filter-button-icon-container">#}
                 {#                    <img id="filter-button-icon" src="{% static 'img/icons/filtering-button-red.png' %}" alt="filt-btn">#}
                 {##}
                 {#                </div>#}
+                <div id="filtering-buttons-container">
+                    {% if selected_state or selected_city or selected_job_position or selected_suitable_for or selected_wage or selected_housing %}
+                        <div id="clear-filter" class="filter-button">
+                            <a href="?clear_filter=1">ИЗЧИСТИ</a>
+                        </div>
+                    {% endif %}
+                    <div class="apply-filter slider-btn filter-button">
+                        <p>ФИЛТРИРАЙ</p>
+                    </div>
+
+
+                </div>
 
             </div>
 

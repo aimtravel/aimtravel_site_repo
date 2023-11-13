@@ -4064,7 +4064,6 @@ footer a:hover {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    gap: 30px;
 }
 
 #job-offer-sort-form select {
@@ -4111,12 +4110,17 @@ footer a:hover {
 /*    padding: 0 20px;*/
 /*}*/
 
-#clear-filter a {
+#clear-filter a, #sort-label {
     color: var(--red-color);
     font-weight: 700;
     margin: 0;
     padding: 0 20px;
     text-decoration: none;
+}
+
+#sort-label {
+    color: var(--blue-color);
+    padding: 0 10px;
 }
 
 @media screen and (max-width: 800px) {
@@ -4594,6 +4598,31 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
+    #contact-form form{
+        width: 100%;
+    }
+
+    #contact-form.text-area p {
+        width: calc(700px * 0.75);
+    }
+
+    #contact-form.query-btn {
+        width: calc(120px * 0.75);
+        height: calc(30px * 0.75);
+    }
+
+    #message-section {
+        top: 400px;
+    }
+
+    #message-section.message-frame {
+        width: 300px;
+        height: 100px;
+    }
+
+    #message-section.message-frame #success-message {
+        font-size: calc(var(--font-42) * 0.7);
+    }
     #contacts-query-form {
         width: 100%;
     }
@@ -4614,18 +4643,20 @@ footer a:hover {
     }
 
     .query-form {
+        width: 100%;
         font-size: 15px;
     }
 
     .line {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        margin: 15px 0;
+        margin: 0;
     }
 
     .sub-line {
+        width: 85%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -4640,15 +4671,17 @@ footer a:hover {
         font-style: normal;
         font-weight: 500;
         line-height: 20px; /* 166.667% */
+        margin-top: 15px;
+
     }
 
     .sub-line input {
-        width: 150px;
+        width: 100%;
         height: 40px;
     }
 
     .sub-line #message {
-        width: calc(707px * 0.35);
+        width: 100%;
         height: calc(231px * 0.35);
     }
 
@@ -4662,6 +4695,7 @@ footer a:hover {
         font-size: 13px;
         line-height: 20px;
         letter-spacing: 1.5px;
+        margin-top: 45px;
     }
 
     #message-section {
@@ -7682,8 +7716,12 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
 
-
+@media screen and (max-width: 800px) {
+    #links-useful-links a {
+        font-size: 15px;
+    }
 }
 
 #useful-links-picture {

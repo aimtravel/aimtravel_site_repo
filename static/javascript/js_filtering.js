@@ -6,6 +6,12 @@
 // });
 
 $(document).ready(function () {
+        $('#sort-by-select').change(function () {
+            $('#job-offer-sort-form').submit();
+        });
+    });
+
+$(document).ready(function () {
     // Add event listener to Apply Filters button
     $('.apply-filter').click(function () {
 
