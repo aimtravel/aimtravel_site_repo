@@ -193,7 +193,7 @@ class JobOfferListView(views.ListView):
             request.session.pop('selected_housing', None)
 
             # Redirect to the same page to clear the URL query parameters
-            return redirect(request.path)
+            return redirect(f"{reverse('offers')}#offers-page-top-row")
 
         states = JobOffer.objects.values_list('city__state', flat=True).distinct()
         cities = JobOffer.objects.values_list('city', flat=True).distinct()

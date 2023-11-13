@@ -166,9 +166,9 @@
                             <a href="?clear_filter=1">ИЗЧИСТИ</a>
                         </div>
                     {% endif %}
-                    <div class="apply-filter slider-btn filter-button">
-                        <p>ФИЛТРИРАЙ</p>
-                    </div>
+{#                    <div class="apply-filter slider-btn filter-button">#}
+{#                        <p>ФИЛТРИРАЙ</p>#}
+{#                    </div>#}
 
 
                 </div>
@@ -180,7 +180,7 @@
 
                     <div id="offer-page-filters">
 
-                        <form id="job-offer-filter-form">
+                        <form id="job-offer-filter-form" method="GET" action="{% url 'offers' %}#offers-page-top-row" >
                             <div class="dropdown offer-filters">
                                 <div class="target-element label">
                                     <svg width="28" height="28" viewBox="0 0 28 29" fill="none"
