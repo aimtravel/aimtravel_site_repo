@@ -99,12 +99,12 @@
 
                         <div id="main-slider">
                             <div class='text-container'>
-                                <p id="main-slider-text-heading">AIM TRAVEL</p>
+                                <p id="main-slider-text-heading">{{ main_slider.title1 }}</p>
                                 <hr>
-                                <p id="main-slider-text-subheading">Work & Travel Agency</p>
+                                <p id="main-slider-text-subheading">{{ main_slider.title2 }}</p>
                             </div>
                             <div class="slider-btn">
-                                <a href="https://calendly.com/aimtravelusa/consultation" target="_blank">
+                                <a href="{{ main_slider.button_link }}" target="_blank">
                                     <script>
                                         function gtag_report_conversion(url) {
                                             var callback = function () {
@@ -133,7 +133,7 @@
                             <h1>НЕКА ЧЕРНИЯТ ПЕТЪК ДА ЗАПОЧНЕ!</h1>
                             {% if prices.validity_date_day %}
                                 <p>Невероятни намаления до {{ prices.validity_date_day }} {{ prices.validity_date_month }} {{ prices.validity_date_year }}</p>
-                                <p>до <span style="text-decoration: line-through;">200$</span> ОТСТЪПКА</p>
+                                <p>до <span style="text-decoration: line-through;">{{ prices.amount_of_discount}}$</span> ОТСТЪПКА</p>
                             {% endif %}
                             <div class="slider-btn" id="slider-1-button">
                                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
@@ -161,22 +161,18 @@
                             </div>
                         </div>
                         <div id="slider-2">
-                            <h4>AIM TRAVEL</h4>
-                            <h1>КАТАЛОГ</h1>
-                            <p>Вече имаме каталог с полезна информация за програмта Work and Travel USA. В него ще
-                                намерите всичко полезно за Бригадата в САЩ на едно място!</p>
+                            <h4>{{ third_slider.top_title}}</h4>
+                            <h1>{{ third_slider.main_title }}</h1>
+                            <p>{{ third_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-2-button">
-                                <a href="https://drive.google.com/file/d/1VkFgn1FTbVhwV94Skh_hRjUywY1asJEA/view?usp=sharing">СВАЛИ
+                                <a href="{{ third_slider.button_link }}">СВАЛИ
                                     БЕЗПЛАТНО</a>
                             </div>
                         </div>
                         <div id="slider-3">
-                            <h4>AIM TRAVEL</h4>
-                            <h1>БУТИКОВА АГЕНЦИЯ</h1>
-                            <p>Предлагаме специално подбрани, премиум оферти за работа, от наш представител на
-                                място, който се среща директно с работодателите от много години насам. Неговият опит
-                                и лични контакти, му позволяват да намери най-добре платените места за работа, тъй
-                                като си е изградил вътрешна мрежа от работодатели.</p>
+                            <h4>{{ forth_slider.top_title }}</h4>
+                            <h1>{{ forth_slider.main_title }}</h1>
+                            <p>{{ forth_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-3-button">
                                 <a href="{% url 'offers' %}">Премиум Работни Оферти</a>
                             </div>
@@ -232,25 +228,12 @@
     <section id="about-section">
         <div id="about">
             <div id="about-text">
-                <h1>Work Hard Travel Far</h1>
-                <p>Мотото на Aim Travel, произлиза от създателите на фирмата. Заминавайки именно с този принцип на
-                    бригада преди години, те успяват да постигнат и открият много за Америка и да основат Aim Travel,
-                    за
-                    да предават успеха си на следващите записали се за бригада.
-                </p>
-                <p>
-                    Това е призмата, през която Aim Travel пречупва програмата Work and Travel, което означава, че
-                    фирмата ще ти осигури най-добрите условия да работиш, да се докажеш, да постигаш и след това да
-                    пътуваш, да откриваш, да инвестираш в себе си. "The sky is the limit", както гласи една
-                    американска
-                    поговорка. Възможностите са неограничени и всичко зависи само от теб - какво ще направиш, какво
-                    ще
-                    постигнеш, какво ще откриеш и как това ще те промени за едно лято, като човек, личност, житейски
-                    опит. Разбери възможностите си и открий какво можеш. С преживяването и опитa, който ще
-                    натрупаш, ще
-                    имаш истории за разказване през целия си живот. Сега е моментът!</p>
+
+                <h1>{{ about.title }}</h1>
+                <p>{{ about.content1 }}</p>
+                <p>{{ about.content2 }}</p>
                 <div class="slider-btn resp">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                    <a href="{{ about.button_link}}"
                        target="_blank">
                         <script>
                             function gtag_report_conversion(url) {
@@ -290,18 +273,14 @@
     <section id="cta-section">
         <div id="cta-background-gradient">
             <div id="cta-container">
-                <h3>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
-                <h1>НЕ СЕ ПРИТЕСНЯВАЙТЕ!</h1>
-                <h3 id="cta-subheading">НИЕ СМЕ НАСРЕЩА!</h3>
+                <h3>{{ cta.title1 }}</h3>
+                <h1>{{ cta.title2 }}</h1>
+                <h3 id="cta-subheading">{{ cta.title3}}</h3>
                 <div id="cta-subtext">
-                    <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за
-                        безплатна онлайн консултация или посети някой от нашите офиси, където ще имате възможност да
-                        зададете всичките си въпроси и да получите
-                        квалифициран
-                        отговор.</p>
+                    <p>{{ cta.content1 }}</p>
                 </div>
                 <div class="slider-btn">
-                    <a href="https://calendly.com/aimtravelusa/consultation" target="_blank">
+                    <a href="{{ cta.button_link }}" target="_blank">
                         <script>
                             function gtag_report_conversion(url) {
                                 var callback = function () {
@@ -678,15 +657,10 @@
     </section>
     <section id="pricing-section">
         <div id="pricing-text">
-            <h4>БРИГАДА В САЩ</h4>
-            <h1>КОЛКО СТРУВА</h1>
-            <h4>С AIM TRAVEL USA?</h4>
-            <p>Готов ли си да се запишеш за Бригада в САЩ? Нашият Раздел "Цени" предлага всичко, от което се
-                нуждаеш, за да разбереш какви са разходите за една WAT програма на всеки студент. От таксите за
-                виза
-                и самолетен билет до услугите за предоставяне на нашите специално подбрани бутикови работни
-                оферти.
-                Кликни бутона "Цени" сега, за да научиш повече относно различните финансирания.</p>
+            <h4>{{ main_pricing.title1}}</h4>
+            <h1>{{ main_pricing.title2}}</h1>
+            <h4>{{ main_pricing.title3}}</h4>
+            <p>{{ main_pricing.content1}}</p>
         </div>
         <div id="pricing-button">
             <div id="pricing-btn" class="pricing-btn">
@@ -738,14 +712,10 @@
                         <img src="../static/img/money_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>НАЙ-АТРАКТИВНИТЕ РАБОТНИ ОФЕРТИ</h1>
+                        <h1>{{ main_services.title1}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Вече 10 години си партнираме с най-добрите работодатели. Нашите партньори гарантират
-                            отлични
-                            работни оферти (Nantucket, Provincetown) с ангажимент към квартирата и условията на
-                            работа
-                            на топ локации в САЩ.</p>
+                        <p>{{ main_services.content1}}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -753,14 +723,10 @@
                         <img src="../static/img/tasks_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ЛЕСНИ СТЪПКИ ЗА КАНДИДАТСТАВАНЕ</h1>
+                        <h1>{{ main_services.title2}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Разработили сме бърз и лесен процес на кандидатстване с минимален разход на време от
-                            страна
-                            на клиента. Подпомагаме кандидатите при процеса на кандидатстване, но и по време на
-                            цялата
-                            програма.</p>
+                        <p>{{ main_services.content2}}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -768,15 +734,10 @@
                         <img src="../static/img/paying_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ПЛАЩАНЕ НА ВНОСКИ ИЛИ СТУДЕНТСКИ КРЕДИТ</h1>
+                        <h1>{{ main_services.title3}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Платете програмата на вноски или със студентски кредит. Съвместно със Societe
-                            Generale
-                            Експресбанк имате възможност да се възползвате от най-изгодния студентски кредит до
-                            15
-                            000
-                            лв.</p>
+                        <p>{{ main_services.content3}}</p>
                     </div>
                 </div>
             </div>
@@ -787,14 +748,10 @@
                         <img src="../static/img/progress_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ВИСОКА УСПЕВАЕМОСТ ЗА ВИЗА</h1>
+                        <h1>{{ main_services.title4}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>След нашата безплатна подготовка ние Гарантираме висока успеваемост на интервюто за
-                            виза.
-                            Информираме Ви как протича интервюто, какви въпроси да очаквате, как да се
-                            представите
-                            блестящо.</p>
+                        <p>{{ main_services.content4}}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -802,13 +759,10 @@
                         <img src="../static/img/communication_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>БЕЗПЛАТНА ЕЗИКОВА ПОДГОТОВКА</h1>
+                        <h1>{{ main_services.title5}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Ще ти помогнем да подобриш английския си език, нашият добре обучен персонал ще ти
-                            съдейства с
-                            тренинг по английски. Ще придобиеш увереност за разговор в неформална обстановка, ще
-                            комуникираш своодно в САЩ.</p>
+                        <p>{{ main_services.content5}}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -816,15 +770,10 @@
                         <img src="../static/img/people_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ПЕРСОНАЛНО ВНИМАНИЕ - КОНСУЛТАЦИИ</h1>
+                        <h1>{{ main_services.title6}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Винаги ще сме до теб. Помагаме ти да избереш най-подходящата за теб работна оферта.
-                            Попълваме
-                            заедно всички документи. Можеш да разчиташ на нашия съвет и помощ при всяко решение
-                            и
-                            стъпка
-                            от програмата.</p>
+                        <p>{{ main_services.content6}}</p>
                     </div>
                 </div>
             </div>
@@ -836,14 +785,10 @@
                         <img src="../static/img/money_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>НАЙ-АТРАКТИВНИТЕ РАБОТНИ ОФЕРТИ</h1>
+                        <h1>{{ main_services.title1}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Вече 10 години си партнираме с най-добрите работодатели. Нашите партньори гарантират
-                            отлични
-                            работни оферти (Nantucket, Provincetown) с ангажимент към квартирата и условията на
-                            работа
-                            на топ локации в САЩ.</p>
+                        <p>{{ main_services.content1}}</p>
                     </div>
                 </div>
                 <div class="service" id="service2">
@@ -851,14 +796,10 @@
                         <img src="../static/img/tasks_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ЛЕСНИ СТЪПКИ ЗА КАНДИДАТСТАВАНЕ</h1>
+                        <h1>{{ main_services.title2}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Разработили сме бърз и лесен процес на кандидатстване с минимален разход на време от
-                            страна
-                            на клиента. Подпомагаме кандидатите при процеса на кандидатстване, но и по време на
-                            цялата
-                            програма.</p>
+                        <p>{{ main_services.content2}}</p>
                     </div>
                 </div>
                 <div class="service" id="service3">
@@ -866,15 +807,10 @@
                         <img src="../static/img/paying_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ПЛАЩАНЕ НА ВНОСКИ ИЛИ СТУДЕНТСКИ КРЕДИТ</h1>
+                        <h1>{{ main_services.title3}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Платете програмата на вноски или със студентски кредит. Съвместно със Societe
-                            Generale
-                            Експресбанк имате възможност да се възползвате от най-изгодния студентски кредит до
-                            15
-                            000
-                            лв.</p>
+                        <p>{{ main_services.content3}}</p>
                     </div>
                 </div>
                 <div class="service" id="service4">
@@ -882,14 +818,10 @@
                         <img src="../static/img/progress_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ВИСОКА УСПЕВАЕМОСТ ЗА ВИЗА</h1>
+                        <h1>{{ main_services.title4}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>След нашата безплатна подготовка ние Гарантираме висока успеваемост на интервюто за
-                            виза.
-                            Информираме Ви как протича интервюто, какви въпроси да очаквате, как да се
-                            представите
-                            блестящо.</p>
+                        <p>{{ main_services.content4}}</p>
                     </div>
                 </div>
                 <div class="service" id="service5">
@@ -897,13 +829,10 @@
                         <img src="../static/img/communication_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>БЕЗПЛАТНА ЕЗИКОВА ПОДГОТОВКА</h1>
+                        <h1>{{ main_services.title5}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Ще ти помогнем да подобриш английския си език, нашият добре обучен персонал ще ти
-                            съдейства с
-                            тренинг по английски. Ще придобиеш увереност за разговор в неформална обстановка, ще
-                            комуникираш своодно в САЩ.</p>
+                        <p>{{ main_services.content5}}</p>
                     </div>
                 </div>
                 <div class="service" id="service6">
@@ -911,15 +840,10 @@
                         <img src="../static/img/people_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>ПЕРСОНАЛНО ВНИМАНИЕ - КОНСУЛТАЦИИ</h1>
+                        <h1>{{ main_services.title6}}</h1>
                     </div>
                     <div class="service-description">
-                        <p>Винаги ще сме до теб. Помагаме ти да избереш най-подходящата за теб работна оферта.
-                            Попълваме
-                            заедно всички документи. Можеш да разчиташ на нашия съвет и помощ при всяко решение
-                            и
-                            стъпка
-                            от програмата.</p>
+                        <p>{{ main_services.content6}}</p>
                     </div>
                 </div>
             </div>

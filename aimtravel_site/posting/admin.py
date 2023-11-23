@@ -20,9 +20,9 @@ class MainFeedbackAdmin(admin.ModelAdmin):
     # form = FeedbackAdminForm
 
 
-@admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    list_display = ['main_video']
+# @admin.register(Video)
+# class VideoAdmin(admin.ModelAdmin):
+#     list_display = ['main_video']
 
 
 @admin.register(Faq)

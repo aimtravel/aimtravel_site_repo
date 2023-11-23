@@ -463,6 +463,12 @@ class Prices(models.Model):
         null=True,
     )
 
+    amount_of_discount = models.IntegerField(
+        verbose_name='Отстъпка до ($):',
+        blank=True,
+        null=True,
+    )
+
     def __str__(self):
         return f"Ценови план"
 

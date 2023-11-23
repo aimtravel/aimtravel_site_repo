@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'aimtravel_site.user_auth',
     'aimtravel_site.user_profile',
     'aimtravel_site.posting.apps.PostingConfig',
+    'aimtravel_site.main_page.apps.MainPageConfig',
 ]
 
 MIDDLEWARE = [

@@ -29,6 +29,8 @@ urlpatterns = [
     path('user_auth/', include('aimtravel_site.user_auth.urls')),
     path('user_profile/', include('aimtravel_site.user_profile.urls')),
     path('post/', include('aimtravel_site.posting.urls')),
+    path('user_profile/', include('aimtravel_site.user_profile.urls')),
+    path('', include('aimtravel_site.main_page.urls')),
     path('password_reset/done/',
          auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_done.html'),
          name='password_reset_done'),
