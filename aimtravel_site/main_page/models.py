@@ -33,6 +33,10 @@ class MainSlider(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        result = f'Основен слайдер'
+        return result
+
 
 class SecondSlider(models.Model):
     class Meta:
@@ -52,13 +56,7 @@ class SecondSlider(models.Model):
         null=True,
     )
     content1 = models.CharField(
-        verbose_name='Съдържание - първи ред',
-        max_length=255,
-        blank=True,
-        null=True,
-    )
-    content2 = models.CharField(
-        verbose_name='Съдържание - втори ред',
+        verbose_name='Съдържание',
         max_length=255,
         blank=True,
         null=True,
@@ -75,6 +73,10 @@ class SecondSlider(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        result = f'Втори слайдер'
+        return result
 
 
 class ThirdSlider(models.Model):
@@ -112,6 +114,10 @@ class ThirdSlider(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        result = f'Трети слайдер'
+        return result
+
 
 class ForthSlider(models.Model):
     class Meta:
@@ -148,6 +154,10 @@ class ForthSlider(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        result = f'Четвърти слайдер'
+        return result
+
 
 class AboutSection(models.Model):
     class Meta:
@@ -182,6 +192,10 @@ class AboutSection(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        result = f'Секция "За нас"'
+        return result
 
 
 class CallToActionSection(models.Model):
@@ -224,6 +238,10 @@ class CallToActionSection(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        result = f'Секция "Call to Action"'
+        return result
 
 
 class Video(models.Model):
@@ -310,6 +328,10 @@ class Video(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        result = f'Секция "Видео"'
+        return result
+
 
 class MainPricingSection(models.Model):
     class Meta:
@@ -351,6 +373,10 @@ class MainPricingSection(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        result = f'Секция "Цени - начална страница"'
+        return result
 
 
 class MainServicesSection(models.Model):
@@ -424,3 +450,7 @@ class MainServicesSection(models.Model):
         blank=True,
         null=True,
     )
+
+    def __str__(self):
+        result = f'Секция "Услуги'
+        return result

@@ -124,19 +124,23 @@
                                         });
                                     </script>
 
-                                    БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                                    {{ main_slider.button_text }}</a>
                             </div>
                         </div>
 
                         <div id="slider-1" class="slider1">
-{#                            <h4>ПРОМО</h4>#}
-                            <h1>НЕКА ЧЕРНИЯТ ПЕТЪК ДА ЗАПОЧНЕ!</h1>
-                            {% if prices.validity_date_day %}
-                                <p>Невероятни намаления до {{ prices.validity_date_day }} {{ prices.validity_date_month }} {{ prices.validity_date_year }}</p>
-                                <p>до <span style="text-decoration: line-through;">{{ prices.amount_of_discount}}$</span> ОТСТЪПКА</p>
+                            {% if second_slider.title1 %}
+                                <h4>{{ second_slider.title1 }}</h4>
+                            {% endif %}
+                            <h1>{{ second_slider.title2 }}</h1>
+                            <p>{{ second_slider.content1 }}</p>
+                            {% if prices.amount_of_discount %}
+                                <p>до <span
+                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}$</span>
+                                    ОТСТЪПКА</p>
                             {% endif %}
                             <div class="slider-btn" id="slider-1-button">
-                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                                <a href="{{ second_slider.button_link }}"
                                    target="_blank">
                                     <script>
                                         function gtag_report_conversion(url) {
@@ -157,24 +161,27 @@
                                             fbq('track', 'Subscribe');
                                         });
                                     </script>
-                                    ЗАПИШИ СЕ</a>
+                                    {{ second_slider.button_text }}</a>
                             </div>
                         </div>
                         <div id="slider-2">
-                            <h4>{{ third_slider.top_title}}</h4>
+                            {% if third_slider.top_title %}
+                                <h4>{{ third_slider.top_title }}</h4>
+                            {% endif %}
                             <h1>{{ third_slider.main_title }}</h1>
                             <p>{{ third_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-2-button">
-                                <a href="{{ third_slider.button_link }}">СВАЛИ
-                                    БЕЗПЛАТНО</a>
+                                <a href="{{ third_slider.button_link }}">{{ third_slider.button_text }}</a>
                             </div>
                         </div>
                         <div id="slider-3">
-                            <h4>{{ forth_slider.top_title }}</h4>
+                            {% if forth_slider.top_title %}
+                                <h4>{{ forth_slider.top_title }}</h4>
+                            {% endif %}
                             <h1>{{ forth_slider.main_title }}</h1>
                             <p>{{ forth_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-3-button">
-                                <a href="{% url 'offers' %}">Премиум Работни Оферти</a>
+                                <a href="{% url 'offers' %}">{{ forth_slider.button_text }}</a>
                             </div>
                         </div>
                     </div>
@@ -233,7 +240,7 @@
                 <p>{{ about.content1 }}</p>
                 <p>{{ about.content2 }}</p>
                 <div class="slider-btn resp">
-                    <a href="{{ about.button_link}}"
+                    <a href="{{ about.button_link }}"
                        target="_blank">
                         <script>
                             function gtag_report_conversion(url) {
@@ -254,7 +261,7 @@
                                 fbq('track', 'Subscribe');
                             });
                         </script>
-                        ЗАПИШИ СЕ ЗА БРИГАДА</a>
+                        {{ about.button_text}}</a>
                 </div>
             </div>
 
@@ -275,7 +282,7 @@
             <div id="cta-container">
                 <h3>{{ cta.title1 }}</h3>
                 <h1>{{ cta.title2 }}</h1>
-                <h3 id="cta-subheading">{{ cta.title3}}</h3>
+                <h3 id="cta-subheading">{{ cta.title3 }}</h3>
                 <div id="cta-subtext">
                     <p>{{ cta.content1 }}</p>
                 </div>
@@ -300,7 +307,7 @@
                                 fbq('track', 'SubmitApplication');
                             });
                         </script>
-                        БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                        {{ cta.button_text }}</a>
                 </div>
                 <div id="pagination-anchor"></div>
             </div>
@@ -588,7 +595,7 @@
                 </div>
             </div>
             <div class="slider-btn" id="video-more-btn">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                <a href="{{ video.button_link }}"
                    target="_blank">
                     <script>
                         function gtag_report_conversion(url) {
@@ -609,7 +616,7 @@
                             fbq('track', 'Subscribe');
                         });
                     </script>
-                    ЗАПИШИ СЕ</a>
+                    {{ video.button_text }}</a>
             </div>
         </div>
     </section>
@@ -657,14 +664,14 @@
     </section>
     <section id="pricing-section">
         <div id="pricing-text">
-            <h4>{{ main_pricing.title1}}</h4>
-            <h1>{{ main_pricing.title2}}</h1>
-            <h4>{{ main_pricing.title3}}</h4>
-            <p>{{ main_pricing.content1}}</p>
+            <h4>{{ main_pricing.title1 }}</h4>
+            <h1>{{ main_pricing.title2 }}</h1>
+            <h4>{{ main_pricing.title3 }}</h4>
+            <p>{{ main_pricing.content1 }}</p>
         </div>
         <div id="pricing-button">
             <div id="pricing-btn" class="pricing-btn">
-                <a href="{% url 'wat usa' %}#price-section">ВИЖ НАШИТЕ СПЕЦИАЛНИ ЦЕНИ</a>
+                <a href="{% url 'wat usa' %}#price-section">{{ main_pricing.button_text}}</a>
                 <?xml version="1.0" encoding="UTF-8"?>
                 <svg width="24px" height="24px" viewBox="0 0 24 24"
                      stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
@@ -712,10 +719,10 @@
                         <img src="../static/img/money_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title1}}</h1>
+                        <h1>{{ main_services.title1 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content1}}</p>
+                        <p>{{ main_services.content1 }}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -723,10 +730,10 @@
                         <img src="../static/img/tasks_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title2}}</h1>
+                        <h1>{{ main_services.title2 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content2}}</p>
+                        <p>{{ main_services.content2 }}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -734,10 +741,10 @@
                         <img src="../static/img/paying_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title3}}</h1>
+                        <h1>{{ main_services.title3 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content3}}</p>
+                        <p>{{ main_services.content3 }}</p>
                     </div>
                 </div>
             </div>
@@ -748,10 +755,10 @@
                         <img src="../static/img/progress_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title4}}</h1>
+                        <h1>{{ main_services.title4 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content4}}</p>
+                        <p>{{ main_services.content4 }}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -759,10 +766,10 @@
                         <img src="../static/img/communication_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title5}}</h1>
+                        <h1>{{ main_services.title5 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content5}}</p>
+                        <p>{{ main_services.content5 }}</p>
                     </div>
                 </div>
                 <div class="service">
@@ -770,10 +777,10 @@
                         <img src="../static/img/people_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title6}}</h1>
+                        <h1>{{ main_services.title6 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content6}}</p>
+                        <p>{{ main_services.content6 }}</p>
                     </div>
                 </div>
             </div>
@@ -785,10 +792,10 @@
                         <img src="../static/img/money_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title1}}</h1>
+                        <h1>{{ main_services.title1 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content1}}</p>
+                        <p>{{ main_services.content1 }}</p>
                     </div>
                 </div>
                 <div class="service" id="service2">
@@ -796,10 +803,10 @@
                         <img src="../static/img/tasks_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title2}}</h1>
+                        <h1>{{ main_services.title2 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content2}}</p>
+                        <p>{{ main_services.content2 }}</p>
                     </div>
                 </div>
                 <div class="service" id="service3">
@@ -807,10 +814,10 @@
                         <img src="../static/img/paying_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title3}}</h1>
+                        <h1>{{ main_services.title3 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content3}}</p>
+                        <p>{{ main_services.content3 }}</p>
                     </div>
                 </div>
                 <div class="service" id="service4">
@@ -818,10 +825,10 @@
                         <img src="../static/img/progress_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title4}}</h1>
+                        <h1>{{ main_services.title4 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content4}}</p>
+                        <p>{{ main_services.content4 }}</p>
                     </div>
                 </div>
                 <div class="service" id="service5">
@@ -829,10 +836,10 @@
                         <img src="../static/img/communication_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title5}}</h1>
+                        <h1>{{ main_services.title5 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content5}}</p>
+                        <p>{{ main_services.content5 }}</p>
                     </div>
                 </div>
                 <div class="service" id="service6">
@@ -840,10 +847,10 @@
                         <img src="../static/img/people_icon.png" alt="">
                     </div>
                     <div class="service-header">
-                        <h1>{{ main_services.title6}}</h1>
+                        <h1>{{ main_services.title6 }}</h1>
                     </div>
                     <div class="service-description">
-                        <p>{{ main_services.content6}}</p>
+                        <p>{{ main_services.content6 }}</p>
                     </div>
                 </div>
             </div>

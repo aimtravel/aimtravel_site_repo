@@ -9,7 +9,7 @@ class MainSliderAdmin(admin.ModelAdmin):
 
 @admin.register(SecondSlider)
 class SecondSliderAdmin(admin.ModelAdmin):
-    list_display = ['title1', 'content1', 'content2', 'button_link',]
+    list_display = ['title1', 'title2', 'content1', 'button_link',]
 
 
 @admin.register(ThirdSlider)
