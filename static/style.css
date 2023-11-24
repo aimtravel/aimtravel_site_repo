@@ -8317,3 +8317,53 @@ footer a:hover {
 /* CONTACTS PAGE*/
 /* END */
 
+/* AUTH PAGE*/
+.auth-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 0 60px 0;
+    font-family: 'Jost', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    text-align: center;
+    color: var(--blue-color);
+
+}
+
+.auth-page h1 {
+    font-size: 42px;
+    margin: 10px 0 30px 0;
+}
+
+.text-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    font-size: 20px;
+}
+
+.text-start label input {
+    font-size: 18px;
+}
+
+.auth-page #button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+}
+
+.auth-page button {
+    font-family: Jost, Sans-Serif;
+    font-size: 25px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: white;
+    padding: 0 30px;
+
+}
+/* AUTH PAGE END*/
