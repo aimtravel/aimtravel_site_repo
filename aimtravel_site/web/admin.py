@@ -15,6 +15,7 @@ duplicate_selected.short_description = "Duplicate selected entries"
 # Register your models here.
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
+    actions = [duplicate_selected]
     list_display = ['feedback_name', 'student_name_1', 'student_name_2', 'student_name_3']
     list_filter = ['feedback_name']
     search_fields = ['feedback_name']
@@ -22,6 +23,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
+    actions = [duplicate_selected]
     list_display = ['name', 'state', 'fact1', 'fact2', 'fact3', 'city_pic']
     list_filter = ['name', 'state']
     search_fields = ['name', 'state']
