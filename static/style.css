@@ -611,6 +611,26 @@ nav .dropdown {
         border: 1px solid #eeeeee;
     }
 
+    .opacity {
+        width: 93%;
+        max-height: 100px;
+        overflow: hidden;
+        overflow-y: scroll;
+        opacity: 1;
+        position: relative;
+        transform: none;
+        left: 0;
+        top: 0;
+        margin-top: 10px;
+        background-color: rgba(255, 255, 255, 1);
+        padding: 10px;
+        border-radius: 8px;
+
+        font-family: Jost, Sans-Serif;
+        font-size: 15px;
+    }
+
+
     .tooltip a {
         color: #00355E;
         line-height: 15px;
@@ -3974,15 +3994,33 @@ footer a:hover {
     gap: 40px;
 
     width: var(--max-width);
+    position: relative;
+}
+
+.normal-filtering {
+    display: flex;
+}
+
+.resp-filtering {
+    display: none;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 800px) {
+    .normal-filtering {
+        display: none;
+    }
+
+    .resp-filtering {
+        display: flex;
+    }
 }
 
 #offers-page-top-row {
     width: 100%;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
 }
 
 .text-area {
@@ -4039,27 +4077,30 @@ footer a:hover {
 
     #offers-page-top-row {
         width: 100%;
-        display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 10px;
+        gap: 20px;
         margin: 0;
+        box-sizing: border-box;
     }
 
     .text-area {
+        display: flex;
         width: 100%;
-        letter-spacing: 0.6px;
+        padding: 0 30px;
+        box-sizing: border-box;
     }
 
     .text-area h1 {
         font-size: 17px;
         margin: 12px 0;
+        text-align: center;
 
     }
 
     .text-area p {
-        width: 90%;
+        width: 100%;
         font-size: 12px;
         letter-spacing: 0.4px;
         text-align: justify;
@@ -4068,6 +4109,45 @@ footer a:hover {
 
 #filter-container {
     display: flex;
+}
+
+#filter-container-resp {
+    display: none;
+    padding-left: 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#filter-container-resp .filter-option {
+    width: 100%;
+}
+
+#filter-container-resp .arrow-up {
+    display: none;
+}
+
+#filter-container-resp .checkbox-container {
+    display: flex;
+    align-items: center;
+}
+
+#filter-container-resp .target-element.label {
+    width: 100%;
+    font-size: 20px;
+}
+
+.absolute-position {
+    box-sizing: border-box;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding-top: 60px;
+}
+
+.absolute-position #sort-label {
+    color: white;
 }
 
 @media screen and (max-width: 800px) {
@@ -4098,6 +4178,16 @@ footer a:hover {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    #job-offer-sort-form {
+        font-size: 13px;
+    }
+
+    #job-offer-sort-form-resp{
+        display: flex;
+    }
 }
 
 #job-offer-sort-form select {
@@ -4144,12 +4234,17 @@ footer a:hover {
 /*    padding: 0 20px;*/
 /*}*/
 
+#clear-filter a {
+    font-size: 13px;
+}
+
 #clear-filter a, #sort-label {
     color: var(--red-color);
     font-weight: 700;
     margin: 0;
-    padding: 0 20px;
+    padding: 0 15px;
     text-decoration: none;
+
 }
 
 #sort-label {
@@ -4160,24 +4255,39 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #filter-button-container {
         width: 100%;
+        flex-direction: column;
         justify-content: flex-start;
-        margin: 10px 0 0 20px;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    #filtering, #sorting {
+        margin-left: 30px;
     }
 
     #filter-button-icon-container {
         display: flex;
     }
 
+    #show-filter p {
+        margin: 0 15px;
+    }
+
     .filter-button {
         font-family: Jost, sans-serif;
         font-style: normal;
-        font-size: var(--font-20);
+        font-size: 12px;
         font-weight: 600;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
         line-height: normal;
         margin: 0;
         padding: 0;
         cursor: pointer;
+        border: 1px solid var(--red-color);
+    }
+
+    #sort-label {
+        padding: 0 10px 0 0;
     }
 }
 
@@ -4189,14 +4299,22 @@ footer a:hover {
         width: 100%;
         margin-top: 20px;
         margin-bottom: 15px;
-        align-items: center;
+        align-items: flex-start;
     }
 
-    .filter-button {
-        font-size: 13px;
+    .apply-filter-resp {
+        display: flex;
+        background: #9D0A0E;
+        border-radius: 10px;
+        padding: 0 20px;
+        margin: 0 0 30px 0;
+        justify-content: flex-start;
+        align-items: normal;
     }
 
-    /*.apply-filter.slider-btn*/
+    .apply-filter-resp p {
+        margin: 10px 0;
+    }
 }
 
 #offers-page-top-row .filter-row #offer-page-filters {
@@ -4214,22 +4332,17 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
-    #offer-page-filters {
+    #offers-page-top-row.resp-filtering .filter-row #offer-page-filters {
         width: 100%;
         align-self: flex-start;
     }
 
     #offer-page-filters form {
+        width: 95%;
         display: flex;
         align-items: flex-start;
         flex-direction: column;
         gap: 10px;
-        margin-left: 20px;
-    }
-
-    #offer-page-filters form div.target-element {
-        width: 110px;
-        height: 18px;
     }
 }
 
@@ -4269,12 +4382,12 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     #offer-page-filters .offer-filters {
         align-items: center;
-
+        width: 100%;
         box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.08);
         border: 1px solid #b9bcc0;
         border-radius: 8px;
-        padding: 2px 10px;
-        background: rgba(160, 160, 160, 0.1);
+        padding: 2px 0;
+        background: rgba(255, 255, 255, 1);
     }
 
     .offer-filters .tooltip {
@@ -4366,10 +4479,11 @@ footer a:hover {
     }
 
     .checkbox-container input[type="checkbox"]:checked::before {
+        display: flex;
         content: ""; /* Unicode checkmark character */
-        position: absolute;
-        top: 8px;
-        left: 11px;
+        position: relative;
+        top: 5px;
+        left: 5px;
         transform: translate(-50%, -50%);
         width: 17px;
         height: 17px;
@@ -4389,12 +4503,11 @@ footer a:hover {
     font-family: Jost, sans-serif;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px;
+    /*line-height: 20px;*/
     letter-spacing: 1px;
     border: none;
     background: none;
     padding: 5px 10px;
-    height: calc(45px * 0.5);
 }
 
 #offer-page-filters .icon {
@@ -4407,14 +4520,6 @@ footer a:hover {
 }
 
 @media screen and (max-width: 800px) {
-    #offer-page-filters div.target-element {
-        font-size: calc(var(--font-24) * 0.5);
-        text-align: justify-all;
-        line-height: 10px;
-        padding: 2px 5px;
-        height: calc(45px * 0.5);
-    }
-
     #offer-page-filters .icon {
         width: 15px;
         height: 15px;
@@ -4660,6 +4765,7 @@ footer a:hover {
 
     #contacts-query-form {
         width: 100%;
+        margin-bottom: 40px;
     }
 
     #contacts-query-form #contact-form {
@@ -8145,10 +8251,6 @@ footer a:hover {
         padding: 0 30px;
     }
 
-    #contacts-section {
-        height: 650px;
-    }
-
     #contacts-section .inner-container {
         width: 100%;
     }
@@ -8158,7 +8260,7 @@ footer a:hover {
 
         height: 100%;
         gap: 35px;
-        padding: 40px 0 0 0;
+        padding: 50px 0;
     }
 
     #contacts-container .price-container {
@@ -8366,4 +8468,5 @@ footer a:hover {
     padding: 0 30px;
 
 }
+
 /* AUTH PAGE END*/

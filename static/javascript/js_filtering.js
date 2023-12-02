@@ -6,10 +6,11 @@
 // });
 
 $(document).ready(function () {
-        $('#sort-by-select').change(function () {
-            $('#job-offer-sort-form').submit();
-        });
+    $('#sort-by-select').change(function () {
+        $('#job-offer-sort-form').submit();
     });
+    console.log('sorting - done')
+});
 
 $(document).ready(function () {
     // Add event listener to Apply Filters button
@@ -48,17 +49,3 @@ $(document).ready(function scrollBarChecker() {
     checkScrollbar();
     $(window).on("resize", checkScrollbar);
 });
-
-const filterButton = document.querySelector('#filter-button-icon-container');
-const filterContainer = document.querySelector('#filter-container');
-
-filterButton.addEventListener('click', filterDropdown);
-
-function filterDropdown() {
-    if (filterContainer.style.display === 'none') {
-        filterContainer.style.display = 'flex'
-    } else {
-        filterContainer.style.display = 'none'
-    }
-}
-
