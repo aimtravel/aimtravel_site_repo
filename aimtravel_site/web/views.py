@@ -149,10 +149,6 @@ def needed_docs(request):
     return render(request, template_name='nav/wat_usa/needed_docs.html')
 
 
-def taxes(request):
-    return render(request, template_name='nav/taxes.html')
-
-
 def online(request):
     return render(request, template_name='nav/online-services.html')
 
@@ -271,7 +267,6 @@ class JobOfferListView(views.ListView):
         paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-
 
         context = {
             'states': states,
@@ -509,4 +504,4 @@ def form_submission_view(request):
     encoded_message = smart_str(mail_message, encoding='utf-8')
     send_mail(subject, encoded_message, email, ['studentski@aimtravel.bg'], fail_silently=False)
 
-    return render(request, 'job_offer/success.html')
+    return render(request, 'success.html')

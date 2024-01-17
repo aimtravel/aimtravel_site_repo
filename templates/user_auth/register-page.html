@@ -1,62 +1,100 @@
-{% extends 'base3.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% load placeholders %}
 
 {% block content %}
+    {% if user.is_authenticated %}
+        <div id="register-section" class="pre-taxes-section">
+            <div id="pre-taxes-form" class="container taxes-section oval-border">
+                <a href="{% url 'index' %}">
+                    <img class="h-50px mb-4" src="{% static "img/Ready-stock/Logo/AIM_logo-colored.png" %}"
+                         alt="logo">
+                </a>
 
-    <br>
-    <br>
-    <br>
-    <div>
-        {#                <form method="post" action="{% url 'sign up' %}">#}
-        {#                        {% for field in form %}#}
-        {#                            {% if field.name == 'email' %}#}
-        {#                                <label for="{{ field.name }}">Email</label>#}
-        {#                            {% elif field.name == 'password1' %}#}
-        {#                                <label for="{{ field.name }}">Password</label>#}
-        {#                            {% else %}#}
-        {#                                <label for="{{ field.name }}">Repeat Password</label>#}
-        {#                            {% endif %}#}
-        {#                            <p>#}
-        {#                                {{ field }}#}
-        {##}
-        {#                            </p>#}
-        {##}
-        {#                        {% endfor %}#}
-        {#                {% csrf_token %}#}
-        {#                            <button class="btn btn-primary btn-lg">Регистрирай ме</button>#}
-        {#                        </form>#}
-        <div class="container">
-
-            <form method="post" action="{% url 'sign up' %}">
-                {#                <div>#}
-                {#                    <label>Е-майл</label>#}
-                {#                    {{ form.email }}#}
-                {#                </div>#}
-                {#                <div>#}
-                {#                    <label>Парола</label>#}
-                {#                    {{ form.password1 }}#}
-                {#                </div>#}
-                {#                <div>#}
-                {#                    <label>Потвърди паролата</label>#}
-                {#                    {{ form.password2 }}#}
-                {#                </div>#}
-                {{ form.as_p }}
-                {% csrf_token %}
-                <button class="btn btn-primary btn-lg">Регистрирай ме</button>
-            </form>
+                <br>
+                <h2>Вие сте регистриран потребител.</h2>
+            </div>
         </div>
-    </div>
 
+    {% else %}
+        <div id="register-section" class="pre-taxes-section">
+            <div id="pre-taxes-form" class="container taxes-section oval-border">
+                <a id="register-logo" href="{% url 'index' %}">
+                    <img class="h-50px mb-4" src="{% static "img/Ready-stock/Logo/AIM_logo-colored.png" %}"
+                         alt="logo">
+                </a>
+                <h1>РЕГИСТРАЦИЯ</h1>
+                <form id="register-form" method="post" action="{% url 'sign up' %}">
 
-    <br>
-    <br>
-    <br><br>
-    <br>
-    <br><br>
-    <br>
-    <br><br>
-    <br>
+                    {% if form.errors %}
+                        <div class="error-container">
+                            <div class="form-errors">
+                                <p>Please correct the following errors:</p>
+                                <ul>
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% for field in form %}
+                                        {% if field.errors %}
+                                            <li>{{ field.label }}: {{ field.errors.0 }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
 
+                    <div class="row">
+                        <div class="align-right label-container">
+                            <label for="id_email">Email:</label>
+                            <label for="id_first_name">Име:</label>
+                            <label for="id_last_name">Фамилия:</label>
+                            <label for="id_password1">Парола:</label>
+                            <label for="id_password2">Потвърди паролата:</label>
+                        </div>
+                        <div class="align-left field-container">
+                            {{ form.email }}
+                            {{ form.first_name }}
+                            {{ form.last_name }}
+                            <div class="row">
+                                {{ form.password1 }}
+                                <div class="info-tooltip">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16"
+                                         fill="none">
+                                        <g clip-path="url(#clip0_2382_8887)">
+                                            <path d="M8.16862 7.66658V10.9999M8.16862 5.00659L8.17529 4.99925M8.16862 14.6666C11.8506 14.6666 14.8353 11.6819 14.8353 7.99992C14.8353 4.31792 11.8506 1.33325 8.16862 1.33325C4.48662 1.33325 1.50195 4.31792 1.50195 7.99992C1.50195 11.6819 4.48662 14.6666 8.16862 14.6666Z"
+                                                  stroke="darkred" stroke-width="1.5" stroke-linecap="round"
+                                                  stroke-linejoin="round"/>
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_2382_8887">
+                                                <rect width="16" height="16" fill="white"
+                                                      transform="translate(0.167969)"/>
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                    <div class="info-tooltip-element">
+                                        <ul>
+                                            <li>Вашата парола не трябва да е твърде сходна с останалата ви лична
+                                                информация.
+                                            </li>
+                                            <li>Вашата парола трябва да съдържа поне 8 знака.</li>
+                                            <li>Вашата парола не трябва да лесно разгадаема. Пр."Bmw12345"</li>
+                                            <li>Вашата парола не може да бъде съставена само от цифри.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form.password2 }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button id="register-button" type="submit" class="slider-btn query-btn ">Регистрирай ме</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    {% endif %}
 
 {% endblock %}

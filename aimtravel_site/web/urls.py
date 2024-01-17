@@ -15,7 +15,6 @@ urlpatterns = (
     #     path('price/', price_tab, name='price'),
     #     path('needed_docs', needed_docs, name='needed documents'),
     # ])),
-    path('taxes/', taxes, name='taxes'),
     path('onlineservices/', online, name='online'),
     path('rabotnioferti/', JobOfferListView.as_view(), name='offers'),
     path('offer/', include([

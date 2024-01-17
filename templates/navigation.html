@@ -98,7 +98,9 @@
                 <div id="top-header-right-login">
                     {% if user.is_authenticated %}
                         {% if user.is_superuser %}
-                            <a id="top-header-right-login-p1" href="https://aimtravel.bg/admin">Admin</a>
+                            <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">Admin</a>
+                        {% else %}
+                            <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">Профил</a>
                         {% endif %}
                     {% else %}
                         <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
@@ -138,7 +140,7 @@
             <li class="dropdown link-a">
                 <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
                 <div class="tooltip">
-                    <a href="#">ДАНЪЦИ ОТ САЩ</a>
+                    <a href="{% url 'taxes' %}">ДАНЪЦИ ОТ САЩ</a>
                     <a href="#">СТАЖОВЕ В САЩ</a>
                     <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
                     <a href="{% url 'news' %}">НОВИНИ</a>
@@ -277,7 +279,7 @@
 
                 <div class="sub-element">
                     <a href="#">Други услуги</a>
-                    <a href="#">ДАНЪЦИ ОТ САЩ</a>
+                    <a href="{% url 'taxes' %}">ДАНЪЦИ ОТ САЩ</a>
                     <a href="#">СТАЖОВЕ В САЩ</a>
                     <a href="#">РАБОТА ЗА НЕСТУДЕНТИ</a>
                     <a href="{% url 'news' %}">НОВИНИ</a>

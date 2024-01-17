@@ -895,6 +895,11 @@
                                 <p>NEW</p>
                             </div>
                         {% endif %}
+                        {% if offer.last_seats == "True" %}
+                            <div class="last_seats">
+                                <p>Последни места</p>
+                            </div>
+                        {% endif %}
                         {% if offer.sold_out_offer == "True" %}
                             <div class="offer-pic grayed-out">
                         {% else %}

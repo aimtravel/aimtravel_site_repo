@@ -36,15 +36,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_social_share',
-    'ckeditor',
+    'wkhtmltopdf',
+
     'aimtravel_site',
 
     'aimtravel_site.web.apps.WebConfig',
-    'aimtravel_site.user_auth',
+    'aimtravel_site.user_auth.apps.AccountConfig',
     'aimtravel_site.user_profile',
     'aimtravel_site.posting.apps.PostingConfig',
     'aimtravel_site.main_page.apps.MainPageConfig',
+    'aimtravel_site.taxes.apps.TaxesConfig',
 ]
 
 MIDDLEWARE = [
@@ -62,8 +63,7 @@ ROOT_URLCONF = 'aimtravel_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', ]
-        ,
+        'DIRS': [BASE_DIR / 'templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

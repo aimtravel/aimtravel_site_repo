@@ -1,3 +1,6 @@
+from datetime import date
+
+from autoslug import AutoSlugField
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -6,13 +9,27 @@ from django.utils import timezone
 from aimtravel_site.user_auth.managers import AppUserManager
 
 
-class AppUser(AbstractBaseUser, PermissionsMixin):
-    """
-        An abstract base class implementing a fully featured User model with
-        admin-compliant permissions.
+def upload_to_path(instance, filename):
+    return f'user/{instance.first_name}_{instance.last_name}/{filename}'
 
-        Email and password are required. Other fields are optional.
-        """
+
+def get_date():
+    today = date.today()
+    return today
+
+
+class AppUser(AbstractBaseUser, PermissionsMixin):
+
+    class Meta:
+        verbose_name = 'Потребителски профил'
+        verbose_name_plural = 'Потребителски профили'
+
+    """
+    An abstract base class implementing a fully featured User model with
+    admin-compliant permissions.
+    
+    Email and password are required. Other fields are optional.
+    """
 
     email = models.EmailField(
         unique=True,
@@ -46,6 +63,16 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 
     date_joined = models.DateTimeField(
         default=timezone.now,
+    )
+
+    slug = AutoSlugField(unique=True, populate_from='first_name')
+
+    user_picture = models.FileField(
+        upload_to='user/pictures/',
+        default='profile/default_profile_pic.jpg',
+        verbose_name="Профилна снимка",
+        blank=True,
+        null=True,
     )
 
     USERNAME_FIELD = 'email'

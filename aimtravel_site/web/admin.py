@@ -33,15 +33,15 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
     actions = [duplicate_selected]
-    list_display = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
-    list_filter = ['new_offer', 'sold_out_offer', 'city', 'ranking']
+    list_display = ['id', 'job_position', 'employer_name', 'wage', 'city', 'ranking']
+    list_filter = ['new_offer', 'sold_out_offer', 'last_seats', 'city', 'ranking']
     search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
     sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
 
 
 @admin.register(Prices)
 class PricesAdmin(admin.ModelAdmin):
-    list_filter = ['actual_self_arrange']
+    list_filter = ['actual_self_arrange', 'actual_standard', 'actual_premium']
 
 
 @admin.register(AdditionalServices)

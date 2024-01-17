@@ -2,10 +2,24 @@ from django import forms
 from django.contrib.auth import forms as auth_forms, get_user_model, password_validation
 from django.core.exceptions import ValidationError
 
+from aimtravel_site.user_auth.models import AppUser
+
 UserModel = get_user_model()
 
 
 class SignUpForm(auth_forms.UserCreationForm):
+    first_name = forms.CharField(
+        label="Име",
+        strip=False,
+        widget=forms.TextInput(),
+        help_text='Въведете името си',
+    )
+    last_name = forms.CharField(
+        label="Фамилия",
+        strip=False,
+        widget=forms.TextInput(),
+        help_text='Въведете фамилията си',
+    )
     password1 = forms.CharField(
         label="Парола",
         strip=False,
@@ -21,7 +35,7 @@ class SignUpForm(auth_forms.UserCreationForm):
 
     class Meta:
         model = UserModel
-        fields = (UserModel.USERNAME_FIELD, 'password1', 'password2')
+        fields = (UserModel.USERNAME_FIELD, 'first_name', 'last_name', 'password1', 'password2')
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -75,10 +89,23 @@ class SignInForm(auth_forms.AuthenticationForm):
 class EditForm(auth_forms.UserChangeForm):
     fieldsets = (
         (None, {'fields': ("email", "password")}),
-        ("Permissions", {'fields': ('is_staff', 'is_active', 'date_joined')})
+        ("Permissions", {'fields': ('is_staff', 'is_active', 'date_joined')}),
+        ("Additional", {'fields': 'user_picture'}),
     )
 
     class Meta:
         model = UserModel
         fields = '__all__'
         field_classes = {'email': auth_forms.UsernameField}
+
+
+class MyProfileForm(forms.ModelForm):
+    class Meta:
+        model = AppUser
+        exclude = ['user']
+
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = AppUser
+        fields = ['first_name', 'last_name', 'user_picture']

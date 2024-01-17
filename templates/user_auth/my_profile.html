@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+    <section id="my-profile" class="container">
+        <div id="my-profile-header" class="row">
+
+            {% if user %}
+                {% if user.user_picture %}
+                    <img class="profile-pic" src="{{ user.user_picture.url }}" alt="profile-pic">
+                {% else %}
+                    <p>В момента няма качена снимка.</p>
+                {% endif %}
+            {% else %}
+                <p>Няма логнат потребител.</p>
+            {% endif %}
+
+            <h1>Здравей, {{ user.first_name }}!</h1>
+        </div>
+
+        <h3>От тук можеш да управялваш личния си профил.</h3>
+
+        <div class="column">
+
+            {% if user.is_staff %}
+                <a href="https://aimtravel.bg/admin">
+                    <div class="wrapper">
+                        <p>Админ панел</p>
+                    </div>
+                </a>
+                <a href="{% url 'change password' %}">
+                    <div class="wrapper">
+                        <p>Смяна на парола</p>
+                    </div>
+                </a>
+                <a href="{% url 'edit user' pk=user.id %}">
+                    <div class="wrapper">
+                        <p>Лични данни</p>
+                    </div>
+                </a>
+                <a href="{% url 'employee profile edit' pk=user.id %}">
+                    <div class="wrapper">
+                        <p>Служебен профил</p>
+                    </div>
+                </a>
+                <a href="{% url 'sign out' %}">
+                    <div class="wrapper">
+                        <p>Изход</p>
+                    </div>
+                </a>
+            {% else %}
+
+                <a href="{% url 'change password' %}">
+                    <div class="wrapper">
+                        <p>Смяна на парола</p>
+                    </div>
+                </a>
+
+                <a href="{% url 'edit user' pk=user.id %}">
+                    <div class="wrapper">
+                        <p>Лични данни</p>
+                    </div>
+                </a>
+
+                {#                <a href="{% url 'details profile' pk=user.id %}">#}
+                {#                    <div class="wrapper">#}
+                {#                        <p>Студентска Бригада в САЩ</p>#}
+                {#                    </div>#}
+                {#                </a>#}
+                {% if latest_tax %}
+                    <a href="{% url 'edit tax' pk=latest_tax.pk %}">
+                        <div class="wrapper">
+                            <p>Връщане на Данъци от САЩ</p>
+                        </div>
+                    </a>
+                {% endif %}
+
+
+                <a href="{% url 'sign out' %}">
+                    <div class="wrapper">
+                        <p>Изход</p>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </section>
+
+{% endblock %}

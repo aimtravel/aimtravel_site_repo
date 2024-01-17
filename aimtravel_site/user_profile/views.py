@@ -59,8 +59,8 @@ class EditEmployeeProfileView(LoginRequiredMixin, UserPassesTestMixin, views.Upd
         return self.request.user.is_staff
 
     def get_success_url(self):
-        employee_pk = self.kwargs['pk']
-        return reverse_lazy('employee profile details', kwargs={'pk': employee_pk})
+        user_slug = self.request.user.slug
+        return reverse_lazy('my-profile', kwargs={'slug': user_slug})
 
 
 class AllUsersView(LoginRequiredMixin, UserPassesTestMixin, views.ListView):

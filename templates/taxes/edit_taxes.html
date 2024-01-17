@@ -1,0 +1,725 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
+
+        <!-- =======================
+        Main banner START -->
+        <div class="container-row">
+            <aside id="tax-navigation">
+                <div id="personal-info" class="border">
+                    <p>Лична информация</p>
+                </div>
+                <div id="travel-info" class="border">
+                    <p>Информация за пътуването</p>
+                </div>
+                <div id="employer-info" class="border">
+                    <p>Информация за работодателя</p>
+                </div>
+                <div id="bank-info" class="border">
+                    <p>Банкова информация</p>
+                </div>
+                <div id="attachments" class="border">
+                    <p>Прикачени файлове</p>
+                </div>
+                <div id="tax-submit-button" class="border">
+                    <button id="cloneSubmitButton" type="submit" class="query-btn slider-btn">Изпрати</button>
+                </div>
+            </aside>
+            <section class="taxes-section">
+            {% if latest_tax %}
+                <form id="norm" action="{% url 'edit tax' pk=latest_tax.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {#                    {{ form.as_p }}#}
+                    {#                    <button type="submit">submit</button>#}
+                    {% if form.errors %}
+                        <div class="form-errors">
+                            <p>Please correct the following errors:</p>
+                            <ul>
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                {% for field in form %}
+                                    {% if field.errors %}
+                                        <li>{{ field.label }}: {{ field.errors.0 }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div class="wrapper">
+                        <div class="tax-content personal-info">
+                            <h2>Лична информация</h2>
+                            <div class="row">
+                                <p>
+                                    <label for="{{ form.first_name.id_for_label }}">Име*</label>
+                                    {{ form.first_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_middle_name">Презиме</label>
+                                    {{ form.middle_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_family_name">Фамилия*</label>
+                                    {{ form.family_name }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_mothers_maiden_name">Mothers maiden name</label>
+                                    {{ form.mothers_maiden_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_birth_date">Рожденна дата*</label>
+                                    {{ form.birth_date }}
+                                </p>
+
+                                <p>
+                                    <label for="id_birth_city">Град на раждане*</label>
+                                    {{ form.birth_city }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_address">Точен адрес*</label>
+                                    {{ form.address }}
+                                </p>
+
+                                <p>
+                                    <label for="id_city">Град*</label>
+                                    {{ form.city }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_country">Държава*</label>
+                                    {{ form.country }}
+                                </p>
+
+                                <p>
+                                    <label for="id_email">Имейл*</label>
+                                    {{ form.email }}
+                                </p>
+
+                                <p>
+                                    <label for="id_phone_number">Телефон*</label>
+                                    {{ form.phone_number }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_how_did_you_find_us">Откъде научихте за нас?</label>
+                                    {{ form.how_did_you_find_us }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="query-btn next-btn"><p>Напред</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content travel-info">
+                            <h2>Информация за пътуването</h2>
+                            <div class="row">
+                                <p>
+                                    <label for="id_social_security">Social Security Number/Социално Осигурителен
+                                        Номер*</label>
+                                    {{ form.social_security }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_working_year">Работна година*</label>
+                                    {{ form.working_year }}
+                                </p>
+
+                                <p>
+                                    <label for="id_arrival_date_in_usa">Дата на пристигане в САЩ*</label>
+                                    {{ form.arrival_date_in_usa }}
+                                </p>
+
+                                <p>
+                                    <label for="id_departure_date_in_usa">Дата на заминаване от САЩ*</label>
+                                    {{ form.departure_date_in_usa }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_visa_type">Вид виза*</label>
+                                    {{ form.visa_type }}
+                                </p>
+
+                                <p>
+                                    <label for="id_program_type">Тип програма*</label>
+                                    {{ form.program_type }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_previous_tax_declarations">Подавал ли си данъчна декларация в САЩ за
+                                        предходни години?*</label>
+                                    {{ form.previous_tax_declarations }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_visa_changing">Променял ли си някога вида на твоята виза в
+                                        САЩ?</label>
+                                    {{ form.visa_changing }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_pin_from_irs">IRS изпращал ли ти е PIN за защита на
+                                        самоличността?</label>
+                                    {{ form.pin_from_irs }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="query-btn previous-btn"><p>Назад</p></div>
+                                <div class="query-btn next-btn"><p>Напред</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content employer-info">
+                            <h2>Информация за работодателя</h2>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_name">Име на компанията*</label>
+                                    {{ form.company_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_address">Точен адрес*</label>
+                                    {{ form.company_address }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_city">Град*</label>
+                                    {{ form.company_city }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_state">Щат*</label>
+                                    {{ form.company_state }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_zip">Пощенски код*</label>
+                                    {{ form.company_zip }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_phone">Телефон</label>
+                                    {{ form.company_phone }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_fax">Факс</label>
+                                    {{ form.company_fax }}
+                                </p>
+                                <p>
+                                    <label for="id_company_email">Имейл</label>
+                                    {{ form.company_email }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_last_paycheck">Имате ли копие от последния си Paycheck?</label>
+                                    {{ form.last_paycheck }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_w_2">Получихте ли вече своя формуляр W-2?</label>
+                                    {{ form.w_2 }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="query-btn previous-btn"><p>Назад</p></div>
+                                <div class="query-btn next-btn"><p>Напред</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content bank-info">
+                            <h2>Банкова информация</h2>
+                            <div class="row">
+                                <p>
+                                    <label for="id_american_bank_account">Имаш ли банкова сметка в САЩ?</label>
+                                    {{ form.american_bank_account }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_type_of_account">Type of Account</label>
+                                    {{ form.type_of_account }}
+                                </p>
+
+                                <p>
+                                    <label for="id_bank_name">Name of Bank</label>
+                                    {{ form.bank_name }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_account_holder">Account holder*</label>
+                                    {{ form.account_holder }}
+                                </p>
+
+                                <p>
+                                    <label for="id_routing_number">Routing number*</label>
+                                    {{ form.routing_number }}
+                                </p>
+                                <p>
+                                    <label for="id_account_number">Account number*</label>
+                                    {{ form.account_number }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_comments">Коментари</label>
+                                    {{ form.comments }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <div class="query-btn previous-btn"><p>Назад</p></div>
+                                <div class="query-btn next-btn"><p>Напред</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content attachments">
+                            <h2>Прикачени файлове</h2>
+                            <p>
+                                {{ form.passport_copy }}
+                                <label for="id_passport_copy">Копие на паспорта*</label>
+                            </p>
+
+                            <p>
+                                {{ form.visa_copy }}
+                                <label for="id_visa_copy">Копие на визата*</label>
+                            </p>
+
+                            <p>
+                                {{ form.ssn_copy }}
+                                <label for="id_ssn_copy">Копие на картата ви със Социално-Осигурителен Номер (SSN
+                                    card)*</label>
+                            </p>
+
+                            <p>
+                                {{ form.last_paycheck_copy }}
+                                <label for="id_last_paycheck_copy">Последните чекове от всички работодатели (ако
+                                    разполагате с тях)</label>
+                            </p>
+
+                            <p>
+                                {{ form.w2_copy }}
+                                <label for="id_w2_copy">W-2 форма:</label>
+                            </p>
+
+                            <p>
+                                {{ form.bank_account_screenshot }}
+                                <label for="id_bank_account_screenshot">Screenshot на американската ви банкова сметка,
+                                    ако имате такава</label>
+                            </p>
+
+                            <p>
+                                {{ form.us_document_copy }}
+                                <label for="id_us_document_copy">Снимка на ID от САЩ/Американска Шофьорска книжка, само
+                                    ако имате</label>
+                            </p>
+                            <div class="row">
+                                <div class="query-btn previous-btn"><p>Назад</p></div>
+                                <button type="submit" class="query-btn slider-btn">Изпрати</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+                <form id="resp" action="{% url 'edit tax' pk=user.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h2>Формуляр за връщане на данъци</h2>
+                    <div class="wrapper">
+                        <div class="tax-content-header">
+                            <div class="arrow-down"><p>Лична информация</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="arrow-up"><p>Лична информация</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tax-content-resp personal-info">
+                            <div class="row">
+                                <p>
+                                    <label for="id_first_name">First name:</label>
+                                    {{ edit_taxes.first_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_middle_name">Middle name:</label>
+                                    {{ edit_taxes.middle_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_family_name">Family name:</label>
+                                    {{ edit_taxes.family_name }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_mothers_maiden_name">Mothers maiden name:</label>
+                                    {{ edit_taxes.mothers_maiden_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_birth_date">Birth date:</label>
+                                    {{ edit_taxes.birth_date }}
+                                </p>
+
+                                <p>
+                                    <label for="id_birth_city">Birth city:</label>
+                                    {{ edit_taxes.birth_city }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_address">Address:</label>
+                                    {{ edit_taxes.address }}
+                                </p>
+
+                                <p>
+                                    <label for="id_city">City:</label>
+                                    {{ edit_taxes.city }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_country">Country:</label>
+                                    {{ edit_taxes.country }}
+                                </p>
+
+                                <p>
+                                    <label for="id_email">Email:</label>
+                                    {{ edit_taxes.email }}
+                                </p>
+
+                                <p>
+                                    <label for="id_phone_number">Phone number:</label>
+                                    {{ edit_taxes.phone_number }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_how_did_you_find_us">How did you find us:</label>
+                                    {{ edit_taxes.how_did_you_find_us }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content-header">
+                            <div class="arrow-down"><p>Информация за пътуването</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="arrow-up"><p>Информация за пътуването</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tax-content-resp travel-info">
+                            <div class="row">
+                                <p>
+                                    <label for="id_social_security">Social security:</label>
+                                    {{ edit_taxes.social_security }}
+                                </p>
+
+                                <p>
+                                    <label for="id_working_year">Working year:</label>
+                                    {{ edit_taxes.working_year }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_arrival_date_in_usa">Arrival date in usa:</label>
+                                    {{ edit_taxes.arrival_date_in_usa }}
+                                </p>
+
+                                <p>
+                                    <label for="id_departure_date_in_usa">Departure date in usa:</label>
+                                    {{ edit_taxes.departure_date_in_usa }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_visa_type">Visa type:</label>
+                                    {{ edit_taxes.visa_type }}
+                                </p>
+
+                                <p>
+                                    <label for="id_program_type">Program type:</label>
+                                    {{ edit_taxes.program_type }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_previous_tax_declarations">Previous tax declarations:</label>
+                                    {{ edit_taxes.previous_tax_declarations }}
+                                </p>
+
+                                <p>
+                                    <label for="id_visa_changing">Visa changing:</label>
+                                    {{ edit_taxes.visa_changing }}
+                                </p>
+
+                                <p>
+                                    <label for="id_pin_from_irs">Pin from irs:</label>
+                                    {{ edit_taxes.pin_from_irs }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content-header">
+                            <div class="arrow-down"><p>Информация за работодателя</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="arrow-up"><p>Информация за работодателя</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tax-content-resp employer-info">
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_name">Company name:</label>
+                                    {{ edit_taxes.company_name }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_address">Company address:</label>
+                                    {{ edit_taxes.company_address }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_city">Company city:</label>
+                                    {{ edit_taxes.company_city }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_state">Company state:</label>
+                                    {{ edit_taxes.company_state }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_zip">Company zip:</label>
+                                    {{ edit_taxes.company_zip }}
+                                </p>
+
+                                <p>
+                                    <label for="id_company_phone">Company phone:</label>
+                                    {{ edit_taxes.company_phone }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_company_fax">Company fax:</label>
+                                    {{ edit_taxes.company_fax }}
+                                </p>
+                                <p>
+                                    <label for="id_company_email">Company email:</label>
+                                    {{ edit_taxes.company_email }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_last_paycheck">Last paycheck:</label>
+                                    {{ edit_taxes.last_paycheck }}
+                                </p>
+                                <p>
+                                    <label for="id_w_2">W 2:</label>
+                                    {{ edit_taxes.w_2 }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content-header">
+                            <div class="arrow-down"><p>Банкова информация</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="arrow-up"><p>Банкова информация</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="tax-content-resp bank-info">
+                            <div class="row">
+                                <p>
+                                    <label for="id_american_bank_account">American bank account:</label>
+                                    {{ edit_taxes.american_bank_account }}
+                                </p>
+
+                                <p>
+                                    <label for="id_type_of_account">Type of account:</label>
+                                    {{ edit_taxes.type_of_account }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_bank_name">Bank name:</label>
+                                    {{ edit_taxes.bank_name }}
+                                </p>
+                                <p>
+                                    <label for="id_account_holder">Account holder:</label>
+                                    {{ edit_taxes.account_holder }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_routing_number">Routing number:</label>
+                                    {{ edit_taxes.routing_number }}
+                                </p>
+                                <p>
+                                    <label for="id_account_number">Account number:</label>
+                                    {{ edit_taxes.account_number }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_comments">Comments:</label>
+                                    {{ edit_taxes.comments }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="tax-content-header">
+                            <div class="arrow-down"><p>Прикачени файлове</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <div class="arrow-up"><p>Прикачени файлове</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40"
+                                     fill="none">
+                                    <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="tax-content-resp attachments">
+                            <div class="row">
+                                <p>
+                                    <label for="id_passport_copy">Копие на паспорт:</label>
+                                    {{ edit_taxes.passport_copy }}
+                                </p>
+
+                                <p>
+                                    <label for="id_visa_copy">Копие на виза:</label>
+                                    {{ edit_taxes.visa_copy }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_ssn_copy">Копие на Social Security:</label>
+                                    {{ edit_taxes.ssn_copy }}
+                                </p>
+
+                                <p>
+                                    <label for="id_last_paycheck_copy">Последни чекове:</label>
+                                    {{ edit_taxes.last_paycheck_copy }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_w2_copy">W-2 форми:</label>
+                                    {{ edit_taxes.w2_copy }}
+                                </p>
+
+                                <p>
+                                    <label for="id_bank_account_screenshot">Screenshot на банковата ти сметка,потвържващ
+                                        че
+                                        ти си собственик на сметката:</label>
+                                    {{ edit_taxes.bank_account_screenshot }}
+                                </p>
+                            </div>
+                            <div class="row">
+                                <p>
+                                    <label for="id_us_document_copy">Снимка на ID от САЩ/Американска Шофьорска книжка
+                                        (само
+                                        ако
+                                        имате):</label>
+                                    {{ edit_taxes.us_document_copy }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="query-btn slider-btn">Изпрати</button>
+                </form>
+            {% else %}
+            <p>Няма въведени данни.</p>
+            {% endif %}
+            </section>
+        </div>
+        <!-- =======================
+    Blog content END -->
+
+    </main>
+    <!-- **************** MAIN CONTENT END **************** -->
+
+
+{% endblock %}

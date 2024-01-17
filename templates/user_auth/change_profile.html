@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+    <section id="my-profile" class="container">
+        <div id="my-profile-header" class="row">
+            <div class="column">
+                {% if user.user_picture %}
+                    <img class="profile-pic" src="{{ user.user_picture.url }}" alt="">
+                {% else %}
+                    <p>В момента няма качена снимка.</p>
+                {% endif %}
+                <form id="change-profile-form" class="column" action="{% url 'edit user' pk=user.id %}" method="POST" enctype="multipart/form-data">
+                    {% if form.non_field_errors %}
+                        <div class="error-container">
+                            <div class="form-errors">
+                                <p>Please correct the following errors:</p>
+                                <ul>
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% for field in form %}
+                                        {% if field.errors %}
+                                            <li>{{ field.label }}: {{ field.errors.0 }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <label for="id_first_name">Име:</label>
+                    {{ form.first_name }}
+                    <label for="id_last_name">Фамилия:</label>
+                    {{ form.last_name }}
+                    <label for="id_user_picture">Профила снимка:</label>
+                    <div id="change-profile-pic">
+{#                        {{ form.user_picture }}#}
+                    <input type="file" name="user_picture" id="id_user_picture">
+                    </div>
+
+                    <button class="query-btn" type="submit">Редактирай</button>
+
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

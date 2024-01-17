@@ -11,6 +11,7 @@
 :root {
     --max-width: calc(1730px * 0.75);
     --red-color: #9D0A0E;
+    --red-color-hover: #841114;
     --blue-color: #00355E;
     --gray-color: #F4F4F4;
     --white-color: #FFFFFF;
@@ -65,6 +66,10 @@ body {
     margin: 0;
     padding: 0;
 
+}
+
+button[type="submit"] {
+    color: white;
 }
 
 main {
@@ -836,10 +841,33 @@ nav a:hover {
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
 }
 
+.background-tax {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: var(--main-slider-background-height);
+    left: 0;
+    top: -170px;
+    background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/hero-banner_2.jpg');
+    z-index: -1;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 0 0 50% 50% / 0 0 15% 15%;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+}
+
 @media screen and (max-width: 800px) {
     .background {
         width: 100%;
         top: 46px;
+        height: calc(var(--main-slider-background-height) * 0.51);
+    }
+
+    .background-tax {
+        width: 100%;
+        top: -10px;
         height: calc(var(--main-slider-background-height) * 0.51);
     }
 }
@@ -1101,7 +1129,10 @@ nav a:hover {
 
 #slider-1,
 #slider-2,
-#slider-3 {
+#slider-3,
+#slider-1-tax,
+#slider-2-tax,
+#slider-3-tax {
     width: 100%;
 
     display: flex;
@@ -1124,7 +1155,10 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     #slider-1,
     #slider-2,
-    #slider-3 {
+    #slider-3,
+    #slider-1-tax,
+    #slider-2-tax,
+    #slider-3-tax {
         padding: calc(48px * 0.31) calc(80px * 0.31);
 
     }
@@ -1133,7 +1167,10 @@ nav a:hover {
 
 #slider-1 h4,
 #slider-2 h4,
-#slider-3 h4 {
+#slider-3 h4,
+#slider-1-tax h4,
+#slider-2-tax h4,
+#slider-3-tax h4 {
     color: var(--white-color);
     text-align: center;
     font-family: Jost, sans-serif;
@@ -1150,7 +1187,10 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     #slider-1 h4,
     #slider-2 h4,
-    #slider-3 h4 {
+    #slider-3 h4,
+    #slider-1-tax h4,
+    #slider-2-tax h4,
+    #slider-3-tax h4 {
         font-size: calc(var(--font-42) * 0.31);
         line-height: 28px;
         letter-spacing: 1.12px;
@@ -1160,7 +1200,10 @@ nav a:hover {
 
 #slider-1 h1,
 #slider-2 h1,
-#slider-3 h1 {
+#slider-3 h1,
+#slider-1-tax h1,
+#slider-2-tax h1,
+#slider-3-tax h1 {
     color: var(--white-color);
     font-family: Jost, sans-serif;
     font-size: var(--font-62);
@@ -1176,7 +1219,10 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     #slider-1 h1,
     #slider-2 h1,
-    #slider-3 h1 {
+    #slider-3 h1,
+    #slider-1-tax h1,
+    #slider-2-tax h1,
+    #slider-3-tax h1 {
         font-size: calc(var(--font-62) * 0.31);
         line-height: calc(65px * 0.31);
         letter-spacing: 1.6px;
@@ -1185,7 +1231,10 @@ nav a:hover {
 
 #slider-1 p,
 #slider-2 p,
-#slider-3 p {
+#slider-3 p,
+#slider-1-tax p,
+#slider-2-tax p,
+#slider-3-tax p {
     color: var(--white-color);
     text-align: center;
     font-family: Jost, sans-serif;
@@ -1202,29 +1251,31 @@ nav a:hover {
 @media screen and (max-width: 800px) {
     #slider-1 p,
     #slider-2 p,
-    #slider-3 p {
+    #slider-3 p,
+    #slider-1-tax p,
+    #slider-2-tax p,
+    #slider-3-tax p {
         font-size: calc(var(--font-25) * 0.45);
     }
 }
 
-#slider-1 {
+#slider-1, #slider-2, #slider-3 {
     display: none;
     flex-direction: column;
     align-items: center;
 }
 
-#slider-2 {
-    display: none;
+#slider-1-tax {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#slider-3 {
+#slider-2-tax, #slider-3-tax  {
     display: none;
     flex-direction: column;
     align-items: center;
 }
-
 
 /* Top Destinations*/
 
@@ -2155,6 +2206,35 @@ main .main-flag2 {
 }
 
 .new-offer p {
+    color: #FFF;
+    text-align: center;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Jost;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16px; /* 114.286% */
+    letter-spacing: 0.42px;
+    text-transform: uppercase;
+}
+
+.last_seats {
+    display: flex;
+    height: 26px;
+    border-radius: 4px;
+    border: 1px solid white;
+    background-color: #00355E;
+    position: absolute;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    left: 25px;
+    top: 25px;
+}
+
+.last_seats p {
     color: #FFF;
     text-align: center;
     leading-trim: both;
@@ -4185,7 +4265,7 @@ footer a:hover {
         font-size: 13px;
     }
 
-    #job-offer-sort-form-resp{
+    #job-offer-sort-form-resp {
         display: flex;
     }
 }
@@ -4281,7 +4361,7 @@ footer a:hover {
         letter-spacing: 1.5px;
         line-height: normal;
         margin: 0;
-        padding: 0;
+        padding: 0 10px;
         cursor: pointer;
         border: 1px solid var(--red-color);
     }
@@ -4685,7 +4765,7 @@ footer a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: calc(162px * 0.75);
+    padding: 0 20px;
     height: calc(50px * 0.75);
     background: var(--red-color);
     border-radius: 8px;
@@ -4710,14 +4790,13 @@ footer a:hover {
 #message-section {
     background: var(--white-color);
     border-radius: 14px;
-    position: absolute;
-    top: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
     order: 1;
     z-index: 60;
     box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+    margin: 80px 0 100px 0;
 }
 
 #message-section .message-frame {
@@ -4748,10 +4827,6 @@ footer a:hover {
     #contact-form.query-btn {
         width: calc(120px * 0.75);
         height: calc(30px * 0.75);
-    }
-
-    #message-section {
-        top: 400px;
     }
 
     #message-section.message-frame {
@@ -5216,7 +5291,7 @@ footer a:hover {
     gap: 40px;
 }
 
-#offer-details-details .container {
+#offer-details-details .container-details {
     color: #000;
     font-family: Jost, sans-serif;
     font-size: var(--font-24);
@@ -7081,7 +7156,7 @@ footer a:hover {
     margin: 0;
 }
 
-.faq-content-header {
+.faq-content-header, .tax-content-header {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -7095,17 +7170,17 @@ footer a:hover {
     box-shadow: 4px 4px 50px 0px rgba(0, 0, 0, 0.06);
 }
 
-.faq-content-header:hover {
+.faq-content-header:hover, .tax-content-header:hover {
     /*background: #efefef;*/
     transition: 0.5s ease-in-out;
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.faq-content-header .arrow-down {
+.faq-content-header .arrow-down, .tax-content-header .arrow-down {
     display: flex;
 }
 
-.faq-content-header .arrow-up {
+.faq-content-header .arrow-up, .tax-content-header .arrow-up {
     display: none;
 }
 
@@ -7159,15 +7234,15 @@ footer a:hover {
         height: 20px;
     }
 
-    .faq-content-header {
+    .faq-content-header, .tax-content-header {
         gap: 3px;
     }
 
-    .faq-content-header .arrow-down {
+    .faq-content-header .arrow-down, .tax-content-header .arrow-down {
         display: flex;
     }
 
-    .faq-content-header .arrow-up {
+    .faq-content-header .arrow-up, .tax-content-header .arrow-up {
         display: none;
     }
 
@@ -8470,3 +8545,437 @@ footer a:hover {
 }
 
 /* AUTH PAGE END*/
+
+/* TAXES PAGE */
+
+#tax-main {
+    position: relative;
+    margin-top: 540px;
+}
+
+.container-row {
+    width: var(--max-width);
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0;
+    gap: 50px;
+    justify-content: flex-start
+}
+
+@media screen and (max-width: 800px) {
+    .container-row {
+        width: 100%;
+        margin: 50px 0;
+        gap: 50px;
+        justify-content: flex-start
+    }
+}
+
+.pre-taxes-section {
+    display: flex;
+    margin: 30px 0 60px 0;
+}
+
+#pre-taxes-form {
+    padding: 10px 50px 10px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    font-family: Jost, Sans-Serif;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 800px) {
+    aside {
+        display: none;
+    }
+}
+
+#tax-navigation #personal-info {
+    font-weight: 700;
+    color: black
+}
+
+.tax-section form#norm .personal-info {
+    display: flex;
+}
+
+#tax-navigation #travel-info,
+#tax-navigation #employer-info,
+#tax-navigation #bank-info,
+#tax-navigation #attachments {
+    font-weight: 400;
+    color: rgb(128, 128, 128);
+}
+
+.taxes-section form#norm .travel-info,
+.taxes-section form#norm .employer-info,
+.taxes-section form#norm .bank-info,
+.taxes-section form#norm .attachments {
+    display: none;
+}
+
+aside div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 3px 15px;
+    cursor: pointer;
+}
+
+aside div p {
+    margin: 0;
+}
+
+.taxes-section {
+    max-width: var(--max-width);
+    font-family: Jost, Sans-Serif;
+    font-size: 18px;
+    /*box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);*/
+    padding: 0 60px 0 0;
+
+}
+
+.taxes-section form#norm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgba(201, 201, 201, 0.3);
+    padding: 10px 30px 20px 30px;
+    background-color: white;
+    /*filter: drop-shadow(30px 10px 4px #4444dd);*/
+}
+
+.taxes-section form#resp {
+    display: none;
+    flex-direction: column;
+    gap: 25px;
+}
+
+@media screen and (max-width: 800px) {
+    .taxes-section form#norm {
+        display: none;
+    }
+
+    .taxes-section form#resp {
+        display: flex;
+    }
+
+    .taxes-section form#resp h2 {
+        text-align: center;
+    }
+}
+
+.taxes-section form button {
+    border: none;
+    color: white;
+    font-family: Jost, Sans-Serif;
+    font-size: 18px;
+    background-color: #00355E;
+}
+
+.taxes-section form#resp button {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    .taxes-section form button {
+        width: 50%;
+    }
+
+    .taxes-section form#resp button {
+        display: flex;
+    }
+
+    .taxes-section form#norm button {
+        display: none;
+    }
+}
+
+.taxes-section .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    text-align: left;
+}
+
+.taxes-section .row p {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+.taxes-section .wrapper {
+    width: 100%;
+}
+
+.wrapper .tax-content-header {
+    display: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .wrapper .tax-content-header {
+        display: flex;
+    }
+}
+
+.wrapper .tax-content-header p {
+    margin: 0;
+    padding: 0 20px;
+}
+
+.tax-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.tax-content-resp {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tax-content p input, .tax-content p select,
+.tax-content-resp p input, .tax-content-resp p select, .align-left input {
+    border-radius: 5px;
+    border: 1px solid #d4d4d4;
+    align-self: stretch;
+    height: 30px;
+}
+
+.tax-content .query-btn {
+    cursor: pointer;
+}
+
+.query-btn:hover {
+    background-color: #841114;
+}
+
+.tax-content .query-btn p {
+    color: white;
+}
+
+@media screen and (max-width: 800px) {
+    .taxes-section {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .taxes-section .row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .taxes-section .row p {
+        width: 100%;
+    }
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.oval-border {
+    border: 1px solid #00355E15;
+    border-radius: 5px;
+}
+
+.align-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.align-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.label-container {
+    font-family: Jost, Sans-Serif;
+    font-size: 22px;
+    gap: 12px;
+}
+
+.field-container {
+    gap: 10px;
+}
+
+#tax-offer {
+    position: relative;
+    width: 60%;
+    margin: 30px 0;
+}
+
+/* TAXES PAGE END*/
+
+/* REGISTER PAGE */
+
+
+#register-section h1 {
+    display: flex;
+    justify-content: center;
+    color: var(--blue-color);
+}
+
+#register-logo {
+    display: flex;
+    justify-content: center
+}
+
+#register-form {
+    width: 100%;
+    margin: 0 0 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#register-button {
+    background-color: var(--red-color);
+    margin: 30px 0 0 0;
+}
+
+#register-button:hover {
+    background-color: var(--red-color-hover);
+}
+
+/* REGISTER PAGE END*/
+
+
+/* MY PROFILE */
+
+#my-profile {
+    margin: 20px 0 50px 0;
+}
+
+.container {
+    font-family: Jost, Sans-Serif;
+    color: var(--blue-color);
+    border: 1px solid rgba(229, 229, 229, 0.6);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);
+    padding: 50px;
+}
+
+.container .row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.container .wrapper {
+    padding: 5px 20px;
+    border: 1px solid whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);
+}
+
+.container .wrapper:hover {
+    /*background-color: rgba(229, 229, 229, 0.26);*/
+    box-shadow: 0 4px 8px rgba(0, 53, 94, 0.75);
+}
+
+#my-profile a {
+    text-decoration: none;
+    color: var(--blue-color);
+}
+
+.wrapper p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#my-profile-header {
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.profile-pic {
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+#change-profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#change-profile-pic a {
+    font-size: 10px;
+}
+
+/* MY PROFILE END*/
+
+button {
+    font-family: Jost, Sans-Serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: white;
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.error-container {
+    width: 90%;
+    border: 1px solid var(--blue-color);
+    border-radius: 10px;
+    margin: 0 0 30px 0;
+}
+
+.form-errors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #de0000;
+    font-family: Jost, Sans-Serif;
+    font-weight: 500;
+    padding: 20px;
+}
+
+.yellow-banner {
+    position: absolute;
+    left: 70%;
+    background-color: #ffc506;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.small-cont {
+    width: 20%;
+}
+
+.mid-txt {
+    font-size: 20px;
+}
+
+.white-txt {
+    color: white;
+}
+
+.blue-btn {
+    background-color: #00355E;
+}

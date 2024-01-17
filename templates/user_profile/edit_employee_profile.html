@@ -1,35 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load placeholders %}
+
 {% block content %}
-
-    <br><br><br>
-    <div>
-        <form method="post" action="{% url 'employee profile edit' employee.pk %}">
-            <div align="center">
-                {% if form.errors %}
-                    <div class="list-group-item-warning" style="color: whitesmoke; background-color: red; max-width: 300px">
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <h4> {{ error }} </h4>
-                            {% endfor %}
-                        {% endfor %}
-                    </div>
+    <section id="my-profile" class="container">
+        <div id="my-profile-header" class="row">
+            <div class="column">
+                {% if user.user_picture %}
+                    <img class="profile-pic" src="{{ user.user_picture.url }}" alt="">
+                {% else %}
+                    <p>В момента няма качена снимка.</p>
                 {% endif %}
-            </div>
-        <br>
-            <div align="center">
-                <h3><label for='employee_first_name'>Име:&nbsp</label>{{ form.employee_first_name }}</h3>
-                <h3><label for='employee_last_name'>Фамилия:&nbsp</label>{{ form.employee_last_name }}</h3>
-                <h3><label for='employee_role'>Позиция:&nbsp</label>{{ form.employee_role }}</h3>
-                <h3><label for='employee_phone'>Телефон:&nbsp</label>{{ form.employee_phone }}</h3>
-                <h3><label for='employee_email'>Е-майл:&nbsp</label>{{ form.employee_email }}</h3>
-                <label for='employee_pic'>Снимка:&nbsp</label>{{ form.employee_pic }}&nbsp&nbsp&nbsp
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary btn-lg">Запази</button>
-            </div>
-        </form>
-    </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+
+
+                <form id="change-profile-form" class="column" action="{% url 'employee profile edit' employee.pk %}"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    {% if form.non_field_errors %}
+                        <div class="error-container">
+                            <div class="form-errors">
+                                <p>Please correct the following errors:</p>
+                                <ul>
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                    {% for field in form %}
+                                        {% if field.errors %}
+                                            <li>{{ field.label }}: {{ field.errors.0 }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="row">
+                        <label for='employee_first_name'>Име:</label> {{ form.employee_first_name }}
+                    </div>
+                    <div class="row">
+                        <label for='employee_last_name'>Фамилия:</label> {{ form.employee_last_name }}
+                    </div>
+
+                    <div class="row">
+                        <label for='employee_role'>Позиция:</label> {{ form.employee_role }}
+                    </div>
+                    <div class="row">
+                        <label for='employee_phone'>Телефон:</label> {{ form.employee_phone }}
+                    </div>
+                    <div class="row">
+                        <label for='employee_email'>Е-майл:</label> {{ form.employee_email }}
+                    </div>
+
+
+                    <button class="query-btn" type="submit">Редактирай</button>
+
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

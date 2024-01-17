@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from aimtravel_site.user_profile.validators import only_letters, only_digits
 
@@ -296,7 +298,6 @@ class Students(models.Model):
         null=True,
     )
 
-
     foreign_university = models.CharField(
         validators=(only_letters,),
         verbose_name='Чуждестранен университет',
@@ -317,18 +318,18 @@ class Students(models.Model):
         blank=True,
         null=True,
     )
-    visa_photo = models.URLField(
-        verbose_name='Снимка за ВИЗА',
-        default='https://cdn5.vectorstock.com/i/1000x1000/54/34/a-student-boy-cartoon-character-isolated-on-white-vector-36115434.jpg',
 
-        max_length=200,
-        blank=True,
-        null=True,
-    )
     file_field = models.FileField(
         upload_to='files/%Y-%m-%d',
         null=True,
         blank=True,
+    )
+    visa_photo = models.FileField(
+        upload_to='students/student_pic/',
+        default='profile/default_profile_pic.jpg',
+        verbose_name="Снимка за виза",
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -372,12 +373,7 @@ class Employee(models.Model):
         blank=True,
         null=True,
     )
-    employee_pic = models.URLField(
-        default='https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=',
-        max_length=MAX_URL_LENGTH,
-        blank=True,
-        null=True,
-    )
+
     employee_phone = models.CharField(
         validators=(only_digits,),
         max_length=PHONE_NUM,
@@ -391,4 +387,18 @@ class Employee(models.Model):
     )
 
 
+@receiver(post_save, sender=UserModel)
+def update_employee_names(sender, instance, **kwargs):
+    # Update Employee names when UserModel names are updated
+    try:
+        employee_instance = Employee.objects.get(user=instance)
+        employee_instance.employee_first_name = instance.first_name
+        employee_instance.employee_last_name = instance.last_name
+        employee_instance.save()
+    except Employee.DoesNotExist:
+        # Handle the case where Employee instance does not exist for the given UserModel
+        pass
 
+
+# Connect the signal
+post_save.connect(update_employee_names, sender=UserModel)

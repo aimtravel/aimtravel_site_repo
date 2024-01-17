@@ -105,22 +105,22 @@
 
                 <div id="offer-location" class="detail-container">
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Работна позиция:</div>
                         <div class="detail-content">{{ offer_details.job_position }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Име на работодател:</div>
                         <div class="detail-content">{{ offer_details.employer_name }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Най-ранно заминаване:</div>
                         <div class="detail-content">{{ offer_details.begin_date }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Най-късно заминаване:</div>
                         <div class="detail-content">{{ offer_details.end_date }}</div>
                     </div>
@@ -129,22 +129,22 @@
 
                 <div id="offer-payment" class="detail-container">
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Заплащане:</div>
                         <div class="detail-content">${{ offer_details.wage|floatformat:2 }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Град:</div>
                         <div class="detail-content">{{ offer_details.city }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Минимални часове на седмица:</div>
                         <div class="detail-content">{{ offer_details.minimum_hours|floatformat:0 }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Подходящо за групи:</div>
                         <div class="detail-content">{{ offer_details.groups }}</div>
                     </div>
@@ -153,22 +153,22 @@
 
                 <div id="offer-additional-information" class="detail-container">
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Overtime:</div>
                         <div class="detail-content">{{ offer_details.overtime }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Щат:</div>
                         <div class="detail-content">{{ offer_details.city.state }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Бакшиши:</div>
                         <div class="detail-content">{{ offer_details.tips }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Подходящо за двойки:</div>
                         <div class="detail-content">{{ offer_details.couples }}</div>
                     </div>
@@ -177,17 +177,17 @@
 
                 <div id="offer-suitable-for" class="detail-container">
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Housing:</div>
                         <div class="detail-content">${{ offer_details.housing|floatformat:2 }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Ниво на английски:</div>
                         <div class="detail-content">{{ offer_details.english_level }}</div>
                     </div>
 
-                    <div class="container">
+                    <div class="container-details">
                         <div class="header">Бонус:</div>
                         <div class="detail-content">{{ offer_details.bonus }}</div>
                     </div>

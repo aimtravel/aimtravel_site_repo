@@ -1,134 +1,241 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <!-- **************** MAIN CONTENT START **************** -->
-    <main>
-
-        <!-- =======================
-        Main banner START -->
-        <section class="py-0">
-            <div class="container">
-                <!-- Title -->
-                <div class="row g-4">
-                    <!-- Image -->
-                    <div class="col-12" style="padding-left: 200px">
-                        <img src="../../../static/img/taxes1.jpg" class="rounded-3" alt="" height="500" >
+    <section id="slider">
+        <div class="background-tax" id="background-tax">
+            <div class="background-gradient">
+                <div class="slider">
+                    <div class="btn" id="prev-button-tax">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
-                    <!-- Title and content -->
-                    <div class="col-11 col-lg-10 mx-auto position-relative mt-n5 mt-sm-n7 mt-md-n8">
-                        <div class="bg-mode shadow rounded-3 p-4">
-                            <!-- Badge -->
-                            <div class="badge text-bg-success mb-2">AIM Work & Travel</div>
-                            <!-- Title -->
-                            <h1 class="fs-3">Данъци от USA</h1>
-                            <p>Всички студенти, които вече са били на бригада в САЩ знаят, че могат да си върнат
-                                данъците, които са доста голяма част от сумата, която са заработили по време на Work
-                                and Travel програмата.</p>
 
-                            <p>Каква част от данъците могат да бъдат върнати, се определя от Федералния и Щатския
-                                данък. Ние от AIM Travel кандидатстваме за 100% Tax Refund. Данъците, които са ти
-                                удържани по време на бригадата в САЩ, се възстановяват от данъчните служби на САЩ
-                                чрез чек, който ние осребряваме и сумата се връща по личната ти банкова сметка.</p>
+                    <div class="slider-container">
 
-
-                            <div class="col-lg-10 mx-auto">
-                                <div class="row g-4">
-                                    <!-- List -->
-                                    <ul>
-                                        <li>От федералния данък (FEDERAL TAX), който ви е бил удържан по време на
-                                            бригадата, ние можем да ти възстановим 100%. Изискването е общият ти доход в
-                                            САЩ да не надвишава или да не е равен на необлагаемия минимум за страната.
-                                        </li>
-
-                                        <li>От щатския данък (STATE TAX) също можем да ти възстановим 100% от удържаната
-                                            сума.
-                                        </li>
-                                    </ul>
-
-                                </div>
-                            </div>
-                            <p>Всеки студент, който е работил в САЩ, е задължен да подаде данъчна декларация. В края
-                                на всяка година се прави преизчисление на изкараните доходи спрямо платените данъци
-                                и в повечето случаи се оказва, че ти е удържано повече, отколкото е трябвало.
-                                Сумата, която си надплатил данъчната служба на САЩ ще ти върне по личната ти банкова
-                                сметка.</p>
-                            <p>Дори и вече да си се завърнал от САЩ, ние отново можем да ти бъдем полезни. За твое
-                                улеснение можем да подготвим данъчната ти декларация и да я изпратим вместо теб.
-                                Вместо да се луташ, незнаейки какво да правиш, ние ще следим как вървят нещата и ще
-                                те уведомим при тяхното развитие. Ако си избрал вариант да получиш надвнесените
-                                данъци чрез чек, той ще пристигне при нас и ще ти бъде предаден веднага след
-                                получаването му.</p>
-
-
-                            <!-- Blockquote -->
-                            <blockquote class="bg-light rounded text-center p-3 p-md-4 my-4">
-                                <h6 class="fw-normal"><i class="fa-solid fa-quote-left me-2"></i>Пътуването е единственото нещо на света, което купуваш, а те прави по-богат.<i
-                                            class="fa-solid fa-quote-right ms-2"></i></h6>
-                                <div class="blockquote-footer mb-0 fs-6 mt-3">
-                                    <!-- placeholder for author -->
-                                </div>
-                            </blockquote>
-
-
-                        </div>
-                        <!-- Review poll START -->
-                        <div class="bg-light rounded d-md-flex justify-content-between align-items-center text-center p-3 mt-4">
-                            <!-- Title -->
-                            <h6 class="mb-0">Беше ли ви полезна информацията?</h6>
-                            <small class="py-3 p-md-0 d-block">25 от 78 намират това за полезно</small>
-                            <!-- Check buttons -->
-                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                                <!-- Yes button -->
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1">
-                                <label class="btn btn-outline-secondary btn-sm mb-0" for="btnradio1"><i
-                                        class="fa-regular fa-thumbs-up me-1"></i> Да</label>
-                                <!-- No button -->
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2">
-                                <label class="btn btn-outline-secondary btn-sm mb-0" for="btnradio2"> Не <i
-                                        class="fa-regular fa-thumbs-down ms-1"></i></label>
+                        <div id="slider-1-tax" class="slider1">
+                            <h4>Върни своите</h4>
+                            <h1>данъци от САЩ</h1>
+                            <h4>онлайн</h4>
+                            <p>{{ second_slider.content1 }}</p>
+                            <div class="slider-btn" id="slider-1-button">
+                                <a href="{% url 'pre add tax' %}"
+                                   target="_blank">
+                                    <script>
+                                        function gtag_report_conversion(url) {
+                                            var callback = function () {
+                                                if (typeof (url) != 'undefined') {
+                                                    window.location = url;
+                                                }
+                                            };
+                                            gtag('event', 'conversion', {
+                                                'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                                'event_callback': callback
+                                            });
+                                            return false;
+                                        }
+                                    </script>
+                                    <script type="text/javascript">
+                                        $('#$addToCartButton').click(function () {
+                                            fbq('track', 'Subscribe');
+                                        });
+                                    </script>
+                                    Попълни формуляр</a>
                             </div>
                         </div>
-                        <!-- Review poll END -->
-
-                        <!-- Social links and tags -->
-                        <div class="d-lg-flex justify-content-lg-between mt-4">
-                            <!-- Social media button -->
-                            <div class="align-items-center mb-3 mb-lg-0">
-                                <h6 class="d-inline-block mb-2 me-4">Share on:</h6>
-                                <ul class="list-inline hstack flex-wrap gap-3 h6 fw-normal mb-0">
-                                    <li class="list-inline-item"><a class="text-facebook" href="#"><i
-                                            class="fa-brands fa-facebook-square"></i> Facebook</a></li>
-                                    <li class="list-inline-item"><a class="text-instagram-gradient" href="#"><i
-                                            class="fa-brands fa-instagram-square"></i> Instagram</a></li>
-                                    <li class="list-inline-item"><a class="text-twitter" href="#"><i
-                                            class="fa-brands fa-twitter-square"></i> Twitter</a></li>
-                                </ul>
-                            </div>
-                            <!-- Popular tags -->
-                            <div class="align-items-center">
-                                <h6 class="d-inline-block mb-2 me-4">Popular Tags:</h6>
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item"><a class="btn btn-light btn-sm mb-xl-0"
-                                                                    href="#">blog</a></li>
-                                    <li class="list-inline-item"><a class="btn btn-light btn-sm mb-xl-0"
-                                                                    href="#">Tour</a></li>
-                                    <li class="list-inline-item"><a class="btn btn-light btn-sm mb-xl-0"
-                                                                    href="#">Holidays</a></li>
-                                    <li class="list-inline-item"><a class="btn btn-light btn-sm mb-xl-0"
-                                                                    href="#">Ticket Booking</a></li>
-                                    <li class="list-inline-item"><a class="btn btn-light btn-sm mb-xl-0"
-                                                                    href="#">deep learning</a></li>
-                                </ul>
+                        <div id="slider-2-tax">
+                            <h1>Без такса </h1>
+                            <h4>за обработка на документи</h4>
+                            <div class="slider-btn" id="slider-2-button">
+                                <a href="#">Калкулирай своите данъци</a>
                             </div>
                         </div>
-                        <!-- Social links and END -->
+                        <div id="slider-3-tax">
+                            <h4>Кандидатствай за </h4>
+                            <h1>100% данъчно възстановяване</h1>
+                            <div class="slider-btn" id="slider-3-button">
+                                <a href="{% url 'pre add tax' %}">Върни своите данъци</a>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="btn" id="next-button-tax">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main id="tax-main">
 
+        <!-- =======================
+        Main banner START -->
+        <section class="taxes-section">
+            <div id="about">
+                <div id="about-text">
+
+                    <h1>Данъци от USA</h1>
+                    <p>Всички студенти, които вече са били на бригада в САЩ знаят, че могат да си върнат
+                        данъците, които са доста голяма част от сумата, която са заработили по време на Work
+                        and Travel програмата. Каква част от данъците могат да бъдат върнати, се определя от Федералния
+                        и Щатския данък. Ние от AIM Travel кандидатстваме за 100% Tax Refund. Данъците, които са ти
+                        удържани по време на бригадата в САЩ, се възстановяват от данъчните служби на САЩ
+                        чрез чек, който ние осребряваме и сумата се връща по личната ти банкова сметка.
+                    </p>
+                    <ul>
+                        <li>
+                            <p>
+                                От федералния данък (FEDERAL TAX), който ви е бил удържан по време на
+                                бригадата, ние можем да ти възстановим 100%. Изискването е общият ти доход в
+                                САЩ да не надвишава или да не е равен на необлагаемия минимум за страната.
+                            </p>
+                        </li>
+
+                        <li>
+                            <p>От щатския данък (STATE TAX) също можем да ти възстановим 100% от удържаната
+                                сума.
+                            </p>
+                        </li>
+                    </ul>
+                    <p>Всеки студент, който е работил в САЩ, е задължен да подаде данъчна декларация. В края
+                        на всяка година се прави преизчисление на изкараните доходи спрямо платените данъци
+                        и в повечето случаи се оказва, че ти е удържано повече, отколкото е трябвало.
+                        Сумата, която си надплатил данъчната служба на САЩ ще ти върне по личната ти банкова
+                        сметка.
+                    </p>
+                    <p>Дори и вече да си се завърнал от САЩ, ние отново можем да ти бъдем полезни. За твое
+                        улеснение можем да подготвим данъчната ти декларация и да я изпратим вместо теб.
+                        Вместо да се луташ, незнаейки какво да правиш, ние ще следим как вървят нещата и ще
+                        те уведомим при тяхното развитие. Ако си избрал вариант да получиш надвнесените
+                        данъци чрез чек, той ще пристигне при нас и ще ти бъде предаден веднага след
+                        получаването му.</p>
+                    <div class="slider-btn resp">
+                        <a href="{% url 'pre add tax' %}"
+                           target="_blank">
+                            <script>
+                                function gtag_report_conversion(url) {
+                                    var callback = function () {
+                                        if (typeof (url) != 'undefined') {
+                                            window.location = url;
+                                        }
+                                    };
+                                    gtag('event', 'conversion', {
+                                        'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                        'event_callback': callback
+                                    });
+                                    return false;
+                                }
+                            </script>
+                            <script type="text/javascript">
+                                $('#$addToCartButton').click(function () {
+                                    fbq('track', 'Subscribe');
+                                });
+                            </script>
+                            Върни своите данъци</a>
+                    </div>
+                </div>
+
+                <div id="about-img">
+                    <div id="img-1">
+                        <img src="../static/img/Ready-stock/WEBP%20version/about_1.webp" alt="img-1">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="img-2">
+                        <img src="../static/img/Ready-stock/WEBP%20version/about_2.webp" alt="img-2">
+                        <div class="white-border"></div>
+                    </div>
+                </div>
+            </div>
         </section>
+        <section id="cta-section">
+            <div id="cta-background-gradient">
+                <div id="cta-container">
+                    <h3>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
+                    <h1>НЕ СЕ ПРИТЕСНЯВАЙТЕ!</h1>
+                    <h3 id="cta-subheading">ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
+                    <div id="cta-subtext">
+                        <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за безплатна
+                            онлайн консултация или посети някой от нашите офиси, където ще имате възможност да зададете
+                            всичките си въпроси и да получите квалифициран отговор.</p>
+                    </div>
+                    <div class="slider-btn">
+                        <a href="https://calendly.com/aimtravelusa/consultation" target="_blank">
+                            <script>
+                                function gtag_report_conversion(url) {
+                                    var callback = function () {
+                                        if (typeof (url) != 'undefined') {
+                                            window.location = url;
+                                        }
+                                    };
+                                    gtag('event', 'conversion', {
+                                        'send_to': 'AW-825631983/UYIiCLOC--gYEO_J2IkD',
+                                        'event_callback': callback
+                                    });
+                                    return false;
+                                }
+                            </script>
+                            <script type="text/javascript">
+                                $('#$addToCartButton').click(function () {
+                                    fbq('track', 'SubmitApplication');
+                                });
+                            </script>
+                            БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                    </div>
+                    <div id="pagination-anchor"></div>
+                </div>
+            </div>
+        </section>
+        <section id="news-section">
+            <div id="news-heading">
+                <p id="heading-news">Новини</p>
+            </div>
+            <div id="news">
+                <div id="last-news">
+                    <div id="last-news-img">
+                        <img src="{{ very_last_news.news_image.url }}" alt="last news picture">
+                        <div class="white-border"></div>
+                    </div>
+                    <div id="last-news-text">
+                        <p class="news-date last">{{ very_last_news.date }}</p>
+                        <h2 id="last-news-header">{{ very_last_news.news_title }}</h2>
+                        <p id="last-news-main-content">{{ very_last_news.news_content|safe }}
+                        </p>
+                    </div>
+                </div>
+                <div id="last-4-news">
+                    {% for news in last_4_news %}
+                        <a href="{% url 'news' %}">
+                            <div id=" last-4-1" class="news-content">
+                                <div id="last-4-1-img" class="last-img">
+                                    <img src="{{ news.news_image.url }}" alt="">
+                                    <div class="white-border"></div>
+                                </div>
+                                <div id="last-4-1-text" class="last-4-text">
+                                    <p class="news-date">{{ news.date }}</p>
+                                    <h3>{{ news.news_title }}</h3>
+                                    <p class="underline">Прочети Статия</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="news-button">
+                <div class="slider-btn" id="news-more-btn">
+                    <a href="{% url 'news' %}">ОЩЕ НОВИНИ</a>
+                </div>
+            </div>
+        </section>
+
         <!-- =======================
         Blog content END -->
 

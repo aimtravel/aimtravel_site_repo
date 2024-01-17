@@ -119,10 +119,6 @@ class EmployeeEditForm(forms.ModelForm):
         model = Employee
         exclude = ['user']
         widgets = {
-            'employee_first_name': forms.TextInput(attrs={'placeholder': 'Име'}, ),
-            'employee_last_name': forms.TextInput(attrs={'placeholder': 'Фамилия'}, ),
             'employee_role': forms.TextInput(attrs={'placeholder': 'Позиция'}, ),
-            'employee_pic': forms.TextInput(attrs={'placeholder': 'Снимка URL'}, ),
             'employee_phone': forms.TextInput(attrs={'placeholder': 'Телефон'}, ),
-            'employee_email': forms.TextInput(attrs={'placeholder': 'E-mail'}, ),
         }
