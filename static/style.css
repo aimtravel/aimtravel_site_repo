@@ -76,6 +76,7 @@ main {
     display: flex;
     justify-self: center;
     width: 100%;
+    font-family: Jost, Sans-Serif;
 }
 
 /* <HEADER> */
@@ -1271,7 +1272,7 @@ nav a:hover {
     align-items: center;
 }
 
-#slider-2-tax, #slider-3-tax  {
+#slider-2-tax, #slider-3-tax {
     display: none;
     flex-direction: column;
     align-items: center;
@@ -4979,7 +4980,7 @@ footer a:hover {
 }
 
 #offer-details-header {
-    height: 212px;
+    height: 192px;
 }
 
 #offer-details-header .background {
@@ -8554,11 +8555,11 @@ footer a:hover {
 }
 
 .container-row {
-    width: var(--max-width);
+    width: 100%;
     display: flex;
     flex-direction: row;
-    margin: 50px 0;
-    gap: 50px;
+    /*margin: 50px 0;*/
+    /*gap: 50px;*/
     justify-content: flex-start
 }
 
@@ -8598,6 +8599,14 @@ aside {
     }
 }
 
+#tax-navigation {
+    background-color: lightgray;
+}
+
+#tax-submit-button {
+    margin-bottom: 50px;
+}
+
 #tax-navigation #personal-info {
     font-weight: 700;
     color: black
@@ -8610,15 +8619,17 @@ aside {
 #tax-navigation #travel-info,
 #tax-navigation #employer-info,
 #tax-navigation #bank-info,
-#tax-navigation #attachments {
+#tax-navigation #attachments,
+#tax-navigation #progress {
     font-weight: 400;
-    color: rgb(128, 128, 128);
+    color: rgb(75, 75, 75);
 }
 
 .taxes-section form#norm .travel-info,
 .taxes-section form#norm .employer-info,
 .taxes-section form#norm .bank-info,
-.taxes-section form#norm .attachments {
+.taxes-section form#norm .attachments,
+.taxes-section form#norm .progress {
     display: none;
 }
 
@@ -8628,11 +8639,17 @@ aside div {
     justify-content: center;
     margin: 0;
     padding: 3px 15px;
-    cursor: pointer;
 }
 
 aside div p {
     margin: 0;
+    font-size: 16px;
+}
+
+aside #progress p {
+    font-size: 18px;
+    color: black;
+    /*font-weight: 700;*/
 }
 
 .taxes-section {
@@ -8648,8 +8665,8 @@ aside div p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid rgba(201, 201, 201, 0.3);
-    padding: 10px 30px 20px 30px;
+    /*border: 1px solid rgba(201, 201, 201, 0.3);*/
+    padding: 30px 0 30px 40px;
     background-color: white;
     /*filter: drop-shadow(30px 10px 4px #4444dd);*/
 }
@@ -8704,7 +8721,7 @@ aside div p {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
     text-align: left;
 }
 
@@ -8748,8 +8765,8 @@ aside div p {
     width: 100%;
 }
 
-.tax-content p input, .tax-content p select,
-.tax-content-resp p input, .tax-content-resp p select, .align-left input {
+.tax-content-resp p input,
+.tax-content-resp p select, .align-left input {
     border-radius: 5px;
     border: 1px solid #d4d4d4;
     align-self: stretch;
@@ -8824,6 +8841,43 @@ aside div p {
     margin: 30px 0;
 }
 
+.table-container {
+    width: var(--max-width); /* Set a fixed width for the container */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin: 20px 0 70px 0;
+    border: 1px solid rgba(229, 229, 229, 0.6);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);
+    font-family: Jost, Sans-Serif;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 800px) {
+    .table-container {
+        width: 80%; /* Set a fixed width for the container */
+        margin: 100px 0 80px 0;
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td {
+    background-color: #ffffff;
+}
+
 /* TAXES PAGE END*/
 
 /* REGISTER PAGE */
@@ -8866,6 +8920,12 @@ aside div p {
     margin: 20px 0 50px 0;
 }
 
+@media screen and (max-width: 800px) {
+    #my-profile {
+        margin: 90px 0 50px 0;
+    }
+}
+
 .container {
     font-family: Jost, Sans-Serif;
     color: var(--blue-color);
@@ -8873,6 +8933,7 @@ aside div p {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);
     padding: 50px;
+    background-color: white;
 }
 
 .container .row {
@@ -8909,7 +8970,7 @@ aside div p {
 }
 
 .profile-pic {
-    border: 1px solid lightgrey;
+    /*border: 1px solid lightgrey;*/
     border-radius: 50%;
     width: 100px;
     height: 100px;
@@ -8976,6 +9037,193 @@ a {
     color: white;
 }
 
+.white-bgrnd {
+    background-color: white;
+}
+
 .blue-btn {
     background-color: #00355E;
+}
+
+.pdn-5 {
+    padding: 5px;
+}
+
+.mrg-5 {
+    margin: 5px;
+}
+
+.mrg-20 {
+    margin: 20px;
+}
+
+.mrg-top-15 {
+    margin-top: 15px;
+}
+
+.mrg-top-50 {
+    margin-top: 50px;
+}
+
+.rgt-mrg-10 {
+    margin-right: 10px;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-margin-padding {
+    margin: 0;
+    padding: 0;
+}
+
+.arrange-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.status-line {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    font-family: Jost, Sans-Serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.status-line input {
+    width: 100%;
+    border: none;
+    font-family: Jost, Sans-Serif;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    line-height: 30px;
+}
+
+.status-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+}
+
+.empty-circle {
+
+    border-radius: 50%;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    margin-right: 10px
+}
+
+.red-color {
+    /*background-color: #9D0A0E;*/
+    border: 1px solid #757575;
+}
+
+.yellow-color {
+    background-color: #e8bf0f;
+}
+
+.green-color {
+    background-color: #31ca69;
+    /*background: image("img/icons/green.png");*/
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.green-completed {
+    width: 26px;
+    height: 26px;
+    background: url("img/icons/green.png") center/cover;
+}
+
+.yellow-not-completed {
+    width: 32px;
+    height: 32px;
+    background: url("img/icons/yellow.png") center/cover;
+}
+
+.red-not-started {
+    width: 26px;
+    height: 26px;
+    background: url("img/icons/red.png") center/cover;
+}
+
+.small {
+    width: 30px;
+    height: 15px;
+    text-align: center;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.red-border {
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #9D0A0E;
+}
+
+.green-border {
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #22d916;
+}
+
+.gray-border {
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #d4d4d4;
+}
+
+.blue-border {
+    border: 1px solid #00233f;
+}
+
+.vert-line {
+    border: 0.5px solid #808080;
+}
+.left-panel {
+    width: 12%;
+    background-color: #00355E;
+}
+
+.flex-centered-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+}
+
+.flex-centered-col {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.hr-line {
+    width: 85%;
+    border: 1px solid #888888;
 }

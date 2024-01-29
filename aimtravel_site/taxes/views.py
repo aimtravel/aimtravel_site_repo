@@ -1,6 +1,8 @@
+import csv
 import os
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+import xlwt
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -11,7 +13,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
-from aimtravel_site.taxes.forms import AddTaxes, TaxesDetailForm, EditTaxes
+from aimtravel_site.taxes.forms import AddTaxes, TaxesDetailForm, EditTaxes, AdminEditTaxes
 from aimtravel_site.taxes.models import Taxes
 from aimtravel_site.posting.models import News
 
@@ -41,7 +43,7 @@ class AddTaxesView(LoginRequiredMixin, views.CreateView):
     model = Taxes  # Replace YourModel with the actual model you're using
     form_class = AddTaxes
     template_name = 'taxes/add-taxes-form.html'
-    success_url = reverse_lazy('success')  # Replace 'success' with the actual URL name
+    success_url = reverse_lazy('all-taxes')  # Replace 'success' with the actual URL name
 
     def form_valid(self, form):
         # Additional logic if needed before saving the form
@@ -67,7 +69,7 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
 
     def get_success_url(self):
         taxes_pk = self.kwargs['pk']
-        return reverse_lazy('detail tax', kwargs={'pk': taxes_pk})
+        return reverse_lazy('edit tax', kwargs={'pk': taxes_pk})
 
 
 class DetailsTaxView(LoginRequiredMixin, views.DetailView):
@@ -160,3 +162,190 @@ def generate_pdf(request, tax_id):
     pdf.save()
 
     return response
+
+
+class AdminTaxEntryListView(UserPassesTestMixin, views.ListView):
+    model = Taxes
+    template_name = 'taxes/admin_tax_entry_list.html'
+    context_object_name = 'tax_entries'
+    ordering = ['first_name']  # Order entries by primary key or another field
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
+    model = Taxes
+    form_class = AdminEditTaxes
+    template_name = 'taxes/admin-edit-tax.html'  # Replace with your actual template
+    success_url = reverse_lazy('all-taxes')  # Replace with your actual success URL
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_object(self, queryset=None):
+        # Get the TaxEntry object based on the primary key from the URL
+        return Taxes.objects.get(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add the currently clicked entry's pk to the context
+        context['clicked_entry_pk'] = self.kwargs['pk']
+        return context
+
+    def form_valid(self, form):
+        # Check and handle clearing and deleting for file_field1
+
+        if form.cleaned_data['passport_copy_clear']:
+            if form.cleaned_data['passport_copy']:
+                form.cleaned_data['passport_copy'].delete()
+        if form.cleaned_data['visa_copy_clear']:
+            if form.cleaned_data['visa_copy']:
+                form.cleaned_data['visa_copy'].delete()
+        if form.cleaned_data['ssn_copy_clear']:
+            if form.cleaned_data['ssn_copy']:
+                form.cleaned_data['ssn_copy'].delete()
+        if form.cleaned_data['last_paycheck_w2_clear']:
+            if form.cleaned_data['last_paycheck_w2']:
+                form.cleaned_data['last_paycheck_w2'].delete()
+        if form.cleaned_data['bank_account_screenshot_clear']:
+            if form.cleaned_data['bank_account_screenshot']:
+                form.cleaned_data['bank_account_screenshot'].delete()
+        if form.cleaned_data['us_document_copy_clear']:
+            if form.cleaned_data['us_document_copy']:
+                form.cleaned_data['us_document_copy'].delete()
+        # Save the form data (or perform other necessary actions)
+        return super().form_valid(form)
+
+
+
+
+class SuperuserDeleteTaxView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView):
+    model = Taxes
+    form_class = AdminEditTaxes
+    template_name = 'taxes/admin-delete-tax.html'  # Replace with your actual template
+    context_object_name = 'delete_tax'
+    template_name_suffix = '_confirm_delete'
+    success_url = reverse_lazy('all-taxes')  # Replace with your actual success URL
+
+    def test_func(self):
+        return self.request.user.is_staff
+
+
+class ExportTaxesView(views.View):
+    def get(self, request, *args, **kwargs):
+        # Fetch the data you want to export
+        taxes_data = Taxes.objects.all()
+
+        # Choose the export format based on the URL parameter (?format=csv or ?format=xls)
+        export_format = request.GET.get('format', 'xls')
+
+        # Create the response object based on the selected format
+        response = self.get_export_response(export_format)
+
+        # Write data to response
+        self.write_data_to_response(response, taxes_data, export_format)
+
+        return response
+
+    def get_export_response(self, export_format):
+        response = HttpResponse(content_type=f'text/{export_format}')
+        response['Content-Disposition'] = f'attachment; filename="taxes.{export_format}"'
+        return response
+
+    def write_data_to_response(self, response, data, export_format):
+        # if export_format == 'csv':
+        #     writer = csv.writer(response)
+        #     self.write_csv_data(writer, data)
+        if export_format == 'xls':
+            self.write_xls_data(response, data)
+
+    # def write_csv_data(self, writer, data):
+    #     # Write CSV header
+    #     writer.writerow(
+    #         ['Име', 'Презиме', 'Фамилия', 'Mothers maiden name', 'Дата на раждане', 'Град на раждане', '	Адрес',
+    #          'Град', 'Държава', 'Email', 'Телефон', 'Как научихте за нас', 'Social Security Number(SSN)',
+    #          'Работна година', 'Дата на пристигане в САЩ', 'Дата на заминаване от САЩ', 'Тип виза', 'Тип програма',
+    #          'Предишни декларации', 'Предишна промяна на виза', 'ПИН от IRS', 'Име на работодател',
+    #          'Адрес на работодател', 'Град на работодател', 'Щат на работодател', 'ZIP код на работодател',
+    #          'Телефон на работодател', 'Факс на работодател', 'Email на работодател', 'Последен чек', 'W2 форма',
+    #          'Американска банкова сметка', 'Вид сметка', 'Име на банката', 'Собственик на сметката', 'Routing номер',
+    #          'IBAN'])  # Add your model fields here
+
+    # Write CSV data
+    # for item in data:
+    #     writer.writerow(
+    #         [item.first_name, item.middle_name, item.family_name, item.mothers_maiden_name,
+    #          item.birth_date, item.birth_city, item.address, item.city, item.country,
+    #          item.email, item.phone_number, item.how_did_you_find_us, item.social_security,
+    #          item.working_year, item.arrival_date_in_usa, item.departure_date_in_usa,
+    #          item.visa_type, item.program_type, item.previous_tax_declarations,
+    #          item.visa_changing, item.pin_from_irs, item.company_name, item.company_address,
+    #          item.company_city, item.company_state, item.company_zip, item.company_phone,
+    #          item.company_fax, item.company_email, item.last_paycheck, item.w_2,
+    #          item.american_bank_account, item.type_of_account, item.bank_name,
+    #          item.account_holder, item.routing_number, item.account_number
+    #          ])  # Replace field1, field2, field3 with your actual field names
+
+    def write_xls_data(self, response, data):
+        # Create a new workbook and add a sheet
+        workbook = xlwt.Workbook(encoding='utf-8')
+        worksheet = workbook.add_sheet('Taxes')
+
+        # Write Excel header
+        header = ['Име', 'Презиме', 'Фамилия', 'Mothers maiden name', 'Дата на раждане', 'Град на раждане', '	Адрес',
+                  'Град', 'Държава', 'Email', 'Телефон', 'Как научихте за нас', 'Social Security Number(SSN)',
+                  'Работна година', 'Дата на пристигане в САЩ', 'Дата на заминаване от САЩ', 'Тип виза', 'Тип програма',
+                  'Предишни декларации', 'Предишна промяна на виза', 'ПИН от IRS', 'Име на работодател',
+                  'Адрес на работодател', 'Град на работодател', 'Щат на работодател', 'ZIP код на работодател',
+                  'Телефон на работодател', 'Факс на работодател', 'Email на работодател', 'Последен чек', 'W2 форма',
+                  'Американска банкова сметка', 'Вид сметка', 'Име на банката', 'Собственик на сметката',
+                  'Routing номер',
+                  'IBAN']  # Add your model fields here
+        for col_num, value in enumerate(header):
+            worksheet.write(0, col_num, value)
+
+        # Write Excel data
+        for row_num, item in enumerate(data, 1):
+            worksheet.write(row_num, 0, item.first_name)
+            worksheet.write(row_num, 1, item.middle_name)
+            worksheet.write(row_num, 2, item.family_name)
+            worksheet.write(row_num, 3, item.mothers_maiden_name)
+            worksheet.write(row_num, 4, item.birth_date)
+            worksheet.write(row_num, 5, item.birth_city)
+            worksheet.write(row_num, 6, item.address)
+            worksheet.write(row_num, 7, item.city)
+            worksheet.write(row_num, 8, item.country)
+            worksheet.write(row_num, 9, item.email)
+            worksheet.write(row_num, 10, item.phone_number)
+            worksheet.write(row_num, 11, item.how_did_you_find_us)
+            worksheet.write(row_num, 12, item.social_security)
+            worksheet.write(row_num, 13, item.working_year)
+            worksheet.write(row_num, 14, item.arrival_date_in_usa)
+            worksheet.write(row_num, 15, item.departure_date_in_usa)
+            worksheet.write(row_num, 16, item.visa_type)
+            worksheet.write(row_num, 17, item.program_type)
+            worksheet.write(row_num, 18, item.previous_tax_declarations)
+            worksheet.write(row_num, 19, item.visa_changing)
+            worksheet.write(row_num, 20, item.pin_from_irs)
+            worksheet.write(row_num, 21, item.company_name)
+            worksheet.write(row_num, 22, item.company_address)
+            worksheet.write(row_num, 23, item.company_city)
+            worksheet.write(row_num, 24, item.company_state)
+            worksheet.write(row_num, 25, item.company_zip)
+            worksheet.write(row_num, 26, item.company_phone)
+            worksheet.write(row_num, 27, item.company_fax)
+            worksheet.write(row_num, 28, item.company_email)
+            worksheet.write(row_num, 29, item.last_paycheck)
+            worksheet.write(row_num, 30, item.w_2)
+            worksheet.write(row_num, 31, item.american_bank_account)
+            worksheet.write(row_num, 32, item.type_of_account)
+            worksheet.write(row_num, 33, item.bank_name)
+            worksheet.write(row_num, 34, item.account_holder)
+            worksheet.write(row_num, 35, item.routing_number)
+            worksheet.write(row_num, 36, item.account_number)
+            # Replace field1, field2, field3 with your actual field names
+
+        # Save the workbook to the response
+        workbook.save(response)
