@@ -10,6 +10,8 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 
+import credentials
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i&53x@=*+1)a3_!5a!q8!pxr-pm#p+bm%+s81mrq8482_a+-2_'
+SECRET_KEY = credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,7 +165,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
 EMAIL_HOST_USER = 'vlzahariev26@gmail.com'  # Email account to send emails from
-EMAIL_HOST_PASSWORD = 'luro gyws bhsu kjfr'  # Password for the email account
+EMAIL_HOST_PASSWORD = credentials.EMAILPASSWORD  # Password for the email account
 DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
                      ''  # Default sender address
 
