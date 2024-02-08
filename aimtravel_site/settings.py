@@ -144,6 +144,7 @@ DATE_INPUT_FORMATS = [
     '%d-%m-%Y',
     '%d-%m-%y',
     '%d.%m.%y',
+    '%d.%m.%Y',
     '%Y-%m-%d',
     '%m/%d/%Y',
     '%m/%d/%y',
@@ -158,12 +159,12 @@ DATE_INPUT_FORMATS = [
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.aimtravel.bg'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
-EMAIL_HOST_USER = 'studentski@aimtravel.bg'  # Email account to send emails from
-EMAIL_HOST_PASSWORD = '***'  # Password for the email account
-DEFAULT_FROM_EMAIL = 'studentski@aimtravel.bg' \
+EMAIL_HOST_USER = 'vlzahariev26@gmail.com'  # Email account to send emails from
+EMAIL_HOST_PASSWORD = 'luro gyws bhsu kjfr'  # Password for the email account
+DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
                      ''  # Default sender address
 
 MEDIA_URL = "/media/"

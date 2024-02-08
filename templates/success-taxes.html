@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section id="message-section">
+        <div class="message-frame">
+            <div class="column width-80">
+                <div class="row ">
+                    <h1 id="success-message">Изпратихте успешно вашите документи.</h1>
+                </div>
+                <div class="row width-90 self-align">
+                    <a id="get-back-to-taxes" class="query-btn white-txt" href="{% url 'edit tax' pk=taxes.pk %}">Върни се обратно на меню
+                        "Данъци от САЩ</a>
+                </div>
+                <br>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Function to automatically click the return link
+        function autoClickReturnLink() {
+            var returnLink = document.getElementById('get-back-to-taxes');
+            returnLink.click();
+        }
+
+        // Set a timer to click the return link after 5 seconds
+        setTimeout(autoClickReturnLink, 5000); // 5000 milliseconds = 5 seconds
+    </script>
+{% endblock %}

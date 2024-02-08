@@ -20,14 +20,6 @@ class Taxes(models.Model):
     EMAIL = 50
     PHONE = 15
 
-    HOW_DID_YOU_FIND_US = (
-        ('friends', 'friends'),
-        ('brochure', 'brochure'),
-        ('internet', 'internet'),
-        ('posters', 'posters'),
-        ('agency', 'agency'),
-    )
-
     YEAR = (
         ('2020', '2020'),
         ('2021', '2021'),
@@ -81,20 +73,20 @@ class Taxes(models.Model):
     first_name = models.CharField(max_length=NAME, blank=True, null=True)
     middle_name = models.CharField(max_length=NAME, blank=True, null=True)
     family_name = models.CharField(max_length=NAME, blank=True, null=True)
+    first_name_en = models.CharField(max_length=NAME, blank=True, null=True)
+    middle_name_en = models.CharField(max_length=NAME, blank=True, null=True)
+    family_name_en = models.CharField(max_length=NAME, blank=True, null=True)
     mothers_maiden_name = models.CharField(max_length=NAME, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     birth_city = models.CharField(max_length=NAME, blank=True, null=True)
     address = models.CharField(max_length=ADDRESS, blank=True, null=True)
     city = models.CharField(max_length=NAME, blank=True, null=True)
     country = models.CharField(max_length=NAME, blank=True, null=True)
+    id_number = models.CharField(max_length=15, blank=True, null=True)
+    issue_date = models.DateField(blank=True, null=True)
     email = models.CharField(max_length=EMAIL, blank=True, null=True)
     phone_number = models.CharField(max_length=PHONE, blank=True, null=True)
-    how_did_you_find_us = models.CharField(
-        max_length=15,
-        choices=HOW_DID_YOU_FIND_US,
-        blank=True,
-        null=True,
-    )
+
     social_security = models.CharField(max_length=12, blank=True, null=True)
     working_year = models.CharField(
         max_length=4,
@@ -225,6 +217,14 @@ class Taxes(models.Model):
         null=True,
     )
     us_document_copy_used = models.BooleanField(default=False)
+    signed_and_scanned_contract = models.FileField(
+        upload_to=upload_to_path,
+        # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
+        verbose_name='Подписан и сканиран договор',
+        blank=True,
+        null=True,
+    )
+    signed_and_scanned_contract_used = models.BooleanField(default=False)
 
     stat_reg = models.CharField(max_length=10, choices=STATUS_CHOICES, default='3', blank=True, null=True)
     stat_pers_dat = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
@@ -237,9 +237,11 @@ class Taxes(models.Model):
     stat_waiting_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     # stat_state_in = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     # stat_federal_in = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    stat_tax_paid = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
+    stat_tax_paid_state = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
+    stat_tax_paid_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_state_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_federal_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
+    is_sent = models.BooleanField(default=False, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.passport_copy:
@@ -266,7 +268,6 @@ class Taxes(models.Model):
             self.us_document_copy_used = True
         else:
             self.us_document_copy_used = False
-        print(self.passport_copy_used, self.visa_copy_used, self.ssn_copy_used, self.last_paycheck_w2_used)
         super(Taxes, self).save(*args, **kwargs)
 
     def __str__(self):

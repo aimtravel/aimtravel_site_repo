@@ -32,11 +32,11 @@
                 <div class="flex-centered-col mrg-top-50 no-padding">
 
 
-                        <h4 class="no-margin-padding">Данъчна Декларация</h4>
-                        <h4 class="no-margin-padding">Лято 2023 САЩ</h4>
+                    <h4 class="no-margin-padding">Данъчна Декларация</h4>
+                    <h4 class="no-margin-padding">Лято 2023 САЩ</h4>
 
 
-                    <hr class="hr-line"></hr>
+                    <hr class="hr-line-85"></hr>
                 </div>
 
 
@@ -71,6 +71,7 @@
                         <p>Прикачени файлове</p>
                     </div>
                 </div>
+                <hr class="hr-line-85">
                 <div id="progress" class="border cursor">
                     <div class="row no-margin-padding">
                         <p class="rgt-mrg-10"><?xml version="1.0" encoding="UTF-8"?>
@@ -103,8 +104,8 @@
 
 
                 <div id="tax-submit-button" class="border column align-left">
-                    <button id="cloneSubmitButton" type="submit"
-                            class="query-btn slider-btn disabled"><?xml version="1.0" encoding="UTF-8"?>
+                    <a id='cloneSubmitButton' class="query-btn slider-btn white-txt"
+                       href="{% url 'save-and-send' %}"><?xml version="1.0" encoding="UTF-8"?>
                         <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
                              xmlns="http://www.w3.org/2000/svg" color="#ffffff">
                             <path d="M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z"
@@ -119,9 +120,9 @@
                             <path d="M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20" stroke="#ffffff" stroke-width="1.5"
                                   stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>&nbsp;Изпрати
-                        формуляр
-                    </button>
-                    <a class="query-btn white-txt" href="{% url 'generate_pdf' tax_id=object.pk %}"
+                        формуляр</a>
+                    <a id='generate-contract-btn' class="query-btn white-txt"
+                       href="{% url 'generate_pdf' tax_id=object.pk %}"
                        target="_blank"><?xml version="1.0" encoding="UTF-8"?>
                         <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
                              xmlns="http://www.w3.org/2000/svg" color="#ffffff">
@@ -177,9 +178,14 @@
                                                   stroke-linejoin="round"></path>
                                         </svg>
                                     </h2>
+
                                 </div>
+                                <div class="hr-line-55"></div>
                                 <div class="row">
                                     <p>
+
+                                        {{ form.is_sent }}
+
                                         <label for="{{ form.first_name.id_for_label }}">Име*</label>
                                         {{ form.first_name }}
                                     </p>
@@ -196,6 +202,22 @@
                                 </div>
                                 <div class="row">
                                     <p>
+                                        <label for="{{ form.first_name_en.id_for_label }}">Име на латиница*</label>
+                                        {{ form.first_name_en }}
+                                    </p>
+
+                                    <p>
+                                        <label for="id_middle_name_en">Презиме на латиница</label>
+                                        {{ form.middle_name_en }}
+                                    </p>
+
+                                    <p>
+                                        <label for="id_family_name_en">Фамилия на латиница*</label>
+                                        {{ form.family_name_en }}
+                                    </p>
+                                </div>
+                                <div class="row">
+                                    <p>
                                         <label for="id_mothers_maiden_name">Mothers maiden name</label>
                                         {{ form.mothers_maiden_name }}
                                     </p>
@@ -203,6 +225,7 @@
                                     <p>
                                         <label for="id_birth_date">Рожденна дата*</label>
                                         {{ form.birth_date }}
+                                        <span class="date-hint">Формат: <l>dd.mm.yyyy</l></span>
                                     </p>
 
                                     <p>
@@ -239,10 +262,18 @@
                                 </div>
                                 <div class="row">
                                     <p>
-                                        <label for="id_how_did_you_find_us">Откъде научихте за нас?</label>
-                                        {{ form.how_did_you_find_us }}
+                                        <label for="id_id_number">Номер на лична карта</label>
+                                        {{ form.id_number }}
+                                    </p>
+                                    <p>
+                                        <label for="id_issue_date">Дата на издаване</label>
+                                        {{ form.issue_date }}
+                                        <span class="date-hint">Формат: <l>dd.mm.yyyy</l></span>
+
+
                                     </p>
                                 </div>
+                                <br>
                                 <div class="row">
                                     <div class="query-btn next-btn"><p>Продължи</p></div>
                                     <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
@@ -263,6 +294,7 @@
                                         </svg>
                                     </h2>
                                 </div>
+                                <div class="hr-line-70"></div>
                                 <div class="row">
                                     <p>
                                         <label for="id_social_security">Social Security Number/Социално Осигурителен
@@ -279,11 +311,13 @@
                                     <p>
                                         <label for="id_arrival_date_in_usa">Дата на пристигане в САЩ*</label>
                                         {{ form.arrival_date_in_usa }}
+                                        <span class="date-hint">Формат: <l>dd.mm.yyyy</l></span>
                                     </p>
 
                                     <p>
                                         <label for="id_departure_date_in_usa">Дата на заминаване от САЩ*</label>
                                         {{ form.departure_date_in_usa }}
+                                        <span class="date-hint">Формат: <l>dd.mm.yyyy</l></span>
                                     </p>
                                 </div>
                                 <div class="row">
@@ -338,6 +372,7 @@
                                         </svg>
                                     </h2>
                                 </div>
+                                <div class="hr-line-85"></div>
                                 <div class="row">
                                     <p>
                                         <label for="id_company_name">Име на компанията*</label>
@@ -415,6 +450,7 @@
                                         </svg>
                                     </h2>
                                 </div>
+                                <div class="hr-line-70"></div>
                                 <div class="row">
                                     <p>
                                         <label for="id_american_bank_account">Имаш ли банкова сметка в САЩ?</label>
@@ -460,7 +496,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="wrapper">
                             <div class="tax-content attachments">
                                 <div class="row">
@@ -474,6 +509,7 @@
                                         </svg>
                                     </h2>
                                 </div>
+
                                 <div class="oval-border align-left">
                                     <input hidden type="checkbox" name="{{ form.passport_copy_used.name }}"
                                            id="{{ form.passport_copy_used.id_for_label }}"
@@ -646,6 +682,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="wrapper">
                             <div class="tax-content progress">
                                 <div class="row">
@@ -677,6 +714,9 @@
                                     </h2>
                                     <h2>Прогрес</h2>
                                 </div>
+                                <div class="hr-line-30"></div>
+                                <br>
+                                <br>
 
                                 <h3>Обработка на Документи</h3>
                                 <div class="column align-left">
@@ -684,7 +724,7 @@
                                         <div class="row">
                                             <div id='progress-registry' class="green-completed"></div>
                                             <div class="column"><label for="id_stat_reg">1.Регистрация</label>
-                                                <input class="small" type="" id="id_stat_reg"
+                                                <input hidden class="small" type="" id="id_stat_reg"
                                                        name="stat_reg"
                                                        value="{{ form.instance.stat_reg }}">
                                             </div>
@@ -693,7 +733,7 @@
                                             <div id='progress-personal-info' class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_pers_dat">2.Лични Данни</label>
-                                                <input class="small" type="text" id="id_stat_pers_dat"
+                                                <input hidden class="small" type="text" id="id_stat_pers_dat"
                                                        name="stat_pers_dat"
                                                        value="{{ form.instance.stat_pers_dat }}">
                                             </div>
@@ -703,7 +743,7 @@
                                             <div id='progress-documents' class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_docs">3.Документи</label>
-                                                <input class="small" type="text" id="id_stat_docs"
+                                                <input hidden class="small" type="text" id="id_stat_docs"
                                                        name="stat_docs"
                                                        value="{{ form.instance.stat_docs }}">
                                             </div>
@@ -712,7 +752,7 @@
                                             <div id='progress-in-progress' class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_in_progress">4.Обработка</label>
-                                                <input class="small" type="text" id="id_stat_in_progress"
+                                                <input hidden class="small" type="text" id="id_stat_in_progress"
                                                        name="stat_in_progress"
                                                        value="{{ form.instance.stat_in_progress }}">
                                             </div>
@@ -721,24 +761,31 @@
                                 </div>
                                 <br>
                                 <br>
+                                <br>
+                                <div class="hr-line-100"></div>
+                                <br>
+                                <br>
                                 <h3>Статус на Декларация</h3>
                                 <div class="column align-left">
                                     <div class="row">
                                         <div class="row">
-                                            <div class="red-not-started"></div>
+                                            <div id='declaration-submitted' class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_declaration_submitted">5.Подадена данъчна
                                                     декларация</label>
+
                                                 {{ form.stat_declaration_submitted }}
+
                                                 {#                                                <input hidden class="small" type="text" id="id_stat_declaration_submitted"#}
                                                 {#                                                       name="stat_declaration_submitted"#}
                                                 {#                                                       value="{{ form.instance.stat_declaration_submitted }}">#}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="red-not-started"></div>
+                                            <div id="waiting-state" class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_waiting_state">6.Пристигнал State</label>
+
                                                 {{ form.stat_waiting_state }}
 
                                                 {#                                                    <input class="small" type="text" id="id_stat_waiting_state"#}
@@ -747,10 +794,12 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="red-not-started"></div>
+                                            <div id="waiting-federal" class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_waiting_federal">7.Пристигнал Federal</label>
+
                                                 {{ form.stat_waiting_federal }}
+
                                                 {#                                                    <input class="small" type="text" id="id_stat_waiting_federal"#}
                                                 {#                                                           name="stat_waiting_federal"#}
                                                 {#                                                           value="{{ form.instance.stat_waiting_federal }}">#}
@@ -760,33 +809,43 @@
                                 </div>
                                 <br>
                                 <br>
+                                <br>
+                                <div class="hr-line-100"></div>
+                                <br>
+                                <br>
                                 <h3>Финална Фаза</h3>
                                 <div class="column align-left">
 
                                     <div class="row">
-                                        <div class="red-not-started"></div>
+                                        <div id="tax-paid" class="red-not-started"></div>
                                         <div class="column">
                                             <label for="id_stat_tax_paid">8.Платена комисионна</label>
+
                                             {{ form.stat_tax_paid }}
+
                                             {#                                                <input class="small" type="text" id="id_stat_tax_paid"#}
                                             {#                                                       name="stat_tax_paid"#}
                                             {#                                                       value="{{ form.instance.stat_tax_paid }}">#}
                                         </div>
                                         <div class="row">
-                                            <div class="red-not-started"></div>
+                                            <div id="state-customer" class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_state_customer">9.Връчен State</label>
+
                                                 {{ form.stat_state_customer }}
+
                                                 {#                                                    <input class="small" type="text" id="id_stat_state_customer"#}
                                                 {#                                                           name="stat_state_customer"#}
                                                 {#                                                           value="{{ form.instance.stat_state_customer }}">#}
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="red-not-started"></div>
+                                            <div id="federal-customer" class="red-not-started"></div>
                                             <div class="column">
                                                 <label for="id_stat_federal_customer">10.Връчен Federal</label>
+
                                                 {{ form.stat_federal_customer }}
+
                                                 {#                                                    <input class="small" type="text" id="id_stat_federal_customer"#}
                                                 {#                                                           name="stat_federal_customer"#}
                                                 {#                                                           value="{{ form.instance.stat_federal_customer }}">#}

@@ -1,21 +1,36 @@
-import csv
+import base64
 import os
+import io
+from email.mime.image import MIMEImage
+from urllib.parse import urljoin
+
+from django.contrib.auth import get_user_model
+from django.contrib.staticfiles import finders
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils import timezone, html
 
 import xlwt
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
+from django.utils.encoding import smart_str
 
 from django.views import generic as views
+from docxtpl import DocxTemplate
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from docx import Document
 from reportlab.pdfgen import canvas
 
+from aimtravel_site import settings
 from aimtravel_site.taxes.forms import AddTaxes, TaxesDetailForm, EditTaxes, AdminEditTaxes
 from aimtravel_site.taxes.models import Taxes
 from aimtravel_site.posting.models import News
+
+UserModel = get_user_model()
 
 
 class TaxMainView(views.ListView):
@@ -56,6 +71,10 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
     template_name = 'taxes/edit_taxes.html'
     context_object_name = 'edit_taxes'
 
+    def get_object(self, queryset=None):
+        # Get the TaxEntry object based on the primary key from the URL
+        return Taxes.objects.get(pk=self.kwargs['pk'])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -70,6 +89,37 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
     def get_success_url(self):
         taxes_pk = self.kwargs['pk']
         return reverse_lazy('edit tax', kwargs={'pk': taxes_pk})
+
+    def form_valid(self, form):
+        # Check and handle clearing and deleting for file_field1
+
+        if form.cleaned_data['passport_copy_clear']:
+            if form.cleaned_data['passport_copy']:
+                form.cleaned_data['passport_copy'].delete()
+        if form.cleaned_data['visa_copy_clear']:
+            if form.cleaned_data['visa_copy']:
+                form.cleaned_data['visa_copy'].delete()
+        if form.cleaned_data['ssn_copy_clear']:
+            if form.cleaned_data['ssn_copy']:
+                form.cleaned_data['ssn_copy'].delete()
+        if form.cleaned_data['last_paycheck_w2_clear']:
+            if form.cleaned_data['last_paycheck_w2']:
+                form.cleaned_data['last_paycheck_w2'].delete()
+        if form.cleaned_data['bank_account_screenshot_clear']:
+            if form.cleaned_data['bank_account_screenshot']:
+                form.cleaned_data['bank_account_screenshot'].delete()
+        if form.cleaned_data['us_document_copy_clear']:
+            if form.cleaned_data['us_document_copy']:
+                form.cleaned_data['us_document_copy'].delete()
+        if form.cleaned_data['signed_and_scanned_contract_clear']:
+            if form.cleaned_data['signed_and_scanned_contract']:
+                form.cleaned_data['signed_and_scanned_contract'].delete()
+        instance = form.save(commit=False)
+        instance.is_sent = False
+        instance.save()
+
+        # Save the form data (or perform other necessary actions)
+        return super().form_valid(form)
 
 
 class DetailsTaxView(LoginRequiredMixin, views.DetailView):
@@ -100,62 +150,77 @@ def pre_add_tax(request):
 
 
 def generate_pdf(request, tax_id):
-    # Fetch data from the database using the contract_id
-    contract_data = Taxes.objects.get(id=tax_id)
-    first_name = contract_data.first_name
-    last_name = contract_data.family_name
+    # Fetch data from the database using the tax_id
+    contract_data = get_object_or_404(Taxes, id=tax_id)
+    today_date = timezone.now().date()
+    formatted_date = today_date.strftime("%d.%m.%Y")
 
-    # Render a Django template to generate the text file
-    text_content = render(request, 'taxes/contract_template.txt',
-                          {'contract_data': contract_data}).content.decode('utf-8')
+    template_relative_path = os.path.join(settings.BASE_DIR, 'templates', 'taxes', 'contract_template.docx')
 
-    # Generate a PDF using ReportLab
+    # Render a .docx template with variables using python-docx-template
+    docx_template = DocxTemplate(template_relative_path)
+    context = {'contract_data': contract_data, 'today_date': formatted_date}
+    docx_template.render(context)
+
+    # Save the rendered .docx template to a BytesIO object
+    docx_stream = io.BytesIO()
+    docx_template.save(docx_stream)
+    docx_stream.seek(0)
+
+    # Load the .docx template
+    doc = Document(docx_stream)
+
+    jost_regular_path = os.path.join(settings.STATIC_URL, 'fonts', 'Jost', 'static', 'Jost-Regular.ttf')
+    jost_bold_path = os.path.join(settings.STATIC_URL, 'fonts', 'Jost', 'static', 'Jost-Bold.ttf')
+
+    # Register a font that supports Cyrillic characters
+    pdfmetrics.registerFont(TTFont('Jost-Regular', jost_regular_path))
+    pdfmetrics.registerFont(TTFont('Jost-Bold', jost_bold_path))
+
+    # Create a PDF using ReportLab
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="contract_{tax_id}.pdf"'
 
-    # Calculate the absolute path to the font file
-    font_path_regular = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '../../static/fonts/Jost/static/Jost-Regular.ttf'))
-    font_path_bold = os.path.abspath(
-        os.path.join(os.path.dirname(__file__), '../../static/fonts/Jost/static/Jost-Bold.ttf'))
-
-    # Register a font that supports Cyrillic characters
-    pdfmetrics.registerFont(TTFont('Jost-Regular', font_path_regular))
-    pdfmetrics.registerFont(TTFont('Jost-Bold', font_path_bold))
     # Create a PDF document
     pdf = canvas.Canvas(response, pagesize=letter)
+
     # Set up a margin
-    margin = 30
+    margin = 50
 
-    # Split the text content into lines
-    lines = text_content.split('\n')
-
-    # Calculate the starting height for the text
-    height = letter[1] - margin
+    # Set up page dimensions
+    page_width, page_height = letter
+    max_height = page_height - 2 * margin
 
     # Set the font and size
-    pdf.setFont("Jost-Regular", 12)  # Use the registered font
+    pdf.setFont("Jost-Regular", 10)  # Use your preferred font
 
-    line_spacing = 20
+    height = max_height
+    line_spacing = 15
 
-    # Draw each line on the PDF
-    for line in lines:
-        # Check for bold markers and adjust formatting
-        if '**' in line:
-            parts = line.split('**')
+    # Iterate through paragraphs in the .docx template
+    for paragraph in doc.paragraphs:
+        # Check for the remaining height on the current page
+        if height - line_spacing < margin:
+            pdf.showPage()
+            height = max_height
+            # Set the font and size for the new page
+            pdf.setFont("Jost-Regular", 10)  # Use your preferred font
+
+        # Check for bold formatting
+        if '**' in paragraph.text:
+            parts = paragraph.text.split('**')
             for i, part in enumerate(parts):
                 if i % 2 == 0:
                     pdf.drawString(margin, height, part)
                 else:
                     # Bold formatting
-                    pdf.setFont("Jost-Bold", 12)
+                    pdf.setFont("Jost-Bold", 10)  # Use your preferred bold font
                     pdf.drawString(margin, height, part)
-                    pdf.setFont("Jost-Regular", 12)
-
-                # Move to the next line with increased spacing
+                    pdf.setFont("Jost-Regular", 10)
+                # # Move to the next line with increased spacing
                 height -= line_spacing
         else:
-            pdf.drawString(margin, height, line)
+            pdf.drawString(margin, height, paragraph.text)
             # Move to the next line with increased spacing
             height -= line_spacing
 
@@ -215,10 +280,46 @@ class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
         if form.cleaned_data['us_document_copy_clear']:
             if form.cleaned_data['us_document_copy']:
                 form.cleaned_data['us_document_copy'].delete()
+        if form.cleaned_data['signed_and_scanned_contract_clear']:
+            if form.cleaned_data['signed_and_scanned_contract']:
+                form.cleaned_data['signed_and_scanned_contract'].delete()
+        instance = form.save(commit=False)
+        instance.is_sent = False
+        instance.save()
         # Save the form data (or perform other necessary actions)
         return super().form_valid(form)
 
 
+def send_application_view(request):
+    taxes = Taxes.objects.filter(user_id=request.user.id)
+
+    if taxes is not None:
+        taxes = taxes.latest('id')
+        taxes.is_sent = True
+        taxes.save()
+
+    name = f"{request.user.first_name} {request.user.last_name}"
+    email = request.user.email
+    recipient = email
+    cc_email = ['vlzahariev@gmail.com']
+
+    logo_path = "https://www.aimtravel.bg/static/img/Ready-stock/Logo/image001.png"
+
+    subject = f"Връщане на Данъци от САЩ - регистрация"
+
+    # Render HTML content for the email
+    html_content = render_to_string('taxes/email_template.html', {'name': name, 'logo': logo_path})
+
+    # Create a plain text version of the email content
+    text_content = html.strip_tags(html_content)
+
+    email = EmailMultiAlternatives(subject, text_content, email, [recipient], cc=cc_email)
+    email.attach_alternative(html_content, "text/html")
+
+    # Send the email
+    email.send()
+    success_url = reverse_lazy('success_tax', kwargs={'taxes_pk': taxes.id})
+    return redirect(success_url)
 
 
 class SuperuserDeleteTaxView(LoginRequiredMixin, UserPassesTestMixin, views.DeleteView):
@@ -349,3 +450,9 @@ class ExportTaxesView(views.View):
 
         # Save the workbook to the response
         workbook.save(response)
+
+
+def success_page_view(request, taxes_pk):
+    taxes = Taxes.objects.get(pk=taxes_pk)
+    print(taxes.pk)
+    return render(request, 'success-taxes.html', {'taxes': taxes})

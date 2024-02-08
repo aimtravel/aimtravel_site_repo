@@ -4814,6 +4814,7 @@ footer a:hover {
     font-family: Jost, sans-serif;
     font-style: normal;
     font-weight: 700;
+    text-align: center;
 }
 
 @media screen and (max-width: 800px) {
@@ -8649,6 +8650,7 @@ aside div p {
 aside #progress p {
     font-size: 18px;
     color: black;
+    text-decoration: underline;
     /*font-weight: 700;*/
 }
 
@@ -8728,7 +8730,8 @@ aside #progress p {
 .taxes-section .row p {
     display: flex;
     flex-direction: column;
-    align-items: flex-start
+    align-items: flex-start;
+    position: relative;
 }
 
 .taxes-section .wrapper {
@@ -8876,6 +8879,16 @@ th {
 
 td {
     background-color: #ffffff;
+}
+
+#cloneSubmitButtonText {
+    margin: 0;
+    padding: 0;
+}
+
+#progress10, #progress20, #progress30, #progress40, #progress50,
+#progress60, #progress70, #progress80, #progress90, #progress100 {
+    display: none;
 }
 
 /* TAXES PAGE END*/
@@ -9219,11 +9232,75 @@ a {
 
 }
 
+.width-60 {
+    width: 60%;
+}
+
+.width-80 {
+    width: 80%;
+}
+
+.width-90 {
+    width: 90%;
+}
+
 .width-100 {
     width: 100%;
 }
 
-.hr-line {
+.hr-line-30 {
+    width: 30%;
+    border: 1px solid #888888;
+}
+
+.hr-line-55 {
+    width: 55%;
+    border: 1px solid #888888;
+}
+
+.hr-line-70 {
+    width: 70%;
+    border: 1px solid #888888;
+}
+
+.hr-line-85 {
     width: 85%;
     border: 1px solid #888888;
+}
+
+.hr-line-100 {
+    width: 100%;
+    border: 1px solid #888888;
+}
+
+.date-hint {
+    display: none;
+    font-size: 14px;
+    color: #727272;
+    position: absolute;
+    top: 50px;
+}
+
+l {
+    font-style: italic ;
+}
+
+.blue-text {
+    font-weight: 600;
+    font-family: Jost, Sans-Serif;
+    color: #00355E;
+    font-size: 14px;
+}
+
+.self-align {
+    align-self: center;
+}
+
+.sqr30 {
+    display: flex;
+    width: 60px;
+}
+
+.progress-icon {
+    width: 100%;
 }

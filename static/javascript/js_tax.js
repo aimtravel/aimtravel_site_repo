@@ -1,3 +1,18 @@
+// Show the date format hint in the date form fields on the edit-tax page.
+
+var date_hints = document.querySelectorAll('.date-hint');
+
+date_hints.forEach(function(element) {
+  var parentElement = element.parentNode;
+    parentElement.addEventListener('mouseover', function() {
+      element.style.display = 'flex';
+      setTimeout(function () {
+          element.style.display = "none";
+      }, 3000);
+  });
+});
+
+
 // This function is related to navigation of tax-form page. It makes currently selected category bold.
 // It includes also functionality of "Next" and "Previous" buttons as well as clone of submit button.
 
@@ -288,6 +303,10 @@ function statusPersonalInfo() {
     var fieldName = name.value;
     var family = document.getElementById('id_family_name');
     var fieldFamily = family.value;
+    var name_en = document.getElementById('id_first_name_en');
+    var fieldNameEn = name_en.value;
+    var family_en = document.getElementById('id_family_name_en');
+    var fieldFamilyEn = family_en.value;
     var bDay = document.getElementById('id_birth_date');
     var fieldBday = bDay.value;
     var bCity = document.getElementById('id_birth_city');
@@ -302,21 +321,29 @@ function statusPersonalInfo() {
     var fieldEmail = email.value;
     var phone = document.getElementById('id_phone_number');
     var fieldPhone = phone.value;
+    var id_number = document.getElementById('id_id_number');
+    var fieldIdNumber = id_number.value;
+    var issue_date = document.getElementById('id_issue_date');
+    var fieldIssueDate = issue_date.value;
 
 
     if (!fieldName && !fieldFamily &&
+        !fieldNameEn && !fieldFamilyEn &&
         !fieldBday && !fieldBcity &&
         !fieldAddress && !fieldCity &&
         !fieldCountry && !fieldEmail &&
-        !fieldPhone && !fieldPhone) {
+        !fieldPhone && !fieldPhone &&
+        !fieldIdNumber && !fieldIssueDate) {
         statusPersonalInfoCat.classList.add('red-color');
         statusPersonalInfoCat.classList.remove('yellow-color');
         statusPersonalInfoCat.classList.remove('green-color');
     } else if (fieldName && fieldFamily &&
+        fieldNameEn && fieldFamilyEn &&
         fieldBday && fieldBcity &&
         fieldAddress && fieldCity &&
         fieldCountry && fieldEmail &&
-        fieldPhone && fieldPhone) {
+        fieldPhone && fieldPhone &&
+        fieldIdNumber && fieldIssueDate) {
         statusPersonalInfoCat.classList.add('green-color');
         statusPersonalInfoCat.classList.remove('yellow-color');
         statusPersonalInfoCat.classList.remove('red-color');
@@ -331,13 +358,17 @@ function statusPersonalInfo() {
     var fieldsArray = [
         name,
         family,
+        name_en,
+        family_en,
         bDay,
         bCity,
         address,
         city,
         country,
         email,
-        phone
+        phone,
+        id_number,
+        issue_date
     ];
 
     addGreenRedBorder(fieldsArray);
@@ -562,12 +593,193 @@ function statusAttachmentsChecker() {
 
 function disableButton() {
     var sendApplicationBtn = document.getElementById('cloneSubmitButton');
-
-    if (progressPersonalInfo.classList.contains('green-completed') &&
-        progressDocuments.classList.contains('green-completed')) {
+    var generateContractBtn = document.getElementById('generate-contract-btn')
+    var isSent = document.getElementById('id_is_sent');
+    var inProgress = document.getElementById('progress-in-progress')
+    var cloneSubmitButtonText = document.getElementById('cloneSubmitButtonText')
+    // excluded from below
+    // &&
+    //         progressDocuments.classList.contains('green-completed')
+    if (progressPersonalInfo.classList.contains('green-completed')) {
         sendApplicationBtn.classList.remove('disabled');
+        generateContractBtn.classList.remove('disabled');
     } else {
         sendApplicationBtn.classList.add('disabled');
+        generateContractBtn.classList.add('disabled');
+    }
+
+    if (isSent.value === 'true' &&
+        progressPersonalInfo.classList.contains('green-completed') ) {
+        sendApplicationBtn.classList.add('disabled');
+        cloneSubmitButtonText.textContent = "Формуляр изпратен"
+        inProgress.classList.add('green-completed');
+        inProgress.classList.remove('red-not-started')
+        progressHandler();
+    } else if (isSent.value === 'false' &&
+        progressPersonalInfo.classList.contains('green-completed') &&
+        progressDocuments.classList.contains('green-completed')) {
+        sendApplicationBtn.classList.remove('disabled');
+        cloneSubmitButtonText.textContent = "Изпрати формуляр"
+        inProgress.classList.add('red-not-started');
+        inProgress.classList.remove('green-completed')
+    }
+}
+
+function changeStatus() {
+    var statDeclarationSubmitted = document.getElementById('id_stat_declaration_submitted');
+    var statusDS = document.getElementById('declaration-submitted');
+    var statWaitingState = document.getElementById('id_stat_waiting_state');
+    var statusWS = document.getElementById('waiting-state');
+    var statWaitingFederal = document.getElementById('id_stat_waiting_federal');
+    var statusWF= document.getElementById('waiting-federal');
+    var statTaxPaid = document.getElementById('id_stat_tax_paid');
+    var statusTP = document.getElementById('tax-paid');
+    var statStateCustomer = document.getElementById('id_stat_state_customer');
+    var statusSC= document.getElementById('state-customer');
+    var statFederalCustomer = document.getElementById('id_stat_federal_customer');
+    var statusFC= document.getElementById('federal-customer');
+
+    var statsList = [
+        {"name": statDeclarationSubmitted, "value": statusDS},
+        {"name": statWaitingState, "value": statusWS},
+        {"name": statWaitingFederal, "value": statusWF},
+        {"name": statTaxPaid, "value": statusTP},
+        {"name": statStateCustomer, "value": statusSC},
+        {"name": statFederalCustomer, "value": statusFC}
+    ];
+
+    statsList.forEach( pair => {
+        console.log(pair.name.value)
+        if (pair.name.value === "1") {
+            pair.value.classList.add("red-not-started");
+            pair.value.classList.remove("yellow-not-completed");
+            pair.value.classList.remove("green-completed")
+        } else if (pair.name.value === "2") {
+            pair.value.classList.add("yellow-not-completed");
+            pair.value.classList.remove("red-not-started");
+            pair.value.classList.remove("green-completed")
+        } else if (pair.name.value === "3") {
+            pair.value.classList.add("green-completed");
+            pair.value.classList.remove("red-not-started");
+            pair.value.classList.remove("yellow-not-completed")
+        }
+    })
+
+}
+
+function hideBankDetails() {
+    var checker = document.getElementById('id_american_bank_account');
+    var divBankDetails = document.getElementById('bank-sub-category');
+    var accountHolder = document.getElementById('id_account_holder');
+    var routingNumber = document.getElementById('id_routing_number');
+    var accountNumber = document.getElementById('id_account_number');
+
+    if (checker.value === "No" || !checker.value ) {
+        divBankDetails.classList.add("disabled");
+        accountNumber.classList.add("grey-border")
+        accountNumber.classList.remove('red-border')
+        accountHolder.classList.add("grey-border")
+        accountHolder.classList.remove('red-border')
+        routingNumber.classList.add("grey-border")
+        routingNumber.classList.remove('red-border')
+    } else if (checker.value === 'Yes') {
+        divBankDetails.classList.remove("disabled");
+    }
+}
+
+function progressPercents() {
+    var progressReg = document.getElementById('progress-registry');
+    var progressPersInfo = document.getElementById('progress-personal-info');
+    var progressInProg = document.getElementById('progress-in-progress');
+    var progressDocs = document.getElementById('progress-documents');
+    var progressDeclSub = document.getElementById('declaration-submitted');
+    var progressWF = document.getElementById('waiting-federal');
+    var progressWS= document.getElementById('waiting-state');
+    var progressTaxesPaid = document.getElementById('tax-paid');
+    var progressFC = document.getElementById('federal-customer');
+    var progressSC = document.getElementById('state-customer');
+
+    var prog10 = document.getElementById('progress10');
+    var prog20 = document.getElementById('progress20');
+    var prog30 = document.getElementById('progress30');
+    var prog40 = document.getElementById('progress40');
+    var prog50 = document.getElementById('progress50');
+    var prog60 = document.getElementById('progress60');
+    var prog70 = document.getElementById('progress70');
+    var prog80 = document.getElementById('progress80');
+    var prog90 = document.getElementById('progress90');
+    var prog100 = document.getElementById('progress100');
+
+    var counter = 0;
+
+    var list = [
+        progressReg,
+        progressPersInfo,
+        progressInProg,
+        progressDocs,
+        progressDeclSub,
+        progressWF,
+        progressWS,
+        progressTaxesPaid,
+        progressFC,
+        progressSC
+    ]
+
+    var listPerc = [
+        prog10,
+        prog20,
+        prog30,
+        prog40,
+        prog50,
+        prog60,
+        prog70,
+        prog80,
+        prog90,
+        prog100
+    ]
+    function makeNone() {
+        listPerc.forEach(element => {
+            element.style.display = 'none';
+        })
+    }
+
+
+    list.forEach(element => {
+        if (element.classList.contains('green-completed')) {
+            counter += 1;
+        }
+    })
+
+    if (counter === 1) {
+        makeNone();
+        prog10.style.display = 'flex';
+    } else if (counter === 2) {
+        makeNone();
+        prog20.style.display = 'flex';
+    } else if (counter === 3) {
+        makeNone();
+        prog30.style.display = 'flex';
+    } else if (counter === 4) {
+        makeNone();
+        prog40.style.display = 'flex';
+    } else if (counter === 5) {
+        makeNone();
+        prog50.style.display = 'flex';
+    } else if (counter === 6) {
+        makeNone();
+        prog60.style.display = 'flex';
+    } else if (counter === 7) {
+        makeNone();
+        prog70.style.display = 'flex';
+    } else if (counter === 8) {
+        makeNone();
+        prog80.style.display = 'flex';
+    } else if (counter === 9) {
+        makeNone();
+        prog90.style.display = 'flex';
+    } else if (counter === 10) {
+        makeNone();
+        prog100.style.display = 'flex';
     }
 }
 
@@ -577,10 +789,13 @@ window.onload = function () {
     statusTravelInfo();
     statusEmployerInfo();
     statusBankInfo();
+    hideBankDetails();
     statusAttachments();
     statusPersonalInfoChecker();
     statusAttachmentsChecker();
     disableButton();
+    changeStatus();
+    progressPercents();
     submitButtonHandler();
 }
 
