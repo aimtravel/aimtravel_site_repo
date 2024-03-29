@@ -12,21 +12,19 @@ def upload_to_path(instance, filename):
 # Create your models here.
 class Taxes(models.Model):
     class Meta:
-        verbose_name = 'Tax-Refund'
+        verbose_name = 'Tax'
         verbose_name_plural = 'Taxes'
 
     NAME = 30
     ADDRESS = 100
     EMAIL = 50
     PHONE = 15
-
     YEAR = (
         ('2020', '2020'),
         ('2021', '2021'),
         ('2022', '2022'),
         ('2023', '2023'),
     )
-
     VISA = (
         ('J1', 'J1'),
         ('J2', 'J2'),
@@ -39,7 +37,6 @@ class Taxes(models.Model):
         ('Other', 'Other'),
         ('None', 'None'),
     )
-
     PROGRAM_TYPE = (
         ('Internship', 'Internship'),
         ('Work and Travel', 'Work and Travel'),
@@ -47,21 +44,18 @@ class Taxes(models.Model):
         ('Other', 'Other'),
         ('None', 'None'),
     )
-
-    BANK_ACCOUNT = (
-        ('Checking', 'Checking'),
-        ('Saving', 'Saving'),
-    )
-
     YES_NO = (
         ('No', 'Не'),
         ('Yes', 'Да')
     )
-
     STATUS_CHOICES = (
         ('1', 'Начало'),
         ('2', 'В прогрес'),
         ('3', 'Готово'),
+    )
+    BANK_ACCOUNT = (
+        ('Checking', 'Checking'),
+        ('Saving', 'Saving'),
     )
 
     user = models.ForeignKey(
@@ -69,7 +63,6 @@ class Taxes(models.Model):
         on_delete=models.CASCADE,
         related_name='taxes'
     )
-
     first_name = models.CharField(max_length=NAME, blank=True, null=True)
     middle_name = models.CharField(max_length=NAME, blank=True, null=True)
     family_name = models.CharField(max_length=NAME, blank=True, null=True)
@@ -86,6 +79,7 @@ class Taxes(models.Model):
     issue_date = models.DateField(blank=True, null=True)
     email = models.CharField(max_length=EMAIL, blank=True, null=True)
     phone_number = models.CharField(max_length=PHONE, blank=True, null=True)
+    personal_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
 
     social_security = models.CharField(max_length=12, blank=True, null=True)
     working_year = models.CharField(
@@ -126,6 +120,8 @@ class Taxes(models.Model):
         blank=True,
         null=True,
     )
+    travel_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
+
     company_name = models.CharField(max_length=40, blank=True, null=True)
     company_address = models.CharField(max_length=ADDRESS, blank=True, null=True)
     company_city = models.CharField(max_length=NAME, blank=True, null=True)
@@ -151,6 +147,8 @@ class Taxes(models.Model):
         blank=True,
         null=True,
     )
+    employer_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
+
     american_bank_account = models.CharField(
         max_length=3,
         choices=YES_NO,
@@ -168,6 +166,7 @@ class Taxes(models.Model):
     routing_number = models.CharField(max_length=100, blank=True, null=True)
     account_number = models.CharField(max_length=100, blank=True, null=True)
     comments = models.TextField(blank=True, null=True)
+    bank_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
 
     passport_copy = models.FileField(
         upload_to=upload_to_path,
@@ -225,23 +224,30 @@ class Taxes(models.Model):
         null=True,
     )
     signed_and_scanned_contract_used = models.BooleanField(default=False)
+    attachments_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
 
     stat_reg = models.CharField(max_length=10, choices=STATUS_CHOICES, default='3', blank=True, null=True)
     stat_pers_dat = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    # stat_signed_c = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_docs = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_in_progress = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    stat_declaration_submitted = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True,
-                                                  null=True)
+    stat_declaration_submitted = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_waiting_state = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_waiting_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    # stat_state_in = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    # stat_federal_in = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_tax_paid_state = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_tax_paid_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_state_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_federal_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    is_sent = models.BooleanField(default=False, null=True, blank=True)
+    stat_federal_fee_paid = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
+    stat_state_fee_paid = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
+    is_sent = models.BooleanField(null=True, blank=True)
+
+    waiting_docs = models.CharField(max_length=100, null=True, blank=True)
+    general_status = models.CharField(max_length=100, null=True, blank=True)
+    federal_amount = models.FloatField(null=True, blank=True)
+    state_amount = models.FloatField(null=True, blank=True)
+    fee_federal = models.FloatField(null=True, blank=True)
+    fee_state = models.FloatField(null=True, blank=True)
+    step = models.IntegerField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         if self.passport_copy:
@@ -268,7 +274,14 @@ class Taxes(models.Model):
             self.us_document_copy_used = True
         else:
             self.us_document_copy_used = False
+
+        if self.federal_amount is not None:
+            self.fee_federal = self.federal_amount * 0.1
+        if self.state_amount is not None:
+            self.fee_state = self.state_amount * 0.1
+
         super(Taxes, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"Данъци на {self.first_name} {self.middle_name} {self.family_name}"
+        return f"Данъците на {self.first_name} {self.family_name}"
+    

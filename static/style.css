@@ -8613,7 +8613,7 @@ aside {
     color: black
 }
 
-.tax-section form#norm .personal-info {
+.tax-section form.norm .personal-info {
     display: flex;
 }
 
@@ -8626,11 +8626,11 @@ aside {
     color: rgb(75, 75, 75);
 }
 
-.taxes-section form#norm .travel-info,
-.taxes-section form#norm .employer-info,
-.taxes-section form#norm .bank-info,
-.taxes-section form#norm .attachments,
-.taxes-section form#norm .progress {
+.taxes-section form.norm .travel-info,
+.taxes-section form.norm .employer-info,
+.taxes-section form.norm .bank-info,
+.taxes-section form.norm .attachments,
+.taxes-section form.norm .progress {
     display: none;
 }
 
@@ -8663,7 +8663,7 @@ aside #progress p {
 
 }
 
-.taxes-section form#norm {
+.taxes-section form.norm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8680,7 +8680,7 @@ aside #progress p {
 }
 
 @media screen and (max-width: 800px) {
-    .taxes-section form#norm {
+    .taxes-section form.norm {
         display: none;
     }
 
@@ -8714,7 +8714,7 @@ aside #progress p {
         display: flex;
     }
 
-    .taxes-section form#norm button {
+    .taxes-section form.norm button {
         display: none;
     }
 }
@@ -8875,10 +8875,12 @@ th, td {
 
 th {
     background-color: #f2f2f2;
+    font-size: 14px;
 }
 
 td {
     background-color: #ffffff;
+    font-size: 14px;
 }
 
 #cloneSubmitButtonText {
@@ -9139,6 +9141,10 @@ a {
     margin-right: 10px
 }
 
+.hidden-field {
+    display: none;
+}
+
 .red-color {
     /*background-color: #9D0A0E;*/
     border: 1px solid #757575;
@@ -9279,6 +9285,7 @@ a {
     color: #727272;
     position: absolute;
     top: 50px;
+    transition: 1s ease-in-out;
 }
 
 l {

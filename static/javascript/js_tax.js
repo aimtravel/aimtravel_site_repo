@@ -1,15 +1,15 @@
 // Show the date format hint in the date form fields on the edit-tax page.
 
-var date_hints = document.querySelectorAll('.date-hint');
+let date_hints = document.querySelectorAll('.date-hint');
 
-date_hints.forEach(function(element) {
-  var parentElement = element.parentNode;
-    parentElement.addEventListener('mouseover', function() {
-      element.style.display = 'flex';
-      setTimeout(function () {
-          element.style.display = "none";
-      }, 3000);
-  });
+date_hints.forEach(function (element) {
+    let parentElement = element.parentNode;
+    parentElement.addEventListener('mouseover', function () {
+        element.style.display = 'flex';
+        setTimeout(function () {
+            element.style.display = "none";
+        }, 3000);
+    });
 });
 
 
@@ -27,12 +27,12 @@ const bankInfo = document.querySelector("#tax-navigation #bank-info");
 const attachments = document.querySelector("#tax-navigation #attachments");
 const progress = document.querySelector("#tax-navigation #progress");
 
-const personalInfoContent = document.querySelector(".taxes-section form#norm .personal-info")
-const travelInfoContent = document.querySelector(".taxes-section form#norm .travel-info")
-const employerInfoContent = document.querySelector(".taxes-section form#norm .employer-info")
-const bankInfoContent = document.querySelector(".taxes-section form#norm .bank-info")
-const attachmentsContent = document.querySelector(".taxes-section form#norm .attachments")
-const progressContent = document.querySelector(".taxes-section form#norm .progress")
+const personalInfoContent = document.querySelector(".taxes-section form.norm .personal-info")
+const travelInfoContent = document.querySelector(".taxes-section form.norm .travel-info")
+const employerInfoContent = document.querySelector(".taxes-section form.norm .employer-info")
+const bankInfoContent = document.querySelector(".taxes-section form.norm .bank-info")
+const attachmentsContent = document.querySelector(".taxes-section form.norm .attachments")
+const progressContent = document.querySelector(".taxes-section form.norm .progress")
 
 let currentTab = personalInfo
 
@@ -72,7 +72,7 @@ function travelInfoHandler() {
     employerInfo.style.color = 'rgb(75, 75, 75)'
     employerInfoContent.style.display = 'none'
     bankInfo.style.fontWeight = '400'
-    bankInfo.style.color = 'grrgb(75, 75, 75)ay'
+    bankInfo.style.color = 'rgb(75, 75, 75)'
     bankInfoContent.style.display = 'none'
     attachments.style.fontWeight = '400'
     attachments.style.color = 'rgb(75, 75, 75)'
@@ -221,6 +221,35 @@ function previousButtonHandler() {
     }
 }
 
+let personalInfoStep = document.getElementById('id_personal_info_done');
+let travelInfoStep = document.getElementById('id_travel_info_done');
+let employerInfoStep = document.getElementById('id_employer_info_done');
+let bankInfoStep = document.getElementById('id_bank_info_done');
+let attachmentsInfoStep = document.getElementById('id_attachments_info_done');
+
+function stepHandler() {
+    if (personalInfoStep.value === 'yes') {
+        if (travelInfoStep.value === 'yes') {
+            if (employerInfoStep.value === 'yes') {
+                if (bankInfoStep.value === 'yes') {
+                    if (attachmentsInfoStep.value === 'yes') {
+                        progressHandler();
+                    } else {
+                        attachmentsHandler();
+                    }
+                } else {
+                    bankInfoHandler();
+                }
+            } else {
+                employerInfoHandler();
+            }
+        } else {
+            travelInfoHandler();
+        }
+    } else {
+        personalInfoHandler();
+    }
+}
 
 personalInfo.addEventListener('click', personalInfoHandler)
 
@@ -244,11 +273,11 @@ previousButton.forEach((element) => {
 })
 
 function submitButtonHandler() {
-    var submitButton = document.getElementById('cloneSubmitButton')
+    let cloneSubmitButton = document.getElementById('cloneSubmitButton');
 
-    submitButton.addEventListener('click', function () {
+    cloneSubmitButton.addEventListener('click', function () {
         document.getElementById('norm').submit();
-
+        nextButtonHandler();
     });
 }
 
@@ -259,21 +288,22 @@ function submitButtonHandler() {
 
 // ===== BEGIN =====
 
-var statusPersonalInfoCat = document.getElementById('status-personal-info');
-var statusTravelInfoCat = document.getElementById('status-travel-info');
-var statusEmployerInfoCat = document.getElementById('status-employer-info');
-var statusBankInfoCat = document.getElementById('status-bank-info');
-var statusAttachmentsCat = document.getElementById('status-attachments');
+let statusPersonalInfoCat = document.getElementById('status-personal-info');
+let statusTravelInfoCat = document.getElementById('status-travel-info');
+let statusEmployerInfoCat = document.getElementById('status-employer-info');
+let statusBankInfoCat = document.getElementById('status-bank-info');
+let statusAttachmentsCat = document.getElementById('status-attachments');
 
-var progressPersonalInfo = document.getElementById('progress-personal-info');
-var progressFieldPersonalInfo = document.getElementById('id_stat_pers_dat');
-var progressDocuments = document.getElementById('progress-documents');
-var progressFieldDocuments = document.getElementById('id_stat_docs')
-var progressInProgress = document.getElementById('progress-in-progress');
+let progressPersonalInfo = document.getElementById('progress-personal-info');
+let progressFieldPersonalInfo = document.getElementById('id_stat_pers_dat');
+let progressDocuments = document.getElementById('progress-documents');
+let progressFieldDocuments = document.getElementById('id_stat_docs')
+let progressInProgress = document.getElementById('progress-in-progress');
+let isSent = document.getElementById('id_is_sent');
 
 function addGrayBorder() {
-    var allInputs = document.querySelectorAll('.tax-content p input');
-    var allSelect = document.querySelectorAll('.tax-content p select');
+    let allInputs = document.querySelectorAll('.tax-content p input');
+    let allSelect = document.querySelectorAll('.tax-content p select');
     allInputs.forEach(function (element) {
         element.classList.add('gray-border');
     })
@@ -299,33 +329,33 @@ function addGreenRedBorder(list) {
 
 
 function statusPersonalInfo() {
-    var name = document.getElementById('id_first_name');
-    var fieldName = name.value;
-    var family = document.getElementById('id_family_name');
-    var fieldFamily = family.value;
-    var name_en = document.getElementById('id_first_name_en');
-    var fieldNameEn = name_en.value;
-    var family_en = document.getElementById('id_family_name_en');
-    var fieldFamilyEn = family_en.value;
-    var bDay = document.getElementById('id_birth_date');
-    var fieldBday = bDay.value;
-    var bCity = document.getElementById('id_birth_city');
-    var fieldBcity = bCity.value;
-    var address = document.getElementById('id_address');
-    var fieldAddress = address.value;
-    var city = document.getElementById('id_city');
-    var fieldCity = city.value;
-    var country = document.getElementById('id_country');
-    var fieldCountry = country.value;
-    var email = document.getElementById('id_email');
-    var fieldEmail = email.value;
-    var phone = document.getElementById('id_phone_number');
-    var fieldPhone = phone.value;
-    var id_number = document.getElementById('id_id_number');
-    var fieldIdNumber = id_number.value;
-    var issue_date = document.getElementById('id_issue_date');
-    var fieldIssueDate = issue_date.value;
-
+    let name = document.getElementById('id_first_name');
+    let fieldName = name.value;
+    let family = document.getElementById('id_family_name');
+    let fieldFamily = family.value;
+    let name_en = document.getElementById('id_first_name_en');
+    let fieldNameEn = name_en.value;
+    let family_en = document.getElementById('id_family_name_en');
+    let fieldFamilyEn = family_en.value;
+    let bDay = document.getElementById('id_birth_date');
+    let fieldBday = bDay.value;
+    let bCity = document.getElementById('id_birth_city');
+    let fieldBcity = bCity.value;
+    let address = document.getElementById('id_address');
+    let fieldAddress = address.value;
+    let city = document.getElementById('id_city');
+    let fieldCity = city.value;
+    let country = document.getElementById('id_country');
+    let fieldCountry = country.value;
+    let email = document.getElementById('id_email');
+    let fieldEmail = email.value;
+    let phone = document.getElementById('id_phone_number');
+    let fieldPhone = phone.value;
+    let id_number = document.getElementById('id_id_number');
+    let fieldIdNumber = id_number.value;
+    let issue_date = document.getElementById('id_issue_date');
+    let fieldIssueDate = issue_date.value;
+    let is_done = document.getElementById('id_personal_info_done')
 
     if (!fieldName && !fieldFamily &&
         !fieldNameEn && !fieldFamilyEn &&
@@ -334,6 +364,7 @@ function statusPersonalInfo() {
         !fieldCountry && !fieldEmail &&
         !fieldPhone && !fieldPhone &&
         !fieldIdNumber && !fieldIssueDate) {
+        is_done.value = 'no';
         statusPersonalInfoCat.classList.add('red-color');
         statusPersonalInfoCat.classList.remove('yellow-color');
         statusPersonalInfoCat.classList.remove('green-color');
@@ -344,10 +375,12 @@ function statusPersonalInfo() {
         fieldCountry && fieldEmail &&
         fieldPhone && fieldPhone &&
         fieldIdNumber && fieldIssueDate) {
+        is_done.value = 'yes';
         statusPersonalInfoCat.classList.add('green-color');
         statusPersonalInfoCat.classList.remove('yellow-color');
         statusPersonalInfoCat.classList.remove('red-color');
     } else {
+        is_done.value = 'no';
         statusPersonalInfoCat.classList.add('yellow-color');
         statusPersonalInfoCat.classList.remove('green-color');
         statusPersonalInfoCat.classList.remove('red-color');
@@ -355,7 +388,7 @@ function statusPersonalInfo() {
 
     // create a list of fields
 
-    var fieldsArray = [
+    let fieldsArray = [
         name,
         family,
         name_en,
@@ -376,22 +409,23 @@ function statusPersonalInfo() {
 }
 
 function statusTravelInfo() {
-    var ssn = document.getElementById('id_social_security');
-    var fieldSsn = ssn.value;
-    var workingYear = document.getElementById('id_working_year');
-    var fieldWorkingYear = workingYear.value;
-    var arrivalDate = document.getElementById('id_arrival_date_in_usa');
-    var fieldArrivalDate = arrivalDate.value;
-    var departureDate = document.getElementById('id_departure_date_in_usa');
-    var fieldDepartureDate = departureDate.value;
-    var visaType = document.getElementById('id_visa_type');
-    var fieldVisaType = visaType.value;
-    var programType = document.getElementById('id_program_type');
-    var fieldProgramType = programType.value;
-    var previousTax = document.getElementById('id_previous_tax_declarations');
-    var fieldPreviousTax = previousTax.value;
+    let ssn = document.getElementById('id_social_security');
+    let fieldSsn = ssn.value;
+    let workingYear = document.getElementById('id_working_year');
+    let fieldWorkingYear = workingYear.value;
+    let arrivalDate = document.getElementById('id_arrival_date_in_usa');
+    let fieldArrivalDate = arrivalDate.value;
+    let departureDate = document.getElementById('id_departure_date_in_usa');
+    let fieldDepartureDate = departureDate.value;
+    let visaType = document.getElementById('id_visa_type');
+    let fieldVisaType = visaType.value;
+    let programType = document.getElementById('id_program_type');
+    let fieldProgramType = programType.value;
+    let previousTax = document.getElementById('id_previous_tax_declarations');
+    let fieldPreviousTax = previousTax.value;
+    let is_done = document.getElementById('id_travel_info_done')
 
-    var fieldsArray = [
+    let fieldsArray = [
         ssn,
         workingYear,
         arrivalDate,
@@ -405,6 +439,7 @@ function statusTravelInfo() {
         !fieldArrivalDate && !fieldDepartureDate &&
         !fieldVisaType && !fieldProgramType &&
         !fieldPreviousTax) {
+        is_done.value = 'no';
         statusTravelInfoCat.classList.add('red-color');
         statusTravelInfoCat.classList.remove('yellow-color');
         statusTravelInfoCat.classList.remove('green-color');
@@ -412,10 +447,12 @@ function statusTravelInfo() {
         fieldArrivalDate && fieldDepartureDate &&
         fieldVisaType && fieldProgramType &&
         fieldPreviousTax) {
+        is_done.value = 'yes';
         statusTravelInfoCat.classList.add('green-color');
         statusTravelInfoCat.classList.remove('yellow-color');
         statusTravelInfoCat.classList.remove('red-color');
     } else {
+        is_done.value = 'no';
         statusTravelInfoCat.classList.add('yellow-color');
         statusTravelInfoCat.classList.remove('green-color');
         statusTravelInfoCat.classList.remove('red-color');
@@ -425,18 +462,19 @@ function statusTravelInfo() {
 }
 
 function statusEmployerInfo() {
-    var cName = document.getElementById('id_company_name');
-    var fieldCname = cName.value;
-    var cAddress = document.getElementById('id_company_address');
-    var fieldCaddress = cAddress.value;
-    var cCity = document.getElementById('id_company_city');
-    var fieldCcity = cCity.value;
-    var cState = document.getElementById('id_company_state');
-    var fieldCstate = cState.value;
-    var cZip = document.getElementById('id_company_zip');
-    var fieldCzip = cZip.value;
+    let cName = document.getElementById('id_company_name');
+    let fieldCname = cName.value;
+    let cAddress = document.getElementById('id_company_address');
+    let fieldCaddress = cAddress.value;
+    let cCity = document.getElementById('id_company_city');
+    let fieldCcity = cCity.value;
+    let cState = document.getElementById('id_company_state');
+    let fieldCstate = cState.value;
+    let cZip = document.getElementById('id_company_zip');
+    let fieldCzip = cZip.value;
+    let is_done = document.getElementById('id_employer_info_done')
 
-    var fieldsArray = [
+    let fieldsArray = [
         cName,
         cAddress,
         cCity,
@@ -447,16 +485,19 @@ function statusEmployerInfo() {
     if (!fieldCname && !fieldCaddress &&
         !fieldCcity && !fieldCstate &&
         !fieldCzip) {
+        is_done.value = 'no';
         statusEmployerInfoCat.classList.add('red-color');
         statusEmployerInfoCat.classList.remove('yellow-color');
         statusEmployerInfoCat.classList.remove('green-color');
     } else if (fieldCname && fieldCaddress &&
         fieldCcity && fieldCstate &&
         fieldCzip) {
+        is_done.value = 'yes';
         statusEmployerInfoCat.classList.add('green-color');
         statusEmployerInfoCat.classList.remove('yellow-color');
         statusEmployerInfoCat.classList.remove('red-color');
     } else {
+        is_done.value = 'no';
         statusEmployerInfoCat.classList.add('yellow-color');
         statusEmployerInfoCat.classList.remove('green-color');
         statusEmployerInfoCat.classList.remove('red-color');
@@ -466,16 +507,17 @@ function statusEmployerInfo() {
 }
 
 function statusBankInfo() {
-    var bank = document.getElementById('id_american_bank_account');
-    var fieldBank = bank.value;
-    var accountHolder = document.getElementById('id_account_holder');
-    var fieldAccountHolder = accountHolder.value;
-    var routingNumber = document.getElementById('id_routing_number');
-    var fieldRoutingNumber = routingNumber.value;
-    var accountNumber = document.getElementById('id_account_number');
-    var fieldAccountNumber = accountNumber.value;
+    let bank = document.getElementById('id_american_bank_account');
+    let fieldBank = bank.value;
+    let accountHolder = document.getElementById('id_account_holder');
+    let fieldAccountHolder = accountHolder.value;
+    let routingNumber = document.getElementById('id_routing_number');
+    let fieldRoutingNumber = routingNumber.value;
+    let accountNumber = document.getElementById('id_account_number');
+    let fieldAccountNumber = accountNumber.value;
+    let is_done = document.getElementById('id_bank_info_done')
 
-    var fieldsArray = [
+    let fieldsArray = [
         bank,
         accountHolder,
         routingNumber,
@@ -483,24 +525,29 @@ function statusBankInfo() {
     ]
 
     if (fieldBank === "No") {
+        is_done.value = 'yes';
         statusBankInfoCat.classList.add('green-color');
         statusBankInfoCat.classList.remove('yellow-color');
         statusBankInfoCat.classList.remove('red-color');
     } else if (fieldBank === "Yes") {
         if (!fieldAccountHolder && !fieldRoutingNumber && !fieldAccountNumber) {
+            is_done.value = 'no';
             statusBankInfoCat.classList.add('red-color');
             statusBankInfoCat.classList.remove('yellow-color');
             statusBankInfoCat.classList.remove('green-color');
         } else if (fieldAccountHolder && fieldRoutingNumber && fieldAccountNumber) {
+            is_done.value = 'yes';
             statusBankInfoCat.classList.add('green-color');
             statusBankInfoCat.classList.remove('yellow-color');
             statusBankInfoCat.classList.remove('red-color');
         } else {
+            is_done.value = 'no';
             statusBankInfoCat.classList.add('yellow-color');
             statusBankInfoCat.classList.remove('green-color');
             statusBankInfoCat.classList.remove('red-color');
         }
     } else {
+        is_done.value = 'no';
         statusBankInfoCat.classList.add('red-color');
         statusBankInfoCat.classList.remove('yellow-color');
         statusBankInfoCat.classList.remove('green-color');
@@ -511,12 +558,13 @@ function statusBankInfo() {
 }
 
 function statusAttachments() {
-    var fieldPassportDoc = document.getElementById('id_passport_copy_used');
-    var fieldVisaDoc = document.getElementById('id_visa_copy_used');
-    var fieldSsnDoc = document.getElementById('id_ssn_copy_used');
-    var fieldPayCheckW2Doc = document.getElementById('id_last_paycheck_w2_used');
+    let fieldPassportDoc = document.getElementById('id_passport_copy_used');
+    let fieldVisaDoc = document.getElementById('id_visa_copy_used');
+    let fieldSsnDoc = document.getElementById('id_ssn_copy_used');
+    let fieldPayCheckW2Doc = document.getElementById('id_last_paycheck_w2_used');
+    let is_done = document.getElementById('id_attachments_info_done')
 
-    var fieldsArray = [
+    let fieldsArray = [
         fieldPassportDoc,
         fieldVisaDoc,
         fieldSsnDoc,
@@ -525,15 +573,18 @@ function statusAttachments() {
 
     if (!fieldPassportDoc.checked && !fieldVisaDoc.checked &&
         !fieldSsnDoc.checked && !fieldPayCheckW2Doc.checked) {
+        is_done.value = 'no';
         statusAttachmentsCat.classList.add('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
     } else if (fieldPassportDoc.checked && fieldVisaDoc.checked &&
         fieldSsnDoc.checked && fieldPayCheckW2Doc.checked) {
+        is_done.value = 'yes';
         statusAttachmentsCat.classList.add('green-color');
         statusAttachmentsCat.classList.remove('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
     } else {
+        is_done.value = 'no';
         statusAttachmentsCat.classList.add('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
         statusAttachmentsCat.classList.remove('red-color');
@@ -559,11 +610,13 @@ function statusPersonalInfoChecker() {
         statusBankInfoCat.classList.contains('red-color')) {
         progressPersonalInfo.classList.add('red-not-started');
         progressFieldPersonalInfo.value = '1';
+        isSent.value = false;
         progressPersonalInfo.classList.remove('yellow-not-completed');
         progressPersonalInfo.classList.remove('green-completed');
     } else {
         progressPersonalInfo.classList.add('yellow-not-completed');
         progressFieldPersonalInfo.value = '2';
+        isSent.value = false;
         progressPersonalInfo.classList.remove('green-completed');
         progressPersonalInfo.classList.remove('red-not-started');
     }
@@ -592,11 +645,10 @@ function statusAttachmentsChecker() {
 }
 
 function disableButton() {
-    var sendApplicationBtn = document.getElementById('cloneSubmitButton');
-    var generateContractBtn = document.getElementById('generate-contract-btn')
-    var isSent = document.getElementById('id_is_sent');
-    var inProgress = document.getElementById('progress-in-progress')
-    var cloneSubmitButtonText = document.getElementById('cloneSubmitButtonText')
+    let sendApplicationBtn = document.getElementById('cloneSubmitButton');
+    let generateContractBtn = document.getElementById('generate-contract-btn')
+    let inProgress = document.getElementById('progress-in-progress')
+    let cloneSubmitButtonText = document.getElementById('cloneSubmitButtonText')
     // excluded from below
     // &&
     //         progressDocuments.classList.contains('green-completed')
@@ -609,7 +661,7 @@ function disableButton() {
     }
 
     if (isSent.value === 'true' &&
-        progressPersonalInfo.classList.contains('green-completed') ) {
+        progressPersonalInfo.classList.contains('green-completed')) {
         sendApplicationBtn.classList.add('disabled');
         cloneSubmitButtonText.textContent = "Формуляр изпратен"
         inProgress.classList.add('green-completed');
@@ -626,20 +678,20 @@ function disableButton() {
 }
 
 function changeStatus() {
-    var statDeclarationSubmitted = document.getElementById('id_stat_declaration_submitted');
-    var statusDS = document.getElementById('declaration-submitted');
-    var statWaitingState = document.getElementById('id_stat_waiting_state');
-    var statusWS = document.getElementById('waiting-state');
-    var statWaitingFederal = document.getElementById('id_stat_waiting_federal');
-    var statusWF= document.getElementById('waiting-federal');
-    var statTaxPaid = document.getElementById('id_stat_tax_paid');
-    var statusTP = document.getElementById('tax-paid');
-    var statStateCustomer = document.getElementById('id_stat_state_customer');
-    var statusSC= document.getElementById('state-customer');
-    var statFederalCustomer = document.getElementById('id_stat_federal_customer');
-    var statusFC= document.getElementById('federal-customer');
+    let statDeclarationSubmitted = document.getElementById('id_stat_declaration_submitted');
+    let statusDS = document.getElementById('declaration-submitted');
+    let statWaitingState = document.getElementById('id_stat_waiting_state');
+    let statusWS = document.getElementById('waiting-state');
+    let statWaitingFederal = document.getElementById('id_stat_waiting_federal');
+    let statusWF = document.getElementById('waiting-federal');
+    let statTaxPaid = document.getElementById('id_stat_tax_paid');
+    let statusTP = document.getElementById('tax-paid');
+    let statStateCustomer = document.getElementById('id_stat_state_customer');
+    let statusSC = document.getElementById('state-customer');
+    let statFederalCustomer = document.getElementById('id_stat_federal_customer');
+    let statusFC = document.getElementById('federal-customer');
 
-    var statsList = [
+    let statsList = [
         {"name": statDeclarationSubmitted, "value": statusDS},
         {"name": statWaitingState, "value": statusWS},
         {"name": statWaitingFederal, "value": statusWF},
@@ -648,8 +700,7 @@ function changeStatus() {
         {"name": statFederalCustomer, "value": statusFC}
     ];
 
-    statsList.forEach( pair => {
-        console.log(pair.name.value)
+    statsList.forEach(pair => {
         if (pair.name.value === "1") {
             pair.value.classList.add("red-not-started");
             pair.value.classList.remove("yellow-not-completed");
@@ -668,13 +719,13 @@ function changeStatus() {
 }
 
 function hideBankDetails() {
-    var checker = document.getElementById('id_american_bank_account');
-    var divBankDetails = document.getElementById('bank-sub-category');
-    var accountHolder = document.getElementById('id_account_holder');
-    var routingNumber = document.getElementById('id_routing_number');
-    var accountNumber = document.getElementById('id_account_number');
+    let checker = document.getElementById('id_american_bank_account');
+    let divBankDetails = document.getElementById('bank-sub-category');
+    let accountHolder = document.getElementById('id_account_holder');
+    let routingNumber = document.getElementById('id_routing_number');
+    let accountNumber = document.getElementById('id_account_number');
 
-    if (checker.value === "No" || !checker.value ) {
+    if (checker.value === "No" || !checker.value) {
         divBankDetails.classList.add("disabled");
         accountNumber.classList.add("grey-border")
         accountNumber.classList.remove('red-border')
@@ -688,31 +739,31 @@ function hideBankDetails() {
 }
 
 function progressPercents() {
-    var progressReg = document.getElementById('progress-registry');
-    var progressPersInfo = document.getElementById('progress-personal-info');
-    var progressInProg = document.getElementById('progress-in-progress');
-    var progressDocs = document.getElementById('progress-documents');
-    var progressDeclSub = document.getElementById('declaration-submitted');
-    var progressWF = document.getElementById('waiting-federal');
-    var progressWS= document.getElementById('waiting-state');
-    var progressTaxesPaid = document.getElementById('tax-paid');
-    var progressFC = document.getElementById('federal-customer');
-    var progressSC = document.getElementById('state-customer');
+    let progressReg = document.getElementById('progress-registry');
+    let progressPersInfo = document.getElementById('progress-personal-info');
+    let progressInProg = document.getElementById('progress-in-progress');
+    let progressDocs = document.getElementById('progress-documents');
+    let progressDeclSub = document.getElementById('declaration-submitted');
+    let progressWF = document.getElementById('waiting-federal');
+    let progressWS = document.getElementById('waiting-state');
+    let progressTaxesPaid = document.getElementById('tax-paid');
+    let progressFC = document.getElementById('federal-customer');
+    let progressSC = document.getElementById('state-customer');
 
-    var prog10 = document.getElementById('progress10');
-    var prog20 = document.getElementById('progress20');
-    var prog30 = document.getElementById('progress30');
-    var prog40 = document.getElementById('progress40');
-    var prog50 = document.getElementById('progress50');
-    var prog60 = document.getElementById('progress60');
-    var prog70 = document.getElementById('progress70');
-    var prog80 = document.getElementById('progress80');
-    var prog90 = document.getElementById('progress90');
-    var prog100 = document.getElementById('progress100');
+    let prog10 = document.getElementById('progress10');
+    let prog20 = document.getElementById('progress20');
+    let prog30 = document.getElementById('progress30');
+    let prog40 = document.getElementById('progress40');
+    let prog50 = document.getElementById('progress50');
+    let prog60 = document.getElementById('progress60');
+    let prog70 = document.getElementById('progress70');
+    let prog80 = document.getElementById('progress80');
+    let prog90 = document.getElementById('progress90');
+    let prog100 = document.getElementById('progress100');
 
-    var counter = 0;
+    let counter = 0;
 
-    var list = [
+    let list = [
         progressReg,
         progressPersInfo,
         progressInProg,
@@ -725,7 +776,7 @@ function progressPercents() {
         progressSC
     ]
 
-    var listPerc = [
+    let listPerc = [
         prog10,
         prog20,
         prog30,
@@ -737,6 +788,7 @@ function progressPercents() {
         prog90,
         prog100
     ]
+
     function makeNone() {
         listPerc.forEach(element => {
             element.style.display = 'none';
@@ -797,6 +849,18 @@ window.onload = function () {
     changeStatus();
     progressPercents();
     submitButtonHandler();
+    stepHandler();
 }
 
+
 // ===== END =====
+
+
+function init() {
+    let stepCounter = document.getElementById('step-value')
+    let child = stepCounter.querySelector('input');
+
+    console.log(child.value)
+}
+
+document.addEventListener("DOMContentLoaded", init);

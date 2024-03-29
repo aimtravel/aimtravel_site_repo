@@ -118,8 +118,6 @@ class MyProfileView(LoginRequiredMixin, views.DetailView):
         employee_profile = Employee.objects.all()
         students_profile = Students.objects.all()
 
-
-
         if employee_profile:
             # Add employee_profile to the context
             context['employee_profile'] = Employee.objects.all()

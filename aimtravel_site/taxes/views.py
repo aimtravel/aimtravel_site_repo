@@ -7,6 +7,7 @@ from urllib.parse import urljoin
 from django.contrib.auth import get_user_model
 from django.contrib.staticfiles import finders
 from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.forms import formset_factory
 from django.template.loader import render_to_string
 from django.utils import timezone, html
 
@@ -26,8 +27,8 @@ from docx import Document
 from reportlab.pdfgen import canvas
 
 from aimtravel_site import settings
-from aimtravel_site.taxes.forms import AddTaxes, TaxesDetailForm, EditTaxes, AdminEditTaxes
-from aimtravel_site.taxes.models import Taxes
+from aimtravel_site.taxes.forms import *
+from aimtravel_site.taxes.models import *
 from aimtravel_site.posting.models import News
 
 UserModel = get_user_model()
@@ -67,59 +68,18 @@ class AddTaxesView(LoginRequiredMixin, views.CreateView):
 
 class EditTaxesView(LoginRequiredMixin, views.UpdateView):
     model = Taxes
-    form_class = EditTaxes
+    form_class = EditTaxesForm
     template_name = 'taxes/edit_taxes.html'
     context_object_name = 'edit_taxes'
 
-    def get_object(self, queryset=None):
-        # Get the TaxEntry object based on the primary key from the URL
-        return Taxes.objects.get(pk=self.kwargs['pk'])
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Fetch the latest Tax object associated with the user
-        latest_tax = get_object_or_404(Taxes, user=self.request.user)
-
-        # Add the latest_tax to the context
-        context['latest_tax'] = latest_tax
-
+        context['latest_tax'] = get_object_or_404(Taxes, user=self.request.user)
         return context
 
     def get_success_url(self):
         taxes_pk = self.kwargs['pk']
         return reverse_lazy('edit tax', kwargs={'pk': taxes_pk})
-
-    def form_valid(self, form):
-        # Check and handle clearing and deleting for file_field1
-
-        if form.cleaned_data['passport_copy_clear']:
-            if form.cleaned_data['passport_copy']:
-                form.cleaned_data['passport_copy'].delete()
-        if form.cleaned_data['visa_copy_clear']:
-            if form.cleaned_data['visa_copy']:
-                form.cleaned_data['visa_copy'].delete()
-        if form.cleaned_data['ssn_copy_clear']:
-            if form.cleaned_data['ssn_copy']:
-                form.cleaned_data['ssn_copy'].delete()
-        if form.cleaned_data['last_paycheck_w2_clear']:
-            if form.cleaned_data['last_paycheck_w2']:
-                form.cleaned_data['last_paycheck_w2'].delete()
-        if form.cleaned_data['bank_account_screenshot_clear']:
-            if form.cleaned_data['bank_account_screenshot']:
-                form.cleaned_data['bank_account_screenshot'].delete()
-        if form.cleaned_data['us_document_copy_clear']:
-            if form.cleaned_data['us_document_copy']:
-                form.cleaned_data['us_document_copy'].delete()
-        if form.cleaned_data['signed_and_scanned_contract_clear']:
-            if form.cleaned_data['signed_and_scanned_contract']:
-                form.cleaned_data['signed_and_scanned_contract'].delete()
-        instance = form.save(commit=False)
-        instance.is_sent = False
-        instance.save()
-
-        # Save the form data (or perform other necessary actions)
-        return super().form_valid(form)
 
 
 class DetailsTaxView(LoginRequiredMixin, views.DetailView):
@@ -283,9 +243,7 @@ class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
         if form.cleaned_data['signed_and_scanned_contract_clear']:
             if form.cleaned_data['signed_and_scanned_contract']:
                 form.cleaned_data['signed_and_scanned_contract'].delete()
-        instance = form.save(commit=False)
-        instance.is_sent = False
-        instance.save()
+
         # Save the form data (or perform other necessary actions)
         return super().form_valid(form)
 
@@ -395,57 +353,36 @@ class ExportTaxesView(views.View):
         worksheet = workbook.add_sheet('Taxes')
 
         # Write Excel header
-        header = ['Име', 'Презиме', 'Фамилия', 'Mothers maiden name', 'Дата на раждане', 'Град на раждане', '	Адрес',
-                  'Град', 'Държава', 'Email', 'Телефон', 'Как научихте за нас', 'Social Security Number(SSN)',
-                  'Работна година', 'Дата на пристигане в САЩ', 'Дата на заминаване от САЩ', 'Тип виза', 'Тип програма',
-                  'Предишни декларации', 'Предишна промяна на виза', 'ПИН от IRS', 'Име на работодател',
-                  'Адрес на работодател', 'Град на работодател', 'Щат на работодател', 'ZIP код на работодател',
-                  'Телефон на работодател', 'Факс на работодател', 'Email на работодател', 'Последен чек', 'W2 форма',
-                  'Американска банкова сметка', 'Вид сметка', 'Име на банката', 'Собственик на сметката',
-                  'Routing номер',
-                  'IBAN']  # Add your model fields here
+        header = ['Име',
+                  'Фамилия',
+                  'Social Security Number(SSN)',
+                  'Email',
+                  'Телефон',
+                  'W2 форма',
+                  'Очаквани документи',
+                  'Статус',
+                  'Стойност Federal',
+                  'Стойност State',
+                  'Комисионна Federal',
+                  'Комисионна State'
+                  ]  # Add your model fields here
         for col_num, value in enumerate(header):
             worksheet.write(0, col_num, value)
 
         # Write Excel data
         for row_num, item in enumerate(data, 1):
             worksheet.write(row_num, 0, item.first_name)
-            worksheet.write(row_num, 1, item.middle_name)
-            worksheet.write(row_num, 2, item.family_name)
-            worksheet.write(row_num, 3, item.mothers_maiden_name)
-            worksheet.write(row_num, 4, item.birth_date)
-            worksheet.write(row_num, 5, item.birth_city)
-            worksheet.write(row_num, 6, item.address)
-            worksheet.write(row_num, 7, item.city)
-            worksheet.write(row_num, 8, item.country)
-            worksheet.write(row_num, 9, item.email)
-            worksheet.write(row_num, 10, item.phone_number)
-            worksheet.write(row_num, 11, item.how_did_you_find_us)
-            worksheet.write(row_num, 12, item.social_security)
-            worksheet.write(row_num, 13, item.working_year)
-            worksheet.write(row_num, 14, item.arrival_date_in_usa)
-            worksheet.write(row_num, 15, item.departure_date_in_usa)
-            worksheet.write(row_num, 16, item.visa_type)
-            worksheet.write(row_num, 17, item.program_type)
-            worksheet.write(row_num, 18, item.previous_tax_declarations)
-            worksheet.write(row_num, 19, item.visa_changing)
-            worksheet.write(row_num, 20, item.pin_from_irs)
-            worksheet.write(row_num, 21, item.company_name)
-            worksheet.write(row_num, 22, item.company_address)
-            worksheet.write(row_num, 23, item.company_city)
-            worksheet.write(row_num, 24, item.company_state)
-            worksheet.write(row_num, 25, item.company_zip)
-            worksheet.write(row_num, 26, item.company_phone)
-            worksheet.write(row_num, 27, item.company_fax)
-            worksheet.write(row_num, 28, item.company_email)
-            worksheet.write(row_num, 29, item.last_paycheck)
-            worksheet.write(row_num, 30, item.w_2)
-            worksheet.write(row_num, 31, item.american_bank_account)
-            worksheet.write(row_num, 32, item.type_of_account)
-            worksheet.write(row_num, 33, item.bank_name)
-            worksheet.write(row_num, 34, item.account_holder)
-            worksheet.write(row_num, 35, item.routing_number)
-            worksheet.write(row_num, 36, item.account_number)
+            worksheet.write(row_num, 1, item.family_name)
+            worksheet.write(row_num, 2, item.social_security)
+            worksheet.write(row_num, 3, item.email)
+            worksheet.write(row_num, 4, item.phone_number)
+            worksheet.write(row_num, 5, item.w_2)
+            worksheet.write(row_num, 6, item.waiting_docs)
+            worksheet.write(row_num, 7, item.general_status)
+            worksheet.write(row_num, 8, item.federal_amount)
+            worksheet.write(row_num, 9, item.state_amount)
+            worksheet.write(row_num, 10, item.fee_federal)
+            worksheet.write(row_num, 11, item.fee_state)
             # Replace field1, field2, field3 with your actual field names
 
         # Save the workbook to the response

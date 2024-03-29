@@ -139,23 +139,7 @@
 
 
                 <div id="tax-submit-button" class="border column align-left">
-                    {#                    <a id='cloneSubmitButton' class="query-btn slider-btn white-txt"#}
-                    {#                       href="{% url 'save-and-send' %}"><?xml version="1.0" encoding="UTF-8"?>#}
-                    {#                        <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"#}
-                    {#                             xmlns="http://www.w3.org/2000/svg" color="#ffffff">#}
-                    {#                            <path d="M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z"#}
-                    {#                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"#}
-                    {#                                  stroke-linejoin="round"></path>#}
-                    {#                            <path d="M8 10L16 10" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"#}
-                    {#                                  stroke-linejoin="round"></path>#}
-                    {#                            <path d="M8 18L16 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"#}
-                    {#                                  stroke-linejoin="round"></path>#}
-                    {#                            <path d="M8 14L12 14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"#}
-                    {#                                  stroke-linejoin="round"></path>#}
-                    {#                            <path d="M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20" stroke="#ffffff" stroke-width="1.5"#}
-                    {#                                  stroke-linecap="round" stroke-linejoin="round"></path>#}
-                    {#                        </svg>&nbsp;Изпрати#}
-                    {#                        формуляр</a>#}
+
                     <a id='generate-contract-btn' class="query-btn white-txt"
                        href="{% url 'generate_pdf' tax_id=object.pk %}"
                        target="_blank"><?xml version="1.0" encoding="UTF-8"?>
@@ -174,7 +158,7 @@
             <div class="vert-line"></div>
             <section class="taxes-section">
                 {% if object %}
-                    <form id="norm" action="{% url 'edit tax' pk=object.pk %}" method="POST"
+                    <form class="norm" action="{% url 'edit tax' pk=object.pk %}" method="POST"
                           enctype="multipart/form-data">
                         {% csrf_token %}
 
@@ -194,6 +178,15 @@
                             </div>
                         {% endif %}
                         <div class="wrapper">
+                            <div class="hidden-field">
+                                {{ form.step }}
+                                {{ form.personal_info_done }}
+                                {{ form.travel_info_done }}
+                                {{ form.employer_info_done }}
+                                {{ form.bank_info_done }}
+                                {{ form.attachments_info_done }}
+                                {{ form.is_sent }}
+                            </div>
                             <div class="tax-content personal-info">
 
                                 <div class="row">
@@ -887,6 +880,13 @@
                                                 <input hidden class="small" type="text" id="id_stat_waiting_federal"
                                                        name="stat_waiting_federal"
                                                        value="{{ form.instance.stat_waiting_federal }}">
+                                                {% if form.federal_amount and form.instance.federal_amount > 0 %}
+                                                    <div class="row">
+                                                        <label for="id_federal_amount">6.1. Сума:</label>
+                                                        <div style="display: none;">{{ form.federal_amount }}</div>
+                                                        $ {{ form.instance.federal_amount|floatformat:2 }}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
 
@@ -897,6 +897,13 @@
                                                 <input hidden class="small" type="text" id="id_stat_waiting_state"
                                                        name="stat_waiting_state"
                                                        value="{{ form.instance.stat_waiting_state }}">
+                                                {% if form.state_amount and form.instance.state_amount %}
+                                                    <div class="row">
+                                                        <label for="id_state_amount">7.1. Сума:</label>
+                                                        <div style="display: none;">{{ form.state_amount }}</div>
+                                                        $ {{ form.instance.state_amount|floatformat:2 }}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -912,11 +919,23 @@
 
                                     <div class="row">
                                         <div id="tax-paid" class="red-not-started"></div>
-                                        <div class="column">
+                                        <div class="column align-left">
                                             <label for="id_stat_tax_paid">8.Платена комисионна</label>
                                             <input hidden class="small" type="text" id="id_stat_tax_paid"
                                                    name="stat_tax_paid"
                                                    value="{{ form.instance.stat_tax_paid }}">
+                                            {% if form.fee_federal and form.instance.fee_federal > 0 %}
+                                                <div class="row">
+                                                    <label for="id_fee_federal">8.1. Сума Federal:</label>
+                                                    $ {{ form.instance.fee_federal|floatformat:2 }}
+                                                </div>
+                                            {% endif %}
+                                            {% if form.fee_state and form.instance.fee_state > 0 %}
+                                                <div class="row">
+                                                    <label for="id_fee_state">8.2. Сума State:</label>
+                                                    $ {{ form.instance.fee_state|floatformat:2 }}
+                                                </div>
+                                            {% endif %}
                                         </div>
 
                                         <div class="row">
