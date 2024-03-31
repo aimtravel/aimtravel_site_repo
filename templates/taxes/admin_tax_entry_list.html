@@ -104,11 +104,11 @@
                             <td>{{ tax.phone_number }}</td>
                             <td>{{ tax.w_2 }}</td>
                             <td>{{ tax.waiting_docs }}</td>
-                            <td>{{ tax.general_status }}</td>
-                            <td>{{ tax.federal_amount }}</td>
-                            <td>{{ tax.state_amount }}</td>
-                            <td>{{ tax.fee_federal }}</td>
-                            <td>{{ tax.fee_state }}</td>
+                            <td>{{ tax.get_general_status_display }}</td>
+                            <td>{{ tax.federal_amount|floatformat:2 }}</td>
+                            <td>{{ tax.state_amount|floatformat:2 }}</td>
+                            <td>{{ tax.fee_federal|floatformat:2 }}</td>
+                            <td>{{ tax.fee_state|floatformat:2 }}</td>
 
                             <!-- Add more cells with date information as needed -->
                         </tr>

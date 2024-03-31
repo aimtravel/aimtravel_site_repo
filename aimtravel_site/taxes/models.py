@@ -57,6 +57,15 @@ class Taxes(models.Model):
         ('Checking', 'Checking'),
         ('Saving', 'Saving'),
     )
+    GENERAL_STATUS_CHOICES = (
+        ('registration', 'Регистрация'),
+        ('declaration', 'Подадена декларация'),
+        ('federal', 'Пристигнал Federal'),
+        ('state', 'Пристигнал State'),
+        ('federalfee', 'Платена комисионна Federal'),
+        ('statefee', 'Платена комисионна State'),
+        ('allpaid', 'Комисионна платена')
+    )
 
     user = models.ForeignKey(
         UserModel,
@@ -233,8 +242,6 @@ class Taxes(models.Model):
     stat_declaration_submitted = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_waiting_state = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_waiting_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    stat_tax_paid_state = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
-    stat_tax_paid_federal = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_state_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_federal_customer = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
     stat_federal_fee_paid = models.CharField(max_length=10, choices=STATUS_CHOICES, default='1', blank=True, null=True)
@@ -242,9 +249,9 @@ class Taxes(models.Model):
     is_sent = models.BooleanField(null=True, blank=True)
 
     waiting_docs = models.CharField(max_length=100, null=True, blank=True)
-    general_status = models.CharField(max_length=100, null=True, blank=True)
-    federal_amount = models.FloatField(null=True, blank=True)
-    state_amount = models.FloatField(null=True, blank=True)
+    general_status = models.CharField(max_length=100, choices=GENERAL_STATUS_CHOICES, default='registration', null=True, blank=True)
+    federal_amount = models.FloatField(null=True, blank=True, default=0)
+    state_amount = models.FloatField(null=True, blank=True, default=0)
     fee_federal = models.FloatField(null=True, blank=True)
     fee_state = models.FloatField(null=True, blank=True)
     step = models.IntegerField(null=True, blank=True)
@@ -279,6 +286,24 @@ class Taxes(models.Model):
             self.fee_federal = self.federal_amount * 0.1
         if self.state_amount is not None:
             self.fee_state = self.state_amount * 0.1
+
+        if self.stat_declaration_submitted == '1' or self.stat_declaration_submitted is None:
+            self.general_status = 'registration'
+        elif self.stat_declaration_submitted == '3':
+            if self.stat_waiting_federal == '3':
+                if self.stat_waiting_state == '3':
+                    if self.stat_federal_fee_paid == '3' and self.stat_state_fee_paid == '1':
+                        self.general_status = 'federalfee'
+                    elif self.stat_federal_fee_paid == '1' and self.stat_state_fee_paid == '3':
+                        self.general_status = 'statefee'
+                    elif self.stat_federal_fee_paid == '3' and self.stat_state_fee_paid == '3':
+                        self.general_status = 'allpaid'
+                    else:
+                        self.general_status = 'state'
+                else:
+                    self.general_status = 'federal'
+            else:
+                self.general_status = 'declaration'
 
         super(Taxes, self).save(*args, **kwargs)
 

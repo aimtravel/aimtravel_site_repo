@@ -684,18 +684,53 @@ function changeStatus() {
     let statusWS = document.getElementById('waiting-state');
     let statWaitingFederal = document.getElementById('id_stat_waiting_federal');
     let statusWF = document.getElementById('waiting-federal');
-    let statTaxPaid = document.getElementById('id_stat_tax_paid');
-    let statusTP = document.getElementById('tax-paid');
     let statStateCustomer = document.getElementById('id_stat_state_customer');
     let statusSC = document.getElementById('state-customer');
     let statFederalCustomer = document.getElementById('id_stat_federal_customer');
     let statusFC = document.getElementById('federal-customer');
+    let statFederalFeePaid = document.getElementById('id_stat_federal_fee_paid');
+    let statStateFeePaid = document.getElementById('id_stat_state_fee_paid');
+    let statusTP = document.getElementById('tax-paid');
+    // let generalStatus = document.getElementById('id_general_status');
+
+    // if (statDeclarationSubmitted.value === '3') {
+    //     if (statWaitingFederal.value === '3') {
+    //         if (statWaitingState.value === '3') {
+    //             if (statFederalFeePaid.value === '3' && statStateFeePaid.value === '1') {
+    //                 generalStatus.value = 'federalfee';
+    //             } else if (statStateFeePaid.value === '3' && statFederalFeePaid.value === '1') {
+    //                 generalStatus.value = 'statefee';
+    //             } else if (statFederalFeePaid.value === '3' && statStateFeePaid.value === '3') {
+    //                 generalStatus.value = 'allpaid';
+    //             }
+    //         } else {
+    //             generalStatus.value = 'state';
+    //         }
+    //     } else {
+    //         generalStatus.value = 'federal';
+    //     }
+    // } else {
+    //     generalStatus.value = 'declaration';
+    // }
+
+    if (statFederalFeePaid.value === '3' && statStateFeePaid.value === '3') {
+        statusTP.classList.add("green-completed");
+        statusTP.classList.remove("red-not-started");
+        statusTP.classList.remove("yellow-not-completed");
+    } else if (statFederalFeePaid.value === '1' && statStateFeePaid.value === '1') {
+        statusTP.classList.add("red-not-started");
+        statusTP.classList.remove("green-completed");
+        statusTP.classList.remove("yellow-not-completed");
+    } else {
+        statusTP.classList.add("yellow-not-completed");
+        statusTP.classList.remove("green-completed");
+        statusTP.classList.remove("red-not-started");
+    }
 
     let statsList = [
         {"name": statDeclarationSubmitted, "value": statusDS},
         {"name": statWaitingState, "value": statusWS},
         {"name": statWaitingFederal, "value": statusWF},
-        {"name": statTaxPaid, "value": statusTP},
         {"name": statStateCustomer, "value": statusSC},
         {"name": statFederalCustomer, "value": statusFC}
     ];
@@ -854,13 +889,3 @@ window.onload = function () {
 
 
 // ===== END =====
-
-
-function init() {
-    let stepCounter = document.getElementById('step-value')
-    let child = stepCounter.querySelector('input');
-
-    console.log(child.value)
-}
-
-document.addEventListener("DOMContentLoaded", init);

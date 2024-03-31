@@ -8698,7 +8698,7 @@ aside #progress p {
     color: white;
     font-family: Jost, Sans-Serif;
     font-size: 18px;
-    background-color: #00355E;
+    /*background-color: #00355E;*/
 }
 
 .taxes-section form#resp button {

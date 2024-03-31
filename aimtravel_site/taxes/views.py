@@ -81,6 +81,34 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
         taxes_pk = self.kwargs['pk']
         return reverse_lazy('edit tax', kwargs={'pk': taxes_pk})
 
+    def form_valid(self, form):
+        # Check and handle clearing and deleting for file_field1
+
+        if form.cleaned_data['passport_copy_clear']:
+            if form.cleaned_data['passport_copy']:
+                form.cleaned_data['passport_copy'].delete()
+        if form.cleaned_data['visa_copy_clear']:
+            if form.cleaned_data['visa_copy']:
+                form.cleaned_data['visa_copy'].delete()
+        if form.cleaned_data['ssn_copy_clear']:
+            if form.cleaned_data['ssn_copy']:
+                form.cleaned_data['ssn_copy'].delete()
+        if form.cleaned_data['last_paycheck_w2_clear']:
+            if form.cleaned_data['last_paycheck_w2']:
+                form.cleaned_data['last_paycheck_w2'].delete()
+        if form.cleaned_data['bank_account_screenshot_clear']:
+            if form.cleaned_data['bank_account_screenshot']:
+                form.cleaned_data['bank_account_screenshot'].delete()
+        if form.cleaned_data['us_document_copy_clear']:
+            if form.cleaned_data['us_document_copy']:
+                form.cleaned_data['us_document_copy'].delete()
+        if form.cleaned_data['signed_and_scanned_contract_clear']:
+            if form.cleaned_data['signed_and_scanned_contract']:
+                form.cleaned_data['signed_and_scanned_contract'].delete()
+
+        # Save the form data (or perform other necessary actions)
+        return super().form_valid(form)
+
 
 class DetailsTaxView(LoginRequiredMixin, views.DetailView):
     model = Taxes
@@ -193,7 +221,7 @@ class AdminTaxEntryListView(UserPassesTestMixin, views.ListView):
     model = Taxes
     template_name = 'taxes/admin_tax_entry_list.html'
     context_object_name = 'tax_entries'
-    ordering = ['first_name']  # Order entries by primary key or another field
+    ordering = ['user']  # Order entries by primary key or another field
 
     def test_func(self):
         return self.request.user.is_staff

@@ -300,8 +300,8 @@
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="query-btn next-btn"><p>Продължи</p></div>
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn">Запази и Продължи</button>
                                 </div>
                             </div>
                         </div>
@@ -379,9 +379,9 @@
                                     </p>
                                 </div>
                                 <div class="row">
-                                    <div class="query-btn previous-btn"><p>Назад</p></div>
-                                    <div class="query-btn next-btn"><p>Продължи</p></div>
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
                                 </div>
                             </div>
                         </div>
@@ -453,9 +453,9 @@
                                     </p>
                                 </div>
                                 <div class="row">
-                                    <div class="query-btn previous-btn"><p>Назад</p></div>
-                                    <div class="query-btn next-btn"><p>Продължи</p></div>
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
                                 </div>
                             </div>
                         </div>
@@ -549,9 +549,9 @@
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <div class="query-btn previous-btn"><p>Назад</p></div>
-                                    <div class="query-btn next-btn"><p>Продължи</p></div>
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
                                 </div>
                             </div>
                         </div>
@@ -733,7 +733,6 @@
                                     {% endif %}
                                 </div>
 
-                                {{ form.is_sent }}
                                 <br>
 
                                 <div class="oval-border align-left">
@@ -749,8 +748,7 @@
                                     {% if form.signed_and_scanned_contract.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.signed_and_scanned_contract.value.url }}" target="_blank">Подписан
-                                                и сканиран договор</a>
+                                            <a href="{{ form.signed_and_scanned_contract.value.url }}" target="_blank">{{ form.signed_and_scanned_contract.value }}</a>
                                             <div class="row">
                                                 <input type="checkbox"
                                                        name="{{ form.signed_and_scanned_contract_clear.name }}"
@@ -767,8 +765,8 @@
                                 <br>
 
                                 <div class="row">
-                                    <div class="query-btn previous-btn"><p>Назад</p></div>
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
                                 </div>
                             </div>
                         </div>
@@ -822,7 +820,7 @@
                                         <div class="row">
                                             <div id='progress-personal-info' class="red-not-started"></div>
                                             <div class="column">
-                                                <label for="id_stat_pers_dat">2.Лични Данни</label>
+                                                <label for="id_stat_pers_dat">2.Попълване на Информация</label>
                                                 <input hidden class="small" type="text" id="id_stat_pers_dat"
                                                        name="stat_pers_dat"
                                                        value="{{ form.instance.stat_pers_dat }}">
@@ -833,7 +831,7 @@
                                         <div class="row">
                                             <div id='progress-in-progress' class="red-not-started"></div>
                                             <div class="column">
-                                                <label for="id_stat_in_progress">3.Обработка</label>
+                                                <label for="id_stat_in_progress">3.Изпратен формуляр</label>
                                                 <input hidden class="small" type="text" id="id_stat_in_progress"
                                                        name="stat_in_progress"
                                                        value="{{ form.instance.stat_in_progress }}">
@@ -843,7 +841,7 @@
                                         <div class="row">
                                             <div id='progress-documents' class="red-not-started"></div>
                                             <div class="column">
-                                                <label for="id_stat_docs">4.Документи</label>
+                                                <label for="id_stat_docs">4.Прикачени Документи</label>
                                                 <input hidden class="small" type="text" id="id_stat_docs"
                                                        name="stat_docs"
                                                        value="{{ form.instance.stat_docs }}">
@@ -921,9 +919,12 @@
                                         <div id="tax-paid" class="red-not-started"></div>
                                         <div class="column align-left">
                                             <label for="id_stat_tax_paid">8.Платена комисионна</label>
-                                            <input hidden class="small" type="text" id="id_stat_tax_paid"
-                                                   name="stat_tax_paid"
-                                                   value="{{ form.instance.stat_tax_paid }}">
+                                            <input hidden class="small" type="text" id="id_stat_federal_fee_paid"
+                                                   name="stat_federal_fee_paid"
+                                                   value="{{ form.instance.stat_federal_fee_paid }}">
+                                        <input hidden class="small" type="text" id="id_stat_state_fee_paid"
+                                                   name="stat_state_fee_paid"
+                                                   value="{{ form.instance.stat_state_fee_paid }}">
                                             {% if form.fee_federal and form.instance.fee_federal > 0 %}
                                                 <div class="row">
                                                     <label for="id_fee_federal">8.1. Сума Federal:</label>
@@ -963,11 +964,11 @@
                                     </div>
                                     <br>
                                     <br>
-                                    <div class="row">
+{#                                    <div class="row">#}
                                         {#                                        <div class="query-btn previous-btn"><p>Назад</p></div>#}
-                                        <button id='save-btn' type="submit" class="query-btn slider-btn">Запази
-                                        </button>
-                                    </div>
+{#                                        <button id='save-btn' type="submit" class="query-btn slider-btn">Запази#}
+{#                                        </button>#}
+{#                                    </div>#}
                                 </div>
                             </div>
                         </div>
