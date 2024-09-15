@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.views import generic as views
@@ -23,13 +23,19 @@ class SignUpView(views.CreateView):
     template_name = 'user_auth/register-page.html'
     form_class = SignUpForm
 
-    success_url = reverse_lazy('index')
+    # success_url = reverse_lazy('index')
 
     def form_valid(self, form):
         result = super().form_valid(form)
 
         login(self.request, self.object)
-        return result
+        return redirect(self.object.get_absolute_url())
+    # def get_success_url(self):
+    #     # Access the authenticated user and get their ID
+    #     user_slug = self.request.user.slug
+    #
+    #     # Redirect to the 'my-profile' view with the user ID
+    #     return reverse_lazy('my-profile', kwargs={'slug': user_slug})
 
 
 class SignInView(auth_views.LoginView):
@@ -117,8 +123,6 @@ class MyProfileView(LoginRequiredMixin, views.DetailView):
         context = super().get_context_data(**kwargs)
         employee_profile = Employee.objects.all()
         students_profile = Students.objects.all()
-
-
 
         if employee_profile:
             # Add employee_profile to the context

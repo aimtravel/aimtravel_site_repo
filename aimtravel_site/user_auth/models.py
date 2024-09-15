@@ -4,6 +4,7 @@ from autoslug import AutoSlugField
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 from aimtravel_site.user_auth.managers import AppUserManager
@@ -74,6 +75,10 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
+
+    def get_absolute_url(self):
+        # This will return the URL to the user's profile using their slug
+        return reverse('my-profile', kwargs={'slug': self.slug})
 
     USERNAME_FIELD = 'email'
 

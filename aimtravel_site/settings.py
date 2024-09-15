@@ -10,6 +10,8 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 
+import credentials
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i&53x@=*+1)a3_!5a!q8!pxr-pm#p+bm%+s81mrq8482_a+-2_'
+SECRET_KEY = credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -144,6 +146,7 @@ DATE_INPUT_FORMATS = [
     '%d-%m-%Y',
     '%d-%m-%y',
     '%d.%m.%y',
+    '%d.%m.%Y',
     '%Y-%m-%d',
     '%m/%d/%Y',
     '%m/%d/%y',
@@ -158,12 +161,12 @@ DATE_INPUT_FORMATS = [
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.aimtravel.bg'
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
-EMAIL_HOST_USER = 'studentski@aimtravel.bg'  # Email account to send emails from
-EMAIL_HOST_PASSWORD = '***'  # Password for the email account
-DEFAULT_FROM_EMAIL = 'studentski@aimtravel.bg' \
+EMAIL_HOST_USER = 'vlzahariev26@gmail.com'  # Email account to send emails from
+EMAIL_HOST_PASSWORD = credentials.EMAILPASSWORD  # Password for the email account
+DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
                      ''  # Default sender address
 
 MEDIA_URL = "/media/"

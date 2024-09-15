@@ -4814,6 +4814,7 @@ footer a:hover {
     font-family: Jost, sans-serif;
     font-style: normal;
     font-weight: 700;
+    text-align: center;
 }
 
 @media screen and (max-width: 800px) {
@@ -8603,7 +8604,11 @@ aside {
     background-color: lightgray;
 }
 
-#tax-submit-button {
+/*#tax-submit-button {*/
+/*    margin-bottom: 50px;*/
+/*}*/
+
+#progress-button {
     margin-bottom: 50px;
 }
 
@@ -8612,7 +8617,7 @@ aside {
     color: black
 }
 
-.tax-section form#norm .personal-info {
+.tax-section form.norm .personal-info {
     display: flex;
 }
 
@@ -8625,11 +8630,11 @@ aside {
     color: rgb(75, 75, 75);
 }
 
-.taxes-section form#norm .travel-info,
-.taxes-section form#norm .employer-info,
-.taxes-section form#norm .bank-info,
-.taxes-section form#norm .attachments,
-.taxes-section form#norm .progress {
+.taxes-section form.norm .travel-info,
+.taxes-section form.norm .employer-info,
+.taxes-section form.norm .bank-info,
+.taxes-section form.norm .attachments,
+.taxes-section form.norm .progress {
     display: none;
 }
 
@@ -8649,6 +8654,7 @@ aside div p {
 aside #progress p {
     font-size: 18px;
     color: black;
+    text-decoration: underline;
     /*font-weight: 700;*/
 }
 
@@ -8661,7 +8667,7 @@ aside #progress p {
 
 }
 
-.taxes-section form#norm {
+.taxes-section form.norm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8678,7 +8684,7 @@ aside #progress p {
 }
 
 @media screen and (max-width: 800px) {
-    .taxes-section form#norm {
+    .taxes-section form.norm {
         display: none;
     }
 
@@ -8712,7 +8718,7 @@ aside #progress p {
         display: flex;
     }
 
-    .taxes-section form#norm button {
+    .taxes-section form.norm button {
         display: none;
     }
 }
@@ -8728,7 +8734,8 @@ aside #progress p {
 .taxes-section .row p {
     display: flex;
     flex-direction: column;
-    align-items: flex-start
+    align-items: flex-start;
+    position: relative;
 }
 
 .taxes-section .wrapper {
@@ -8830,6 +8837,20 @@ aside #progress p {
     font-size: 22px;
     gap: 12px;
 }
+.two-line-label {
+    line-height: 15px;
+}
+
+.two-line-label span {
+    font-size: small;
+}
+
+label[for="id_stat_docs"]:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    /*font-weight: 450;*/
+    text-decoration: underline;
+}
 
 .field-container {
     gap: 10px;
@@ -8852,6 +8873,16 @@ aside #progress p {
     font-size: 18px;
 }
 
+.table-attribute {
+    width: max-content;
+    line-height: 10px;
+    padding: 0;
+    margin: 0;
+}
+.docs-attr {
+    padding: 20px 10px;
+}
+
 @media screen and (max-width: 800px) {
     .table-container {
         width: 80%; /* Set a fixed width for the container */
@@ -8872,10 +8903,22 @@ th, td {
 
 th {
     background-color: #f2f2f2;
+    font-size: 14px;
 }
 
 td {
     background-color: #ffffff;
+    font-size: 14px;
+}
+
+#cloneSubmitButtonText {
+    margin: 0;
+    padding: 0;
+}
+
+#progress10, #progress20, #progress30, #progress40, #progress50,
+#progress60, #progress70, #progress80, #progress90, #progress100 {
+    display: none;
 }
 
 /* TAXES PAGE END*/
@@ -8963,6 +9006,33 @@ td {
     font-size: 18px;
     font-weight: 500;
 }
+
+.attention {
+    background-color: #e8bf0f;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.attention p {
+    font-size: 22px;
+}
+
+.sm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.sm span {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+    margin: 5px 0 5px 10px;
+}
+
 
 #my-profile-header {
     justify-content: space-evenly;
@@ -9126,6 +9196,10 @@ a {
     margin-right: 10px
 }
 
+.hidden-field {
+    display: none;
+}
+
 .red-color {
     /*background-color: #9D0A0E;*/
     border: 1px solid #757575;
@@ -9138,6 +9212,13 @@ a {
 .green-color {
     background-color: #31ca69;
     /*background: image("img/icons/green.png");*/
+}
+
+.gray-color {
+    margin-bottom: 8px;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 0 8px;
 }
 
 .cursor {
@@ -9219,11 +9300,76 @@ a {
 
 }
 
+.width-60 {
+    width: 60%;
+}
+
+.width-80 {
+    width: 80%;
+}
+
+.width-90 {
+    width: 90%;
+}
+
 .width-100 {
     width: 100%;
 }
 
-.hr-line {
+.hr-line-30 {
+    width: 30%;
+    border: 1px solid #888888;
+}
+
+.hr-line-55 {
+    width: 55%;
+    border: 1px solid #888888;
+}
+
+.hr-line-70 {
+    width: 70%;
+    border: 1px solid #888888;
+}
+
+.hr-line-85 {
     width: 85%;
     border: 1px solid #888888;
+}
+
+.hr-line-100 {
+    width: 100%;
+    border: 1px solid #888888;
+}
+
+.date-hint {
+    display: none;
+    font-size: 14px;
+    color: #727272;
+    position: absolute;
+    top: 50px;
+    transition: 1s ease-in-out;
+}
+
+l {
+    font-style: italic ;
+}
+
+.blue-text {
+    font-weight: 600;
+    font-family: Jost, Sans-Serif;
+    color: #00355E;
+    font-size: 14px;
+}
+
+.self-align {
+    align-self: center;
+}
+
+.sqr30 {
+    display: flex;
+    width: 60px;
+}
+
+.progress-icon {
+    width: 100%;
 }

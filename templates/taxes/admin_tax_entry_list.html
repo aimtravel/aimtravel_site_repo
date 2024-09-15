@@ -39,43 +39,17 @@
                     <th>UserID</th>
                     <th>ID</th>
                     <th>Име</th>
-                    <th>Презиме</th>
                     <th>Фамилия</th>
-                    <th>Mothers maiden name</th>
-                    <th>Дата на раждане</th>
-                    <th>Град на раждане</th>
-                    <th>Адрес</th>
-                    <th>Град</th>
-                    <th>Държава</th>
+                    <th>Social Security Number(SSN)</th>
                     <th>Email</th>
                     <th>Телефон</th>
-                    <th>Как научихте за нас</th>
-                    <th>Social Security Number(SSN)</th>
-                    <th>Работна година</th>
-                    <th>Дата на пристигане в САЩ</th>
-                    <th>Дата на заминаване от САЩ</th>
-                    <th>Тип виза</th>
-                    <th>Тип програма</th>
-                    <th>Предишни декларации</th>
-                    <th>Предишна промяна на виза</th>
-                    <th>ПИН от IRS</th>
-                    <th>Име на работодател</th>
-                    <th>Адрес на работодател</th>
-                    <th>Град на работодател</th>
-                    <th>Щат на работодател</th>
-                    <th>ZIP код на работодател</th>
-                    <th>Телефон на работодател</th>
-                    <th>Факс на работодател</th>
-                    <th>Email на работодател</th>
-                    <th>Последен чек</th>
                     <th>W2 форма</th>
-                    <th>Американска банкова сметка</th>
-                    <th>Вид сметка</th>
-                    <th>Име на банката</th>
-                    <th>Собственик на сметката</th>
-                    <th>Routing номер</th>
-                    <th>IBAN</th>
-
+                    <th>Очаквани документи</th>
+                    <th>Статус</th>
+                    <th>Стойност Federal</th>
+                    <th>Стойност State</th>
+                    <th>Комисионна Federal</th>
+                    <th>Комисионна State</th>
 
                     <!-- Add more table headers as needed -->
                 </tr>
@@ -124,42 +98,23 @@
                             <td>{{ tax.user.id }}</td>
                             <td>{{ tax.id }}</td>
                             <td>{{ tax.first_name }}</td>
-                            <td>{{ tax.middle_name }}</td>
                             <td>{{ tax.family_name }}</td>
-                            <td>{{ tax.mothers_maiden_name }}</td>
-                            <td>{{ tax.birth_date }}</td>
-                            <td>{{ tax.birth_city }}</td>
-                            <td>{{ tax.address }}</td>
-                            <td>{{ tax.city }}</td>
-                            <td>{{ tax.country }}</td>
+                            <td>{{ tax.social_security }}</td>
                             <td>{{ tax.email }}</td>
                             <td>{{ tax.phone_number }}</td>
-                            <td>{{ tax.how_did_you_find_us }}</td>
-                            <td>{{ tax.social_security }}</td>
-                            <td>{{ tax.working_year }}</td>
-                            <td>{{ tax.arrival_date_in_usa }}</td>
-                            <td>{{ tax.departure_date_in_usa }}</td>
-                            <td>{{ tax.visa_type }}</td>
-                            <td>{{ tax.program_type }}</td>
-                            <td>{{ tax.previous_tax_declarations }}</td>
-                            <td>{{ tax.visa_changing }}</td>
-                            <td>{{ tax.pin_from_irs }}</td>
-                            <td>{{ tax.company_name }}</td>
-                            <td>{{ tax.company_address }}</td>
-                            <td>{{ tax.company_city }}</td>
-                            <td>{{ tax.company_state }}</td>
-                            <td>{{ tax.company_zip }}</td>
-                            <td>{{ tax.company_phone }}</td>
-                            <td>{{ tax.company_fax }}</td>
-                            <td>{{ tax.company_email }}</td>
-                            <td>{{ tax.last_paycheck }}</td>
                             <td>{{ tax.w_2 }}</td>
-                            <td>{{ tax.american_bank_account }}</td>
-                            <td>{{ tax.type_of_account }}</td>
-                            <td>{{ tax.bank_name }}</td>
-                            <td>{{ tax.account_holder }}</td>
-                            <td>{{ tax.routing_number }}</td>
-                            <td>{{ tax.account_number }}</td>
+                            <td class="docs-attr">
+                                <p class="table-attribute">Копие от паспорт: <span class="color">{{ tax.passport_copy|yesno }}</span></p><br>
+                                <p class="table-attribute">Копие от виза: <span class="color">{{ tax.visa_copy|yesno }}</span></p><br>
+                                <p class="table-attribute">Копие от SSN: <span class="color">{{ tax.ssn_copy|yesno }}</span></p><br>
+                                <p class="table-attribute">Последен чек: <span class="color">{{ tax.last_paycheck|yesno }}</span></p><br>
+                                <p class="table-attribute">W2 форма: <span class="color">{{ tax.w2_form|yesno }}</span></p><br>
+                                <p class="table-attribute">Подписан договор: <span class="color">{{ tax.signed_and_scanned_contract|yesno }}</span></p></td>
+                            <td>{{ tax.get_general_status_display }}</td>
+                            <td>{{ tax.federal_amount|floatformat:2 }}</td>
+                            <td>{{ tax.state_amount|floatformat:2 }}</td>
+                            <td>{{ tax.fee_federal|floatformat:2 }}</td>
+                            <td>{{ tax.fee_state|floatformat:2 }}</td>
 
                             <!-- Add more cells with date information as needed -->
                         </tr>

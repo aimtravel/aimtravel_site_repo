@@ -1,9 +1,9 @@
 function attachPaginationHandlers() {
     $("#offers-buttons a").on("click", function (e) {
         e.preventDefault();
-        var pageUrl = $(this).attr("href");
-        var slideOffersContent = $('.offer-slides').html();
-        var paginator = $('#offers-buttons').html();
+        let pageUrl = $(this).attr("href");
+        let slideOffersContent = $('.offer-slides').html();
+        let paginator = $('#offers-buttons').html();
         console.log(pageUrl)
 
         $.ajax({
@@ -16,14 +16,14 @@ function attachPaginationHandlers() {
             // },
             success: function (data) {
 
-                var newContent = $(data).find('.offer-slides').html();
-                var newPage = $(data).find('#offers-buttons').html();
+                let newContent = $(data).find('.offer-slides').html();
+                let newPage = $(data).find('#offers-buttons').html();
 
                 $(".offer-slides").html(newContent);
                 $("#offers-buttons").html(newPage);
 
                 // Scroll to the top of .offer-slides
-                var topOfOfferSlides = $("#pagination-anchor").offset().top;
+                let topOfOfferSlides = $("#pagination-anchor").offset().top;
                 $("html, body").animate({scrollTop: topOfOfferSlides}, 500); // Adjust the duration as needed
 
 
