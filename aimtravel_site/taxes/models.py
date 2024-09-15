@@ -201,14 +201,22 @@ class Taxes(models.Model):
         null=True,
     )
     ssn_copy_used = models.BooleanField(default=False)
-    last_paycheck_w2 = models.FileField(
+    last_paycheck_doc = models.FileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Последни чекове',
         blank=True,
         null=True,
     )
-    last_paycheck_w2_used = models.BooleanField(default=False)
+    last_paycheck_doc_used = models.BooleanField(default=False)
+    w2_form = models.FileField(
+        upload_to=upload_to_path,
+        # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
+        verbose_name='W2 форма',
+        blank=True,
+        null=True,
+    )
+    w2_form_used = models.BooleanField(default=False)
     bank_account_screenshot = models.FileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
@@ -269,10 +277,14 @@ class Taxes(models.Model):
             self.ssn_copy_used = True
         else:
             self.ssn_copy_used = False
-        if self.last_paycheck_w2:
-            self.last_paycheck_w2_used = True
+        if self.last_paycheck:
+            self.last_paycheck_used = True
         else:
-            self.last_paycheck_w2_used = False
+            self.last_paycheck_used = False
+        if self.w2_form:
+            self.w2_form_used = True
+        else:
+            self.w2_form_used = False
         if self.bank_account_screenshot:
             self.bank_account_screenshot_used = True
         else:

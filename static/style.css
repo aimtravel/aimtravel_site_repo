@@ -8604,7 +8604,11 @@ aside {
     background-color: lightgray;
 }
 
-#tax-submit-button {
+/*#tax-submit-button {*/
+/*    margin-bottom: 50px;*/
+/*}*/
+
+#progress-button {
     margin-bottom: 50px;
 }
 
@@ -8698,7 +8702,7 @@ aside #progress p {
     color: white;
     font-family: Jost, Sans-Serif;
     font-size: 18px;
-    /*background-color: #00355E;*/
+    background-color: #00355E;
 }
 
 .taxes-section form#resp button {
@@ -8833,6 +8837,20 @@ aside #progress p {
     font-size: 22px;
     gap: 12px;
 }
+.two-line-label {
+    line-height: 15px;
+}
+
+.two-line-label span {
+    font-size: small;
+}
+
+label[for="id_stat_docs"]:hover {
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    /*font-weight: 450;*/
+    text-decoration: underline;
+}
 
 .field-container {
     gap: 10px;
@@ -8853,6 +8871,16 @@ aside #progress p {
     box-shadow: 0 4px 8px rgba(0, 53, 94, 0.13);
     font-family: Jost, Sans-Serif;
     font-size: 18px;
+}
+
+.table-attribute {
+    width: max-content;
+    line-height: 10px;
+    padding: 0;
+    margin: 0;
+}
+.docs-attr {
+    padding: 20px 10px;
 }
 
 @media screen and (max-width: 800px) {
@@ -8978,6 +9006,33 @@ td {
     font-size: 18px;
     font-weight: 500;
 }
+
+.attention {
+    background-color: #e8bf0f;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.attention p {
+    font-size: 22px;
+}
+
+.sm {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 15px;
+}
+
+.sm span {
+    font-size: 16px;
+    font-weight: 500;
+    font-style: italic;
+    margin: 5px 0 5px 10px;
+}
+
 
 #my-profile-header {
     justify-content: space-evenly;
@@ -9157,6 +9212,13 @@ a {
 .green-color {
     background-color: #31ca69;
     /*background: image("img/icons/green.png");*/
+}
+
+.gray-color {
+    margin-bottom: 8px;
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 0 8px;
 }
 
 .cursor {

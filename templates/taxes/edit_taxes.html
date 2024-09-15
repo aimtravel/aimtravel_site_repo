@@ -33,7 +33,7 @@
 
 
                     <h4 class="no-margin-padding">Данъчна Декларация</h4>
-                    <h4 class="no-margin-padding">Лято 2023 САЩ</h4>
+                    <h4 class="no-margin-padding">Лято <span id="year"></span> САЩ</h4>
 
 
                     <hr class="hr-line-85"></hr>
@@ -65,23 +65,21 @@
                         <p>Банкова информация</p>
                     </div>
                 </div>
-                <div><a id='cloneSubmitButton' class="query-btn slider-btn white-txt"
-                        href="{% url 'save-and-send' %}"><?xml version="1.0" encoding="UTF-8"?>
-                    <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
-                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-                        <path d="M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z"
-                              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                        <path d="M8 10L16 10" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                        <path d="M8 18L16 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                        <path d="M8 14L12 14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                              stroke-linejoin="round"></path>
-                        <path d="M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20" stroke="#ffffff" stroke-width="1.5"
-                              stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                    <span id="cloneSubmitButtonText">Изпрати формуляр</span></a></div>
+                <div id="tax-submit-button" class="border column align-left">
+
+                    <a id='generate-contract-btn' class="query-btn white-txt"
+                       href="{% url 'generate_pdf' tax_id=object.pk %}"
+                       target="_blank"><?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                            <path d="M12 13V22M12 22L15.5 18.5M12 22L8.5 18.5" stroke="#ffffff" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M20 17.6073C21.4937 17.0221 23 15.6889 23 13C23 9 19.6667 8 18 8C18 6 18 2 12 2C6 2 6 6 6 8C4.33333 8 1 9 1 13C1 15.6889 2.50628 17.0221 4 17.6073"
+                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>&nbsp;Генерирай договор</a>
+
+                </div>
 
                 <hr class="hr-line-85">
                 <div id="attachments" class="border cursor">
@@ -136,23 +134,23 @@
                         <p>Прогрес</p>
                     </div>
                 </div>
+                {# TO BE DELETED #}
 
-
-                <div id="tax-submit-button" class="border column align-left">
-
-                    <a id='generate-contract-btn' class="query-btn white-txt"
-                       href="{% url 'generate_pdf' tax_id=object.pk %}"
-                       target="_blank"><?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"
-                             xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-                            <path d="M12 13V22M12 22L15.5 18.5M12 22L8.5 18.5" stroke="#ffffff" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M20 17.6073C21.4937 17.0221 23 15.6889 23 13C23 9 19.6667 8 18 8C18 6 18 2 12 2C6 2 6 6 6 8C4.33333 8 1 9 1 13C1 15.6889 2.50628 17.0221 4 17.6073"
-                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                        </svg>&nbsp;Генерирай договор</a>
-
-                </div>
+                {#                <div id="progress-button" class="border column align-left">#}
+                {##}
+                {#                    <a id='generate-contract-btn' class="query-btn white-txt"#}
+                {#                       href="{% url 'generate_pdf' tax_id=object.pk %}"#}
+                {#                       target="_blank"><?xml version="1.0" encoding="UTF-8"?>#}
+                {#                        <svg width="24px" height="24px" stroke-width="1.5" viewBox="0 0 24 24" fill="none"#}
+                {#                             xmlns="http://www.w3.org/2000/svg" color="#ffffff">#}
+                {#                            <path d="M12 13V22M12 22L15.5 18.5M12 22L8.5 18.5" stroke="#ffffff" stroke-width="1.5"#}
+                {#                                  stroke-linecap="round" stroke-linejoin="round"></path>#}
+                {#                            <path d="M20 17.6073C21.4937 17.0221 23 15.6889 23 13C23 9 19.6667 8 18 8C18 6 18 2 12 2C6 2 6 6 6 8C4.33333 8 1 9 1 13C1 15.6889 2.50628 17.0221 4 17.6073"#}
+                {#                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"#}
+                {#                                  stroke-linejoin="round"></path>#}
+                {#                        </svg>&nbsp;Съответния статус(линк)</a>#}
+                {##}
+                {#                </div>#}
 
             </aside>
             <div class="vert-line"></div>
@@ -242,10 +240,10 @@
                                     </p>
                                 </div>
                                 <div class="row">
-                                    <p>
-                                        <label for="id_mothers_maiden_name">Mothers maiden name</label>
-                                        {{ form.mothers_maiden_name }}
-                                    </p>
+                                    {#                                    <p>#}
+                                    {#                                        <label for="id_mothers_maiden_name">Mothers maiden name</label>#}
+                                    {#                                        {{ form.mothers_maiden_name }}#}
+                                    {#                                    </p>#}
 
                                     <p>
                                         <label for="id_birth_date">Рожденна дата*</label>
@@ -298,10 +296,29 @@
 
                                     </p>
                                 </div>
-                                <br>
+
                                 <div class="row">
-{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn">Запази и Продължи</button>
+                                    <div class="attention sm">
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>Запазете формуляра и след това натиснете бутона "Продължи"</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="query-btn next-btn"><p>Продължи</p></div>
+                                    <button id='save-btn' type="submit" class="query-btn">Запази</button>
                                 </div>
                             </div>
                         </div>
@@ -379,9 +396,29 @@
                                     </p>
                                 </div>
                                 <div class="row">
-{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
-{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
+                                    <div class="attention sm">
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>Запазете формуляра и след това натиснете бутона "Продължи"</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="query-btn previous-btn"><p>Назад</p></div>
+                                    <div class="query-btn next-btn"><p>Продължи</p></div>
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+
                                 </div>
                             </div>
                         </div>
@@ -453,9 +490,28 @@
                                     </p>
                                 </div>
                                 <div class="row">
-{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
-{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
+                                    <div class="attention sm">
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>Запазете формуляра и след това натиснете бутона "Продължи"</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="query-btn previous-btn"><p>Назад</p></div>
+                                    <div class="query-btn next-btn"><p>Продължи</p></div>
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
                                 </div>
                             </div>
                         </div>
@@ -548,10 +604,53 @@
                                     </div>
                                 </div>
                                 <br>
+                                {% if not form.is_sent.value %}
+                                    <div class="row">
+                                    <div class="attention sm">
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>Попълнете и запазете формуляра. След това натиснете бутона "Изпрати формуляр".</span>
+                                    </div>
+                                    </div>
+                                {% endif %}
                                 <div class="row">
-{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
-{#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
+                                    <div class="query-btn previous-btn"><p>Назад</p></div>
+                                    {#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+                                    <div><a id='cloneSubmitButton' class="query-btn slider-btn white-txt"
+                                            href="{% url 'save-and-send' %}"><?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5"
+                                             fill="none"
+                                             xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                            <path d="M4 21.4V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H4.6C4.26863 22 4 21.7314 4 21.4Z"
+                                                  stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M8 10L16 10" stroke="#ffffff" stroke-width="1.5"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M8 18L16 18" stroke="#ffffff" stroke-width="1.5"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M8 14L12 14" stroke="#ffffff" stroke-width="1.5"
+                                                  stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M16 2V5.4C16 5.73137 16.2686 6 16.6 6H20" stroke="#ffffff"
+                                                  stroke-width="1.5"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span id="cloneSubmitButtonText">Изпрати формуляр</span></a></div>
                                 </div>
                             </div>
                         </div>
@@ -569,14 +668,48 @@
                                     </h2>
                                 </div>
 
-                                <div class="oval-border align-left">
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.signed_and_scanned_contract.id_for_label }}"><b>Подписан
+                                        и сканиран
+                                        договор*</b></label>
+                                    <input hidden type="checkbox"
+                                           name="{{ form.signed_and_scanned_contract_used.name }}"
+                                           id="{{ form.signed_and_scanned_contract_used.id_for_label }}"
+                                           {% if form.signed_and_scanned_contract_used.value %}checked{% endif %}/>
+
+                                    <input type="file" name="{{ form.signed_and_scanned_contract.name }}"
+                                           id="{{ form.signed_and_scanned_contract.id_for_label }}">
+
+                                    {% if form.signed_and_scanned_contract.value %}
+                                        <div class="row">
+                                            <p class="no-margin-padding">Качено успешно:</p>
+                                            <a href="{{ form.signed_and_scanned_contract.value.url }}"
+                                               target="_blank">{{ form.signed_and_scanned_contract.value }}</a>
+                                            <div class="row">
+                                                <input type="checkbox"
+                                                       name="{{ form.signed_and_scanned_contract_clear.name }}"
+                                                       id="{{ form.signed_and_scanned_contract_clear.id_for_label }}">
+                                                <label for="{{ form.signed_and_scanned_contract_clear.id_for_label }}">Изтрии
+                                                    файла</label><br>
+
+                                            </div>
+                                        </div>
+
+                                    {% endif %}
+                                </div>
+
+                                <br>
+
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.passport_copy.id_for_label }}">Копие на
+                                        паспорта*</label>
                                     <input hidden type="checkbox" name="{{ form.passport_copy_used.name }}"
                                            id="{{ form.passport_copy_used.id_for_label }}"
                                            {% if form.passport_copy_used.value %}checked{% endif %}/>
 
                                     <input type="file" name="{{ form.passport_copy.name }}"
                                            id="{{ form.passport_copy.id_for_label }}">
-                                    <label for="{{ form.passport_copy.id_for_label }}">Копие на паспорта*</label>
+
                                     {% if form.passport_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
@@ -596,14 +729,16 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.visa_copy.id_for_label }}">Копие на
+                                        визата*</label>
                                     <input hidden type="checkbox" name="{{ form.visa_copy_used.name }}"
                                            id="{{ form.visa_copy_used.id_for_label }}"
                                            {% if form.visa_copy_used.value %}checked{% endif %}>
 
                                     <input type="file" name="{{ form.visa_copy.name }}"
                                            id="{{ form.visa_copy.id_for_label }}">
-                                    <label for="{{ form.visa_copy.id_for_label }}">Копие на визата*</label>
+
                                     {% if form.visa_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
@@ -622,14 +757,16 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.ssn_copy.id_for_label }}">Копие на Social
+                                        Security*</label>
                                     <input hidden type="checkbox" name="{{ form.ssn_copy_used.name }}"
                                            id="{{ form.ssn_copy_used.id_for_label }}"
                                            {% if form.ssn_copy_used.value %}checked{% endif %}>
 
                                     <input type="file" name="{{ form.ssn_copy.name }}"
-                                           id="{{ form.visa_copy.id_for_label }}">
-                                    <label for="{{ form.ssn_copy.id_for_label }}">Копие на Social Security*</label>
+                                           id="{{ form.ssn_copy.id_for_label }}">
+
                                     {% if form.ssn_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
@@ -649,23 +786,25 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
-                                    <input hidden type="checkbox" name="{{ form.last_paycheck_w2_used.name }}"
-                                           id="{{ form.last_paycheck_w2_used.id_for_label }}"
-                                           {% if form.last_paycheck_w2_used.value %}checked{% endif %}>
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.last_paycheck_doc.id_for_label }}">Последен
+                                        чек*</label>
+                                    <input hidden type="checkbox" name="{{ form.last_paycheck_doc_used.name }}"
+                                           id="{{ form.last_paycheck_doc_used.id_for_label }}"
+                                           {% if form.last_paycheck_doc_used.value %}checked{% endif %}>
 
-                                    <input type="file" name="{{ form.last_paycheck_w2.name }}"
-                                           id="{{ form.visa_copy.id_for_label }}">
-                                    <label for="{{ form.last_paycheck_w2.id_for_label }}">Последен чек или W2*</label>
-                                    {% if form.last_paycheck_w2.value %}
+                                    <input type="file" name="{{ form.last_paycheck_doc.name }}"
+                                           id="{{ form.last_paycheck_doc.id_for_label }}">
+
+                                    {% if form.last_paycheck_doc.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.last_paycheck_w2.value.url }}" target="_blank">Последен чек
-                                                или W2</a>
+                                            <a href="{{ form.last_paycheck_doc.value.url }}" target="_blank">Последен
+                                                чек</a>
                                             <div class="row">
-                                                <input type="checkbox" name="{{ form.last_paycheck_w2_clear.name }}"
-                                                       id="{{ form.last_paycheck_w2_clear.id_for_label }}">
-                                                <label for="{{ form.last_paycheck_w2_clear.id_for_label }}">Изтрии
+                                                <input type="checkbox" name="{{ form.last_paycheck_doc_clear.name }}"
+                                                       id="{{ form.last_paycheck_doc_clear.id_for_label }}">
+                                                <label for="{{ form.last_paycheck_doc_clear.id_for_label }}">Изтрии
                                                     файла</label><br>
 
                                             </div>
@@ -676,16 +815,44 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
+                                <div class="align-left">
+                                    <label class="gray-color" for="{{ form.w2_form.id_for_label }}">W2 Форма*</label>
+                                    <input hidden type="checkbox" name="{{ form.w2_form_used.name }}"
+                                           id="{{ form.w2_form_used.id_for_label }}"
+                                           {% if form.w2_form_used.value %}checked{% endif %}>
+
+                                    <input type="file" name="{{ form.w2_form.name }}"
+                                           id="{{ form.w2_form.id_for_label }}">
+
+                                    {% if form.w2_form.value %}
+                                        <div class="row">
+                                            <p class="no-margin-padding">Качено успешно:</p>
+                                            <a href="{{ form.w2_form.value.url }}" target="_blank">W2 Форма</a>
+                                            <div class="row">
+                                                <input type="checkbox" name="{{ form.w2_form_clear.name }}"
+                                                       id="{{ form.w2_form_clear.id_for_label }}">
+                                                <label for="{{ form.w2_form_clear.id_for_label }}">Изтрии
+                                                    файла</label><br>
+
+                                            </div>
+                                        </div>
+
+                                    {% endif %}
+                                </div>
+
+                                <br>
+
+                                <div class="align-left">
+                                    <label for="{{ form.bank_account_screenshot.id_for_label }}">Скрийншот на
+                                        Американската
+                                        ви банкова сметка, ако имате такава</label>
                                     <input hidden type="checkbox" name="{{ form.bank_account_screenshot_used.name }}"
                                            id="{{ form.bank_account_screenshot_used.id_for_label }}"
                                            {% if form.bank_account_screenshot_used.value %}checked{% endif %}>
 
                                     <input type="file" name="{{ form.bank_account_screenshot.name }}"
-                                           id="{{ form.visa_copy.id_for_label }}">
-                                    <label for="{{ form.bank_account_screenshot.id_for_label }}">Скрийншот на
-                                        Американската
-                                        ви банкова сметка, ако имате такава</label>
+                                           id="{{ form.bank_account_screenshot.id_for_label }}">
+
                                     {% if form.bank_account_screenshot.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
@@ -707,15 +874,16 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
+                                <div class="align-left">
+                                    <label for="{{ form.us_document_copy.id_for_label }}">Снимка на американско ID, ако
+                                        имате такава</label>
                                     <input hidden type="checkbox" name="{{ form.us_document_copy_used.name }}"
                                            id="{{ form.bank_account_screenshot_used.id_for_label }}"
                                            {% if form.bank_account_screenshot_used.value %}checked{% endif %}>
 
                                     <input type="file" name="{{ form.us_document_copy.name }}"
-                                           id="{{ form.visa_copy.id_for_label }}">
-                                    <label for="{{ form.us_document_copy.id_for_label }}">Снимка на американско ID, ако
-                                        имате такава</label>
+                                           id="{{ form.us_document_copy.id_for_label }}">
+
                                     {% if form.us_document_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
@@ -735,38 +903,9 @@
 
                                 <br>
 
-                                <div class="oval-border align-left">
-                                    <input hidden type="checkbox"
-                                           name="{{ form.signed_and_scanned_contract_used.name }}"
-                                           id="{{ form.signed_and_scanned_contract_used.id_for_label }}"
-                                           {% if form.signed_and_scanned_contract_used.value %}checked{% endif %}/>
-
-                                    <input type="file" name="{{ form.signed_and_scanned_contract.name }}"
-                                           id="{{ form.signed_and_scanned_contract.id_for_label }}">
-                                    <label for="{{ form.signed_and_scanned_contract.id_for_label }}">Подписан и сканиран
-                                        договор*</label>
-                                    {% if form.signed_and_scanned_contract.value %}
-                                        <div class="row">
-                                            <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.signed_and_scanned_contract.value.url }}" target="_blank">{{ form.signed_and_scanned_contract.value }}</a>
-                                            <div class="row">
-                                                <input type="checkbox"
-                                                       name="{{ form.signed_and_scanned_contract_clear.name }}"
-                                                       id="{{ form.signed_and_scanned_contract_clear.id_for_label }}">
-                                                <label for="{{ form.signed_and_scanned_contract_clear.id_for_label }}">Изтрии
-                                                    файла</label><br>
-
-                                            </div>
-                                        </div>
-
-                                    {% endif %}
-                                </div>
-
-                                <br>
-
                                 <div class="row">
-{#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази и Продължи</button>
+                                    {#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
                                 </div>
                             </div>
                         </div>
@@ -841,7 +980,7 @@
                                         <div class="row">
                                             <div id='progress-documents' class="red-not-started"></div>
                                             <div class="column">
-                                                <label for="id_stat_docs">4.Прикачени Документи</label>
+                                                <label for="id_stat_docs">4.Прикачени файлове</label>
                                                 <input hidden class="small" type="text" id="id_stat_docs"
                                                        name="stat_docs"
                                                        value="{{ form.instance.stat_docs }}">
@@ -922,7 +1061,7 @@
                                             <input hidden class="small" type="text" id="id_stat_federal_fee_paid"
                                                    name="stat_federal_fee_paid"
                                                    value="{{ form.instance.stat_federal_fee_paid }}">
-                                        <input hidden class="small" type="text" id="id_stat_state_fee_paid"
+                                            <input hidden class="small" type="text" id="id_stat_state_fee_paid"
                                                    name="stat_state_fee_paid"
                                                    value="{{ form.instance.stat_state_fee_paid }}">
                                             {% if form.fee_federal and form.instance.fee_federal > 0 %}
@@ -964,11 +1103,11 @@
                                     </div>
                                     <br>
                                     <br>
-{#                                    <div class="row">#}
-                                        {#                                        <div class="query-btn previous-btn"><p>Назад</p></div>#}
-{#                                        <button id='save-btn' type="submit" class="query-btn slider-btn">Запази#}
-{#                                        </button>#}
-{#                                    </div>#}
+                                    {#                                    <div class="row">#}
+                                    {#                                        <div class="query-btn previous-btn"><p>Назад</p></div>#}
+                                    {#                                        <button id='save-btn' type="submit" class="query-btn slider-btn">Запази#}
+                                    {#                                        </button>#}
+                                    {#                                    </div>#}
                                 </div>
                             </div>
                         </div>
@@ -1014,10 +1153,10 @@
                                     </p>
                                 </div>
                                 <div class="row">
-                                    <p>
-                                        <label for="id_mothers_maiden_name">Mothers maiden name:</label>
-                                        {{ edit_taxes.mothers_maiden_name }}
-                                    </p>
+                                    {#                                    <p>#}
+                                    {#                                        <label for="id_mothers_maiden_name">Mothers maiden name:</label>#}
+                                    {#                                        {{ edit_taxes.mothers_maiden_name }}#}
+                                    {#                                    </p>#}
 
                                     <p>
                                         <label for="id_birth_date">Birth date:</label>

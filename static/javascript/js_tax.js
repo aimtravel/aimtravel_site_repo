@@ -228,27 +228,33 @@ let bankInfoStep = document.getElementById('id_bank_info_done');
 let attachmentsInfoStep = document.getElementById('id_attachments_info_done');
 
 function stepHandler() {
-    if (personalInfoStep.value === 'yes') {
-        if (travelInfoStep.value === 'yes') {
-            if (employerInfoStep.value === 'yes') {
-                if (bankInfoStep.value === 'yes') {
-                    if (attachmentsInfoStep.value === 'yes') {
-                        progressHandler();
-                    } else {
-                        attachmentsHandler();
-                    }
-                } else {
-                    bankInfoHandler();
-                }
-            } else {
-                employerInfoHandler();
-            }
-        } else {
-            travelInfoHandler();
-        }
+    let progressDoc = document.querySelector('label[for="id_stat_docs"]');
+    if (bankInfoStep.value === 'yes') {
+        bankInfoHandler();
     } else {
-        personalInfoHandler();
+        if (employerInfoStep.value === 'yes') {
+            employerInfoHandler();
+        } else {
+            if (travelInfoStep.value === 'yes') {
+                travelInfoHandler();
+            } else {
+                if (personalInfoStep.value === 'yes') {
+                    personalInfoHandler();
+                } else {
+
+                }
+            }
+        }
     }
+
+    if (isSent.value === 'true') {
+        progressHandler();
+    }
+
+    progressDoc.addEventListener('click', function () {
+        attachmentsHandler();
+    })
+
 }
 
 personalInfo.addEventListener('click', personalInfoHandler)
@@ -282,6 +288,7 @@ function submitButtonHandler() {
 }
 
 // ===== END =====
+
 
 
 // following code is responsible for dynamically updating the status indicator of categories - red, yellow, green
@@ -561,24 +568,24 @@ function statusAttachments() {
     let fieldPassportDoc = document.getElementById('id_passport_copy_used');
     let fieldVisaDoc = document.getElementById('id_visa_copy_used');
     let fieldSsnDoc = document.getElementById('id_ssn_copy_used');
-    let fieldPayCheckW2Doc = document.getElementById('id_last_paycheck_w2_used');
+    let fieldPayCheckDoc = document.getElementById('id_last_paycheck_doc_used');
     let is_done = document.getElementById('id_attachments_info_done')
 
     let fieldsArray = [
         fieldPassportDoc,
         fieldVisaDoc,
         fieldSsnDoc,
-        fieldPayCheckW2Doc
+        fieldPayCheckDoc
     ]
 
     if (!fieldPassportDoc.checked && !fieldVisaDoc.checked &&
-        !fieldSsnDoc.checked && !fieldPayCheckW2Doc.checked) {
+        !fieldSsnDoc.checked && !fieldPayCheckDoc.checked) {
         is_done.value = 'no';
         statusAttachmentsCat.classList.add('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
     } else if (fieldPassportDoc.checked && fieldVisaDoc.checked &&
-        fieldSsnDoc.checked && fieldPayCheckW2Doc.checked) {
+        fieldSsnDoc.checked && fieldPayCheckDoc.checked) {
         is_done.value = 'yes';
         statusAttachmentsCat.classList.add('green-color');
         statusAttachmentsCat.classList.remove('red-color');
@@ -595,11 +602,10 @@ function statusAttachments() {
 }
 
 function statusPersonalInfoChecker() {
-
+    /// statusBankInfoCat.classList.contains('green-color') removed from first if condition.
     if (statusPersonalInfoCat.classList.contains('green-color') &&
         statusTravelInfoCat.classList.contains('green-color') &&
-        statusEmployerInfoCat.classList.contains('green-color') &&
-        statusBankInfoCat.classList.contains('green-color')) {
+        statusEmployerInfoCat.classList.contains('green-color')) {
         progressPersonalInfo.classList.add('green-completed');
         progressFieldPersonalInfo.value = '3';
         progressPersonalInfo.classList.remove('yellow-not-completed');
@@ -652,9 +658,9 @@ function disableButton() {
     // excluded from below
     // &&
     //         progressDocuments.classList.contains('green-completed')
+    generateContractBtn.classList.add('disabled');
     if (progressPersonalInfo.classList.contains('green-completed')) {
         sendApplicationBtn.classList.remove('disabled');
-        generateContractBtn.classList.remove('disabled');
     } else {
         sendApplicationBtn.classList.add('disabled');
         generateContractBtn.classList.add('disabled');
@@ -663,6 +669,7 @@ function disableButton() {
     if (isSent.value === 'true' &&
         progressPersonalInfo.classList.contains('green-completed')) {
         sendApplicationBtn.classList.add('disabled');
+        generateContractBtn.classList.remove('disabled');
         cloneSubmitButtonText.textContent = "Формуляр изпратен"
         inProgress.classList.add('green-completed');
         inProgress.classList.remove('red-not-started')
@@ -671,6 +678,7 @@ function disableButton() {
         progressPersonalInfo.classList.contains('green-completed') &&
         progressDocuments.classList.contains('green-completed')) {
         sendApplicationBtn.classList.remove('disabled');
+        generateContractBtn.classList.add('disabled');
         cloneSubmitButtonText.textContent = "Изпрати формуляр"
         inProgress.classList.add('red-not-started');
         inProgress.classList.remove('green-completed')
@@ -760,7 +768,7 @@ function hideBankDetails() {
     let routingNumber = document.getElementById('id_routing_number');
     let accountNumber = document.getElementById('id_account_number');
 
-    if (checker.value === "No" || !checker.value) {
+    if (checker.value === "No") {
         divBankDetails.classList.add("disabled");
         accountNumber.classList.add("grey-border")
         accountNumber.classList.remove('red-border')
@@ -870,6 +878,10 @@ function progressPercents() {
     }
 }
 
+function colorpicker() {
+
+}
+
 window.onload = function () {
     addGrayBorder();
     statusPersonalInfo();
@@ -885,6 +897,7 @@ window.onload = function () {
     progressPercents();
     submitButtonHandler();
     stepHandler();
+    colorpicker()
 }
 
 
