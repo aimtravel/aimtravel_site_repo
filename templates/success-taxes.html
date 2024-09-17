@@ -3,11 +3,15 @@
 {% block content %}
     <section id="message-section">
         <div class="message-frame">
-            <div class="column width-80">
-                <div class="row ">
-                    <h1 id="success-message">Изпратихте успешно вашите документи.</h1>
+            <div class="column">
+                <div class="row padding-0-50">
+                    <h1 id="success-message">Попълнихте успешно формуляра.</h1>
+                    <h1 id="success-message">Следващи стъпки:</h1>
+                    <h3>1. Моля, генерирайте договора.</h3>
+                    <h3>2. Подпишете го и го сканирайте.</h3>
+                    <h3>3. Прикачете го в раздела 'Прикачени файлове' заедно с останалите необходими документи.</h3>
                 </div>
-                <div class="row width-90 self-align">
+                <div class="row self-align">
                     <a id="get-back-to-taxes" class="query-btn white-txt" href="{% url 'edit tax' pk=taxes.pk %}">Продължи към генериране на договор</a>
                 </div>
                 <br>

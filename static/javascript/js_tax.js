@@ -227,19 +227,52 @@ let employerInfoStep = document.getElementById('id_employer_info_done');
 let bankInfoStep = document.getElementById('id_bank_info_done');
 let attachmentsInfoStep = document.getElementById('id_attachments_info_done');
 
+// function stepHandler() {
+//     let progressDoc = document.querySelector('label[for="id_stat_docs"]');
+//     if (bankInfoStep.value === 'yes') {
+//         bankInfoHandler();
+//     } else {
+//         if (employerInfoStep.value === 'yes') {
+//             employerInfoHandler();
+//         } else {
+//             if (travelInfoStep.value === 'yes') {
+//                 travelInfoHandler();
+//             } else {
+//                 if (personalInfoStep.value === 'yes') {
+//                     personalInfoHandler();
+//                 } else {
+//
+//                 }
+//             }
+//         }
+//     }
+//
+//     if (isSent.value === 'true') {
+//         progressHandler();
+//     }
+//
+//     progressDoc.addEventListener('click', function () {
+//         attachmentsHandler();
+//     })
+//
+// }
+
+
+// incorporated save + next button functionality
 function stepHandler() {
     let progressDoc = document.querySelector('label[for="id_stat_docs"]');
     if (bankInfoStep.value === 'yes') {
         bankInfoHandler();
     } else {
         if (employerInfoStep.value === 'yes') {
-            employerInfoHandler();
+            bankInfoHandler();
         } else {
             if (travelInfoStep.value === 'yes') {
-                travelInfoHandler();
+                employerInfoHandler()
+
             } else {
                 if (personalInfoStep.value === 'yes') {
-                    personalInfoHandler();
+                    travelInfoHandler();
                 } else {
 
                 }
@@ -288,7 +321,6 @@ function submitButtonHandler() {
 }
 
 // ===== END =====
-
 
 
 // following code is responsible for dynamically updating the status indicator of categories - red, yellow, green
@@ -569,6 +601,8 @@ function statusAttachments() {
     let fieldVisaDoc = document.getElementById('id_visa_copy_used');
     let fieldSsnDoc = document.getElementById('id_ssn_copy_used');
     let fieldPayCheckDoc = document.getElementById('id_last_paycheck_doc_used');
+    let fieldW2 = document.getElementById('id_w2_form_used');
+    let fieldSignedContract = document.getElementById('id_signed_and_scanned_contract_used')
     let is_done = document.getElementById('id_attachments_info_done')
 
     let fieldsArray = [
@@ -579,13 +613,13 @@ function statusAttachments() {
     ]
 
     if (!fieldPassportDoc.checked && !fieldVisaDoc.checked &&
-        !fieldSsnDoc.checked && !fieldPayCheckDoc.checked) {
+        !fieldSsnDoc.checked && !fieldPayCheckDoc.checked && !fieldW2.checked && !fieldSignedContract.checked) {
         is_done.value = 'no';
         statusAttachmentsCat.classList.add('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
     } else if (fieldPassportDoc.checked && fieldVisaDoc.checked &&
-        fieldSsnDoc.checked && fieldPayCheckDoc.checked) {
+        fieldSsnDoc.checked && (fieldPayCheckDoc.checked || fieldW2.checked) && fieldSignedContract.checked) {
         is_done.value = 'yes';
         statusAttachmentsCat.classList.add('green-color');
         statusAttachmentsCat.classList.remove('red-color');
@@ -882,6 +916,25 @@ function colorpicker() {
 
 }
 
+function makeHidden(element) {
+    element.style.display = 'none';
+}
+
+function makeVisible(element) {
+    element.style.display = 'flex';
+}
+
+function completedMessage(){
+    let trigger = document.getElementById('status-attachments');
+    let element = document.getElementById('steps-completed');
+
+    if (trigger.classList.contains('green-color')) {
+        makeVisible(element);
+    } else {
+        makeHidden(element);
+    }
+}
+
 window.onload = function () {
     addGrayBorder();
     statusPersonalInfo();
@@ -898,6 +951,7 @@ window.onload = function () {
     submitButtonHandler();
     stepHandler();
     colorpicker()
+    completedMessage();
 }
 
 

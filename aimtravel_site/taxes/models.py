@@ -265,6 +265,10 @@ class Taxes(models.Model):
     step = models.IntegerField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
+        if self.signed_and_scanned_contract:
+            self.signed_and_scanned_contract_used = True
+        else:
+            self.signed_and_scanned_contract_used = False
         if self.passport_copy:
             self.passport_copy_used = True
         else:
@@ -277,10 +281,10 @@ class Taxes(models.Model):
             self.ssn_copy_used = True
         else:
             self.ssn_copy_used = False
-        if self.last_paycheck:
-            self.last_paycheck_used = True
+        if self.last_paycheck_doc:
+            self.last_paycheck_doc_used = True
         else:
-            self.last_paycheck_used = False
+            self.last_paycheck_doc_used = False
         if self.w2_form:
             self.w2_form_used = True
         else:

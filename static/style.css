@@ -850,7 +850,7 @@ nav a:hover {
     width: 100%;
     height: var(--main-slider-background-height);
     left: 0;
-    top: -170px;
+    top: -158px;
     background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/hero-banner_2.jpg');
     z-index: -1;
     background-size: cover;
@@ -4801,8 +4801,6 @@ footer a:hover {
 }
 
 #message-section .message-frame {
-    width: 500px;
-    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8729,6 +8727,7 @@ aside #progress p {
     justify-content: center;
     gap: 10px;
     text-align: left;
+    align-items: center;
 }
 
 .taxes-section .row p {
@@ -9372,4 +9371,45 @@ l {
 
 .progress-icon {
     width: 100%;
+}
+
+.padding-0-50 {
+    padding: 0 50px;
+}
+
+#steps-completed {
+    display: none;
+}
+
+.icon-small {
+    width: 25px;
+    height: 25px;
+}
+
+.row-legend {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.justify-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.justify-center h4 {
+    margin: 0;
+}
+
+.row-left {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 5px;
+    gap: 5px;
 }
