@@ -156,7 +156,7 @@
             <div class="vert-line"></div>
             <section class="taxes-section">
                 {% if object %}
-                    <form class="norm" action="{% url 'edit tax' pk=object.pk %}" method="POST"
+                    <form id="norm" class="norm" action="{% url 'edit tax' pk=object.pk %}" method="POST"
                           enctype="multipart/form-data">
                         {% csrf_token %}
 
@@ -621,14 +621,14 @@
                                                       stroke="#000000" stroke-width="1.8" stroke-linecap="round"
                                                       stroke-linejoin="round"></path>
                                             </svg>
-                                            <span>Попълнете и запазете формуляра. След това натиснете бутона "Изпрати формуляр".</span>
+                                            <span>Попълнете формуляра. След това натиснете бутона "Изпрати формуляр".</span>
                                         </div>
                                     </div>
                                 {% endif %}
                                 <div class="row">
                                     <div class="query-btn previous-btn"><p>Назад</p></div>
                                     {#                                    <div class="query-btn next-btn"><p>Продължи</p></div>#}
-                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+                                    {#                                    <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>#}
                                     <div><a id='cloneSubmitButton' class="query-btn slider-btn white-txt"
                                             href="{% url 'save-and-send' %}"><?xml version="1.0" encoding="UTF-8"?>
                                         <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5"
@@ -666,8 +666,12 @@
                                                   stroke-linejoin="round"></path>
                                         </svg>
                                     </h2>
+                                    <div>
+                                        {#                                    <div class="query-btn previous-btn"><p>Назад</p></div>#}
+                                        <button id='save-btn' type="submit" class="query-btn slider-btn">Запази</button>
+                                    </div>
                                 </div>
-
+                                <br>
                                 <div class="align-left">
                                     <label class="gray-color" for="{{ form.signed_and_scanned_contract.id_for_label }}"><b>Подписан
                                         и сканиран договор*</b></label>
@@ -944,14 +948,14 @@
                                     <div class="justify-center">
                                         <h4>Легенда</h4>
                                         <div class="row-left"><img class="icon-small"
-                                                                           src="{% static 'img/icons/green.png' %}"
-                                                                           alt=""><span>стъпка завършена</span></div>
+                                                                   src="{% static 'img/icons/green.png' %}"
+                                                                   alt=""><span>стъпка завършена</span></div>
                                         <div class="row-left"><img class="icon-small"
-                                                                           src="{% static 'img/icons/red.png' %}"
-                                                                           alt=""><span>стъпка незапочната</span></div>
+                                                                   src="{% static 'img/icons/red.png' %}"
+                                                                   alt=""><span>стъпка незапочната</span></div>
                                         <div class="row-left"><img class="icon-small"
-                                                                           src="{% static 'img/icons/yellow.png' %}"
-                                                                           alt=""><span>липсваща информация</span>
+                                                                   src="{% static 'img/icons/yellow.png' %}"
+                                                                   alt=""><span>липсваща информация</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1003,23 +1007,84 @@
                                     </div>
                                 </div>
                                 <br>
-                                <div id="steps-completed" class="row">
+                                <div id="steps-completed-red" class="row">
                                     <div class="attention sm">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
-                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
-                                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
-                                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
-                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
-                                                  stroke-linejoin="round"></path>
-                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
-                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
-                                                  stroke-linejoin="round"></path>
-                                        </svg>
-                                        <span>Завършихте успешно вашите стъпки от процеса. От тук поемат нашите агенти. Можете да следите прогреса чрез статусите по-долу.</span>
+                                        <div><?xml version="1.0" encoding="UTF-8"?>
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                                <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                                <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="mrg-10">
+                                            <span>Моля генерирайте договор от бутона в ляво "Генерирай договор".</span>
+                                            <br>
+                                            <span>Трябва да го подпишете, сканирате и добавите в прикачени файлове заедно с останалите задължителни документи.</span>
+                                            <br>
+                                            <br>
+                                            <span>От тук поемат нашите агенти. Можете да следите прогреса чрез статусите по-долу.</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="steps-completed-yellow" class="row">
+                                    <div class="attention sm">
+                                        <div><?xml version="1.0" encoding="UTF-8"?>
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                                <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                                <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="mrg-10">
+                                            <span>Завършихте успешно вашите стъпки от процеса.</span>
+                                            <br>
+                                            <span>Когато получите вашата W2 форма/последен чек, трябва да ги добавите в прикачени файлове заедно с останалите задължителни документи.</span>
+                                            <br>
+                                            <br>
+                                            <span>От тук поемат нашите агенти. Можете да следите прогреса чрез статусите по-долу.</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div id="steps-completed-green" class="row">
+                                    <div class="attention sm">
+                                        <div><?xml version="1.0" encoding="UTF-8"?>
+                                            <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                                 fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                                <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                      stroke-linecap="round" stroke-linejoin="round"></path>
+                                                <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                                <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                      stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                      stroke-linejoin="round"></path>
+                                            </svg>
+                                        </div>
+                                        <div class="mrg-10">
+                                            <span>Завършихте успешно вашите стъпки от процеса.</span><br>
+                                            <span>От тук поемат нашите агенти. Можете да следите прогреса чрез статусите по-долу.</span>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <br>

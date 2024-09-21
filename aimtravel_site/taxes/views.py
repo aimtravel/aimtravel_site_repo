@@ -61,11 +61,29 @@ class AddTaxesView(LoginRequiredMixin, views.CreateView):
     model = Taxes  # Replace YourModel with the actual model you're using
     form_class = AddTaxes
     template_name = 'taxes/add-taxes-form.html'
-    success_url = reverse_lazy('all-taxes')  # Replace 'success' with the actual URL name
+
+    # success_url = reverse_lazy('edit tax')  # Replace 'success' with the actual URL name
+
+    def get_form_kwargs(self):
+        # Pass the logged-in user to the form
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # Pass the current user to the form
+        return kwargs
 
     def form_valid(self, form):
-        # Additional logic if needed before saving the form
-        return super().form_valid(form)
+        # Set the user's info on the form instance before saving
+        form.instance.user = self.request.user
+        form.instance.first_name = self.request.user.first_name
+        # last_name called in userAuth a.k.a. family_name in taxes model
+        form.instance.family_name = self.request.user.last_name
+        form.instance.email = self.request.user.email
+
+        # Call the superclass's form_valid to continue the usual process
+        # Save the form to get the created Taxes instance
+        self.object = form.save()
+
+        # Redirect to the edit tax page, passing the pk of the created Taxes instance
+        return redirect(reverse('edit tax', kwargs={'pk': self.object.pk}))
 
 
 class EditTaxesView(LoginRequiredMixin, views.UpdateView):
@@ -76,7 +94,7 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_tax'] = get_object_or_404(Taxes, user=self.request.user)
+        # context['latest_tax'] = get_object_or_404(Taxes, user=self.request.user)
         return context
 
     def get_success_url(self):
@@ -131,6 +149,17 @@ class DetailsTaxView(LoginRequiredMixin, views.DetailView):
         context['latest_tax'] = latest_tax
 
         return context
+
+
+class TaxEntryListView(LoginRequiredMixin, views.ListView):
+    model = Taxes
+    template_name = 'taxes/tax_entry_list.html'
+    context_object_name = 'tax_list'
+    ordering = ['id']
+
+    def get_queryset(self):
+        user_pk = self.kwargs['pk']
+        return Taxes.objects.filter(user_id=user_pk).order_by('id')
 
 
 def pre_add_tax(request):
@@ -361,10 +390,23 @@ class AdminTaxEntryListView(UserPassesTestMixin, views.ListView):
     model = Taxes
     template_name = 'taxes/admin_tax_entry_list.html'
     context_object_name = 'tax_entries'
-    ordering = ['user']  # Order entries by primary key or another field
+    ordering = ['-user', '-id']  # Order entries by primary key or another field
 
     def test_func(self):
         return self.request.user.is_staff
+
+
+class SuperUserAddTaxesView(UserPassesTestMixin, views.CreateView):
+    model = Taxes  # Replace YourModel with the actual model you're using
+    form_class = AdminAddTaxes
+    template_name = 'taxes/admin-add-tax.html'
+    success_url = reverse_lazy('all-taxes')  # Replace 'success' with the actual URL name
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
@@ -448,6 +490,41 @@ def send_application_view(request):
     # Send the email
     email.send()
     success_url = reverse_lazy('success_tax', kwargs={'taxes_pk': taxes.id})
+    return redirect(success_url)
+
+
+def admin_send_application_view(request, taxes_pk):
+    # Fetch the Taxes instance by the given taxes_pk
+    taxes = get_object_or_404(Taxes, pk=taxes_pk)
+
+    # Mark the taxes as sent
+    taxes.is_sent = True
+    taxes.save()
+
+    # Retrieve the user associated with this taxes model
+    user = taxes.user
+
+    # Get the user's full name and email
+    name = f"{user.first_name} {user.last_name}"  # Adjust based on Taxes model fields
+    email = user.email
+    recipient = email
+    cc_email = ['vlzahariev@gmail.com']
+
+    logo_path = "https://www.aimtravel.bg/static/img/Ready-stock/Logo/image001.png"
+
+    subject = f"Връщане на Данъци от САЩ - регистрация"
+
+    # Render HTML content for the email
+    html_content = render_to_string('taxes/email_template.html', {'name': name, 'logo': logo_path})
+
+    # Create a plain text version of the email content
+    text_content = html.strip_tags(html_content)
+
+    # Create and send the email
+    email = EmailMultiAlternatives(subject, text_content, email, [recipient], cc=cc_email)
+    email.attach_alternative(html_content, "text/html")
+    email.send()
+    success_url = reverse_lazy('admin_success_tax', kwargs={'taxes_pk': taxes.id})
     return redirect(success_url)
 
 
@@ -564,3 +641,9 @@ def success_page_view(request, taxes_pk):
     taxes = Taxes.objects.get(pk=taxes_pk)
     print(taxes.pk)
     return render(request, 'success-taxes.html', {'taxes': taxes})
+
+
+def admin_success_page_view(request, taxes_pk):
+    taxes = Taxes.objects.get(pk=taxes_pk)
+    print(taxes.pk)
+    return render(request, 'admin_success-taxes.html', {'taxes': taxes})

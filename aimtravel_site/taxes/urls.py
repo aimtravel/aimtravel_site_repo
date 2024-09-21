@@ -5,6 +5,7 @@ from aimtravel_site.taxes.views import *
 urlpatterns = (
     path('', TaxMainView.as_view(), name='taxes'),
     path('all/', AdminTaxEntryListView.as_view(), name='all-taxes'),
+    path('admin-add-tax/', SuperUserAddTaxesView.as_view(), name='admin-add-taxes'),
     path('admin-edit-tax/<int:pk>/', SuperuserEditTaxView.as_view(), name='admin-edit-taxes'),
     path('admin-delete-tax/<int:pk>/', SuperuserDeleteTaxView.as_view(), name='admin-delete-taxes'),
     path('admin-export-tax/', ExportTaxesView.as_view(), name='admin-export-taxes'),
@@ -13,10 +14,13 @@ urlpatterns = (
     path('add-tax/', AddTaxesView.as_view(), name='add tax'),
     path('edit-tax/<int:pk>/', EditTaxesView.as_view(), name='edit tax'),
     path('detail-tax/<int:pk>/', DetailsTaxView.as_view(), name='detail tax'),
+    path('list-tax/<int:pk>/', TaxEntryListView.as_view(), name='list tax'),
     path('generate_pdf/<int:tax_id>/', generate_pdf, name='generate_pdf'),
     path('save-and-send/', send_application_view, name='save-and-send'),
+    path('admin-save-and-send/<int:taxes_pk>/', admin_send_application_view, name='admin-send-form'),
     # path('update-taxes/', update_taxes, name='update-taxes'),
     path('success/<int:taxes_pk>/', success_page_view, name='success_tax'),
+    path('admin-success/<int:taxes_pk>/', admin_success_page_view, name='admin_success_tax'),
 )
 
 from .signals import *

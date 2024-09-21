@@ -5,7 +5,7 @@
     <div class="">
         <div class="arrange-left">
             <div class="mrg-20">
-                <a class="rgt-mrg-10" href="{% url 'add tax' %}"><?xml version="1.0" encoding="UTF-8"?>
+                <a class="rgt-mrg-10" href="{% url 'admin-add-taxes' %}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
                          xmlns="http://www.w3.org/2000/svg" color="#47cc00">
                         <path d="M4 12V2.6C4 2.26863 4.26863 2 4.6 2H16.2515C16.4106 2 16.5632 2.06321 16.6757 2.17574L19.8243 5.32426C19.9368 5.43679 20 5.5894 20 5.74853V21.4C20 21.7314 19.7314 22 19.4 22H11"
@@ -43,8 +43,7 @@
                     <th>Social Security Number(SSN)</th>
                     <th>Email</th>
                     <th>Телефон</th>
-                    <th>W2 форма</th>
-                    <th>Очаквани документи</th>
+                    <th>Прикачени документи</th>
                     <th>Статус</th>
                     <th>Стойност Federal</th>
                     <th>Стойност State</th>
@@ -102,14 +101,19 @@
                             <td>{{ tax.social_security }}</td>
                             <td>{{ tax.email }}</td>
                             <td>{{ tax.phone_number }}</td>
-                            <td>{{ tax.w_2 }}</td>
                             <td class="docs-attr">
-                                <p class="table-attribute">Копие от паспорт: <span class="color">{{ tax.passport_copy|yesno }}</span></p><br>
-                                <p class="table-attribute">Копие от виза: <span class="color">{{ tax.visa_copy|yesno }}</span></p><br>
-                                <p class="table-attribute">Копие от SSN: <span class="color">{{ tax.ssn_copy|yesno }}</span></p><br>
-                                <p class="table-attribute">Последен чек: <span class="color">{{ tax.last_paycheck|yesno }}</span></p><br>
-                                <p class="table-attribute">W2 форма: <span class="color">{{ tax.w2_form|yesno }}</span></p><br>
-                                <p class="table-attribute">Подписан договор: <span class="color">{{ tax.signed_and_scanned_contract|yesno }}</span></p></td>
+                                <p class="table-attribute">Подписан договор: <span id="contract-color">{{ tax.signed_and_scanned_contract|yesno:"Да,Не" }}</span></p><br>
+                                <p class="table-attribute">Копие от паспорт: <span id="passport-color"
+                                        class="color">{{ tax.passport_copy|yesno:"Да,Не" }}</span></p><br>
+                                <p class="table-attribute">Копие от виза: <span id="visa-color"
+                                        class="color">{{ tax.visa_copy|yesno:"Да,Не" }}</span></p><br>
+                                <p class="table-attribute">Копие от SSN: <span id="ssn-color"
+                                        class="color">{{ tax.ssn_copy|yesno:"Да,Не" }}</span></p><br>
+                                <p class="table-attribute">Последен чек: <span id="paycheck-color"
+                                        class="color">{{ tax.last_paycheck_doc|yesno:"Да,Не" }}</span></p><br>
+                                <p class="table-attribute">W2 форма: <span id="w2-color" class="color">{{ tax.w2_form|yesno:"Да,Не" }}</span>
+                                </p>
+                            </td>
                             <td>{{ tax.get_general_status_display }}</td>
                             <td>{{ tax.federal_amount|floatformat:2 }}</td>
                             <td>{{ tax.state_amount|floatformat:2 }}</td>

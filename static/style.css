@@ -9029,7 +9029,6 @@ td {
     font-size: 16px;
     font-weight: 500;
     font-style: italic;
-    margin: 5px 0 5px 10px;
 }
 
 
@@ -9120,6 +9119,10 @@ a {
 
 .mrg-5 {
     margin: 5px;
+}
+
+.mrg-10 {
+    margin: 10px;
 }
 
 .mrg-20 {
@@ -9412,4 +9415,9 @@ l {
     align-items: center;
     margin-bottom: 5px;
     gap: 5px;
+}
+
+.align-centered {
+    display: flex;
+    align-items: center;
 }

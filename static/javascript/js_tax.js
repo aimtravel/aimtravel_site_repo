@@ -311,14 +311,53 @@ previousButton.forEach((element) => {
     element.addEventListener('click', previousButtonHandler)
 })
 
+
+// Submit button which sending email as well.
+
+// function submitButtonHandler() {
+//     let cloneSubmitButton = document.getElementById('cloneSubmitButton');
+//
+//     cloneSubmitButton.addEventListener('click', function (event) {
+//         event.preventDefault();
+//         document.getElementById('norm').submit();
+//
+//         setTimeout(function () {
+//             window.location.href = cloneSubmitButton.getAttribute('href');
+//         }, 500);
+//     });
+// }
+
 function submitButtonHandler() {
     let cloneSubmitButton = document.getElementById('cloneSubmitButton');
 
-    cloneSubmitButton.addEventListener('click', function () {
-        document.getElementById('norm').submit();
-        nextButtonHandler();
+    cloneSubmitButton.addEventListener('click', function (event) {
+        event.preventDefault();  // Prevent immediate navigation
+
+        // Create a FormData object from the form
+        let form = document.getElementById('norm');
+        let formData = new FormData(form);
+
+        // Submit form via AJAX
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',  // Tell Django it's an AJAX request
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value  // Include CSRF token
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Redirect to the target URL after successful form submission
+                    window.location.href = cloneSubmitButton.getAttribute('href');
+                } else {
+                    console.error('Form submission failed:', response.statusText);
+                }
+            })
+            .catch(error => console.error('Error submitting form:', error));
     });
 }
+
 
 // ===== END =====
 
@@ -613,13 +652,13 @@ function statusAttachments() {
     ]
 
     if (!fieldPassportDoc.checked && !fieldVisaDoc.checked &&
-        !fieldSsnDoc.checked && !fieldPayCheckDoc.checked && !fieldW2.checked && !fieldSignedContract.checked) {
+        !fieldSsnDoc.checked && !fieldW2.checked && !fieldSignedContract.checked) {
         is_done.value = 'no';
         statusAttachmentsCat.classList.add('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
     } else if (fieldPassportDoc.checked && fieldVisaDoc.checked &&
-        fieldSsnDoc.checked && (fieldPayCheckDoc.checked || fieldW2.checked) && fieldSignedContract.checked) {
+        fieldSsnDoc.checked && fieldW2.checked && fieldSignedContract.checked) {
         is_done.value = 'yes';
         statusAttachmentsCat.classList.add('green-color');
         statusAttachmentsCat.classList.remove('red-color');
@@ -912,8 +951,7 @@ function progressPercents() {
     }
 }
 
-function colorpicker() {
-
+function colorPicker() {
 }
 
 function makeHidden(element) {
@@ -924,14 +962,32 @@ function makeVisible(element) {
     element.style.display = 'flex';
 }
 
-function completedMessage(){
-    let trigger = document.getElementById('status-attachments');
-    let element = document.getElementById('steps-completed');
+function completedMessage() {
+    let triggerInfo = document.getElementById('progress-personal-info');
+    let triggerFormSent = document.getElementById('progress-in-progress');
+    let triggerAttachments = document.getElementById('status-attachments');
+    let elementRed = document.getElementById('steps-completed-red');
+    let elementYellow = document.getElementById('steps-completed-yellow');
+    let elementGreen = document.getElementById('steps-completed-green');
 
-    if (trigger.classList.contains('green-color')) {
-        makeVisible(element);
+    if (triggerAttachments.classList.contains('red-color') &&
+        triggerInfo.classList.contains('green-completed') &&
+        triggerFormSent.classList.contains('green-completed')) {
+        makeVisible(elementRed);
+        makeHidden(elementYellow);
+        makeHidden(elementGreen);
+    } else if (triggerAttachments.classList.contains('yellow-color')) {
+        makeVisible(elementYellow);
+        makeHidden(elementRed);
+        makeHidden(elementGreen);
+    } else if (triggerAttachments.classList.contains('green-color')) {
+        makeVisible(elementGreen);
+        makeHidden(elementRed);
+        makeHidden(elementYellow);
     } else {
-        makeHidden(element);
+        makeHidden(elementRed);
+        makeHidden(elementYellow);
+        makeHidden(elementGreen);
     }
 }
 
@@ -950,9 +1006,8 @@ window.onload = function () {
     progressPercents();
     submitButtonHandler();
     stepHandler();
-    colorpicker()
     completedMessage();
+    colorPicker();
 }
-
 
 // ===== END =====

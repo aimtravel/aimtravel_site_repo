@@ -73,13 +73,21 @@
                 {#                        <p>Студентска Бригада в САЩ</p>#}
                 {#                    </div>#}
                 {#                </a>#}
-                {% if latest_tax %}
-                    <a class="attention" href="{% url 'edit tax' pk=latest_tax.pk %}">
+
+
+{#                {% if latest_tax %}#}
+{#                    <a class="attention" href="{% url 'edit tax' pk=latest_tax.pk %}">#}
+{#                        <div class="wrapper">#}
+{#                            <p>Връщане на Данъци от САЩ</p>#}
+{#                        </div>#}
+{#                    </a>#}
+{#                {% else %}#}
+                    <a class="attention" href="{% url 'list tax' pk=user.id %}">
                         <div class="wrapper">
                             <p>Връщане на Данъци от САЩ</p>
                         </div>
                     </a>
-                {% endif %}
+{#                {% endif %}#}
 
 
                 <a href="{% url 'sign out' %}">
