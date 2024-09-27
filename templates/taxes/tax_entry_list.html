@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Вашите формуляри</h1>
-    <ul>
+    <h1 id="your-tax-header">Вашите формуляри</h1>
+    <ul class="table">
         {% if tax_list %}
             <a class="rgt-mrg-10 align-center" style="display: flex" href="{% url 'add tax' %}"><?xml version="1.0" encoding="UTF-8"?>
                     <svg width="24px" height="24px" viewBox="0 0 24 24" stroke-width="1.5" fill="none"
@@ -118,9 +118,9 @@
             {% endfor %}
         {% else %}
             <h3 class="mrg-20">В момента няма въведени формуляри.</h3>
-            <h3 class="mrg-20">Искате ли да подадете заявление за връщане на данъци?</h3>
+            <h3 class="mrg-20">Искаш ли да подадеш заявление за връщане на данъци?</h3>
             <div class="row">
-                <h3 class="mrg-20">Използвайте бутона по-долу.</h3><a class="query-btn slider-btn white-txt"
+                <h3 class="mrg-20">Използвай бутона по-долу.</h3><a class="query-btn slider-btn white-txt"
                                                                       href="{% url 'add tax' %}">
                 Подай заявление</a>
             </div>

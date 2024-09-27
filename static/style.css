@@ -4902,8 +4902,6 @@ footer a:hover {
     }
 
     .query-btn {
-        width: calc(122px * 0.6);
-        border-radius: 6px;
     }
 
     .button-part button {
@@ -4917,7 +4915,6 @@ footer a:hover {
     #message-section {
         background: var(--white-color);
         border-radius: 14px;
-        position: absolute;
         top: 550px;
         display: flex;
         justify-content: center;
@@ -4929,7 +4926,6 @@ footer a:hover {
 
     #message-section .message-frame {
         width: 500px;
-        height: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -8565,9 +8561,10 @@ footer a:hover {
 @media screen and (max-width: 800px) {
     .container-row {
         width: 100%;
-        margin: 50px 0;
-        gap: 50px;
-        justify-content: flex-start
+        margin: 39px 0;
+        gap: 0;
+        justify-content: flex-start;
+        flex-direction: column;
     }
 }
 
@@ -8602,9 +8599,25 @@ aside {
     background-color: lightgray;
 }
 
-/*#tax-submit-button {*/
-/*    margin-bottom: 50px;*/
-/*}*/
+#tax-submit-button {
+    display: flex;
+    position: relative;
+}
+
+#tax-submit-button-resp {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    #tax-submit-button {
+        display: none;
+    }
+
+    #tax-submit-button-resp {
+        display: flex;
+        margin-top: 6px;
+    }
+}
 
 #progress-button {
     margin-bottom: 50px;
@@ -8675,23 +8688,9 @@ aside #progress p {
     /*filter: drop-shadow(30px 10px 4px #4444dd);*/
 }
 
-.taxes-section form#resp {
-    display: none;
-    flex-direction: column;
-    gap: 25px;
-}
-
 @media screen and (max-width: 800px) {
     .taxes-section form.norm {
-        display: none;
-    }
-
-    .taxes-section form#resp {
-        display: flex;
-    }
-
-    .taxes-section form#resp h2 {
-        text-align: center;
+        padding: 0;
     }
 }
 
@@ -8705,20 +8704,6 @@ aside #progress p {
 
 .taxes-section form#resp button {
     display: none;
-}
-
-@media screen and (max-width: 800px) {
-    .taxes-section form button {
-        width: 50%;
-    }
-
-    .taxes-section form#resp button {
-        display: flex;
-    }
-
-    .taxes-section form.norm button {
-        display: none;
-    }
 }
 
 .taxes-section .row {
@@ -8765,6 +8750,12 @@ aside #progress p {
     align-items: flex-start;
 }
 
+@media screen and (max-width: 800px) {
+    .tax-content {
+        align-items: center;
+    }
+}
+
 .tax-content-resp {
     display: none;
     flex-direction: column;
@@ -8781,6 +8772,12 @@ aside #progress p {
 
 .tax-content .query-btn {
     cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+    .tax-content .query-btn {
+        text-align: center;
+    }
 }
 
 .query-btn:hover {
@@ -8800,11 +8797,17 @@ aside #progress p {
 
     .taxes-section .row {
         flex-direction: column;
-        gap: 0;
+        gap: 10px;
+        align-items: flex-start;
     }
 
     .taxes-section .row p {
         width: 100%;
+        align-items: center;
+    }
+
+    .taxes-section .row label {
+        text-align: center;
     }
 }
 
@@ -8836,6 +8839,7 @@ aside #progress p {
     font-size: 22px;
     gap: 12px;
 }
+
 .two-line-label {
     line-height: 15px;
 }
@@ -8878,14 +8882,15 @@ label[for="id_stat_docs"]:hover {
     padding: 0;
     margin: 0;
 }
+
 .docs-attr {
     padding: 20px 10px;
 }
 
 @media screen and (max-width: 800px) {
     .table-container {
-        width: 80%; /* Set a fixed width for the container */
-        margin: 100px 0 80px 0;
+        width: 100%; /* Set a fixed width for the container */
+        margin: 20px 0 20px 0;
     }
 }
 
@@ -9137,6 +9142,12 @@ a {
     margin-top: 50px;
 }
 
+@media screen and (max-width: 800px) {
+    .mrg-top-50 {
+        margin-top: 20px;
+    }
+}
+
 .rgt-mrg-10 {
     margin-right: 10px;
 }
@@ -9281,9 +9292,17 @@ a {
 .vert-line {
     border: 0.5px solid #808080;
 }
+
 .left-panel {
     width: 12%;
     background-color: #00355E;
+}
+
+@media screen and (max-width: 800px) {
+    .left-panel {
+        width: 100%;
+
+    }
 }
 
 .flex-centered-row {
@@ -9318,9 +9337,22 @@ a {
     width: 100%;
 }
 
+@media screen and (max-width: 800px) {
+    .width-100 {
+        width: 50%;
+        padding-bottom: 5px;
+    }
+}
+
 .hr-line-30 {
     width: 30%;
     border: 1px solid #888888;
+}
+
+@media screen and (max-width: 800px) {
+    .hr-line-30 {
+        display: none;
+    }
 }
 
 .hr-line-55 {
@@ -9353,7 +9385,7 @@ a {
 }
 
 l {
-    font-style: italic ;
+    font-style: italic;
 }
 
 .blue-text {
@@ -9378,6 +9410,12 @@ l {
 
 .padding-0-50 {
     padding: 0 50px;
+}
+
+@media screen and (max-width: 800px) {
+    .padding-0-50 {
+        padding: 0 80px;
+    }
 }
 
 #steps-completed {
@@ -9421,3 +9459,61 @@ l {
     display: flex;
     align-items: center;
 }
+
+#your-tax-header {
+    color: black;
+}
+
+@media screen and (max-width: 800px) {
+    #your-tax-header {
+        padding-top: 60px;
+    }
+}
+
+.table {
+    border-radius: 1px;
+}
+
+@media screen and (max-width: 800px) {
+    .table {
+        width: 80%;
+        padding: 0;
+    }
+
+    #norm div.row-legend div.row h2 {
+        margin: 0 0 10px 0;
+    }
+
+    #norm div.row-legend div.row svg {
+        display: none;
+    }
+
+    .row .row {
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+    }
+
+}
+
+.text-centered {
+    text-align: center;
+}
+
+#norm-text {
+    display: flex;
+}
+
+#resp-text {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    #norm-text {
+        display: none;
+    }
+    #resp-text {
+        display: flex;
+    }
+}
+

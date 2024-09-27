@@ -1,8 +1,16 @@
+import datetime
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from aimtravel_site.web.models import City
 
 UserModel = get_user_model()
+
+
+def get_current_year():
+    date = datetime.date.today()
+    year = date.year
+    return year
 
 
 def upload_to_path(instance, filename):
@@ -20,10 +28,11 @@ class Taxes(models.Model):
     EMAIL = 50
     PHONE = 15
     YEAR = (
-        ('2020', '2020'),
-        ('2021', '2021'),
-        ('2022', '2022'),
-        ('2023', '2023'),
+        (f'{get_current_year()}', f'{get_current_year()}'),
+        (f'{get_current_year() - 1}', f'{get_current_year() - 1}'),
+        (f'{get_current_year() - 2}', f'{get_current_year() - 2}'),
+        (f'{get_current_year() - 3}', f'{get_current_year() - 3}'),
+        (f'{get_current_year()-4}', f'{get_current_year()-4}')
     )
     VISA = (
         ('J1', 'J1'),
@@ -217,6 +226,20 @@ class Taxes(models.Model):
         null=True,
     )
     w2_form_used = models.BooleanField(default=False)
+    w2_lpc_e3 = models.FileField(
+        upload_to=upload_to_path,
+        verbose_name='Последен чек/W2 (работодател 3)',
+        blank=True,
+        null=True,
+    )
+    w2_lpc_e3_used = models.BooleanField(default=False)
+    w2_lpc_e4 = models.FileField(
+        upload_to=upload_to_path,
+        verbose_name='Последен чек/W2 (работодател 4)',
+        blank=True,
+        null=True,
+    )
+    w2_lpc_e4_used = models.BooleanField(default=False)
     bank_account_screenshot = models.FileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
@@ -289,6 +312,14 @@ class Taxes(models.Model):
             self.w2_form_used = True
         else:
             self.w2_form_used = False
+        if self.w2_lpc_e3:
+            self.w2_lpc_e3_used = True
+        else:
+            self.w2_lpc_e3_used = False
+        if self.w2_lpc_e4:
+            self.w2_lpc_e4_used = True
+        else:
+            self.w2_lpc_e4_used = False
         if self.bank_account_screenshot:
             self.bank_account_screenshot_used = True
         else:

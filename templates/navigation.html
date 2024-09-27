@@ -192,7 +192,7 @@
         </div>
         <ul id="ham-but-content">
             <li>
-                <div id="home-page" >
+                <div id="home-page">
                     <div class="main-element-header">
                         <a href="{% url 'index' %}">НАЧАЛО</a>
                     </div>
@@ -200,7 +200,7 @@
 
             </li>
             <li>
-                <div class="main-element" id="wat-usa" >
+                <div class="main-element" id="wat-usa">
                     <div class="main-element-header">
                         <p>Бригада САЩ</p>
                         <div class="arrow-down">
@@ -299,6 +299,29 @@
                         <p>Контакти</p>
                     </div>
                 </a>
+            </li>
+            <li>
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser %}
+                        <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">
+                            <div class="main-element-header">
+                                <p>Admin</p>
+                            </div>
+                        </a>
+                    {% else %}
+                        <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">
+                            <div class="main-element-header">
+                                <p>Профил</p>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a id="top-header-right-login-p1" href="{% url 'sign in' %}">
+                        <div class="main-element-header">
+                            <p>Login</p>
+                        </div>
+                    </a>
+                {% endif %}
             </li>
             <li class="nav-button">
                 <div>

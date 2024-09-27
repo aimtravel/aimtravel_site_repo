@@ -163,13 +163,10 @@ class TaxEntryListView(LoginRequiredMixin, views.ListView):
 
 
 def pre_add_tax(request):
-    latest_tax = None
-
-    if request.user.is_authenticated:
-        latest_tax = get_object_or_404(Taxes, user=request.user)
-
-    return render(request, 'taxes/pre-add-taxes.html', {'latest_tax': latest_tax})
-
+    if UserModel:
+        return render(request, 'taxes/pre-add-taxes.html')
+    else:
+        return render(request, 'user_auth/auth_page.html')
 
 # def add_image_to_pdf(pdf_buffer, image_path, x, y, width, height):
 #     """

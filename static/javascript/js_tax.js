@@ -631,7 +631,7 @@ function statusBankInfo() {
         statusBankInfoCat.classList.remove('green-color');
     }
 
-    addGreenRedBorder(fieldsArray);
+    // addGreenRedBorder(fieldsArray);
 
 }
 
@@ -652,13 +652,13 @@ function statusAttachments() {
     ]
 
     if (!fieldPassportDoc.checked && !fieldVisaDoc.checked &&
-        !fieldSsnDoc.checked && !fieldW2.checked && !fieldSignedContract.checked) {
+        !fieldSsnDoc.checked && !fieldPayCheckDoc.checked && !fieldSignedContract.checked) {
         is_done.value = 'no';
         statusAttachmentsCat.classList.add('red-color');
         statusAttachmentsCat.classList.remove('yellow-color');
         statusAttachmentsCat.classList.remove('green-color');
     } else if (fieldPassportDoc.checked && fieldVisaDoc.checked &&
-        fieldSsnDoc.checked && fieldW2.checked && fieldSignedContract.checked) {
+        fieldSsnDoc.checked && fieldPayCheckDoc.checked && fieldSignedContract.checked) {
         is_done.value = 'yes';
         statusAttachmentsCat.classList.add('green-color');
         statusAttachmentsCat.classList.remove('red-color');
@@ -834,25 +834,25 @@ function changeStatus() {
 
 }
 
-function hideBankDetails() {
-    let checker = document.getElementById('id_american_bank_account');
-    let divBankDetails = document.getElementById('bank-sub-category');
-    let accountHolder = document.getElementById('id_account_holder');
-    let routingNumber = document.getElementById('id_routing_number');
-    let accountNumber = document.getElementById('id_account_number');
-
-    if (checker.value === "No") {
-        divBankDetails.classList.add("disabled");
-        accountNumber.classList.add("grey-border")
-        accountNumber.classList.remove('red-border')
-        accountHolder.classList.add("grey-border")
-        accountHolder.classList.remove('red-border')
-        routingNumber.classList.add("grey-border")
-        routingNumber.classList.remove('red-border')
-    } else if (checker.value === 'Yes') {
-        divBankDetails.classList.remove("disabled");
-    }
-}
+// function hideBankDetails() {
+//     let checker = document.getElementById('id_american_bank_account');
+//     let divBankDetails = document.getElementById('bank-sub-category');
+//     let accountHolder = document.getElementById('id_account_holder');
+//     let routingNumber = document.getElementById('id_routing_number');
+//     let accountNumber = document.getElementById('id_account_number');
+//
+//     if (checker.value === "No") {
+//         divBankDetails.classList.add("disabled");
+//         accountNumber.classList.add("grey-border")
+//         accountNumber.classList.remove('red-border')
+//         accountHolder.classList.add("grey-border")
+//         accountHolder.classList.remove('red-border')
+//         routingNumber.classList.add("grey-border")
+//         routingNumber.classList.remove('red-border')
+//     } else if (checker.value === 'Yes') {
+//         divBankDetails.classList.remove("disabled");
+//     }
+// }
 
 function progressPercents() {
     let progressReg = document.getElementById('progress-registry');
@@ -997,7 +997,7 @@ window.onload = function () {
     statusTravelInfo();
     statusEmployerInfo();
     statusBankInfo();
-    hideBankDetails();
+    // hideBankDetails();
     statusAttachments();
     statusPersonalInfoChecker();
     statusAttachmentsChecker();
