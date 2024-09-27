@@ -1,4 +1,5 @@
 import datetime
+from private_storage.fields import PrivateFileField
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -186,7 +187,7 @@ class Taxes(models.Model):
     comments = models.TextField(blank=True, null=True)
     bank_info_done = models.CharField(max_length=3, blank=True, null=True, default='no')
 
-    passport_copy = models.FileField(
+    passport_copy = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Копие на паспорт',
@@ -194,7 +195,7 @@ class Taxes(models.Model):
         null=True,
     )
     passport_copy_used = models.BooleanField(default=False)
-    visa_copy = models.FileField(
+    visa_copy = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Копие на виза',
@@ -202,7 +203,7 @@ class Taxes(models.Model):
         null=True,
     )
     visa_copy_used = models.BooleanField(default=False)
-    ssn_copy = models.FileField(
+    ssn_copy = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Копие на Social Security',
@@ -210,7 +211,7 @@ class Taxes(models.Model):
         null=True,
     )
     ssn_copy_used = models.BooleanField(default=False)
-    last_paycheck_doc = models.FileField(
+    last_paycheck_doc = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Последни чекове',
@@ -218,7 +219,7 @@ class Taxes(models.Model):
         null=True,
     )
     last_paycheck_doc_used = models.BooleanField(default=False)
-    w2_form = models.FileField(
+    w2_form = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='W2 форма',
@@ -226,21 +227,21 @@ class Taxes(models.Model):
         null=True,
     )
     w2_form_used = models.BooleanField(default=False)
-    w2_lpc_e3 = models.FileField(
+    w2_lpc_e3 = PrivateFileField(
         upload_to=upload_to_path,
         verbose_name='Последен чек/W2 (работодател 3)',
         blank=True,
         null=True,
     )
     w2_lpc_e3_used = models.BooleanField(default=False)
-    w2_lpc_e4 = models.FileField(
+    w2_lpc_e4 = PrivateFileField(
         upload_to=upload_to_path,
         verbose_name='Последен чек/W2 (работодател 4)',
         blank=True,
         null=True,
     )
     w2_lpc_e4_used = models.BooleanField(default=False)
-    bank_account_screenshot = models.FileField(
+    bank_account_screenshot = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Screenshot на банковата ти сметка,потвържващ че ти си собственик на сметката',
@@ -248,7 +249,7 @@ class Taxes(models.Model):
         null=True,
     )
     bank_account_screenshot_used = models.BooleanField(default=False)
-    us_document_copy = models.FileField(
+    us_document_copy = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
         verbose_name='Снимка на ID от САЩ/Американска Шофьорска книжка (само ако имате)',
@@ -256,10 +257,10 @@ class Taxes(models.Model):
         null=True,
     )
     us_document_copy_used = models.BooleanField(default=False)
-    signed_and_scanned_contract = models.FileField(
+    signed_and_scanned_contract = PrivateFileField(
         upload_to=upload_to_path,
         # upload_to=f'tax_documents/{first_name}_{middle_name}_{family_name}/',
-        verbose_name='Подписан и сканиран договор',
+        verbose_name='Подписан договор',
         blank=True,
         null=True,
     )

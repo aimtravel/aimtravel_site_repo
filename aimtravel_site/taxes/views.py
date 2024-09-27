@@ -13,7 +13,7 @@ from django.utils import timezone, html
 
 import xlwt
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404, FileResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import smart_str
@@ -34,6 +34,40 @@ from aimtravel_site.taxes.models import *
 from aimtravel_site.posting.models import News
 
 UserModel = get_user_model()
+
+
+VALID_FILE_FIELDS = [
+    'passport_copy',
+    'visa_copy',
+    'ssn_copy',
+    'last_paycheck_doc',
+    'w2_form',
+    'w2_lpc_e3',
+    'w2_lpc_e4',
+    'bank_account_screenshot',
+    'us_document_copy',
+    'signed_and_scanned_contract'
+]
+
+
+def private_storage_permissions(request, field_name, private_file):
+    if field_name not in VALID_FILE_FIELDS:
+        raise Http404('Invalid field')
+
+    try:
+        tax = Taxes.objects.get(**{field_name: private_file})
+
+        file_field = getattr(tax, field_name, None)
+
+        if file_field and (request.user == tax.user or request.user.is_superuser):
+            file_path = file_field.path
+            return FileResponse(open(file_path, 'rb'), as_attachment=True)
+        else:
+            raise Http404("You are not allowed to view this file.")
+    except Taxes.DoesNotExist:
+        raise Http404("File not found")
+    except ValueError:
+        raise Http404("Invalid field")
 
 
 class TaxMainView(views.ListView):

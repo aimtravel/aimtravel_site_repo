@@ -21,6 +21,7 @@ urlpatterns = (
     # path('update-taxes/', update_taxes, name='update-taxes'),
     path('success/<int:taxes_pk>/', success_page_view, name='success_tax'),
     path('admin-success/<int:taxes_pk>/', admin_success_page_view, name='admin_success_tax'),
+    path('serve/private/file/<str:field_name>/<path:private_file>/', private_storage_permissions, name='serve_private_file')
 )
 
 from .signals import *

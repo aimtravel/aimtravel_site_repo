@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wkhtmltopdf',
+    'private_storage',
 
     'aimtravel_site',
 
@@ -171,6 +172,9 @@ DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PRIVATE_STORAGE_ROOT = os.path.join(BASE_DIR, 'private_media')
+PRIVATE_STORAGE_AUTH_FUNCTION = 'aimtravel_site.taxes.views.private_storage.permissions'   # Customize permission check
 
 # CKEDITOR_BASEPATH = "https://cdn.ckeditor.com/4.16.0/standard/"
 # CKEDITOR_UPLOAD_PATH = "uploads/"  # Define the path where uploaded files will be stored.
