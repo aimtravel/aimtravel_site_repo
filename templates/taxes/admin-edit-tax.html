@@ -566,35 +566,6 @@
                                         </p>
                                     </div>
 
-                                    <div class="oval-border align-left">
-                                        <input hidden type="checkbox"
-                                               name="{{ form.bank_account_screenshot_used.name }}"
-                                               id="{{ form.bank_account_screenshot_used.id_for_label }}"
-                                               {% if form.bank_account_screenshot_used.value %}checked{% endif %}>
-
-                                        <input type="file" name="{{ form.bank_account_screenshot.name }}"
-                                               id="{{ form.visa_copy.id_for_label }}">
-                                        <label for="{{ form.bank_account_screenshot.id_for_label }}">Скрийншот на
-                                            Американската
-                                            ви банкова сметка, ако имате такава</label>
-                                        {% if form.bank_account_screenshot.value %}
-                                            <div class="row">
-                                                <p class="no-margin-padding">Качено успешно:</p>
-                                                <a href="{{ form.bank_account_screenshot.value.url }}" target="_blank">Скрийншот
-                                                    на банкова
-                                                    сметка</a>
-                                                <div class="row">
-                                                    <input type="checkbox"
-                                                           name="{{ form.bank_account_screenshot_clear.name }}"
-                                                           id="{{ form.bank_account_screenshot_clear.id_for_label }}">
-                                                    <label for="{{ form.bank_account_screenshot_clear.id_for_label }}">Изтрии
-                                                        файла</label><br>
-
-                                                </div>
-                                            </div>
-
-                                        {% endif %}
-                                    </div>
                                 </div>
                                 <br>
                                 {% if not form.is_sent.value %}
@@ -682,7 +653,7 @@
                                     {% if form.signed_and_scanned_contract.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.signed_and_scanned_contract.value.url }}"
+                                            <a href="{% url 'serve_private_file' form.signed_and_scanned_contract.name form.signed_and_scanned_contract.value %}"
                                                target="_blank">Подписан договор</a>
                                             <div class="row">
                                                 <input type="checkbox"
@@ -712,7 +683,8 @@
                                     {% if form.passport_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.passport_copy.value.url }}" target="_blank">Копие от
+                                            <a href="{% url 'serve_private_file' form.passport_copy.name form.passport_copy.value %}"
+                                               target="_blank">Копие от
                                                 паспорта</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.passport_copy_clear.name }}"
@@ -741,7 +713,8 @@
                                     {% if form.visa_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.visa_copy.value.url }}" target="_blank">Копие от визата</a>
+                                            <a href="{% url 'serve_private_file' form.visa_copy.name form.visa_copy.value %}"
+                                               target="_blank">Копие от визата</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.visa_copy_clear.name }}"
                                                        id="{{ form.visa_copy_clear.id_for_label }}">
@@ -769,7 +742,8 @@
                                     {% if form.ssn_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.ssn_copy.value.url }}" target="_blank">Копие от Social
+                                            <a href="{% url 'serve_private_file' form.ssn_copy.name form.ssn_copy.value %}"
+                                               target="_blank">Копие от Social
                                                 Security</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.ssn_copy_clear.name }}"
@@ -798,8 +772,9 @@
                                     {% if form.last_paycheck_doc.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.last_paycheck_doc.value.url }}" target="_blank">Последен
-                                                чек/W2</a>
+                                            <a href="{% url 'serve_private_file' form.last_paycheck_doc.name form.last_paycheck_doc.value %}"
+                                               target="_blank">Последен
+                                                чек/W2*</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.last_paycheck_doc_clear.name }}"
                                                        id="{{ form.last_paycheck_doc_clear.id_for_label }}">
@@ -812,6 +787,25 @@
                                     {% endif %}
                                 </div>
                                 <br>
+                                <div class="row">
+                                    <div class="attention sm">
+                                        <?xml version="1.0" encoding="UTF-8"?>
+                                        <svg width="20px" height="20px" viewBox="0 0 24 24" stroke-width="1.8"
+                                             fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                            <path d="M12 9V12" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M12 16.01L12.01 15.9989" stroke="#000000" stroke-width="1.8"
+                                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                                            <path d="M2 8L11.7317 3.13416C11.9006 3.04971 12.0994 3.0497 12.2683 3.13416L22 8"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                            <path d="M20 11V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V11"
+                                                  stroke="#000000" stroke-width="1.8" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                        <span>Ако имаш последен чек или W2 от повече от един работодател, можеш да ги прикачиш на съответните полета по-долу.</span>
+                                    </div>
+                                </div>
 
                                 <div class="align-left">
                                     <label for="{{ form.w2_form.id_for_label }}">Последен
@@ -826,7 +820,7 @@
                                     {% if form.w2_form.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.w2_form.value.url }}" target="_blank">Последен
+                                            <a href="{% url 'serve_private_file' form.w2_form.name form.w2_form.value %}" target="_blank">Последен
                                                 чек/W2 (работодател 2)</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.w2_form_clear.name }}"
@@ -854,7 +848,7 @@
                                     {% if form.w2_lpc_e3.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.w2_lpc_e3.value.url }}" target="_blank">Последен
+                                            <a href="{% url 'serve_private_file' form.w2_lpc_e3.name form.w2_lpc_e3.value %}" target="_blank">Последен
                                                 чек/W2 (работодател 3)</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.w2_lpc_e3_clear.name }}"
@@ -881,7 +875,7 @@
                                     {% if form.w2_lpc_e4.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.w2_lpc_e4.value.url }}" target="_blank">Последен
+                                            <a href="{% url 'serve_private_file' form.w2_lpc_e4.name form.w2_lpc_e4.value %}" target="_blank">Последен
                                                 чек/W2 (работодател 4)</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.w2_lpc_e4_clear.name }}"
@@ -910,7 +904,7 @@
                                     {% if form.bank_account_screenshot.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.bank_account_screenshot.value.url }}" target="_blank">Скрийншот
+                                            <a href="{% url 'serve_private_file' form.bank_account_screenshot.name form.bank_account_screenshot.value %}" target="_blank">Скрийншот
                                                 на банкова
                                                 сметка</a>
                                             <div class="row">
@@ -941,7 +935,7 @@
                                     {% if form.us_document_copy.value %}
                                         <div class="row">
                                             <p class="no-margin-padding">Качено успешно:</p>
-                                            <a href="{{ form.us_document_copy.value.url }}" target="_blank">Американско
+                                            <a href="{% url 'serve_private_file' form.us_document_copy.name form.us_document_copy.value %}" target="_blank">Американско
                                                 ID</a>
                                             <div class="row">
                                                 <input type="checkbox" name="{{ form.us_document_copy_clear.name }}"
