@@ -884,6 +884,15 @@ nav a:hover {
     justify-content: center;
 }
 
+.background-gradient-intern {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(180deg, #D9D9D9 0%, #000000 0.01%, rgba(0, 0, 0, 0) 35.3%);
+    display: flex;
+    justify-content: center;
+}
+
 
 .slider {
     width: var(--max-width);
@@ -3421,6 +3430,14 @@ main .main-flag2 {
     line-height: normal;
 }
 
+.service-intern {
+    width: 30%;
+    font-family: 'Jost', sans-serif;
+    font-style: normal;
+    font-weight: 450;
+    line-height: normal;
+}
+
 @media screen and (max-width: 800px) {
     #service-container .row {
         margin-top: 20px;
@@ -3435,6 +3452,13 @@ main .main-flag2 {
     flex-direction: column;
     justify-content: flex-start;
 }
+
+#service-container .row .service-intern {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 
 .service .icon {
     width: 50px;
@@ -3456,6 +3480,26 @@ main .main-flag2 {
 
 }
 
+.service-intern .icon {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    background-color: #F0F0F0;
+    border: 1px solid var(--white-color);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.service-intern .icon img {
+    position: relative;
+    bottom: 40px;
+    width: 100px;
+    height: 100px;
+
+}
+
 @media screen and (max-width: 800px) {
     #service-container .row .service {
         display: none;
@@ -3466,6 +3510,17 @@ main .main-flag2 {
         margin-top: 30px;
         transition: display 0.5s ease-in-out;
     }
+
+    #service-container .row .service-intern {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        margin-top: 30px;
+        transition: display 0.5s ease-in-out;
+    }
+
+
 
     #service-container .row .service#service1 {
         display: flex;
@@ -3478,6 +3533,19 @@ main .main-flag2 {
     }
 
     .service .icon img {
+        bottom: 30px;
+        width: calc(100px * 0.7);
+        height: calc(100px * 0.7);
+
+    }
+
+    .service-intern .icon {
+        width: calc(50px * 0.7);
+        height: calc(50px * 0.7);
+        margin-bottom: 10px;
+    }
+
+    .service-intern .icon img {
         bottom: 30px;
         width: calc(100px * 0.7);
         height: calc(100px * 0.7);
@@ -3505,6 +3573,22 @@ main .main-flag2 {
     margin: 0;
 }
 
+.service-intern .service-header h1 {
+    font-size: var(--font-20);
+    letter-spacing: 0.6px;
+    font-weight: 500;
+    color: var(--blue-color);
+    margin: 10px 0 5px 0;
+}
+
+.service-intern .service-description p {
+    font-weight: 400;
+    font-size: var(--font-20);
+    letter-spacing: 0.6px;
+    color: #000000;
+    margin: 0;
+}
+
 @media screen and (max-width: 800px) {
     .service .service-header h1 {
         font-size: calc(var(--font-20) * 0.7);
@@ -3514,6 +3598,20 @@ main .main-flag2 {
     }
 
     .service .service-description p {
+        font-size: calc(var(--font-20) * 0.7);
+        letter-spacing: 0.4px;
+        text-align: justify-all;
+        margin-top: 5px;
+    }
+
+    .service-intern .service-header h1 {
+        font-size: calc(var(--font-20) * 0.7);
+        letter-spacing: 0.4px;
+        margin: 0;
+        text-align: center;
+    }
+
+    .service-intern .service-description p {
         font-size: calc(var(--font-20) * 0.7);
         letter-spacing: 0.4px;
         text-align: justify-all;
@@ -3868,6 +3966,31 @@ footer a:hover {
 
 
 /* JOB OFFERS PAGE */
+.intern-background {
+    background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/offers_page.jpg');
+}
+
+.h2b-background {
+    background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/online-background.JPG');
+}
+
+.position-rel {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: -130px;
+    width: 100%;
+    height: calc(882px * 0.75);
+    z-index: 1;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 0 0 50% 50% / 0 0 15% 15%;
+    box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.4);
+    color: var(--white-color);
+    text-align: center;
+    font-family: Jost, sans-serif;
+    font-style: normal;
+}
 
 .offers-background {
     display: flex;
@@ -3962,6 +4085,18 @@ footer a:hover {
 #offers-video {
     position: absolute;
     top: calc(550px * 0.85);
+    font-family: 'Jost', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0.03em;
+    color: var(--white-color);
+    z-index: 1;
+}
+
+#offers-video-intern {
+    position: absolute;
+    top: calc(380px * 0.85);
     font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -6017,6 +6152,22 @@ footer a:hover {
     text-transform: uppercase;
 }
 
+#wat-usa-header-intern .offers-background {
+    background-image: linear-gradient(342.11deg, #000000 7.36%, rgba(40, 21, 21, 0) 57.67%), url('../static/img/Ready-stock/WEBP version/hero-banner-wat-usa.jpg');
+    width: 100%;
+    color: var(--white-color);
+    text-align: center;
+    text-shadow: 4px 4px 25px #1E1E1E;
+    font-family: Jost, sans-serif;
+    font-size: var(--font-70);
+    font-style: normal;
+    font-weight: 600;
+    line-height: 85px;
+    letter-spacing: 2.1px;
+    text-transform: uppercase;
+
+}
+
 #wat-usa-header #text-container {
     width: calc(1379px * 0.75);
 }
@@ -6033,6 +6184,11 @@ footer a:hover {
     }
 
     #wat-usa-header .offers-background {
+        width: 100%;
+        height: 230px;
+    }
+
+    #wat-usa-header-intern .offers-background {
         width: 100%;
         height: 230px;
     }
@@ -6072,11 +6228,14 @@ footer a:hover {
 }
 
 #general-section {
+    display: flex;
+    justify-content:center;
     margin-top: calc(90px * 0.75);;
     margin-bottom: calc(90px * 0.75);
 }
 
 .general-section-container {
+    width: 100%;
     padding: 0 80px;
     display: flex;
     flex-direction: row;
@@ -6102,6 +6261,18 @@ footer a:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 60px;
+
+    border-radius: 10px;
+    background: var(--white-color);
+    box-shadow: 4px 4px 50px 0px rgba(0, 0, 0, 0.06);
+}
+
+.internship-text-container {
+    width: 80%;
+    display: flex;
+    padding: 32px 24px;
+    flex-direction: column;
+    align-items: center;
 
     border-radius: 10px;
     background: var(--white-color);
@@ -6237,6 +6408,20 @@ footer a:hover {
 
     position: relative;
     left: 5px;
+}
+
+#icon4 {
+    width: calc(82px * 0.75);
+    height: calc(83px * 0.75);
+
+    position: relative;
+}
+
+#icon5 {
+    width: 50px;
+    height: 50px;
+
+    position: relative;
 }
 
 .information-container h4 {
@@ -6416,6 +6601,16 @@ footer a:hover {
     overflow: hidden;
 }
 
+.price-container-intern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    border: 1.5px solid var(--gray-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
 .price-container-header {
     background: var(--gray-color);
     color: var(--red-color);
@@ -6456,7 +6651,7 @@ footer a:hover {
 
 .price-container-text h3 {
     margin: 0;
-    padding: 19px 0 0 0;
+    padding: 19px 0 15px 0;
     font-size: var(--font-28);
 }
 
@@ -6481,6 +6676,9 @@ footer a:hover {
     font-weight: 500;
     line-height: normal;
     letter-spacing: 0.66px;
+}
+.option-list {
+    padding-right: 20px;
 }
 
 .option-list li {
@@ -6671,13 +6869,15 @@ footer a:hover {
 }
 
 #financial-option-section {
-    margin-bottom: 50px;
+    margin-bottom: 0;
     padding: 40px 0;
 }
 
 #financial-inner-container {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 #text-information {
@@ -6733,8 +6933,8 @@ footer a:hover {
 
 #picture-information img {
     position: absolute;
-    top: -290px;
-    left: -240px;
+    top: -80px;
+    left: -460px;
     width: calc(1196px * 0.75);
     height: calc(795px * 0.75);
     z-index: -1;
@@ -6749,7 +6949,7 @@ footer a:hover {
 
     #financial-inner-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
     }
 
@@ -9325,6 +9525,12 @@ a {
     width: 60%;
 }
 
+@media screen and (max-width: 800px) {
+    .width-60 {
+        width: 100%;
+    }
+}
+
 .width-80 {
     width: 80%;
 }
@@ -9496,6 +9702,12 @@ l {
 
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
 .text-centered {
     text-align: center;
 }
@@ -9512,8 +9724,22 @@ l {
     #norm-text {
         display: none;
     }
+
     #resp-text {
         display: flex;
     }
+}
+
+.qr-code {
+    width: 200px;
+    height: 200px;
+}
+
+#wat-usa-header-intern {
+    width: 100%;
+}
+
+#intern-container {
+    width: 100%;
 }
 

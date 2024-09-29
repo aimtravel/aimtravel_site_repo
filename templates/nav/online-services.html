@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIM Travel - Online-services</title>
-    <meta name="description" content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
-    <meta name="keywords" content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
+    <meta name="description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta name="keywords"
+          content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
     <meta name="cta-action" content="Sign Up Now for an Adventure">
 
-    <meta property="og:title" content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
-    <meta property="og:description" content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta property="og:title"
+          content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
+    <meta property="og:description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
     <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
     <meta property="og:url" content="https://www.aimtravel.bg">
 
@@ -349,10 +353,10 @@
                     <h1>Полезни Връзки</h1>
                 </div>
                 <div id="links-useful-links">
-                    <a href="">Работни Оферти</a>
-                    <a href="">Колко Струва да отида на Бригада</a>
-                    <a href="">Истории на Студенти</a>
-                    <a href="">Най-често Срещани Въпроси</a>
+                    <a href="{% url 'offers' %}">Работни Оферти</a>
+                    <a href="{% url 'wat usa' %}#price-section">Колко Струва да отида на Бригада</a>
+                    <a href="{% url 'story' %}">Истории на Студенти</a>
+                    <a href="{% url 'wat usa' %}#faq-section">Най-често Срещани Въпроси</a>
                 </div>
             </div>
             <div class="general-section-image-container">

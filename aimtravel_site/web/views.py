@@ -104,6 +104,62 @@ class WatUsaView(views.ListView):
         return context
 
 
+class InternshipView(views.ListView):
+    template_name = 'nav/internship.html'
+    context_object_name = 'internship'
+
+    def get_queryset(self):
+        faq = Faq.objects.all()
+        return faq
+
+    def get_faq(self):
+        return Faq.objects.all()
+
+    def get_main_feedback(self):
+        return MainFeedback.objects.order_by('-id')[:3]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        faq = self.get_faq()
+        main_feedback = self.get_main_feedback()
+
+        context = {
+            'faq': faq,
+            'main_feedback': main_feedback,
+        }
+
+        return context
+
+
+class H2BView(views.ListView):
+    template_name = 'nav/h2b-for-non-students.html'
+    context_object_name = 'h2b'
+
+    def get_queryset(self):
+        faq = Faq.objects.all()
+        return faq
+
+    def get_faq(self):
+        return Faq.objects.all()
+
+    def get_main_feedback(self):
+        return MainFeedback.objects.order_by('-id')[:3]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        faq = self.get_faq()
+        main_feedback = self.get_main_feedback()
+
+        context = {
+            'faq': faq,
+            'main_feedback': main_feedback,
+        }
+
+        return context
+
+
 def contacts(request):
     return render(request, template_name='nav/contacts.html')
 
