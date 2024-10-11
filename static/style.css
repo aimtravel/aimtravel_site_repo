@@ -3521,7 +3521,6 @@ main .main-flag2 {
     }
 
 
-
     #service-container .row .service#service1 {
         display: flex;
     }
@@ -3978,7 +3977,7 @@ footer a:hover {
     display: flex;
     flex-direction: row;
     position: relative;
-    top: -130px;
+    top: -160px;
     width: 100%;
     height: calc(882px * 0.75);
     z-index: 1;
@@ -3990,6 +3989,13 @@ footer a:hover {
     text-align: center;
     font-family: Jost, sans-serif;
     font-style: normal;
+}
+
+@media screen and (max-width: 800px) {
+    .position-rel {
+        top: 0;
+        height: 280px;
+    }
 }
 
 .offers-background {
@@ -4048,7 +4054,7 @@ footer a:hover {
 
 #text-container p {
     position: relative;
-    bottom: 60px;
+    bottom: 10px;
     width: 753px;
     color: white;
     font-size: var(--font-24);
@@ -4096,7 +4102,7 @@ footer a:hover {
 
 #offers-video-intern {
     position: absolute;
-    top: calc(380px * 0.85);
+    top: 260px;
     font-family: 'Jost', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -4104,6 +4110,12 @@ footer a:hover {
     letter-spacing: 0.03em;
     color: var(--white-color);
     z-index: 1;
+}
+
+@media screen and (max-width: 800px) {
+    #offers-video-intern {
+        top: 190px;
+    }
 }
 
 #main-offers-video {
@@ -6168,11 +6180,20 @@ footer a:hover {
 
 }
 
-#wat-usa-header #text-container {
+/*#wat-usa-header #text-container {*/
+/*    width: calc(1379px * 0.75);*/
+/*}*/
+
+/*#wat-usa-header #text-container h1 {*/
+/*    margin: 0;*/
+/*    padding: 0 0 10px 0;*/
+/*}*/
+
+#text-container {
     width: calc(1379px * 0.75);
 }
 
-#wat-usa-header #text-container h1 {
+#text-container h1 {
     margin: 0;
     padding: 0 0 10px 0;
 }
@@ -6229,14 +6250,14 @@ footer a:hover {
 
 #general-section {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     margin-top: calc(90px * 0.75);;
     margin-bottom: calc(90px * 0.75);
 }
 
 .general-section-container {
     width: 100%;
-    padding: 0 80px;
+    padding: 0 40px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -6279,6 +6300,15 @@ footer a:hover {
     box-shadow: 4px 4px 50px 0px rgba(0, 0, 0, 0.06);
 }
 
+@media screen and (max-width: 800px) {
+    .internship-text-container {
+        width: 100%;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 32px 10px;
+    }
+}
+
 .general-section-text-container span {
     font-weight: 600;
 }
@@ -6304,6 +6334,11 @@ footer a:hover {
         font-size: calc(var(--font-24) * 0.5);
         line-height: calc(30px * 0.5); /* 166.667% */
         flex-direction: column;
+    }
+
+    .width-80 .general-section-container {
+        padding: 0;
+        text-align: justify;
     }
 
     .general-section-text-container {
@@ -6605,7 +6640,6 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 90%;
     border: 1.5px solid var(--gray-color);
     border-radius: 8px;
     overflow: hidden;
@@ -6677,6 +6711,7 @@ footer a:hover {
     line-height: normal;
     letter-spacing: 0.66px;
 }
+
 .option-list {
     padding-right: 20px;
 }
@@ -6876,7 +6911,7 @@ footer a:hover {
 #financial-inner-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
 }
 
@@ -6980,6 +7015,10 @@ footer a:hover {
 
     #text-information li {
         font-size: 12px;
+    }
+
+    #text-information.internship-selector li {
+        font-size: 16px;
     }
 
     #text-information li span {
@@ -7544,7 +7583,7 @@ footer a:hover {
     font-family: Jost, sans-serif;
     font-style: normal;
     line-height: normal;
-    gap: 120px;
+    gap: 60px;
 }
 
 #online-general-section .general-section-text-container {
@@ -8749,6 +8788,12 @@ footer a:hover {
     margin-top: 540px;
 }
 
+@media screen and (max-width: 800px) {
+    #tax-main {
+        margin-top: 330px;
+    }
+}
+
 .container-row {
     width: 100%;
     display: flex;
@@ -8991,8 +9036,8 @@ aside #progress p {
 @media screen and (max-width: 800px) {
     .taxes-section {
         width: 100%;
-        padding: 20px;
         box-sizing: border-box;
+        padding: 0 30px 0 0;
     }
 
     .taxes-section .row {

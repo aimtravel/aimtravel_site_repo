@@ -30,7 +30,6 @@
                 <th>Social Security Number(SSN)</th>
                 <th>Email</th>
                 <th>Телефон</th>
-                <th>Прикачени документи</th>
                 <th>Статус</th>
                 <th>Стойност Federal</th>
                 <th>Стойност State</th>
@@ -88,25 +87,6 @@
                     <td>{{ tax.social_security }}</td>
                     <td>{{ tax.email }}</td>
                     <td>{{ tax.phone_number }}</td>
-                    <td class="docs-attr">
-                        <p class="table-attribute">Подписан договор: <span
-                                id="contract-color">{{ tax.signed_and_scanned_contract|yesno:"Да,Не" }}</span></p><br>
-                        <p class="table-attribute">Копие от паспорт: <span id="passport-color"
-                                                                           class="color">{{ tax.passport_copy|yesno:"Да,Не" }}</span>
-                        </p><br>
-                        <p class="table-attribute">Копие от виза: <span id="visa-color"
-                                                                        class="color">{{ tax.visa_copy|yesno:"Да,Не" }}</span>
-                        </p><br>
-                        <p class="table-attribute">Копие от SSN: <span id="ssn-color"
-                                                                       class="color">{{ tax.ssn_copy|yesno:"Да,Не" }}</span>
-                        </p><br>
-                        <p class="table-attribute">Последен чек: <span id="paycheck-color"
-                                                                       class="color">{{ tax.last_paycheck_doc|yesno:"Да,Не" }}</span>
-                        </p><br>
-                        <p class="table-attribute">W2 форма: <span id="w2-color"
-                                                                   class="color">{{ tax.w2_form|yesno:"Да,Не" }}</span>
-                        </p>
-                    </td>
                     <td>{{ tax.get_general_status_display }}</td>
                     <td>{{ tax.federal_amount|floatformat:2 }}</td>
                     <td>{{ tax.state_amount|floatformat:2 }}</td>

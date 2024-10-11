@@ -1,3 +1,5 @@
+import string
+import random
 from datetime import date
 
 from autoslug import AutoSlugField
@@ -17,6 +19,11 @@ def upload_to_path(instance, filename):
 def get_date():
     today = date.today()
     return today
+
+
+def generate_slug(instance):
+    random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
+    return f"{instance.first_name}-{random_str}"
 
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
@@ -66,7 +73,7 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         default=timezone.now,
     )
 
-    slug = AutoSlugField(unique=True, populate_from='first_name')
+    slug = AutoSlugField(unique=True, populate_from=generate_slug)
 
     user_picture = models.FileField(
         upload_to='user/pictures/',
