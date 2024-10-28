@@ -12,25 +12,25 @@
 
 
             {% if user.is_authenticated %}
-{#                <h3>Избери година за възстановяване</h3>#}
-{#                <div class="row">#}
-{#                    <div>#}
-{#                        <input type="radio" id="2022" name="working_year" value="2022">#}
-{#                        <label for="2022">2022</label>#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <input type="radio" id="2023" name="working_year" value="2023">#}
-{#                        <label for="2023">2023</label>#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <input type="radio" id="2024" name="working_year" value="2024">#}
-{#                        <label for="2024">2024</label>#}
-{#                    </div>#}
-{#                    <div>#}
-{#                        <input type="radio" id="other" name="working_year" value="other">#}
-{#                        <label for="other">Друга</label>#}
-{#                    </div>#}
-{#                </div>#}
+                {#                <h3>Избери година за възстановяване</h3>#}
+                {#                <div class="row">#}
+                {#                    <div>#}
+                {#                        <input type="radio" id="2022" name="working_year" value="2022">#}
+                {#                        <label for="2022">2022</label>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <input type="radio" id="2023" name="working_year" value="2023">#}
+                {#                        <label for="2023">2023</label>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <input type="radio" id="2024" name="working_year" value="2024">#}
+                {#                        <label for="2024">2024</label>#}
+                {#                    </div>#}
+                {#                    <div>#}
+                {#                        <input type="radio" id="other" name="working_year" value="other">#}
+                {#                        <label for="other">Друга</label>#}
+                {#                    </div>#}
+                {#                </div>#}
                 <div id="tax-offer" class="container">
                     <div class="yellow-banner">Премиум услуга</div>
                     <h2>Как ще ти помогнем?</h2>
@@ -41,22 +41,26 @@
                     </ul>
                 </div>
                 <a href="{% url 'list tax' pk=user.pk %}">
-                    <div class="query-btn white-txt">
-                    <p>Продължи напред</p></div></a>
+                    <div id='tax-next-btn' class="query-btn white-txt">
+                        <p>Продължи напред</p></div>
+                </a>
 
 
             {% else %}
-                <div class="row">
-                    <div class="container small-cont">
-                        <p class="mid-txt">Изглежда, че не си влязъл в профила си. Можеш да го направиш от тук.</p>
-                        <a href="{% url 'sign in' %}" class="query-btn"><p class="white-txt">Login</p></a>
-                    </div>
-                    <div class="container small-cont">
-                        <p class="mid-txt">Все още нямаш профил? Използвай кратката ни форма за регистрация.</p>
-                        <a href="{% url "sign up" %}" class="query-btn blue-btn"><p class="white-txt">Регистрация</p>
-                        </a>
-                    </div>
-                </div>
+                <script>
+                    window.location.href = "{% url 'sign in' %}";
+                </script>
+                {#                <div class="row">#}
+                {#                    <div class="container small-cont">#}
+                {#                        <p class="mid-txt">Изглежда, че не си влязъл в профила си. Можеш да го направиш от тук.</p>#}
+                {#                        <a href="{% url 'sign in' %}" class="query-btn"><p class="white-txt">Login</p></a>#}
+                {#                    </div>#}
+                {#                    <div class="container small-cont">#}
+                {#                        <p class="mid-txt">Все още нямаш профил? Използвай кратката ни форма за регистрация.</p>#}
+                {#                        <a href="{% url "sign up" %}" class="query-btn blue-btn"><p class="white-txt">Регистрация</p>#}
+                {#                        </a>#}
+                {#                    </div>#}
+                {#                </div>#}
             {% endif %}
 
 

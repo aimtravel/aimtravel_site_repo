@@ -6365,6 +6365,12 @@ footer a:hover {
     margin: 40px 0 110px 0;
 }
 
+#requirements-section-intern {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0 110px 0;
+}
+
 #requirements-section-header {
     color: var(--blue-color);
     leading-trim: both;
@@ -6522,6 +6528,16 @@ footer a:hover {
     }
 
     #icon3 {
+        width: calc(61px * 0.5);
+        height: calc(62px * 0.5);
+    }
+
+    #icon4 {
+        width: calc(61px * 0.5);
+        height: calc(62px * 0.5);
+    }
+
+    #icon5 {
         width: calc(61px * 0.5);
         height: calc(62px * 0.5);
     }
@@ -8825,6 +8841,12 @@ footer a:hover {
     align-items: center;
 }
 
+@media screen and (max-width: 800px) {
+    #pre-taxes-form h2 {
+        text-align: center;
+    }
+}
+
 aside {
     display: flex;
     flex-direction: column;
@@ -9110,6 +9132,14 @@ label[for="id_stat_docs"]:hover {
     margin: 30px 0;
 }
 
+@media screen and (max-width: 800px) {
+    #tax-offer {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}
+
 .table-container {
     width: var(--max-width); /* Set a fixed width for the container */
     overflow-x: auto; /* Enable horizontal scrolling */
@@ -9343,6 +9373,25 @@ a {
     border-radius: 8px;
 }
 
+@media screen and (max-width: 800px) {
+    .yellow-banner {
+        position: relative;
+        left: 0;
+        background-color: #ffc506;
+        padding: 5px;
+        border-radius: 8px;
+        margin: 5px;
+        text-align: center;
+        font-weight: 800;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #tax-next-btn {
+        margin-top: 20px;
+    }
+}
+
 .small-cont {
     width: 20%;
 }
@@ -9564,6 +9613,10 @@ a {
     align-items: center;
     flex-direction: column;
 
+}
+
+.width-100px {
+    width: 100px;
 }
 
 .width-60 {
