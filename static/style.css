@@ -6927,7 +6927,7 @@ footer a:hover {
 #financial-inner-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
@@ -6985,7 +6985,7 @@ footer a:hover {
 #picture-information img {
     position: absolute;
     top: -80px;
-    left: -460px;
+    /*left: -460px;*/
     width: calc(1196px * 0.75);
     height: calc(795px * 0.75);
     z-index: -1;

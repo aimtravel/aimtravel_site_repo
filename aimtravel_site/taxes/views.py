@@ -13,7 +13,7 @@ from django.utils import timezone, html
 
 import xlwt
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponse, HttpResponseRedirect, Http404, FileResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404, FileResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import smart_str
@@ -55,15 +55,25 @@ def private_storage_permissions(request, field_name, private_file):
         raise Http404('Invalid field')
 
     try:
+        # Attempt to retrieve the relevant tax object
         tax = Taxes.objects.get(**{field_name: private_file})
 
+        # Get the actual file path
         file_field = getattr(tax, field_name, None)
-
-        if file_field and (request.user == tax.user or request.user.is_superuser):
+        if file_field:
             file_path = file_field.path
-            return FileResponse(open(file_path, 'rb'), as_attachment=True)
+
+            # Print file_path and URL segment for debugging
+            print("Generated file path:", file_path)
+            print("URL provided private_file segment:", private_file)
+
+            # Check if user is authorized
+            if request.user == tax.user or request.user.is_staff:
+                return FileResponse(open(file_path, 'rb'), as_attachment=True)
+            else:
+                raise Http404("You are not allowed to view this file.")
         else:
-            raise Http404("You are not allowed to view this file.")
+            raise Http404("File not found")
     except Taxes.DoesNotExist:
         raise Http404("File not found")
     except ValueError:
@@ -125,6 +135,17 @@ class EditTaxesView(LoginRequiredMixin, views.UpdateView):
     form_class = EditTaxesForm
     template_name = 'taxes/edit_taxes.html'
     context_object_name = 'edit_taxes'
+
+    def get_object(self, queryset=None):
+        # Fetch the tax object by primary key
+        tax = get_object_or_404(Taxes, pk=self.kwargs['pk'])
+
+        # Check if the tax object's user matches the current user
+        if tax.user != self.request.user:
+            return HttpResponseForbidden("You do not have permission to edit this tax form.")
+
+        # If they match, return the tax object
+        return tax
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -192,8 +213,8 @@ class TaxEntryListView(LoginRequiredMixin, views.ListView):
     ordering = ['id']
 
     def get_queryset(self):
-        user_pk = self.kwargs['pk']
-        return Taxes.objects.filter(user_id=user_pk).order_by('id')
+        user_pk = self.request.user
+        return Taxes.objects.filter(user=user_pk).order_by('id')
 
 
 def pre_add_tax(request):
@@ -327,8 +348,11 @@ def generate_pdf(request, tax_id):
     # pdf.drawImage(logo, 225, 710, width=150, height=60)
 
     # Set up font paths
-    jost_regular_path = os.path.join(settings.STATIC_URL, 'fonts', 'Jost', 'static', 'Jost-Regular.ttf')
-    jost_bold_path = os.path.join(settings.STATIC_URL, 'fonts', 'Jost', 'static', 'Jost-Bold.ttf')
+    jost_regular_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'Jost', 'fontrepo', 'Jost-Regular.ttf')
+    jost_bold_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'Jost', 'fontrepo', 'Jost-Bold.ttf')
+
+    if jost_regular_path is None or jost_bold_path is None:
+        raise FileNotFoundError("Font files not found.")
 
     # Register fonts
     pdfmetrics.registerFont(TTFont('Jost-Regular', jost_regular_path))
@@ -437,7 +461,7 @@ class SuperUserAddTaxesView(UserPassesTestMixin, views.CreateView):
         return super().form_valid(form)
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
 
 class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
@@ -447,7 +471,7 @@ class SuperuserEditTaxView(UserPassesTestMixin, views.UpdateView):
     success_url = reverse_lazy('all-taxes')  # Replace with your actual success URL
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return self.request.user.is_staff
 
     def get_object(self, queryset=None):
         # Get the TaxEntry object based on the primary key from the URL
@@ -501,6 +525,7 @@ def send_application_view(request):
         taxes.save()
 
     name = f"{request.user.first_name} {request.user.last_name}"
+    email_from = 'studentski@aimtravel.bg'
     email = request.user.email
     recipient = email
     cc_email = ['vlzahariev@gmail.com']
@@ -515,7 +540,7 @@ def send_application_view(request):
     # Create a plain text version of the email content
     text_content = html.strip_tags(html_content)
 
-    email = EmailMultiAlternatives(subject, text_content, email, [recipient], cc=cc_email)
+    email = EmailMultiAlternatives(subject, text_content, email_from, [recipient], cc=cc_email)
     email.attach_alternative(html_content, "text/html")
 
     # Send the email
@@ -537,6 +562,7 @@ def admin_send_application_view(request, taxes_pk):
 
     # Get the user's full name and email
     name = f"{user.first_name} {user.last_name}"  # Adjust based on Taxes model fields
+    email_from = 'studentski@aimtravel.bg'
     email = user.email
     recipient = email
     cc_email = ['vlzahariev@gmail.com']
@@ -552,7 +578,7 @@ def admin_send_application_view(request, taxes_pk):
     text_content = html.strip_tags(html_content)
 
     # Create and send the email
-    email = EmailMultiAlternatives(subject, text_content, email, [recipient], cc=cc_email)
+    email = EmailMultiAlternatives(subject, text_content, email_from, [recipient], cc=cc_email)
     email.attach_alternative(html_content, "text/html")
     email.send()
     success_url = reverse_lazy('admin_success_tax', kwargs={'taxes_pk': taxes.id})

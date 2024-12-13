@@ -15,7 +15,7 @@ def get_current_year():
 
 
 def upload_to_path(instance, filename):
-    return f'tax_documents/{instance.working_year}/{instance.first_name}_{instance.middle_name}_{instance.family_name}/{filename}'
+    return f'tax_documents/{instance.working_year}/{instance.user.id}_{instance.id}_{get_current_year()}/{filename}'
 
 
 # Create your models here.
