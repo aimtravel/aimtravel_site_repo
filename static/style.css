@@ -9619,6 +9619,10 @@ a {
     width: 100px;
 }
 
+.width-200px {
+    width: 200px;
+}
+
 .width-60 {
     width: 60%;
 }

@@ -13,6 +13,15 @@ class NewsView(views.ListView):
     ordering = ('-date',)
 
 
+class NewsDetailView(views.DetailView):
+    model = News
+    template_name = 'nav/news_detail.html'
+    context_object_name = 'news'
+    slug_field = 'slug'
+    slug_url_kwarg = 'slug'
+
+
+
 class StoryView(views.ListView):
     model = MainFeedback
     template_name = 'nav/students-story.html'

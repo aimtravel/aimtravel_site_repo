@@ -1,3 +1,4 @@
+from autoslug.settings import slugify
 from django.db import models
 
 
@@ -41,6 +42,20 @@ class News(models.Model):
         blank=True,
         null=True,
     )
+
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug and self.news_title:
+            base_slug = slugify(self.news_title)
+            slug = base_slug
+            num = 1
+            # избягваме дублиране
+            while News.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{num}"
+                num += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
 
     def __str__(self):
         result = f'{self.news_title}'
