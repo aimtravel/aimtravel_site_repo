@@ -52,7 +52,14 @@ class CombinedView(views.ListView):
 
     def get(self, request):
         page_number = self.request.GET.get('page')
-        offer_queryset = JobOffer.objects.order_by('sold_out_offer', '-new_offer', '-ranking', '-wage')
+        offer_queryset = JobOffer.objects.order_by(
+            '-ranking',
+            '-last_seats',
+            '-new_offer',
+            '-wage',
+            'job_position',
+            'sold_out_offer'
+        )
         offer_paginator = Paginator(offer_queryset, self.paginate_by)
         offer_page = offer_paginator.get_page(page_number)
 
