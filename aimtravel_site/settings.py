@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wkhtmltopdf',
+    'ckeditor',
     'private_storage',
 
     'aimtravel_site',

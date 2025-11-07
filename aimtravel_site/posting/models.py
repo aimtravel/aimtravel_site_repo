@@ -1,4 +1,5 @@
 from autoslug.settings import slugify
+from ckeditor.fields import RichTextField
 from django.db import models
 
 
@@ -20,7 +21,7 @@ class News(models.Model):
         blank=True,
         null=True,
     )
-    news_content = models.TextField(
+    news_content = RichTextField(
         verbose_name='Текст',
         blank=True,
         null=True,
