@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wkhtmltopdf',
-    'ckeditor',
+    'django_ckeditor_5',
     'private_storage',
 
     'aimtravel_site',
@@ -130,6 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = (BASE_DIR / 'static/'),
 
 # Default primary key field type
@@ -177,17 +178,44 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 PRIVATE_STORAGE_ROOT = os.path.join(BASE_DIR, 'private_media')
 PRIVATE_STORAGE_AUTH_FUNCTION = 'aimtravel_site.taxes.views.private_storage.permissions'   # Customize permission check
 
-# CKEDITOR_BASEPATH = "https://cdn.ckeditor.com/4.16.0/standard/"
-# CKEDITOR_UPLOAD_PATH = "uploads/"  # Define the path where uploaded files will be stored.
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'toolbar': 'Custom',  # You can customize the toolbar options.
-#         'height': 300,  # Set the height of the CKEditor textarea.
-#         'width': 800,  # Set the width of the CKEditor textarea.
-#         'fillEmptyBlocks': False,  # prevent from adding extra <p> in front and behind the actual paragraph
-#         'allowedContent': True,
-#     },
-# }
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'bold', 'italic', 'underline', 'link',
+            'fontSize', 'fontColor', 'fontBackgroundColor',
+            '|', 'bulletedList', 'numberedList', 'blockQuote',
+        ],
+        'height': 300,
+        'width': '100%',
+        'language': 'bg',
+        'font_size': {
+            'options': [8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36],
+        },
+        'font_color': {
+            'colors': [
+                {'color': '#000000', 'label': 'Черен'},
+                {'color': '#FF0000', 'label': 'Червен'},
+                {'color': '#008000', 'label': 'Зелен'},
+                {'color': '#0000FF', 'label': 'Син'},
+                {'color': '#FFA500', 'label': 'Оранжев'},
+            ],
+        },
+        # 👉 това задава черен цвят по подразбиране
+        'htmlSupport': {
+            'allow': [
+                {'name': '.*', 'attributes': True, 'classes': True, 'styles': True}
+            ]
+        },
+        'style': {
+            'default': 'body { color: #000000; }'
+        }
+    }
+}
+
+CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
+
+
+
 
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'

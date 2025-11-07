@@ -1,10 +1,10 @@
 from autoslug.settings import slugify
-from ckeditor.fields import RichTextField
 from django.db import models
 
 
 # Create your models here.
 from django.urls import reverse
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class News(models.Model):
@@ -21,8 +21,9 @@ class News(models.Model):
         blank=True,
         null=True,
     )
-    news_content = RichTextField(
+    news_content = CKEditor5Field(
         verbose_name='Текст',
+        config_name='default',
         blank=True,
         null=True,
     )
