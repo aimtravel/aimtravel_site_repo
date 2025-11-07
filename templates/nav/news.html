@@ -36,7 +36,7 @@
                             </div>
                             <div id="news-description-container">
                                 <div id="offer-description">
-                                    <p>{{ news.news_content|striptags|truncatewords:40 }}</p>
+                                    <p>{{ news.news_content|striptags|truncatewords:40|safe }}</p>
                                     <a href="{% url 'news_detail' news.slug %}" class="slider-btn white-txt width-100px">Виж повече</a>
                                 </div>
                             </div>
