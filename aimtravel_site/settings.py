@@ -86,14 +86,17 @@ WSGI_APPLICATION = 'aimtravel_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# Credentials are read from the (untracked) credentials module when present,
+# so they are not hardcoded here. The defaults preserve the previous values,
+# keeping existing environments working without a credentials.py update.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aimtravel',
-        'USER': 'root',
-        'PASSWORD': 'mysql_pw',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': getattr(credentials, 'DB_NAME', 'aimtravel'),
+        'USER': getattr(credentials, 'DB_USER', 'root'),
+        'PASSWORD': getattr(credentials, 'DB_PASSWORD', 'mysql_pw'),
+        'HOST': getattr(credentials, 'DB_HOST', '127.0.0.1'),
+        'PORT': getattr(credentials, 'DB_PORT', '3306'),
     }
 }
 
@@ -162,8 +165,8 @@ DATE_INPUT_FORMATS = [
     '%d %B %Y',
     '%d %B, %Y']
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
