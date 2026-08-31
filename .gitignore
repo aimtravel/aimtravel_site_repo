@@ -1,0 +1,31 @@
+# --- Secrets ---
+# Holds SECRET_KEY, email and database credentials. Never commit.
+credentials.py
+
+# --- Python bytecode ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environments ---
+# NOTE: the legacy Windows venv/ directory remains tracked deliberately, so
+# the existing Windows setup keeps working. Only new local envs are ignored.
+.venv/
+env/
+ENV/
+
+# --- IDE / editor ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# --- Archives / build artifacts ---
+*.rar
+*.zip
+*.tar.gz
+
+# --- Django local ---
+*.log
+db.sqlite3
+db.sqlite3-journal
