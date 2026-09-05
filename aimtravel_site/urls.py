@@ -21,9 +21,11 @@ from django.conf.urls import handler404, handler500
 from django.contrib.sitemaps import views as sitemaps_views
 
 from aimtravel_site import settings
+from aimtravel_site.api.api import api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', api.urls),
     path('', include('aimtravel_site.web.urls')),
     path('', include('aimtravel_site.main_page.urls')),
     path('user_auth/', include('aimtravel_site.user_auth.urls')),
