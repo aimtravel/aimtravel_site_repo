@@ -1,0 +1,16 @@
+# Dependencies for the "Запиши се за бригада" module (aimtravel_site.apply).
+# Kept separate from the main requirements.txt (which is UTF-16 encoded and
+# fragile to edit). Install with:
+#   .venv/bin/pip install -r requirements-apply.txt
+
+# --- Frontend integration ---
+django-vite==3.0.6
+
+# --- API layer ---
+djangorestframework==3.14.0
+
+# --- Background jobs (contract PDF generation, email send) ---
+# Celery + Redis will be needed for steps 3-5; add them then:
+# celery==5.3.6
+# redis==5.0.1
+# django-redis==5.4.0

@@ -1,0 +1,735 @@
+<title>Запиши се — AIM Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap&subset=cyrillic,cyrillic-ext,latin" rel="stylesheet">
+<style>
+:root{
+  --red-600:#A31D1A; --red-700:#7F1512; --red-500:#C0332E; --coral:#E8635C;
+  --navy-700:#12395F; --navy-800:#0D2B47; --navy-900:#071726; --navy-500:#2C5B87;
+  --paper:#FFFFFF; --surface:#F4F5F7; --line:#E2E6EB;
+  --ink:#1C2430; --ink-soft:#55606E; --muted:#8A94A2;
+  --ok:#1E7A4C; --warn:#B77315; --err:#A31D1A;
+  --display:"Montserrat",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --r-sm:8px; --r-md:12px; --r-lg:18px;
+  --sh-1:0 1px 2px rgba(7,23,38,.06),0 2px 8px rgba(7,23,38,.05);
+  --sh-2:0 8px 28px rgba(7,23,38,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--body);
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--display);color:var(--navy-700);margin:0;line-height:1.2}
+button{font-family:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+/* ---------- topbar ---------- */
+.util{background:var(--navy-900);color:#C9D3DE;font-size:12.5px}
+.util .wrap{display:flex;gap:20px;align-items:center;height:38px;flex-wrap:wrap}
+.util a{color:#C9D3DE;text-decoration:none}
+.util .sp{margin-left:auto}
+nav.main{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+nav.main .wrap{display:flex;align-items:center;gap:28px;height:70px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;
+  color:var(--navy-800);letter-spacing:.02em;font-size:17px}
+.logo .mark{width:36px;height:36px;border-radius:50%;background:var(--red-600);
+  display:grid;place-items:center;flex:none}
+nav.main ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:14px;font-weight:600}
+nav.main ul a{color:var(--ink-soft);text-decoration:none}
+nav.main ul li.on a{color:var(--red-600)}
+.nav-cta{margin-left:auto;background:var(--red-600);color:#fff;border:0;border-radius:var(--r-sm);
+  padding:11px 20px;font-weight:700;font-size:14px;cursor:pointer;font-family:var(--display);
+  letter-spacing:.02em;text-transform:uppercase}
+
+/* ---------- hero ---------- */
+.hero{background:linear-gradient(160deg,var(--navy-800) 0%,var(--navy-900) 100%);color:#fff;
+  padding:44px 0 92px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;left:-5%;right:-5%;bottom:-58px;height:110px;
+  background:var(--surface);border-radius:50% 50% 0 0}
+.hero .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--coral);margin-bottom:10px}
+.hero h1{color:#fff;font-size:34px;text-transform:uppercase;letter-spacing:.01em}
+.hero p{color:#B9C6D4;max-width:620px;margin:10px 0 0}
+.stripes{position:absolute;right:-40px;top:0;bottom:0;width:220px;opacity:.14;
+  background:repeating-linear-gradient(105deg,var(--coral) 0 14px,transparent 14px 34px)}
+
+/* ---------- stepper ---------- */
+.shell{margin-top:-52px;position:relative;z-index:5;padding-bottom:70px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-2)}
+.stepper{display:flex;padding:24px 28px 4px;gap:0;align-items:flex-start}
+.st{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.st:last-child{flex:0 0 auto}
+.st .row{display:flex;align-items:center;gap:0;height:34px}
+.st .dot{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;flex:none;
+  font-family:var(--mono);font-weight:700;font-size:13px;border:2px solid var(--line);
+  background:#fff;color:var(--muted);transition:.18s}
+.st.is-done .dot,.st.is-cur .dot{background:var(--red-600);border-color:var(--red-600);color:#fff}
+.st.is-cur .dot{box-shadow:0 0 0 4px rgba(163,29,26,.14)}
+.st .bar{flex:1;height:2px;background:var(--line)}
+.st.is-done .bar{background:var(--red-600)}
+.st:last-child .bar{display:none}
+.st .lb{font-size:12.5px;font-weight:700;color:var(--muted);font-family:var(--display);
+  text-transform:uppercase;letter-spacing:.04em;padding-right:12px}
+.st.is-done .lb,.st.is-cur .lb{color:var(--ink)}
+.st .sub{font-size:11.5px;color:var(--muted);margin-top:-4px;padding-right:12px;font-weight:500}
+.pagehead{padding:20px 28px 0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.pagehead h2{font-size:22px;text-transform:uppercase}
+.pagehead .count{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
+
+/* ---------- form ---------- */
+form{padding:18px 28px 8px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px 18px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f .ctl{position:relative}   /* котва за подсказките и календара — не се мести от съобщенията */
+.f .fb:empty{display:none}
+.c12{grid-column:span 12}.c6{grid-column:span 6}.c4{grid-column:span 4}.c8{grid-column:span 8}
+@media(max-width:760px){.c6,.c4,.c8{grid-column:span 12}}
+label{font-size:13px;font-weight:700;color:var(--ink);display:flex;gap:6px;align-items:center}
+label .req{color:var(--red-600)}
+.hint{font-size:12px;color:var(--muted)}
+input[type=text],input[type=email],input[type=tel],select,textarea{
+  font-family:var(--body);font-size:15px;color:var(--ink);background:#fff;
+  border:1.5px solid var(--line);border-radius:var(--r-sm);padding:11px 13px;width:100%;
+  transition:border-color .15s,box-shadow .15s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--navy-500);box-shadow:0 0 0 3px rgba(44,91,135,.15)}
+input.lat{font-family:var(--mono);letter-spacing:.02em;text-transform:uppercase}
+.f.err input,.f.err select,.f.err .dpbtn{border-color:var(--err);box-shadow:0 0 0 3px rgba(163,29,26,.12)}
+.f.ok input:not(:focus){border-color:#BFE0CE}
+.msg{font-size:12px;color:var(--err);font-weight:600;display:flex;gap:5px;align-items:center}
+.msg.good{color:var(--ok)}
+.msg.busy{color:var(--muted);font-weight:500}
+
+/* autocomplete */
+.ac{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);box-shadow:var(--sh-2);max-height:230px;overflow:auto;z-index:30;padding:5px}
+.ac div{padding:9px 11px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;line-height:1.35}
+.ac div small{display:block;color:var(--muted);font-size:11.5px}
+.ac div:hover,.ac div.hl{background:#F3F6F9}
+.ac div b{color:var(--red-600)}
+.ac .none{color:var(--muted);cursor:default;font-style:italic}
+
+/* datepicker */
+.dpbtn{width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);
+  border-radius:var(--r-sm);padding:11px 13px;font-size:15px;cursor:pointer;color:var(--ink);
+  display:flex;align-items:center;gap:8px}
+.dpbtn.ph{color:var(--muted)}
+.dp{position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid var(--line);
+  border-radius:var(--r-md);box-shadow:var(--sh-2);padding:12px;z-index:30;width:288px}
+.dp .h{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.dp .h select{padding:6px 8px;font-size:13px;font-weight:600}
+.dp .h button{border:1px solid var(--line);background:#fff;border-radius:6px;width:30px;height:30px;
+  cursor:pointer;color:var(--navy-700);font-size:15px;flex:none}
+.dp .wk{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:4px}
+.dp .wk span{text-align:center;font-size:11px;font-weight:700;color:var(--muted);
+  font-family:var(--mono);text-transform:uppercase}
+.dp .days{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.dp .days button{border:0;background:none;height:32px;border-radius:6px;cursor:pointer;
+  font-size:13.5px;font-family:var(--mono);color:var(--ink)}
+.dp .days button:hover{background:#F3F6F9}
+.dp .days button.sel{background:var(--red-600);color:#fff;font-weight:700}
+.dp .days button:disabled{color:#D3D9E0;cursor:not-allowed;background:none}
+.dp .days .pad{height:32px}
+.dp .ft{border-top:1px solid var(--line);margin-top:8px;padding-top:8px;font-size:11.5px;color:var(--muted)}
+
+/* radios/checks */
+.opts{display:grid;gap:10px}
+.opt{border:1.5px solid var(--line);border-radius:var(--r-md);padding:13px 15px;cursor:pointer;
+  display:flex;gap:12px;align-items:flex-start;transition:.15s;background:#fff}
+.opt:hover{border-color:var(--navy-500)}
+.opt.on{border-color:var(--red-600);background:#FDF6F5}
+.opt .rd{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex:none;margin-top:1px;
+  background:#fff;transition:.15s}
+.opt.on .rd{border-color:var(--red-600);background:var(--red-600);box-shadow:inset 0 0 0 3px #fff}
+.opt .t{font-weight:700;font-size:14.5px;color:var(--ink)}
+.opt .d{font-size:12.5px;color:var(--ink-soft)}
+.opt .p{margin-left:auto;font-family:var(--mono);font-weight:700;color:var(--red-600);font-size:14px}
+.chk{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:var(--r-md);padding:13px 15px;cursor:pointer;background:#fff}
+.chk.on{border-color:var(--navy-500);background:#F7FAFC}
+.chk .bx{width:20px;height:20px;border-radius:5px;border:2px solid var(--line);flex:none;
+  display:grid;place-items:center;color:#fff;line-height:0;margin-top:1px}
+.chk .bx svg{display:block;opacity:0}
+.chk.on .bx svg{opacity:1}
+.chk.on .bx{background:var(--red-600);border-color:var(--red-600)}
+.chk.miss{border-color:var(--err)}
+.chk a{color:var(--navy-700)}
+.season{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);background:var(--surface);
+  border-radius:var(--r-md);padding:12px 15px}
+.season b{font-family:var(--display);font-size:15px;color:var(--navy-700);text-transform:uppercase;
+  letter-spacing:.02em}
+.season span{font-size:12.5px;color:var(--muted)}
+
+/* review */
+.rev{border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.rev h4{background:var(--surface);padding:10px 15px;font-size:12px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-soft);display:flex}
+.rev h4 button{margin-left:auto;background:none;border:0;color:var(--red-600);font-weight:700;
+  font-size:12px;cursor:pointer;text-transform:none;letter-spacing:0}
+.rev dl{margin:0;display:grid;grid-template-columns:1fr 1.3fr}
+.rev dt{padding:9px 15px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.rev dd{padding:9px 15px;margin:0;font-size:13.5px;font-weight:600;border-top:1px solid var(--line);
+  word-break:break-word}
+.rev dd.mono{font-family:var(--mono)}
+
+/* footer nav */
+.acts{display:flex;gap:12px;align-items:center;padding:18px 28px 24px;border-top:1px solid var(--line);
+  margin-top:20px;flex-wrap:wrap}
+.btn{border-radius:var(--r-sm);padding:12px 22px;font-weight:700;font-size:14px;cursor:pointer;
+  font-family:var(--display);letter-spacing:.02em;text-transform:uppercase;border:1.5px solid transparent}
+.btn.pri{background:var(--red-600);color:#fff}
+.btn.pri:hover{background:var(--red-700)}
+.btn.pri:disabled{background:#DCE1E7;color:#9AA4B0;cursor:not-allowed}
+.btn.gho{background:#fff;border-color:var(--line);color:var(--ink-soft)}
+.acts .sp{margin-left:auto}
+.save{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center}
+
+/* aside */
+.cols{display:grid;grid-template-columns:1fr 316px;gap:24px;align-items:start}
+@media(max-width:980px){.cols{grid-template-columns:1fr}}
+.aside{display:grid;gap:16px}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;
+  box-shadow:var(--sh-1)}
+.box h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;color:var(--navy-700)}
+.box ul{margin:0;padding-left:17px;font-size:13.5px;color:var(--ink-soft);display:grid;gap:7px}
+.box.dark{background:var(--navy-800);border-color:var(--navy-800);color:#C9D3DE}
+.box.dark h3{color:var(--coral)}
+.box.dark ul{color:#C9D3DE}
+.agent{display:flex;gap:12px;align-items:center}
+.agent .av{width:44px;height:44px;border-radius:50%;background:var(--navy-500);flex:none;
+  display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:700}
+.agent .n{font-weight:700;font-size:14px}
+.agent .r{font-size:12px;color:var(--muted)}
+
+/* success */
+#card > .done{text-align:center;padding:44px 32px 36px}
+#card > .done .seal{width:74px;height:74px;border-radius:50%;background:#E8F4EE;color:var(--ok);
+  display:grid;place-items:center;margin:0 auto 18px}
+#card > .done h2{font-size:26px;text-transform:uppercase}
+#card > .done p{color:var(--ink-soft);max-width:520px;margin:10px auto 0}
+.cnum{display:inline-flex;flex-direction:column;gap:4px;background:var(--navy-800);color:#fff;
+  border-radius:var(--r-md);padding:14px 26px;margin:22px 0 6px}
+.cnum span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);
+  font-family:var(--mono)}
+.cnum b{font-family:var(--mono);font-size:22px;letter-spacing:.06em}
+.mailcard{text-align:left;border:1px solid var(--line);border-radius:var(--r-md);margin:26px auto 0;
+  max-width:640px;overflow:hidden}
+.mailcard .mh{background:var(--surface);padding:11px 16px;font-size:12px;color:var(--ink-soft);
+  border-bottom:1px solid var(--line);line-height:1.7}
+.mailcard .mh svg{vertical-align:-2px;margin-right:6px}
+.mailcard .mb{padding:16px;font-size:13.5px;color:var(--ink-soft);display:grid;gap:10px}
+.mailcard .att{display:flex;gap:8px;flex-wrap:wrap}
+.att i{display:inline-flex;gap:6px;align-items:center;font-style:normal;background:var(--surface);
+  border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12px;font-family:var(--mono)}
+.nx{display:grid;gap:8px;counter-reset:n;margin:0;padding:0;list-style:none}
+.nx li{counter-increment:n;position:relative;padding-left:31px;font-size:13.5px}
+.nx li:before{content:counter(n);position:absolute;left:0;top:1px;
+  width:21px;height:21px;border-radius:50%;background:var(--red-600);
+  color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;
+  font-family:var(--mono)}
+.dl{display:flex;gap:10px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+
+footer.site{background:var(--navy-900);color:#8FA0B2;padding:26px 0;font-size:12.5px}
+footer.site .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+footer.site .sp{margin-left:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+
+<div class="util"><div class="wrap">
+  <span>Варна · бул. „Владислав Варненчик“ 186</span>
+  <span>София · бул. „Витоша“ 19</span>
+  <span class="sp">+359 888 000 000</span>
+  <a href="#">office@aimtravel.bg</a>
+</div></div>
+
+<nav class="main"><div class="wrap">
+  <div class="logo"><span class="mark">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7">
+      <path d="M3 17h18M6 17V9M18 17V9M4 9c2.7-3.6 13.3-3.6 16 0"/></svg>
+  </span>AIM TRAVEL</div>
+  <ul>
+    <li><a href="#">Начало</a></li>
+    <li><a href="#">Work &amp; Travel USA</a></li>
+    <li><a href="#">Оферти</a></li>
+    <li><a href="#">Цени</a></li>
+    <li class="on"><a href="#">Запиши се</a></li>
+  </ul>
+  <button class="nav-cta">Запиши се за бригада</button>
+</div></nav>
+
+<header class="hero"><div class="stripes"></div><div class="wrap">
+  <div class="eyebrow">Summer Work &amp; Travel USA · Лято 2027</div>
+  <h1>Запиши се за бригада</h1>
+  <p>Попълваш формуляра за около 4 минути. Накрая системата генерира твоя договор
+     с номер и го изпраща на имейла ти заедно с документите за попълване.
+     <b style="color:#fff">При записване не се дължат никакви суми.</b></p>
+</div></header>
+
+<main class="shell"><div class="wrap"><div class="cols">
+  <div class="card" id="card"></div>
+  <aside class="aside">
+    <div class="box">
+      <h3>Изисквания</h3>
+      <ul>
+        <li>Редовен студент в акредитирано ВУЗ</li>
+        <li>Възраст 18–28 години</li>
+        <li>Минимум средно ниво на английски</li>
+        <li>Чисто съдебно минало</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Твоят агент</h3>
+      <div class="agent">
+        <div class="av">СС</div>
+        <div><div class="n">Стоян Стоянов</div><div class="r">Офис Варна · отг. до 1 раб. ден</div></div>
+      </div>
+    </div>
+    <div class="box dark">
+      <h3>Защо ти искаме тези данни</h3>
+      <ul>
+        <li>Трите имена, ЕГН и лична карта се вписват в договора — по закон.</li>
+        <li>Датата на раждане проверява възрастовия критерий 18–28 г.</li>
+        <li>Не искаме документи и плащания на този етап.</li>
+      </ul>
+    </div>
+  </aside>
+</div></div></main>
+
+<footer class="site"><div class="wrap">
+  <span>© 2026 Агенция за международна мобилност ООД · ЕИК 203634922</span>
+  <span class="sp">Агент на CHI · AWA · UNITED · DYNAMIC · ERDT</span>
+</div></footer>
+
+<script>
+/* =====================================================================
+   Данни за autocomplete — в продукцията идват от /api/v1/lookup/*
+   ===================================================================== */
+const UNIS = [
+ ["Софийски университет „Св. Климент Охридски“","София"],
+ ["Технически университет — София","София"],
+ ["Университет за национално и световно стопанство","София"],
+ ["Нов български университет","София"],
+ ["Медицински университет — София","София"],
+ ["Икономически университет — Варна","Варна"],
+ ["Технически университет — Варна","Варна"],
+ ["Варненски свободен университет „Черноризец Храбър“","Варна"],
+ ["Медицински университет „Проф. д-р Параскев Стоянов“ — Варна","Варна"],
+ ["Висше военноморско училище „Н. Й. Вапцаров“","Варна"],
+ ["Пловдивски университет „Паисий Хилендарски“","Пловдив"],
+ ["Аграрен университет — Пловдив","Пловдив"],
+ ["Медицински университет — Пловдив","Пловдив"],
+ ["Великотърновски университет „Св. св. Кирил и Методий“","В. Търново"],
+ ["Русенски университет „Ангел Кънчев“","Русе"],
+ ["Шуменски университет „Епископ Константин Преславски“","Шумен"],
+ ["Бургаски свободен университет","Бургас"],
+ ["Университет „Проф. д-р Асен Златаров“","Бургас"],
+ ["Стопанска академия „Д. А. Ценов“","Свищов"],
+ ["Югозападен университет „Неофит Рилски“","Благоевград"],
+ ["Тракийски университет","Стара Загора"]
+];
+const CITIES = ["София","Пловдив","Варна","Бургас","Русе","Стара Загора","Плевен","Сливен",
+ "Добрич","Шумен","Перник","Хасково","Ямбол","Пазарджик","Благоевград","Велико Търново",
+ "Враца","Габрово","Асеновград","Видин","Казанлък","Кюстендил","Кърджали","Монтана",
+ "Димитровград","Търговище","Ловеч","Силистра","Дупница","Свищов","Разград","Горна Оряховица",
+ "Смолян","Петрич","Самоков","Лом","Сандански","Севлиево","Ботевград","Гоце Делчев"];
+const MAJORS = ["Информатика","Компютърни науки","Софтуерно инженерство","Икономика","Финанси",
+ "Счетоводство и контрол","Маркетинг","Мениджмънт","Туризъм","Международни икономически отношения",
+ "Право","Медицина","Дентална медицина","Фармация","Психология","Журналистика","Архитектура",
+ "Строително инженерство","Машинно инженерство","Електроинженерство","Логистика","Педагогика",
+ "Английска филология","Международни отношения","Кибернетика","Индустриален мениджмънт"];
+
+const MONTHS=["януари","февруари","март","април","май","юни","юли","август","септември","октомври","ноември","декември"];
+const WD=["пн","вт","ср","чт","пт","сб","нд"];
+
+/* =====================================================================
+   Състояние
+   ===================================================================== */
+const STEPS=[
+ {n:1,lb:"Лични данни",sub:"както в личната карта"},
+ {n:2,lb:"Образование",sub:"ВУЗ и специалност"},
+ {n:3,lb:"Програма",sub:"опция и офис"},
+ {n:4,lb:"Договор",sub:"преглед и подпис"}
+];
+
+/* Записваме винаги за ПРЕДСТОЯЩОТО лято, не избираме година.
+   След 1 юни текущата лятна кампания е приключила → следващата е догодина. */
+function upcomingSeason(today){
+  const y=today.getFullYear();
+  return today.getMonth()>=5 ? y+1 : y;   // от юни нататък → следващото лято
+}
+const SEASON=String(upcomingSeason(new Date()));
+
+const S={
+  step:1, submitted:false, contractNo:null, saved:null,
+  d:{email:"",fn:"",mn:"",ln:"",phone:"+359 ",dob:"",egn:"",idcard:"",pob:"",
+     uni:"",major:"",year:"",option:"full",season:SEASON,office:"varna",
+     gdpr:false,truth:false,terms:false},
+  touched:{}, dpOpen:false, dpY:Number(SEASON)-22, dpM:5, acOpen:null, acHl:0, acItems:[]
+};
+const T={};                      // debounce таймери
+const root=document.getElementById("card");
+
+/* =====================================================================
+   Валидация — същите правила се дублират в zod (фронт) и Pydantic (бек)
+   ===================================================================== */
+const LAT=/^[A-Za-z][A-Za-z'\-]{1,29}$/;
+const RULES={
+  email:v=>!v?"Имейлът е задължителен":/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v)?"":"Невалиден имейл адрес",
+  fn:v=>!v?"Задължително":LAT.test(v)?"":"Само латиница, както е в паспорта",
+  mn:v=>!v?"Задължително":LAT.test(v)?"":"Само латиница, както е в паспорта",
+  ln:v=>!v?"Задължително":LAT.test(v)?"":"Само латиница, както е в паспорта",
+  phone:v=>{const d=v.replace(/\D/g,"");return !d||d.length<12?"Формат +359 8XX XXX XXX":d.startsWith("359")&&d.length===12?"":"Невалиден български номер";},
+  dob:v=>{if(!v)return "Изберете дата на раждане";const a=ageAt(v,seasonStart());
+    if(a<18)return "Трябва да сте навършили 18 г. до старта на програмата";
+    if(a>28)return "Програмата е за участници до 28 г.";return "";},
+  egn:v=>!v?"ЕГН е задължително за договора":/^\d{10}$/.test(v)?(egnOk(v)?"":"Невалидна контролна цифра"):"ЕГН се състои от 10 цифри",
+  idcard:v=>!v?"Задължително":/^\d{9}$/.test(v)?"":"Номерът на личната карта е 9 цифри",
+  pob:v=>!v?"Задължително":v.length>1?"":"Твърде кратко",
+  uni:v=>!v?"Изберете учебно заведение":v.length>2?"":"Твърде кратко",
+  major:v=>!v?"Задължително":"",
+  year:v=>!v?"Изберете курс":""
+};
+const W=[2,4,8,5,10,9,7,3,6];
+function egnOk(e){let s=0;for(let i=0;i<9;i++)s+=+e[i]*W[i];return (s%11)%10===+e[9];}
+function ageAt(iso,at){const[y,m,d]=iso.split("-").map(Number);let a=at.getFullYear()-y;
+  const md=(at.getMonth()+1)-m||at.getDate()-d;if(md<0)a--;return a;}
+/* Възрастта 18–28 г. се мери спрямо старта на програмата, не спрямо днес (чл. 8.1.3). */
+function seasonStart(){return new Date(Number(S.d.season),5,1);}
+function fieldsOf(st){return st===1?["email","fn","mn","ln","phone","dob","egn","idcard","pob"]
+  :st===2?["uni","major","year"]:st===3?[]:[];}
+function errOf(k){return RULES[k]?RULES[k](S.d[k]):"";}
+function stepOk(st){
+  if(st===4)return S.d.gdpr&&S.d.truth&&S.d.terms;
+  return fieldsOf(st).every(k=>!errOf(k));
+}
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* =====================================================================
+   Debounce — валидацията и autocomplete-ът не тичат при всяка клавиша
+   ===================================================================== */
+function debounce(key,fn,ms){clearTimeout(T[key]);T[key]=setTimeout(fn,ms);}
+
+/* ВАЖНО: докато потребителят пише, НЕ пипаме <input>-а и не пре-рендерираме картата.
+   Пре-рендер по време на писане унищожава елемента и връща курсора в началото.
+   Затова тук се кръпват само съобщението за грешка и списъкът с подсказки. */
+function onInput(k,val){
+  S.d[k]=val;
+  debounce("v-"+k,()=>{S.touched[k]=true;patchField(k);},400);      // валидация: 400 ms
+  if(AC_FIELDS.includes(k)){
+    S.acOpen=k;S.acHl=0;
+    debounce("a-"+k,()=>{S.acItems=suggest(k,S.d[k]);patchAc(k);},250);   // подсказки: 250 ms
+  }
+  debounce("save",()=>{S.saved=new Date();patchSaved();},1200);    // автозапис на чернова
+}
+const AC_FIELDS=["uni","pob","major"];
+
+/** Кръпва класа и съобщението на едно поле, без да пипа самия input. */
+function patchField(k){
+  const wrap=root.querySelector('.f[data-f="'+k+'"]');
+  if(!wrap)return;
+  const e=S.touched[k]?errOf(k):"";
+  const good=S.touched[k]&&!e&&S.d[k];
+  wrap.classList.toggle("err",!!e);
+  wrap.classList.toggle("ok",!!good);
+  const fb=wrap.querySelector(".fb");
+  if(fb)fb.innerHTML=feedbackHtml(k,e);
+  const btn=root.querySelector(".acts .btn.pri");
+  if(btn&&S.step===4)btn.disabled=!stepOk(4);
+}
+/** Кръпва само падащия списък с подсказки на дадено поле. */
+function patchAc(k){
+  const ctl=root.querySelector('.f[data-f="'+k+'"] .ctl');
+  if(!ctl)return;
+  const old=ctl.querySelector(".ac");
+  if(old)old.remove();
+  const html=acHtml(k);
+  if(html)ctl.insertAdjacentHTML("beforeend",html);
+}
+function patchSaved(){
+  const acts=root.querySelector(".acts");
+  if(!acts||acts.querySelector(".save"))return;
+  acts.querySelector(".sp").insertAdjacentHTML("afterend",
+    '<div class="save">&#10003; черновата е записана</div>');
+}
+function feedbackHtml(k,e){
+  if(e)return '<div class="msg">&#9888; '+e+'</div>';
+  const h=HINTS[k];
+  return h?'<div class="hint">'+h+'</div>':"";
+}
+const HINTS={};   // попълва се от fld() при построяване на страницата
+function suggest(k,q){
+  q=q.trim().toLowerCase();if(q.length<2)return [];
+  if(k==="uni")return UNIS.filter(u=>u[0].toLowerCase().includes(q)).slice(0,7).map(u=>({t:u[0],s:u[1]}));
+  if(k==="pob")return CITIES.filter(c=>c.toLowerCase().startsWith(q)).slice(0,7).map(c=>({t:c}));
+  return MAJORS.filter(m=>m.toLowerCase().includes(q)).slice(0,7).map(m=>({t:m}));
+}
+function mark(t,q){q=q.trim();if(!q)return esc(t);
+  const i=t.toLowerCase().indexOf(q.toLowerCase());if(i<0)return esc(t);
+  return esc(t.slice(0,i))+"<b>"+esc(t.slice(i,i+q.length))+"</b>"+esc(t.slice(i+q.length));}
+
+/* =====================================================================
+   Изглед
+   ===================================================================== */
+function stepper(){
+  return '<div class="stepper">'+STEPS.map(s=>{
+    const cls=s.n<S.step?"is-done":s.n===S.step?"is-cur":"";
+    return '<div class="st '+cls+'"><div class="row"><div class="dot">'+
+      (s.n<S.step?'&#10003;':s.n)+'</div><div class="bar"></div></div>'+
+      '<div class="lb">'+s.lb+'</div><div class="sub">'+s.sub+'</div></div>';
+  }).join("")+'</div>';
+}
+function acHtml(k){
+  if(S.acOpen!==k||S.d[k].trim().length<2)return "";
+  return '<div class="ac">'+(S.acItems.length?S.acItems.map((it,i)=>
+    '<div class="'+(i===S.acHl?"hl":"")+'" onmousedown="pick(\''+k+'\','+i+')">'+
+    mark(it.t,S.d[k])+(it.s?'<small>'+esc(it.s)+'</small>':'')+'</div>').join("")
+    :'<div class="none">Няма съвпадение — въведи ръчно</div>')+'</div>';
+}
+
+function fld(k,label,opt){
+  opt=opt||{};
+  if(opt.hint)HINTS[k]=opt.hint; else delete HINTS[k];
+  const e=S.touched[k]?errOf(k):"";
+  const good=S.touched[k]&&!e&&S.d[k];
+  const cls="f "+(opt.col||"c6")+(e?" err":good?" ok":"");
+  let inner;
+  if(opt.type==="date"){
+    inner='<button type="button" class="dpbtn'+(S.d.dob?'':' ph')+'" onmousedown="toggleDp(event)">'+
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#55606E" stroke-width="1.8">'+
+      '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>'+
+      (S.d.dob?fmtBg(S.d.dob):"дд.мм.гггг")+'</button>'+(S.dpOpen?dp():"");
+  } else if(opt.type==="select"){
+    inner='<select data-k="'+k+'" onchange="setV(\''+k+'\',this.value)">'+
+      '<option value="">— избери —</option>'+opt.options.map(o=>
+      '<option value="'+o[0]+'"'+(S.d[k]===o[0]?" selected":"")+'>'+o[1]+'</option>').join("")+'</select>';
+  } else {
+    inner='<input data-k="'+k+'" type="'+(opt.type||"text")+'" '+
+      (opt.lat?'class="lat" autocapitalize="characters" spellcheck="false" ':'')+
+      'inputmode="'+(opt.mode||"text")+'" '+
+      'autocomplete="'+(opt.ac||"off")+'" placeholder="'+(opt.ph||"")+'" '+
+      'value="'+esc(S.d[k])+'" '+
+      'oninput="onInput(\''+k+'\',this.value)" onblur="blurF(\''+k+'\')" '+
+      (opt.suggest?'onkeydown="acKeys(event,\''+k+'\')" ':'')+'>';
+  }
+  return '<div class="'+cls+'" data-f="'+k+'"><label for="'+k+'">'+label+
+    (opt.optional?'':' <span class="req">*</span>')+'</label>'+
+    '<div class="ctl">'+inner+(opt.suggest?acHtml(k):'')+'</div>'+
+    '<div class="fb">'+feedbackHtml(k,e)+'</div></div>';
+}
+function fmtBg(iso){const[y,m,d]=iso.split("-");return d+"."+m+"."+y+" г.";}
+
+/* --- date picker --- */
+/** Пречертава само календара, не цялата форма. */
+function patchDp(){
+  const ctl=root.querySelector('.f[data-f="dob"] .ctl');
+  if(!ctl)return;
+  const old=ctl.querySelector(".dp");
+  if(old)old.remove();
+  if(S.dpOpen)ctl.insertAdjacentHTML("beforeend",dp());
+  const btn=ctl.querySelector(".dpbtn");
+  if(btn){
+    btn.classList.toggle("ph",!S.d.dob);
+    btn.lastChild.nodeValue=S.d.dob?fmtBg(S.d.dob):"дд.мм.гггг";
+  }
+}
+function dp(){
+  const first=new Date(S.dpY,S.dpM,1);
+  const lead=(first.getDay()+6)%7;
+  const dim=new Date(S.dpY,S.dpM+1,0).getDate();
+  let cells="";
+  for(let i=0;i<lead;i++)cells+='<div class="pad"></div>';
+  for(let d=1;d<=dim;d++){
+    const iso=S.dpY+"-"+String(S.dpM+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+    const a=ageAt(iso,seasonStart());
+    cells+='<button type="button" '+(a<18||a>28?"disabled":"")+
+      ' class="'+(S.d.dob===iso?"sel":"")+'" onclick="pickDate(\''+iso+'\')">'+d+'</button>';
+  }
+  const yMax=Number(S.d.season)-18, yMin=Number(S.d.season)-29;
+  let ys="";for(let y=yMax;y>=yMin;y--)ys+='<option value="'+y+'"'+(y===S.dpY?" selected":"")+'>'+y+'</option>';
+  let ms=MONTHS.map((m,i)=>'<option value="'+i+'"'+(i===S.dpM?" selected":"")+'>'+m+'</option>').join("");
+  return '<div class="dp" onmousedown="event.stopPropagation()">'+
+    '<div class="h"><button type="button" onclick="mv(-1)">&#8249;</button>'+
+    '<select onchange="S.dpM=+this.value;patchDp()">'+ms+'</select>'+
+    '<select onchange="S.dpY=+this.value;patchDp()">'+ys+'</select>'+
+    '<button type="button" onclick="mv(1)">&#8250;</button></div>'+
+    '<div class="wk">'+WD.map(w=>'<span>'+w+'</span>').join("")+'</div>'+
+    '<div class="days">'+cells+'</div>'+
+    '<div class="ft">Активни са само датите, при които на 01.06.'+S.d.season+' г. ще си на 18–28 г.</div></div>';
+}
+function mv(n){let m=S.dpM+n,y=S.dpY;if(m<0){m=11;y--}if(m>11){m=0;y++}S.dpM=m;S.dpY=y;patchDp();}
+function toggleDp(e){e.stopPropagation();S.dpOpen=!S.dpOpen;closeAc();patchDp();}
+function pickDate(iso){
+  S.d.dob=iso;S.touched.dob=true;S.dpOpen=false;
+  patchDp();patchField("dob");
+}
+
+/* --- interakcii --- */
+function setV(k,v){S.d[k]=v;S.touched[k]=true;render();}
+function closeAc(){const k=S.acOpen;if(!k)return;S.acOpen=null;patchAc(k);}
+function blurF(k){
+  S.touched[k]=true;
+  /* Кратко изчакване, за да успее mousedown върху подсказка да се обработи. */
+  setTimeout(()=>{ if(S.acOpen===k)closeAc(); patchField(k); },140);
+}
+function pick(k,i){
+  const it=S.acItems[i];if(!it)return;
+  S.d[k]=it.t;S.touched[k]=true;S.acOpen=null;
+  const el=root.querySelector('[data-k="'+k+'"]');
+  if(el){el.value=it.t;el.focus();}           // пипаме само стойността, не пресъздаваме полето
+  clearTimeout(T["v-"+k]);clearTimeout(T["a-"+k]);
+  patchAc(k);patchField(k);
+}
+function acKeys(e,k){
+  if(S.acOpen!==k||!S.acItems.length)return;
+  if(e.key==="ArrowDown"){e.preventDefault();S.acHl=(S.acHl+1)%S.acItems.length;patchAc(k);}
+  else if(e.key==="ArrowUp"){e.preventDefault();S.acHl=(S.acHl-1+S.acItems.length)%S.acItems.length;patchAc(k);}
+  else if(e.key==="Enter"){e.preventDefault();pick(k,S.acHl);}
+  else if(e.key==="Escape"){closeAc();}
+}
+function toggle(k){S.d[k]=!S.d[k];render();}
+function go(n){
+  if(n>S.step){fieldsOf(S.step).forEach(k=>S.touched[k]=true);if(!stepOk(S.step))return render();}
+  S.step=n;S.acOpen=null;S.dpOpen=false;window.scrollTo({top:180,behavior:"smooth"});render();
+}
+function submit(){
+  const seq=String(42).padStart(5,"0");
+  S.contractNo="AIM-"+(S.d.office==="varna"?"VAR":"SOF")+"-"+S.d.season+"-"+seq;
+  S.submitted=true;window.scrollTo({top:120,behavior:"smooth"});render();
+}
+document.addEventListener("mousedown",()=>{
+  if(S.dpOpen){S.dpOpen=false;patchDp();}
+  closeAc();
+});
+
+/* --- страници --- */
+function page1(){return '<div class="grid">'+
+  fld("email","Имейл",{col:"c12",type:"email",mode:"email",ac:"email",ph:"ivan.petrov@gmail.com",
+      hint:"На този адрес изпращаме договора и документите."})+
+  fld("fn","Име (латиница)",{col:"c4",lat:true,ph:"IVAN",suggest:false,hint:"Както е в международния паспорт"})+
+  fld("mn","Презиме (латиница)",{col:"c4",lat:true,ph:"PETROV"})+
+  fld("ln","Фамилия (латиница)",{col:"c4",lat:true,ph:"DIMITROV"})+
+  fld("phone","Телефон",{col:"c4",type:"tel",mode:"tel",ac:"tel",ph:"+359 888 123 456"})+
+  fld("dob","Дата на раждане",{col:"c4",type:"date"})+
+  fld("pob","Месторождение",{col:"c4",suggest:true,ph:"започни да пишеш…"})+
+  fld("egn","ЕГН",{col:"c6",mode:"numeric",ph:"10 цифри",hint:"Вписва се в договора и в декларацията по ЗЗЛД."})+
+  fld("idcard","№ на лична карта",{col:"c6",mode:"numeric",ph:"9 цифри"})+
+  '</div>';}
+
+function page2(){return '<div class="grid">'+
+  fld("uni","Учебно заведение",{col:"c12",suggest:true,ph:"започни да пишеш името на ВУЗ-а…"})+
+  fld("major","Специалност",{col:"c8",suggest:true,ph:"започни да пишеш…"})+
+  fld("year","Курс",{col:"c4",type:"select",options:[["1","1 курс"],["2","2 курс"],["3","3 курс"],
+      ["4","4 курс"],["m","Магистратура"]]})+
+  '</div>';}
+
+function page3(){
+  const opt=(v,t,d,p)=>'<div class="opt'+(S.d.option===v?" on":"")+'" onclick="setV(\'option\',\''+v+'\')">'+
+    '<div class="rd"></div><div><div class="t">'+t+'</div><div class="d">'+d+'</div></div>'+
+    '<div class="p">'+p+'</div></div>';
+  const off=(v,t,d)=>'<div class="opt'+(S.d.office===v?" on":"")+'" onclick="setV(\'office\',\''+v+'\')">'+
+    '<div class="rd"></div><div><div class="t">'+t+'</div><div class="d">'+d+'</div></div></div>';
+  return '<div class="grid">'+
+   '<div class="f c12"><label>Програмна опция <span class="req">*</span></label><div class="opts">'+
+   opt("full","FULL ARRANGED","Спонсорът ти осигурява интервю с одобрен работодател чрез Job Fair, Recruit или Virtual Hire.","$1750")+
+   opt("self","SELF ARRANGED","Ти си намираш работодател сам; спонсорът разглежда до 2 оферти. Краен срок 30 януари.","$1250")+
+   '</div><div class="hint">Опцията се вписва в чл. 1 от договора и може да бъде сменена само с нов договор.</div></div>'+
+   '<div class="f c12"><label>Офис <span class="req">*</span></label><div class="opts">'+
+   off("varna","Офис Варна","бул. „Владислав Варненчик“ 186 · агент Стоян Стоянов")+
+   off("sofia","Офис София","бул. „Витоша“ 19")+
+   '</div></div>'+
+   /* Сезонът не се избира: записваме винаги за предстоящото лято. */
+   '<div class="f c12"><label>Сезон</label><div class="season">'+
+     '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#12395F" stroke-width="1.8">'+
+     '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg>'+
+     '<b>Лято '+S.d.season+'</b>'+
+     '<span>записваме за предстоящото лято</span></div>'+
+     '<div class="hint">Кампанията за лято '+(Number(S.d.season)+1)+' отваря след 1 юни '+S.d.season+' г.</div></div>'+
+  '</div>';}
+
+function page4(){
+  const n=[S.d.fn,S.d.mn,S.d.ln].filter(Boolean).join(" ")||"—";
+  const row=(t,v,m)=>'<dt>'+t+'</dt><dd'+(m?' class="mono"':'')+'>'+esc(v||"—")+'</dd>';
+  const chk=(k,txt)=>'<div class="chk'+(S.d[k]?" on":"")+'" role="checkbox" tabindex="0" '+
+    'aria-checked="'+(S.d[k]?"true":"false")+'" onclick="toggle(\''+k+'\')">'+
+    '<div class="bx"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" '+
+    'stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>'+
+    '<div>'+txt+'</div></div>';
+  return '<div class="grid">'+
+   '<div class="f c12"><div class="rev"><h4>Лични данни<button onclick="go(1)">Редактирай</button></h4><dl>'+
+     row("Три имена",n,true)+row("Имейл",S.d.email)+row("Телефон",S.d.phone,true)+
+     row("Дата на раждане",S.d.dob?fmtBg(S.d.dob):"",true)+row("Месторождение",S.d.pob)+
+     row("ЕГН",S.d.egn?S.d.egn.slice(0,6)+"••••":"",true)+row("Лична карта",S.d.idcard?"•••••"+S.d.idcard.slice(-4):"",true)+
+   '</dl></div></div>'+
+   '<div class="f c12"><div class="rev"><h4>Образование и програма<button onclick="go(2)">Редактирай</button></h4><dl>'+
+     row("Учебно заведение",S.d.uni)+row("Специалност",S.d.major)+
+     row("Курс",({"1":"1 курс","2":"2 курс","3":"3 курс","4":"4 курс","m":"Магистратура"})[S.d.year])+
+     row("Опция",S.d.option==="full"?"FULL ARRANGED · $1750":"SELF ARRANGED · $1250")+
+     row("Сезон","Лято "+S.d.season)+row("Офис",S.d.office==="varna"?"Варна":"София")+
+   '</dl></div></div>'+
+   '<div class="f c12"><label>Декларации <span class="req">*</span></label><div class="opts">'+
+     chk("terms","Запознат/а съм с <a href=\'#\'>договора за участие</a> и общите условия на спонсора и ги приемам. Разбирам, че AIM Travel е агент, а не организатор на програмата.")+
+     chk("truth","Декларирам, че данните са верни. Известна ми е отговорността по чл. 313 от Наказателния кодекс.")+
+     chk("gdpr","Предоставям личните си данни доброволно и съм запознат/а с <a href=\'#\'>целите на обработването им</a>.")+
+   '</div></div>'+
+   '<div class="f c12"><div class="box" style="box-shadow:none;background:#F7FAFC">'+
+     '<h3>Какво се случва при натискане на „Изпрати“</h3><ol class="nx">'+
+     '<li>Системата резервира номер на договор и генерира PDF от темплейта за сезон '+S.d.season+'.</li>'+
+     '<li>Изпращаме имейл на <b>'+esc(S.d.email||"твоя адрес")+'</b> с договора, CV бланката и Application Form.</li>'+
+     '<li>Отговаряш на имейла със снимка в паспортен формат.</li>'+
+     '<li>Агент от офис '+(S.d.office==="varna"?"Варна":"София")+' се свързва с теб до 1 работен ден.</li>'+
+     '</ol></div></div>'+
+  '</div>';}
+
+function successPage(){
+  const n=[S.d.fn,S.d.mn,S.d.ln].filter(Boolean).join(" ");
+  return '<div class="done">'+
+   '<div class="seal"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1E7A4C" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg></div>'+
+   '<h2>Договорът е генериран</h2>'+
+   '<p>Благодарим ти, '+esc(S.d.fn||"")+'. Договорът е записан на твое име и е изпратен на имейла ти за подпис.</p>'+
+   '<div class="cnum"><span>Номер на договор</span><b>'+S.contractNo+'</b></div>'+
+   '<div class="hint">Пази този номер — с него агентът намира досието ти.</div>'+
+   '<div class="mailcard">'+
+     '<div class="mh"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#55606E" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'+
+       '<b>До:</b> '+esc(S.d.email)+' &nbsp;·&nbsp; <b>Тема:</b> Договор '+S.contractNo+' — Summer Work &amp; Travel USA '+S.d.season+'</div>'+
+     '<div class="mb">'+
+       '<div>Здравей, '+esc(n)+',<br>договорът ти за участие в програмата е сключен успешно под номер <b>'+S.contractNo+'</b> с опция '+(S.d.option==="full"?"FULL ARRANGED":"SELF ARRANGED")+'.</div>'+
+       '<div><b>Следващи стъпки:</b></div>'+
+       '<ol class="nx">'+
+       '<li>Подпиши договора и го върни сканиран.</li>'+
+       '<li>Отговори на този имейл със <b>снимка в паспортен формат</b> (35×45 мм, бял фон, до 6 месеца давност).</li>'+
+       '<li>Попълни прикачените CV и Application Form.</li>'+
+       '<li>Внеси депозита от $200 в срок до 5 работни дни.</li>'+
+       '</ol>'+
+       '<div class="att"><i>&#128206; Dogovor_'+S.contractNo+'.pdf</i><i>&#128206; Resume_blank_AIM.docx</i><i>&#128206; AIM_Travel_Application_Form.pdf</i></div>'+
+     '</div></div>'+
+   '<div class="dl"><button class="btn pri" onclick="reset()">Изтегли договора (PDF)</button>'+
+   '<button class="btn gho" onclick="reset()">Към студентския профил</button></div>'+
+  '</div>';}
+function reset(){S.submitted=false;S.step=1;render();}
+
+function actions(){
+  if(S.step===4){
+    const ready=stepOk(4);
+    return '<div class="acts"><button class="btn gho" onclick="go(3)">Назад</button>'+
+      '<div class="sp"></div>'+
+      (S.saved?'<div class="save">&#10003; черновата е записана</div>':'')+
+      '<button class="btn pri" '+(ready?"":"disabled")+' onclick="submit()">Изпрати</button></div>';
+  }
+  return '<div class="acts">'+
+    (S.step>1?'<button class="btn gho" onclick="go('+(S.step-1)+')">Назад</button>':'')+
+    '<div class="sp"></div>'+
+    (S.saved?'<div class="save">&#10003; черновата е записана</div>':'')+
+    '<button class="btn pri" onclick="go('+(S.step+1)+')">Продължи</button></div>';
+}
+/* Пълен рендер — само при смяна на стъпка, избор на опция и изпращане.
+   НИКОГА по време на писане в поле. */
+function render(){
+  if(S.submitted){root.innerHTML=successPage();return;}
+  const body=[page1,page2,page3,page4][S.step-1]();
+  const titles=["Лични данни","Образование","Програма и офис","Преглед и договор"];
+  root.innerHTML=stepper()+
+    '<div class="pagehead"><h2>'+titles[S.step-1]+'</h2>'+
+    '<div class="count">Стъпка '+S.step+' от 4</div></div>'+
+    '<form onsubmit="event.preventDefault()">'+body+'</form>'+actions();
+}
+render();
+</script>

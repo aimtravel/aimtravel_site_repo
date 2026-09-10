@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIM Travel - Work and Travel USA</title>
-    <meta name="description" content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <title>{% block title %}AIM Travel - Work and Travel USA{% endblock %}</title>
+    <meta name="description" content="{% block description %}Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!{% endblock %}">
     <meta name="keywords" content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
     <meta name="cta-action" content="Sign Up Now for an Adventure">
 
@@ -70,6 +70,7 @@
                    src="https://www.facebook.com/tr?id=489738488628741&ev=PageView&noscript=1"
     /></noscript>
 
+    {% block extra_head %}{% endblock %}
 </head>
 
 <body id="offer-details-page">

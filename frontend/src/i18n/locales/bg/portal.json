@@ -1,0 +1,68 @@
+{
+  "greeting": "Здравей, {{name}}!",
+  "subtitle": "Ето докъде стигна твоята кандидатура.",
+  "nav": {
+    "overview": "Начало",
+    "documents": "Документи",
+    "interviews": "Интервюта",
+    "payments": "Плащания",
+    "offers": "Моите оферти"
+  },
+  "agent": {
+    "label": "Твоят агент",
+    "officeVarna": "Офис Варна",
+    "officeSofia": "Офис София"
+  },
+  "pipeline": {
+    "label": "Твоят прогрес",
+    "steps": {
+      "inquiry": "Запитване",
+      "registered": "Записан",
+      "documents": "Документи",
+      "matched": "Одобрени оферти",
+      "visa": "Виза",
+      "departure": "Заминаване"
+    }
+  },
+  "stats": {
+    "approvedOffers": "Одобрени оферти",
+    "approvedOffersHint": "чакат интервю с теб",
+    "documents": "Документи",
+    "documentsProgress": "{{done}} / {{total}}",
+    "documentsMissing": "липсва {{name}}",
+    "daysToDeparture": "До заминаване",
+    "daysUnit_one": "{{count}} ден",
+    "daysUnit_other": "{{count}} дни"
+  },
+  "nextStep": {
+    "label": "Следваща стъпка",
+    "interviewWith": "Интервю с {{employer}} — {{date}}",
+    "linkSent": "Линкът е изпратен на имейла ти"
+  },
+  "alerts": {
+    "uploadPassport": {
+      "title": "Качи страницата със снимка от паспорта си",
+      "body": "Без нея не можем да подадем документите за DS-2019."
+    }
+  },
+  "documents": {
+    "title": "Документи",
+    "notes": {
+      "uploadedOn": "качено на {{date}}",
+      "passportPage": "страницата със снимката"
+    }
+  },
+  "interviews": {
+    "title": "Интервюта",
+    "notScheduled": "часът още не е насрочен",
+    "timezoneNote": "{{localTime}} EEST · {{usTime}} ET"
+  },
+  "payments": {
+    "title": "Плащания",
+    "planLine": "План: {{plan}} · промо цена {{price}}",
+    "deposit": "Депозит",
+    "installment": "Вноска {{n}}",
+    "remaining": "Остатък",
+    "total": "Общо"
+  }
+}

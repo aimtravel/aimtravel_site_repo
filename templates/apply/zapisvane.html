@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load django_vite %}
+
+{#
+  Страницата „Запиши се за бригада“.
+
+  Django рендерира само празен контейнер; React се монтира в него.
+  Това е „остров“, не SPA — навигацията, футърът и SEO-то остават на Django.
+
+  Блоковете title/description/extra_head са добавени в base.html специално
+  за тази страница; други страници ги оставят непокрити и виждат
+  дефолтите на base.html.
+#}
+
+{% block title %}Запиши се за бригада — AIM Travel{% endblock %}
+
+{% block description %}Запиши се за Summer Work &amp; Travel USA {{ season }}. Попълваш формуляра за 4 минути, а договорът се генерира автоматично. При записване не се дължат никакви суми.{% endblock %}
+
+{% block extra_head %}
+    {# Формата съдържа лични данни — не искаме кеширани копия по пътя. #}
+    <meta name="robots" content="index, follow">
+
+    {# Кирилицата трябва да е в subset-а, иначе заглавията падат към system-ui. #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap&subset=cyrillic,cyrillic-ext,latin">
+    {% vite_hmr_client %}
+    {% vite_asset 'src/entries/apply.tsx' %}
+{% endblock %}
+
+{% block content %}
+    {#
+      data-bootstrap спестява една заявка при зареждане: сезонът и Turnstile
+      ключът идват наготово. Стойностите са escape-нати от Django, а React ги
+      чете с JSON.parse — не се интерполират в JS код.
+    #}
+    <div id="apply-root" data-bootstrap="{{ bootstrap_json }}">
+        {# Съдържание без JavaScript. Виждат го и търсачките. #}
+        <noscript>
+            <div class="container" style="padding:48px 0;max-width:680px">
+                <h1>Запиши се за бригада</h1>
+                <p>
+                    Формулярът изисква включен JavaScript. Ако не можеш да го включиш,
+                    обади се в офиса и агент ще попълни данните вместо теб:
+                </p>
+                <ul>
+                    <li>Офис Варна — <a href="tel:+359889966583">+359 88 99 66 583</a></li>
+                    <li><a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a></li>
+                </ul>
+            </div>
+        </noscript>
+    </div>
+{% endblock %}
