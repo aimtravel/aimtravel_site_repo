@@ -1,0 +1,35 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = [
+    ".venv",
+    "venv",
+    "handoff",
+    "media",
+    "private_media",
+    "static",
+    "staticfiles",
+    "node_modules",
+    "**/migrations",
+]
+
+[tool.ruff.lint]
+# E, F  = pycodestyle + pyflakes (real errors, unused vars, etc.)
+# I     = isort (import ordering) — makes `source.organizeImports.ruff` do its job
+# UP    = pyupgrade (modern Python syntax)
+# B     = flake8-bugbear (likely bugs)
+select = ["E", "F", "I", "UP", "B"]
+# Line-length is enforced by the formatter, not the linter.
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Django __init__.py files legitimately re-export or stay empty.
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.isort]
+# Group project imports separately from third-party.
+known-first-party = ["aimtravel_site", "credentials"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

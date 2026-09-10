@@ -1,0 +1,9 @@
+# Developer tooling. Not needed for the app to run in production — install
+# only on developer machines.
+#
+# Install with:
+#   .venv/bin/pip install -r requirements-dev.txt
+
+# Ruff = formatter + import organizer + linter, all in one binary.
+# Config lives in pyproject.toml at the repo root.
+ruff>=0.8,<1.0
