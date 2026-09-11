@@ -5,7 +5,7 @@ import { z } from "zod";
    Огледален на api/schemas.py (Pydantic) — при промяна се пипат двата.
    --------------------------------------------------------------- */
 
-const LATIN_NAME = /^[A-Za-z][A-Za-z'\-]{1,29}$/;
+const LATIN_NAME = /^[A-Za-z][A-Za-z'\\-]{1,29}$/;
 const EGN_WEIGHTS = [2, 4, 8, 5, 10, 9, 7, 3, 6];
 
 /** Контролна цифра на ЕГН по БДС. */
@@ -21,9 +21,13 @@ export function dobFromEgn(egn: string): string | null {
   let year = Number(egn.slice(0, 2));
   let month = Number(egn.slice(2, 4));
   const day = Number(egn.slice(4, 6));
-  if (month > 40) { month -= 40; year += 2000; }
-  else if (month > 20) { month -= 20; year += 1800; }
-  else year += 1900;
+  if (month > 40) {
+    month -= 40;
+    year += 2000;
+  } else if (month > 20) {
+    month -= 20;
+    year += 1800;
+  } else year += 1900;
   if (month < 1 || month > 12 || day < 1 || day > 31) return null;
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
@@ -53,7 +57,10 @@ export function upcomingSeason(today = new Date()): string {
 }
 
 const latin = (field: string) =>
-  z.string().trim().min(2, `apply:errors.${field}.short`)
+  z
+    .string()
+    .trim()
+    .min(2, `apply:errors.${field}.short`)
     .regex(LATIN_NAME, `apply:errors.${field}.latin`);
 
 /* ---------- Стъпка 1 ---------- */
@@ -62,12 +69,17 @@ export const step1Schema = z.object({
   firstName: latin("firstName"),
   middleName: latin("middleName"),
   lastName: latin("lastName"),
-  phone: z.string().trim()
+  phone: z
+    .string()
+    .trim()
     .transform((v) => v.replace(/[^\d+]/g, ""))
     .refine((v) => /^\+3598[789]\d{7}$/.test(v), "apply:errors.phone.invalid"),
   dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "apply:errors.dateOfBirth.required"),
   egn: z.string().trim().refine(isValidEgn, "apply:errors.egn.checksum"),
-  idCardNumber: z.string().trim().regex(/^\d{9}$/, "apply:errors.idCard.invalid"),
+  idCardNumber: z
+    .string()
+    .trim()
+    .regex(/^\d{9}$/, "apply:errors.idCard.invalid"),
   placeOfBirth: z.string().trim().min(2, "apply:errors.placeOfBirth.short"),
 });
 
@@ -106,16 +118,29 @@ export const applicationSchema = step1Schema
     path: ["egn"],
   })
   /* Възрастовият критерий по чл. 8.1.3 се мери към старта на програмата */
-  .refine((d) => {
-    const age = ageAt(d.dateOfBirth, seasonStart(d.season));
-    return age >= 18 && age <= 28;
-  }, { message: "apply:errors.dateOfBirth.age", path: ["dateOfBirth"] });
+  .refine(
+    (d) => {
+      const age = ageAt(d.dateOfBirth, seasonStart(d.season));
+      return age >= 18 && age <= 28;
+    },
+    { message: "apply:errors.dateOfBirth.age", path: ["dateOfBirth"] },
+  );
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 
 export const STEP_SCHEMAS = [step1Schema, step2Schema, step3Schema, step4Schema] as const;
 export const STEP_FIELDS: readonly (keyof ApplicationInput)[][] = [
-  ["email", "firstName", "middleName", "lastName", "phone", "dateOfBirth", "egn", "idCardNumber", "placeOfBirth"],
+  [
+    "email",
+    "firstName",
+    "middleName",
+    "lastName",
+    "phone",
+    "dateOfBirth",
+    "egn",
+    "idCardNumber",
+    "placeOfBirth",
+  ],
   ["university", "major", "yearOfStudy"],
   ["programOption", "season", "office"],
   ["acceptsTerms", "declaresTruth", "acceptsGdpr"],

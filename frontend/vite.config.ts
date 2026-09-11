@@ -11,7 +11,9 @@ import path from "node:path";
  */
 export default defineConfig({
   plugins: [react()],
-  base: "/static/",
+  // Must match django-vite's `static_url_prefix` (dist) so dev URLs and
+  // production manifest lookups resolve to the same path — /static/dist/.
+  base: "/static/dist/",
   resolve: {
     alias: { "@": path.resolve(__dirname, "./src") },
   },

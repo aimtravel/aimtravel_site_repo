@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-
 import { api, type ApplyConfig } from "./api";
 import { ApplyWizard } from "./ApplyWizard";
 
@@ -34,12 +33,15 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
 
   React.useEffect(() => {
     if (config) return;
-    api.config()
-      .then((raw) => setConfig({
-        season: String((raw as unknown as Record<string, unknown>).season),
-        turnstileSiteKey: (raw as unknown as Record<string, string>).turnstile_site_key,
-        offices: raw.offices,
-      }))
+    api
+      .config()
+      .then((raw) =>
+        setConfig({
+          season: String((raw as unknown as Record<string, unknown>).season),
+          turnstileSiteKey: (raw as unknown as Record<string, string>).turnstile_site_key,
+          offices: raw.offices,
+        }),
+      )
       .catch(() => setFailed(true));
   }, [config]);
 
@@ -61,8 +63,10 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
           </p>
         </div>
         {/* Куполът е бранд мотив от съществуващия сайт. */}
-        <div aria-hidden
-             className="absolute -bottom-14 -left-[5%] -right-[5%] h-28 rounded-t-[50%] bg-muted" />
+        <div
+          aria-hidden
+          className="absolute -bottom-14 -left-[5%] -right-[5%] h-28 rounded-t-[50%] bg-muted"
+        />
       </header>
 
       <main className="relative z-10 -mt-13 pb-16">
@@ -78,10 +82,15 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
           )}
 
           <aside className="grid gap-4">
-            <SideCard title={t("aside.requirements")}
-                      items={t("aside.requirementItems", { returnObjects: true }) as string[]} />
-            <SideCard dark title={t("aside.whyTitle")}
-                      items={t("aside.whyItems", { returnObjects: true }) as string[]} />
+            <SideCard
+              title={t("aside.requirements")}
+              items={t("aside.requirementItems", { returnObjects: true }) as string[]}
+            />
+            <SideCard
+              dark
+              title={t("aside.whyTitle")}
+              items={t("aside.whyItems", { returnObjects: true }) as string[]}
+            />
           </aside>
         </div>
       </main>
@@ -91,15 +100,20 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
 
 function SideCard({ title, items, dark }: { title: string; items: string[]; dark?: boolean }) {
   return (
-    <section className={
-      dark ? "rounded-[18px] bg-navy-800 p-5 text-[#C9D3DE]"
-           : "rounded-[18px] border bg-card p-5 shadow-sm"
-    }>
+    <section
+      className={
+        dark
+          ? "rounded-[18px] bg-navy-800 p-5 text-[#C9D3DE]"
+          : "rounded-[18px] border bg-card p-5 shadow-sm"
+      }
+    >
       <h3 className={`mb-3 text-[13px] uppercase tracking-wider ${dark ? "text-coral" : ""}`}>
         {title}
       </h3>
       <ul className="grid list-disc gap-1.5 pl-4 text-[13.5px]">
-        {items.map((item) => <li key={item}>{item}</li>)}
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
       </ul>
     </section>
   );

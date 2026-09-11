@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django_ckeditor_5',
     'private_storage',
 
+    'rest_framework',
+    'django_vite',
+
     'aimtravel_site',
 
     'aimtravel_site.web.apps.WebConfig',
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
     'aimtravel_site.posting.apps.PostingConfig',
     'aimtravel_site.main_page.apps.MainPageConfig',
     'aimtravel_site.taxes.apps.TaxesConfig',
+    'aimtravel_site.apply.apps.ApplyConfig',
 ]
 
 MIDDLEWARE = [
@@ -222,3 +226,54 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_CACHE_ALIAS = 'default'
 SESSION_COOKIE_AGE = 1800
 SESSION_SAVE_EVERY_REQUEST = True
+
+
+# ---------------------------------------------------------------------------
+# "Запиши се за бригада" (aimtravel_site.apply)
+#
+# Local-dev configuration for the new React island. Production values (real
+# Turnstile keys, Redis-backed cache, Celery broker) live in the deployment
+# environment; here we keep DEBUG behavior with the anti-bot check disabled
+# and Celery tasks stubbed. See handoff/docs/02-architecture.md.
+# ---------------------------------------------------------------------------
+
+# django-vite: DEBUG mode points the template tag at the Vite dev server on
+# port 5173 (HMR). In production it reads static/dist/manifest.json instead.
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": DEBUG,
+        "dev_server_port": 5173,
+        "manifest_path": BASE_DIR / "static" / "dist" / "manifest.json",
+        "static_url_prefix": "dist",
+    }
+}
+
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_RATES": {
+        "apply_burst": "5/min",
+        "apply_day": "20/day",
+        "lookup": "120/min",
+    },
+}
+
+# Cloudflare Turnstile — anti-bot on the public form. Disabled locally; real
+# keys come from env vars in production.
+TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "")
+TURNSTILE_SECRET_KEY = os.environ.get("TURNSTILE_SECRET_KEY", "")
+TURNSTILE_DISABLED = True
+
+# Business constants used by the apply flow (contract PDF, emails).
+AIM_MANAGER_NAME = "Росен Антонов"
+AIM_COMPANY_UIC = "203634922"
+AIM_FROM_EMAIL = "studentski@aimtravel.bg"
+SITE_URL = "http://localhost:8000"
+
+AIM_CONTRACT_TEMPLATES = os.path.join(BASE_DIR, "media", "contract_templates")
+AIM_STATIC_DOCS = os.path.join(BASE_DIR, "media", "static_docs")
+
+AIM_OFFICE_AGENTS = {
+    "varna": {"name": "Стоян Стоянов", "email": "varna@aimtravel.bg",
+              "phone": "+359 88 99 66 583"},
+    "sofia": {"name": "—", "email": "sofia@aimtravel.bg",
+              "phone": "+359 88 99 66 583"},
+}
