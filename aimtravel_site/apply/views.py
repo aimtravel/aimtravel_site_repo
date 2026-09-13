@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from pathlib import PurePosixPath
 
 from django.conf import settings
 from django.http import FileResponse, Http404
@@ -123,10 +124,15 @@ class ContractDownloadView(APIView):
         if application is None or not verify_token(application, token):
             raise Http404
         document = application.contract_document
+        # Use the stored file's extension, not a hard-coded .pdf: on machines
+        # without LibreOffice the "pdf" field actually holds a .docx (see the
+        # fallback in contracts.render_contract). Serving docx bytes as a
+        # .pdf leaves the user with an unopenable file.
+        extension = PurePosixPath(document.pdf.name).suffix or ".pdf"
         return FileResponse(
             document.pdf.open("rb"),
             as_attachment=True,
-            filename=f"Dogovor_{application.contract_number}.pdf",
+            filename=f"Dogovor_{application.contract_number}{extension}",
         )
 
 
