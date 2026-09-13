@@ -9,7 +9,7 @@ export function toApiPayload(
   values: ApplicationInput,
   turnstileToken: string,
 ): Record<string, unknown> {
-  return {
+  const payload: Record<string, unknown> = {
     email: values.email,
     first_name: values.firstName,
     middle_name: values.middleName,
@@ -31,9 +31,14 @@ export function toApiPayload(
     accepts_terms: values.acceptsTerms,
     declares_truth: values.declaresTruth,
     accepts_gdpr: values.acceptsGdpr,
-
-    turnstile_token: turnstileToken,
   };
+
+  // Only include turnstile_token if it's provided (for testing when disabled)
+  if (turnstileToken) {
+    payload.turnstile_token = turnstileToken;
+  }
+
+  return payload;
 }
 
 /** Обратната посока — за черновата, за да може да се възстанови във формата. */

@@ -4,6 +4,7 @@
 Фронтендът ги подава на t(), за да няма два източника на българските низове.
 Ако някога добавите английска версия, бекендът не се пипа.
 """
+
 from __future__ import annotations
 
 from django.utils import timezone
@@ -22,16 +23,18 @@ from .validators import (
 
 class ApplicationCreateSerializer(serializers.Serializer):
     # --- лични данни ---
-    email = serializers.EmailField(error_messages={"invalid": "errors.email.invalid",
-                                                   "blank": "errors.email.invalid"})
+    email = serializers.EmailField(
+        error_messages={"invalid": "errors.email.invalid", "blank": "errors.email.invalid"}
+    )
     first_name = serializers.CharField(max_length=30, trim_whitespace=True)
     middle_name = serializers.CharField(max_length=30, trim_whitespace=True)
     last_name = serializers.CharField(max_length=30, trim_whitespace=True)
     phone = serializers.CharField(max_length=24)
     date_of_birth = serializers.DateField()
     egn = serializers.RegexField(r"^\d{10}$", error_messages={"invalid": "errors.egn.checksum"})
-    id_card_number = serializers.RegexField(r"^\d{9}$",
-                                            error_messages={"invalid": "errors.idCard.invalid"})
+    id_card_number = serializers.RegexField(
+        r"^\d{9}$", error_messages={"invalid": "errors.idCard.invalid"}
+    )
     place_of_birth = serializers.CharField(max_length=80, min_length=2)
 
     # --- образование ---
@@ -50,7 +53,7 @@ class ApplicationCreateSerializer(serializers.Serializer):
     accepts_gdpr = serializers.BooleanField()
 
     # --- анти-бот ---
-    turnstile_token = serializers.CharField(write_only=True, allow_blank=False)
+    turnstile_token = serializers.CharField(write_only=True, allow_blank=True, required=False)
 
     # ------------------------------------------------------------------
     def validate_first_name(self, v: str) -> str:

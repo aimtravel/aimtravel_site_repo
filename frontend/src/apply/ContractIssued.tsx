@@ -16,6 +16,9 @@ export function ContractIssued({ result, values }: { result: ContractResult; val
       </div>
 
       <h2 className="font-display text-[26px] uppercase text-navy-700">{t("success.title")}</h2>
+      <p className="mx-auto mt-3 max-w-[560px] text-[15px] font-semibold text-emerald-800">
+        {t("success.emailSent", { email: result.emailSentTo })}
+      </p>
       <p className="mx-auto mt-2.5 max-w-[520px] text-muted-foreground">
         {t("success.body", { name: values.firstName })}
       </p>
@@ -45,7 +48,7 @@ export function ContractIssued({ result, values }: { result: ContractResult; val
             {(["sign", "photo", "forms", "deposit"] as const).map((k) => <li key={k}>{t(`email.steps.${k}`)}</li>)}
           </ol>
           <div className="flex flex-wrap gap-2 pt-1">
-            {[`Dogovor_${result.contractNumber}.pdf`, "Resume_blank_AIM.docx", "AIM_Travel_Application_Form.pdf"].map((f) => (
+            {[`Dogovor_${result.contractNumber}.pdf`, "AIM_Travel_Application_Form.pdf"].map((f) => (
               <span key={f} className="inline-flex items-center gap-1.5 rounded-md border bg-muted px-2.5 py-1.5 font-mono text-xs">
                 <Paperclip className="h-3.5 w-3.5" /> {f}
               </span>

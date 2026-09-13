@@ -1,13 +1,13 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api, type ApplyConfig } from "./api";
 import { ApplyWizard } from "./ApplyWizard";
 
-interface Bootstrap {
+type BootstrapProps = {
   season?: string;
   turnstileSiteKey?: string;
   offices?: ApplyConfig["offices"];
-}
+};
 
 /**
  * Обвивката около wizard-а: hero секцията, страничната колона и зареждането
@@ -18,9 +18,9 @@ interface Bootstrap {
  * data-bootstrap атрибут (нула допълнителни заявки), а fetch-ът е резервен
  * вариант, ако template-ът не ги е сложил.
  */
-export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
+export function ApplyPage({ bootstrap }: { bootstrap: BootstrapProps }) {
   const { t } = useTranslation("apply");
-  const [config, setConfig] = React.useState<ApplyConfig | null>(
+  const [config, setConfig] = useState<ApplyConfig | null>(
     bootstrap.season && bootstrap.turnstileSiteKey
       ? {
           season: bootstrap.season,
@@ -29,9 +29,9 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
         }
       : null,
   );
-  const [failed, setFailed] = React.useState(false);
+  const [failed, setFailed] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (config) return;
     api
       .config()
@@ -47,7 +47,7 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
 
   return (
     <>
-      <header className="relative overflow-hidden bg-gradient-to-b from-navy-800 to-navy-900 pb-24 pt-11 text-white">
+      <header className="relative overflow-hidden bg-gradient-to-b from-navy-800 to-navy-900 pb-32 pt-11 text-white">
         <div
           aria-hidden
           className="absolute -right-10 top-0 bottom-0 w-56 opacity-[0.14]
@@ -69,7 +69,7 @@ export function ApplyPage({ bootstrap }: { bootstrap: Bootstrap }) {
         />
       </header>
 
-      <main className="relative z-10 -mt-13 pb-16">
+      <main className="relative z-10 -mt-20 pb-16">
         <div className="container grid items-start gap-6 lg:grid-cols-[1fr_316px]">
           {failed ? (
             <div role="alert" className="rounded-[18px] border bg-card p-8 text-center">

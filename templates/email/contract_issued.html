@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Договор {{ contract_number }} — AIM Travel</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
+            <h1 style="margin: 0; font-size: 24px;">AIM Travel USA</h1>
+            <p style="margin: 10px 0 0; opacity: 0.9;">Summer Work & Travel {{ season }}</p>
+        </div>
+        
+        <div style="background: #f9fafb; padding: 30px; border: 1px solid #e5e7eb; border-top: none;">
+            <h2 style="color: #1e3a8a; margin-top: 0;">Здравей, {{ first_name }}!</h2>
+            
+            <p>Договорът ти за участие в програмата е сключен успешно под номер <strong>{{ contract_number }}</strong> с опция <strong>{{ program_option }}</strong>.</p>
+            
+            <div style="background: #fff; border-left: 4px solid #3b82f6; padding: 16px 20px; margin: 24px 0;">
+                <h3 style="margin: 0 0 12px; color: #1e3a8a; font-size: 16px;">📎 Прикачени файлове</h3>
+                <ol style="margin: 0; padding-left: 22px;">
+                    <li style="margin-bottom: 6px;"><strong>Dogovor_{{ contract_number }}.pdf</strong> — моля, прегледай го внимателно и го подпиши.</li>
+                    <li style="margin-bottom: 6px;"><strong>Resume_blank_AIM.docx</strong> — CV бланка за попълване.</li>
+                    <li><strong>AIM_Travel_Application_Form.pdf</strong> — Application Form за попълване.</li>
+                </ol>
+            </div>
+
+            <h3 style="color: #1e3a8a; margin: 28px 0 12px; font-size: 16px;">📋 Следващи стъпки</h3>
+            <ol style="margin: 0 0 24px; padding-left: 22px;">
+                <li style="margin-bottom: 6px;">Подпиши договора и го върни сканиран.</li>
+                <li style="margin-bottom: 6px;">Отговори на този имейл със снимка в паспортен формат (35×45 мм, бял фон, до 6 месеца давност).</li>
+                <li style="margin-bottom: 6px;">Попълни прикачените CV и Application Form.</li>
+                <li>Внеси депозита от <strong>${{ deposit_usd }}</strong> в срок до 5 работни дни.</li>
+            </ol>
+
+            <div style="background: #eff6ff; padding: 16px 20px; border-radius: 6px; margin: 24px 0;">
+                <h3 style="margin: 0 0 10px; color: #1e3a8a; font-size: 16px;">👤 Твоят агент</h3>
+                <p style="margin: 4px 0;"><strong>{{ agent_name }}</strong></p>
+                <p style="margin: 4px 0;">📞 <a href="tel:{{ agent_phone }}" style="color: #1e3a8a; text-decoration: none;">{{ agent_phone }}</a></p>
+                <p style="margin: 4px 0;">📧 <a href="mailto:{{ agent_email }}" style="color: #1e3a8a; text-decoration: none;">{{ agent_email }}</a></p>
+            </div>
+
+            <p style="margin-top: 32px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+                Поздрави,<br>
+                <strong>AIM Travel USA</strong>
+            </p>
+        </div>
+        
+        <div style="background: #1e3a8a; color: white; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; font-size: 12px;">
+            <p style="margin: 0;">© {{ season }} AIM Travel USA | Work Hard Travel Far</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -7,6 +7,8 @@ docs/07-contract-template.md за пълния списък от замени.
 """
 from __future__ import annotations
 
+import logging
+import shutil
 import subprocess
 import tempfile
 from dataclasses import dataclass
@@ -17,6 +19,8 @@ from django.conf import settings
 from docxtpl import DocxTemplate
 
 from .models import Application, ProgramOption
+
+log = logging.getLogger(__name__)
 
 OPTION_LABEL = {
     ProgramOption.FULL_ARRANGED: "FULL ARRANGED",
@@ -74,12 +78,24 @@ def render_contract(application: Application) -> RenderedContract:
 
     # LibreOffice headless. Договорът тръгва като PDF, за да не може да бъде
     # редактиран случайно от студента преди подписване.
+    #
+    # Local dev fallback: if `soffice` is not installed on this machine we
+    # skip the PDF conversion and treat the .docx as the "contract" file.
+    # Emails will then attach the .docx directly. Production must have
+    # LibreOffice installed — this branch only kicks in when the binary is
+    # missing, never as a silent quality regression.
+    pdf_path = docx_path.with_suffix(".pdf")
+    if shutil.which("soffice") is None:
+        log.warning(
+            "soffice binary not found; skipping PDF conversion and shipping .docx as the contract"
+        )
+        return RenderedContract(application.contract_number, docx_path, docx_path)
+
     subprocess.run(
         ["soffice", "--headless", "--convert-to", "pdf", "--outdir", str(out_dir), str(docx_path)],
         check=True, timeout=LIBREOFFICE_TIMEOUT_SECONDS, capture_output=True,
     )
 
-    pdf_path = docx_path.with_suffix(".pdf")
     if not pdf_path.exists():
         raise RuntimeError(f"LibreOffice не произведе PDF за {application.contract_number}")
     return RenderedContract(application.contract_number, docx_path, pdf_path)

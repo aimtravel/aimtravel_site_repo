@@ -10,7 +10,7 @@ import re
 from datetime import date
 
 LATIN_NAME = re.compile(r"^[A-Za-z][A-Za-z'\-]{1,29}$")
-BG_MOBILE = re.compile(r"^\+3598[789]\d{7}$")
+BG_MOBILE = re.compile(r"^\+359[789]\d{8}$")
 EGN_WEIGHTS = (2, 4, 8, 5, 10, 9, 7, 3, 6)
 
 MIN_AGE = 18

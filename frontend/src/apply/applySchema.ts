@@ -73,7 +73,9 @@ export const step1Schema = z.object({
     .string()
     .trim()
     .transform((v) => v.replace(/[^\d+]/g, ""))
-    .refine((v) => /^\+3598[789]\d{7}$/.test(v), "apply:errors.phone.invalid"),
+    /* „+359" е фиксиран префикс във формата; след него точно 9 цифри,
+       водещата ∈ {7,8,9} (мобилните оператори в BG). */
+    .refine((v) => /^\+359[789]\d{8}$/.test(v), "apply:errors.phone.invalid"),
   dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "apply:errors.dateOfBirth.required"),
   egn: z.string().trim().refine(isValidEgn, "apply:errors.egn.checksum"),
   idCardNumber: z

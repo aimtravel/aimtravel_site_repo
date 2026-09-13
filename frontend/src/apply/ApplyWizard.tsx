@@ -1,8 +1,8 @@
-import * as React from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Sun } from "lucide-react";
+import { Check, Loader2, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -18,22 +18,22 @@ import { apiFieldToFormField, toApiPayload } from "./payload";
 import { Turnstile } from "./Turnstile";
 
 const DRAFT_KEY = "aim.apply.draftId";
+const TIMEOUT_SAVE_DRAFT = 1200;
 
 const STEP_KEYS = ["personal", "education", "program", "contract"] as const;
-type StepKey = (typeof STEP_KEYS)[number];
 
 export function ApplyWizard({ config }: { config: ApplyConfig }) {
   const { t } = useTranslation("apply");
-  const [step, setStep] = React.useState(0);
-  const [result, setResult] = React.useState<ContractResult | null>(null);
-  const [savedAt, setSavedAt] = React.useState<Date | null>(null);
-  const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const [turnstileToken, setTurnstileToken] = React.useState("");
+  const [step, setStep] = useState(0);
+  const [result, setResult] = useState<ContractResult | null>(null);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
 
   /* Един ключ за целия живот на формата: retry след таймаут връща същия
      договор вместо да издава втори. Нов ключ има само нова форма. */
-  const idempotencyKey = React.useMemo(() => crypto.randomUUID(), []);
-  const draftId = React.useRef<string | null>(localStorage.getItem(DRAFT_KEY));
+  const idempotencyKey = useMemo(() => crypto.randomUUID(), []);
+  const draftId = useRef<string | null>(localStorage.getItem(DRAFT_KEY));
 
   const form = useForm<ApplicationInput>({
     resolver: zodResolver(applicationSchema),
@@ -73,9 +73,9 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
       // Черновата е удобство, не задължение: ако не се запише, потребителят
       // не бива да вижда грешка по средата на попълването.
       .catch(() => void 0);
-  }, 1200);
+  }, TIMEOUT_SAVE_DRAFT);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const sub = form.watch((values) => saveDraft(values as Partial<ApplicationInput>));
     return () => sub.unsubscribe();
   }, [form, saveDraft]);
@@ -89,48 +89,79 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
   };
   const back = () => setStep((s) => Math.max(0, s - 1));
 
-  const onSubmit = form.handleSubmit(async (values) => {
-    setSubmitError(null);
-    try {
-      const raw = await api.submit(toApiPayload(values, turnstileToken), idempotencyKey);
-      localStorage.removeItem(DRAFT_KEY);
-      setResult({
-        applicationId: (raw as never as Record<string, string>).application_id,
-        contractNumber: (raw as never as Record<string, string>).contract_number,
-        contractPdfUrl: (raw as never as Record<string, string>).contract_pdf_url,
-        emailSentTo: (raw as never as Record<string, string>).email_sent_to,
-      });
-    } catch (error) {
-      if (error instanceof ApiValidationError) {
-        /* Бекендът валидира повторно и може да види неща, които фронтендът
-           не може — застоял сезон, изтекъл Turnstile токен. Връщаме грешките
-           върху конкретните полета и подкарваме потребителя към стъпката им. */
-        let firstStep: number | null = null;
-        for (const [apiField, messages] of Object.entries(error.fieldErrors)) {
-          const field = apiFieldToFormField(apiField);
-          if (!field) continue;
-          form.setError(field, { message: messages[0] });
-          const stepIndex = STEP_FIELDS.findIndex((fields) => fields.includes(field));
-          if (stepIndex >= 0 && (firstStep === null || stepIndex < firstStep))
-            firstStep = stepIndex;
+  const onSubmit = form.handleSubmit(
+    async (values) => {
+      setSubmitError(null);
+      try {
+        const raw = await api.submit(toApiPayload(values, turnstileToken), idempotencyKey);
+        localStorage.removeItem(DRAFT_KEY);
+        setResult({
+          applicationId: (raw as never as Record<string, string>).application_id,
+          contractNumber: (raw as never as Record<string, string>).contract_number,
+          contractPdfUrl: (raw as never as Record<string, string>).contract_pdf_url,
+          emailSentTo: (raw as never as Record<string, string>).email_sent_to,
+        });
+      } catch (error) {
+        if (error instanceof ApiValidationError) {
+          /* Бекендът валидира повторно и може да види неща, които фронтендът
+             не може — застоял сезон, изтекъл Turnstile токен. Връщаме грешките
+             върху конкретните полета и подкарваме потребителя към стъпката им. */
+          let firstStep: number | null = null;
+          for (const [apiField, messages] of Object.entries(error.fieldErrors)) {
+            const field = apiFieldToFormField(apiField);
+            if (!field) continue;
+            form.setError(field, { message: messages[0] });
+            const stepIndex = STEP_FIELDS.findIndex((fields) => fields.includes(field));
+            if (stepIndex >= 0 && (firstStep === null || stepIndex < firstStep))
+              firstStep = stepIndex;
+          }
+          if (firstStep !== null) setStep(firstStep);
+          setSubmitError(t(error.detail ?? ("errors.fixFieldsBelow" as any)));
+        } else if (error instanceof ApiError && error.status === 429) {
+          setSubmitError(t("errors.tooManyRequests"));
+        } else {
+          setSubmitError(t("errors.submitFailed"));
         }
-        if (firstStep !== null) setStep(firstStep);
-        setSubmitError(t(error.detail ?? "errors.fixFieldsBelow"));
-      } else if (error instanceof ApiError && error.status === 429) {
-        setSubmitError(t("errors.tooManyRequests"));
-      } else {
-        setSubmitError(t("errors.submitFailed"));
+        // Токенът е за еднократна употреба — при повторен опит трябва нов.
+        setTurnstileToken("");
       }
-      // Токенът е за еднократна употреба — при повторен опит трябва нов.
-      setTurnstileToken("");
-    }
-  });
+    },
+    (invalid) => {
+      /* onInvalid: without this, RHF silently discards the async callback when
+         zod validation fails and clicking "Изпрати" looks like a dead button.
+         Jump to the step of the first invalid field so the red border is on
+         screen, and surface a message next to the button. */
+      const firstBad = Object.keys(invalid)[0] as keyof ApplicationInput | undefined;
+      if (firstBad) {
+        const stepIndex = STEP_FIELDS.findIndex((fields) => fields.includes(firstBad));
+        if (stepIndex >= 0) setStep(stepIndex);
+      }
+      setSubmitError(t("errors.fixFieldsBelow" as any));
+    },
+  );
 
   if (result) return <ContractIssued result={result} values={form.getValues()} />;
 
   return (
     <FormProvider {...form}>
-      <Card className="overflow-visible rounded-[18px] shadow-lg">
+      <Card className="relative overflow-visible rounded-[18px] shadow-lg">
+        {/* Loading overlay while the browser waits for the server to render the
+            contract and send the email. The submit path can take a few seconds
+            in prod (LibreOffice + SMTP), so a spinner + wait message is the
+            difference between "did it work?" and confidence. */}
+        {form.formState.isSubmitting && (
+          <div
+            role="status"
+            aria-live="polite"
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 rounded-[18px] bg-white/85 backdrop-blur-sm"
+          >
+            <Loader2 className="h-10 w-10 animate-spin text-primary" aria-hidden />
+            <p className="max-w-[380px] px-4 text-center text-sm font-semibold text-navy-800">
+              {t("nav.submittingLong")}
+            </p>
+          </div>
+        )}
+
         <Stepper step={step} onJump={(i) => i < step && setStep(i)} />
 
         <header className="flex flex-wrap items-baseline gap-3 px-7 pt-5">
@@ -148,7 +179,7 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
           {step === 2 && <ProgramStep />}
           {step === 3 && <ContractStep onEdit={setStep} />}
 
-          {step === 3 && (
+          {step === 3 && config.turnstileSiteKey && (
             <div className="mt-4">
               <Turnstile
                 siteKey={config.turnstileSiteKey}
@@ -181,7 +212,13 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
                   {t("nav.next")}
                 </Button>
               ) : (
-                <Button type="submit" disabled={form.formState.isSubmitting || !turnstileToken}>
+                <Button
+                  type="submit"
+                  disabled={
+                    form.formState.isSubmitting ||
+                    (config.turnstileSiteKey ? !turnstileToken : false)
+                  }
+                >
                   {form.formState.isSubmitting ? t("nav.submitting") : t("nav.submit")}
                 </Button>
               )}
@@ -291,7 +328,7 @@ function TextField({
       />
       {error ? (
         <p id={`${name}-error`} role="alert" className="text-xs font-semibold text-destructive">
-          {t(error)}
+          {t(error as any)}
         </p>
       ) : (
         hint && (
@@ -304,6 +341,72 @@ function TextField({
   );
 }
 
+function PhoneField({ className }: { className?: string }) {
+  const { t } = useTranslation("apply");
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<ApplicationInput>();
+  const error = errors.phone?.message as string | undefined;
+  return (
+    <div className={cn("flex flex-col gap-1.5", className)}>
+      <Label htmlFor="phone" className="text-[13px] font-bold">
+        {t("fields.phone")} <span className="text-primary">*</span>
+      </Label>
+      <Controller
+        control={control}
+        name="phone"
+        render={({ field }) => {
+          const digits = (field.value || "")
+            .replace(/^\+359/, "")
+            .replace(/\D/g, "")
+            .slice(0, 9);
+          return (
+            <div
+              className={cn(
+                "flex h-9 w-full items-stretch overflow-hidden rounded-md border border-input bg-transparent text-sm shadow-sm transition-colors",
+                "focus-within:outline-none focus-within:ring-1 focus-within:ring-ring",
+                error && "border-destructive focus-within:ring-destructive/30",
+              )}
+            >
+              {/* „+359" не може да се трие, това не е input, а фиксиран етикет */}
+              <span
+                aria-hidden
+                className="grid select-none place-items-center border-r border-input bg-muted px-3 font-mono text-muted-foreground"
+              >
+                +359
+              </span>
+              <input
+                id="phone"
+                type="tel"
+                inputMode="numeric"
+                maxLength={9}
+                placeholder="883 123 456"
+                autoComplete="on"
+                spellCheck={false}
+                aria-invalid={!!error}
+                aria-describedby={error ? "phone-error" : undefined}
+                className="min-w-0 flex-1 bg-transparent px-3 font-mono outline-none placeholder:text-muted-foreground/60"
+                value={digits}
+                onBlur={field.onBlur}
+                onChange={(e) => {
+                  const next = e.target.value.replace(/\D/g, "").slice(0, 9);
+                  field.onChange(`+359${next}`);
+                }}
+              />
+            </div>
+          );
+        }}
+      />
+      {error && (
+        <p id="phone-error" role="alert" className="text-xs font-semibold text-destructive">
+          {t(error as any)}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function PersonalStep() {
   const { t } = useTranslation("apply");
   const {
@@ -311,6 +414,7 @@ function PersonalStep() {
     watch,
     formState: { errors },
   } = useFormContext<ApplicationInput>();
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
       <TextField
@@ -346,14 +450,7 @@ function PersonalStep() {
         className="md:col-span-4"
       />
 
-      <TextField
-        name="phone"
-        label={t("fields.phone")}
-        type="tel"
-        inputMode="tel"
-        placeholder="+359 888 123 456"
-        className="md:col-span-4"
-      />
+      <PhoneField className="md:col-span-4" />
 
       <div className="md:col-span-4">
         <Controller
@@ -474,7 +571,7 @@ function EducationStep() {
         </select>
         {errors.yearOfStudy && (
           <p role="alert" className="text-xs font-semibold text-destructive">
-            {t(errors.yearOfStudy.message as string)}
+            {t(errors.yearOfStudy.message as any)}
           </p>
         )}
       </div>
@@ -612,22 +709,32 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
     children,
   }: {
     name: "acceptsTerms" | "declaresTruth" | "acceptsGdpr";
-    children: React.ReactNode;
-  }) => (
-    <label
-      className={cn(
-        "flex cursor-pointer items-start gap-3 rounded-xl border-[1.5px] p-4 text-[13.5px] text-muted-foreground",
-        errors[name] ? "border-destructive" : "border-border",
-      )}
-    >
-      <input
-        type="checkbox"
-        {...register(name)}
-        className="mt-0.5 h-[19px] w-[19px] accent-[#A31D1A]"
-      />
-      <span>{children}</span>
-    </label>
-  );
+    children: ReactNode;
+  }) => {
+    const err = errors[name]?.message as string | undefined;
+    return (
+      <div className="flex flex-col gap-1.5">
+        <label
+          className={cn(
+            "flex cursor-pointer items-start gap-3 rounded-xl border-[1.5px] p-4 text-[13.5px] text-muted-foreground",
+            err ? "border-destructive" : "border-border",
+          )}
+        >
+          <input
+            type="checkbox"
+            {...register(name)}
+            className="mt-0.5 h-[19px] w-[19px] accent-[#A31D1A]"
+          />
+          <span>{children}</span>
+        </label>
+        {err && (
+          <p role="alert" className="pl-4 text-xs font-semibold text-destructive">
+            {t(err as never)}
+          </p>
+        )}
+      </div>
+    );
+  };
 
   return (
     <div className="flex flex-col gap-4">

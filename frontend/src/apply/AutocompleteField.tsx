@@ -1,4 +1,4 @@
-import * as React from "react";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Check, Loader2 } from "lucide-react";
 import {
@@ -14,7 +14,7 @@ import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover"
 import { cn } from "@/lib/utils";
 import { useSuggestions } from "./hooks";
 
-interface Props {
+type AutocompleteFieldProps = {
   id: string;
   label: string;
   value: string;
@@ -25,7 +25,7 @@ interface Props {
   hint?: string;
   placeholder?: string;
   required?: boolean;
-}
+};
 
 /**
  * Свободен текст + подсказки. Съзнателно НЕ е select:
@@ -43,14 +43,14 @@ export function AutocompleteField({
   hint,
   placeholder,
   required = true,
-}: Props) {
+}: AutocompleteFieldProps) {
   const { t } = useTranslation("apply");
-  const [open, setOpen] = React.useState(false);
-  const [active, setActive] = React.useState(0);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { items, loading } = useSuggestions(kind, value);
 
-  React.useEffect(() => setActive(0), [items]);
+  useEffect(() => setActive(0), [items]);
   const canOpen = open && value.trim().length >= 2;
 
   const commit = (v: string) => {
@@ -59,7 +59,7 @@ export function AutocompleteField({
     inputRef.current?.focus();
   };
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
+  const onKeyDown = (e: KeyboardEvent) => {
     if (!canOpen || !items.length) return;
     if (e.key === "ArrowDown") {
       e.preventDefault();
@@ -155,7 +155,7 @@ export function AutocompleteField({
 
       {error ? (
         <p id={`${id}-error`} role="alert" className="text-xs font-semibold text-destructive">
-          {t(error)}
+          {t(error as any)}
         </p>
       ) : (
         hint && (

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -11,8 +11,7 @@ declare global {
   }
 }
 
-const SCRIPT_SRC =
-  "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const SCRIPT_SRC = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
 let scriptPromise: Promise<void> | null = null;
 
@@ -30,11 +29,11 @@ function loadScript(): Promise<void> {
   return scriptPromise;
 }
 
-interface Props {
+type TurnstileProps = {
   siteKey: string;
   onToken: (token: string) => void;
   onError?: () => void;
-}
+};
 
 /**
  * Невидим Turnstile widget. В масовия случай студентът не вижда нищо —
@@ -43,13 +42,13 @@ interface Props {
  * Токенът има давност около 5 минути, затова се взима на стъпка 4,
  * непосредствено преди изпращане, а не при зареждане на формата.
  */
-export function Turnstile({ siteKey, onToken, onError }: Props) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const widgetId = React.useRef<string | null>(null);
-  const onTokenRef = React.useRef(onToken);
+export function Turnstile({ siteKey, onToken, onError }: TurnstileProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<string | null>(null);
+  const onTokenRef = useRef(onToken);
   onTokenRef.current = onToken;
 
-  React.useEffect(() => {
+  useEffect(() => {
     let cancelled = false;
 
     loadScript()

@@ -28,8 +28,13 @@ export default defineConfig({
     },
   },
   server: {
+    // Force IPv4 loopback. Vite otherwise binds `[::1]` only on macOS, and
+    // browsers that resolve `localhost` to `127.0.0.1` first get ECONNREFUSED
+    // on the entry script — leaving the React island empty.
+    host: "127.0.0.1",
     port: 5173,
-    origin: "http://localhost:5173",
+    strictPort: true,
+    origin: "http://127.0.0.1:5173",
     // Django dev сървърът вика Vite от друг порт.
     cors: true,
   },

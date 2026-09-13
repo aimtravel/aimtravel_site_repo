@@ -34,14 +34,17 @@ class ApplicationCreateView(APIView):
         serializer = ApplicationCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        # Формата е публична, а всяко подаване изяжда номер на договор и праща
-        # имейл с прикачени файлове. Проверката е ПРЕДИ да пипнем брояча.
-        try:
-            verify_turnstile(serializer.validated_data["turnstile_token"],
-                             remote_ip=request.META.get("REMOTE_ADDR"))
-        except TurnstileError:
-            return Response({"detail": "errors.antibot.failed"},
-                            status=status.HTTP_400_BAD_REQUEST)
+        # Skip Turnstile verification for local development
+        if not getattr(settings, "TURNSTILE_DISABLED", False):
+            try:
+                verify_turnstile(
+                    serializer.validated_data["turnstile_token"],
+                    remote_ip=request.META.get("REMOTE_ADDR"),
+                )
+            except TurnstileError:
+                return Response(
+                    {"detail": "errors.antibot.failed"}, status=status.HTTP_400_BAD_REQUEST
+                )
 
         try:
             application = create_application(
@@ -50,11 +53,13 @@ class ApplicationCreateView(APIView):
                 idempotency_key=request.headers.get("Idempotency-Key", "")[:64],
             )
         except ContractGenerationError:
-            return Response({"detail": "errors.submitFailed"},
-                            status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return Response(
+                {"detail": "errors.submitFailed"}, status=status.HTTP_503_SERVICE_UNAVAILABLE
+            )
 
-        return Response(ApplicationResultSerializer(application).data,
-                        status=status.HTTP_201_CREATED)
+        return Response(
+            ApplicationResultSerializer(application).data, status=status.HTTP_201_CREATED
+        )
 
 
 class DraftView(APIView):
@@ -86,9 +91,11 @@ class LookupView(APIView):
     permission_classes = [AllowAny]
     throttle_classes = [LookupThrottle]
 
-    KINDS = {"universities": lookups.universities,
-             "cities": lookups.cities,
-             "majors": lookups.majors}
+    KINDS = {
+        "universities": lookups.universities,
+        "cities": lookups.cities,
+        "majors": lookups.majors,
+    }
 
     def get(self, request, kind: str):
         finder = self.KINDS.get(kind)
@@ -116,9 +123,11 @@ class ContractDownloadView(APIView):
         if application is None or not verify_token(application, token):
             raise Http404
         document = application.contract_document
-        return FileResponse(document.pdf.open("rb"),
-                            as_attachment=True,
-                            filename=f"Dogovor_{application.contract_number}.pdf")
+        return FileResponse(
+            document.pdf.open("rb"),
+            as_attachment=True,
+            filename=f"Dogovor_{application.contract_number}.pdf",
+        )
 
 
 class ConfigView(APIView):
@@ -133,13 +142,17 @@ class ConfigView(APIView):
     def get(self, request):
         from .validators import upcoming_season
 
-        return Response({
-            "season": upcoming_season(),
-            "turnstile_site_key": settings.TURNSTILE_SITE_KEY,
-            "offices": [
-                {"value": "varna", "label": "Офис Варна",
-                 "address": "бул. „Владислав Варненчик“ 186"},
-                {"value": "sofia", "label": "Офис София",
-                 "address": "бул. „Витоша“ 19"},
-            ],
-        })
+        return Response(
+            {
+                "season": upcoming_season(),
+                "turnstile_site_key": settings.TURNSTILE_SITE_KEY,
+                "offices": [
+                    {
+                        "value": "varna",
+                        "label": "Офис Варна",
+                        "address": "бул. „Владислав Варненчик“ 186",
+                    },
+                    {"value": "sofia", "label": "Офис София", "address": "бул. „Витоша“ 19"},
+                ],
+            }
+        )
