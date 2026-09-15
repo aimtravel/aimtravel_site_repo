@@ -1,0 +1,252 @@
+{% comment %}
+    Модал за съгласие за бисквитки. Партиалът е самодостатъчен — включи го
+    веднъж непосредствено преди </body>.
+
+    Стилът и шрифтовете съответстват на Application Form острова (Manrope
+    за текст, Montserrat за заглавия, #A31D1A primary, #12395F secondary).
+
+    Всички селектори са scope-нати с префикс .aim-cc-, за да не се сблъскат
+    с legacy style.css.
+
+    Поведение:
+      • При зареждане проверяваме localStorage["aim.cookieConsent"].
+      • Ако липсва → модалът се показва; scroll-ът на body-то се заключва.
+      • „Съгласявам се" → localStorage["aim.cookieConsent"] = "accepted"
+        и модалът се скрива. Повече не се показва.
+      • „Отказвам", „×", Escape или клик върху overlay → скриваме без запис.
+        Модалът ще се появи отново при следващо посещение.
+{% endcomment %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Manrope:wght@400;500;600&display=swap&subset=cyrillic,cyrillic-ext,latin">
+
+<style>
+    .aim-cc-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgba(7, 23, 38, 0.72);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        animation: aim-cc-fade 160ms ease-out;
+    }
+
+    .aim-cc-overlay[data-open="true"] {
+        display: flex;
+    }
+
+    @keyframes aim-cc-fade {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    .aim-cc-modal {
+        position: relative;
+        width: 100%;
+        max-width: 520px;
+        background: #FFFFFF;
+        border: 1px solid #E2E6EB;
+        border-radius: 18px;
+        box-shadow: 0 24px 48px rgba(7, 23, 38, 0.25);
+        padding: 26px 28px 22px;
+        font-family: "Manrope", system-ui, sans-serif;
+        color: #1C2430;
+        line-height: 1.55;
+        animation: aim-cc-pop 180ms ease-out;
+    }
+
+    @keyframes aim-cc-pop {
+        from { transform: translateY(6px) scale(0.98); opacity: 0; }
+        to   { transform: none; opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+        .aim-cc-modal { padding: 22px 20px 18px; border-radius: 16px; }
+    }
+
+    .aim-cc-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 999px;
+        color: #55606E;
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+        transition: background-color 120ms, color 120ms;
+    }
+
+    .aim-cc-close:hover,
+    .aim-cc-close:focus-visible {
+        background: #F4F5F7;
+        color: #1C2430;
+        outline: none;
+    }
+
+    .aim-cc-close:focus-visible {
+        box-shadow: 0 0 0 2px #2C5B87;
+    }
+
+    .aim-cc-title {
+        margin: 0 40px 10px 0;
+        font-family: "Montserrat", system-ui, sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        color: #12395F;
+    }
+
+    .aim-cc-body {
+        margin: 0;
+        font-size: 14px;
+        color: #55606E;
+    }
+
+    .aim-cc-list {
+        margin: 12px 0 0;
+        padding-left: 18px;
+        font-size: 13px;
+        color: #55606E;
+    }
+
+    .aim-cc-list li + li { margin-top: 4px; }
+
+    .aim-cc-note {
+        margin: 14px 0 0;
+        font-size: 12px;
+        font-style: italic;
+        color: #8A94A2;
+    }
+
+    .aim-cc-actions {
+        margin-top: 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
+    .aim-cc-btn {
+        appearance: none;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-family: "Manrope", system-ui, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        cursor: pointer;
+        transition: background-color 120ms, color 120ms, border-color 120ms;
+    }
+
+    .aim-cc-btn:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px #2C5B87;
+    }
+
+    .aim-cc-btn-secondary {
+        background: #FFFFFF;
+        border-color: #E2E6EB;
+        color: #1C2430;
+    }
+
+    .aim-cc-btn-secondary:hover {
+        background: #F4F5F7;
+    }
+
+    .aim-cc-btn-primary {
+        background: #A31D1A;
+        color: #FFFFFF;
+    }
+
+    .aim-cc-btn-primary:hover {
+        background: #7F1512;
+    }
+
+    @media (max-width: 480px) {
+        .aim-cc-actions { flex-direction: column-reverse; }
+        .aim-cc-btn { width: 100%; }
+    }
+</style>
+
+<div class="aim-cc-overlay"
+     id="aim-cc-overlay"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="aim-cc-title"
+     aria-describedby="aim-cc-body">
+    <div class="aim-cc-modal">
+        <button type="button" class="aim-cc-close" id="aim-cc-close" aria-label="Затвори">&times;</button>
+        <h2 class="aim-cc-title" id="aim-cc-title">Политика за поверителност и бисквитки</h2>
+        <p class="aim-cc-body" id="aim-cc-body">
+            Използваме бисквитки и подобни технологии, за да работи сайтът, да запомним твоя избор
+            и да измерваме анонимно натоварването на страниците.
+        </p>
+        <ul class="aim-cc-list">
+            <li>Задължителни бисквитки — за сесия и CSRF защита.</li>
+            <li>Аналитични — Google Analytics и Facebook Pixel, само в анонимен вид.</li>
+            <li>Не продаваме и не споделяме личните ти данни с трети страни за реклама.</li>
+        </ul>
+        <p class="aim-cc-note">
+            Ако натиснеш „Отказвам“ или „×“, изборът ти не се запазва и прозорецът ще се появи
+            отново при следващо посещение.
+        </p>
+        <div class="aim-cc-actions">
+            <button type="button" class="aim-cc-btn aim-cc-btn-secondary" id="aim-cc-decline">Отказвам</button>
+            <button type="button" class="aim-cc-btn aim-cc-btn-primary" id="aim-cc-accept">Съгласявам се</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var KEY = "aim.cookieConsent";
+        var overlay = document.getElementById("aim-cc-overlay");
+        if (!overlay) return;
+
+        function safeGet() {
+            try { return localStorage.getItem(KEY); } catch (_) { return null; }
+        }
+        function safeSetAccepted() {
+            try { localStorage.setItem(KEY, "accepted"); } catch (_) { /* private mode */ }
+        }
+
+        var already = safeGet() === "accepted";
+        if (already) return;
+
+        var previousOverflow = document.body.style.overflow;
+        overlay.setAttribute("data-open", "true");
+        document.body.style.overflow = "hidden";
+
+        function close(save) {
+            if (save) safeSetAccepted();
+            overlay.setAttribute("data-open", "false");
+            document.body.style.overflow = previousOverflow;
+            document.removeEventListener("keydown", onKey);
+        }
+
+        function onKey(e) {
+            if (e.key === "Escape") close(false);
+        }
+
+        document.getElementById("aim-cc-accept").addEventListener("click", function () { close(true); });
+        document.getElementById("aim-cc-decline").addEventListener("click", function () { close(false); });
+        document.getElementById("aim-cc-close").addEventListener("click", function () { close(false); });
+        overlay.addEventListener("click", function (e) {
+            if (e.target === overlay) close(false);
+        });
+        document.addEventListener("keydown", onKey);
+    })();
+</script>

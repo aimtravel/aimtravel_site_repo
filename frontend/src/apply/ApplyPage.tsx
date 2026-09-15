@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { api, type ApplyConfig } from "./api";
 import { ApplyWizard } from "./ApplyWizard";
+import { CookieConsent } from "./CookieConsent";
 
 type BootstrapProps = {
   season?: string;
@@ -33,6 +34,7 @@ export function ApplyPage({ bootstrap }: { bootstrap: BootstrapProps }) {
 
   useEffect(() => {
     if (config) return;
+
     api
       .config()
       .then((raw) =>
@@ -47,6 +49,7 @@ export function ApplyPage({ bootstrap }: { bootstrap: BootstrapProps }) {
 
   return (
     <>
+      <CookieConsent />
       <header className="relative overflow-hidden bg-gradient-to-b from-navy-800 to-navy-900 pb-32 pt-11 text-white">
         <div
           aria-hidden
