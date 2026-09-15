@@ -8,7 +8,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { seasonStart } from "./applySchema";
+import { seasonStart } from "../helpers/applySchema";
 
 type DateOfBirthPickerProps = {
   id: string;
@@ -76,8 +76,8 @@ export function DateOfBirthPicker({
             locale={bg}
             weekStartsOn={1}
             captionLayout="dropdown"
-            fromDate={min}
-            toDate={max}
+            startMonth={min}
+            endMonth={max}
             defaultMonth={defaultMonth}
             selected={value ? parseISO(value) : undefined}
             disabled={{ before: min, after: max }}

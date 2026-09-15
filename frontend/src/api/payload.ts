@@ -1,4 +1,4 @@
-import type { ApplicationInput } from "./applySchema";
+import type { ApplicationInput } from "../helpers/applySchema";
 
 /**
  * React работи в camelCase, Django в snake_case. Преобразуването е на едно

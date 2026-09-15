@@ -24,8 +24,10 @@ export interface Suggestion {
 
 /** Грешки по поле, както ги връща DRF: { "egn": ["errors.egn.checksum"] } */
 export class ApiValidationError extends Error {
-  constructor(public readonly fieldErrors: Record<string, string[]>,
-              public readonly detail?: string) {
+  constructor(
+    public readonly fieldErrors: Record<string, string[]>,
+    public readonly detail?: string,
+  ) {
     super(detail ?? "validation failed");
     this.name = "ApiValidationError";
   }
@@ -37,7 +39,10 @@ export class ApiValidationError extends Error {
 }
 
 export class ApiError extends Error {
-  constructor(public readonly status: number, public readonly detail?: string) {
+  constructor(
+    public readonly status: number,
+    public readonly detail?: string,
+  ) {
     super(detail ?? `HTTP ${status}`);
     this.name = "ApiError";
   }
@@ -65,7 +70,11 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   if (response.status === 204) return undefined as T;
 
   let body: unknown = null;
-  try { body = await response.json(); } catch { /* празно тяло при 5xx */ }
+  try {
+    body = await response.json();
+  } catch {
+    /* празно тяло при 5xx */
+  }
 
   if (response.ok) return body as T;
 
@@ -81,8 +90,10 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   }
 
   if (response.status === 429) throw new ApiError(429, "errors.tooManyRequests");
-  throw new ApiError(response.status,
-    (body as { detail?: string } | null)?.detail ?? "errors.submitFailed");
+  throw new ApiError(
+    response.status,
+    (body as { detail?: string } | null)?.detail ?? "errors.submitFailed",
+  );
 }
 
 /* ------------------------------------------------------------------ */

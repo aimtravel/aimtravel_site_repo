@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverAnchor, PopoverContent } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { useSuggestions } from "./hooks";
+import { useSuggestions } from "../hooks/hooks";
 
 type AutocompleteFieldProps = {
   id: string;

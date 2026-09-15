@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { api, type ApplyConfig } from "./api";
+import { api, type ApplyConfig } from "../api/api";
 import { ApplyWizard } from "./ApplyWizard";
 import { CookieConsent } from "./CookieConsent";
 

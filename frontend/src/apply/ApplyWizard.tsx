@@ -8,13 +8,19 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { api, ApiError, ApiValidationError, type ApplyConfig, type ContractResult } from "./api";
-import { applicationSchema, STEP_FIELDS, type ApplicationInput } from "./applySchema";
+import {
+  api,
+  ApiError,
+  ApiValidationError,
+  type ApplyConfig,
+  type ContractResult,
+} from "../api/api";
+import { apiFieldToFormField, toApiPayload } from "../api/payload";
+import { applicationSchema, STEP_FIELDS, type ApplicationInput } from "../helpers/applySchema";
+import { useDebouncedCallback } from "../hooks/hooks";
 import { AutocompleteField } from "./AutocompleteField";
 import { ContractIssued } from "./ContractIssued";
 import { DateOfBirthPicker } from "./DateOfBirthPicker";
-import { useDebouncedCallback } from "./hooks";
-import { apiFieldToFormField, toApiPayload } from "./payload";
 import { Turnstile } from "./Turnstile";
 
 const DRAFT_KEY = "aim.apply.draftId";
