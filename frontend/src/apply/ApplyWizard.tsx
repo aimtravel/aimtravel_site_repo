@@ -296,6 +296,7 @@ function TextField({
   inputMode,
   type = "text",
   className,
+  optional,
 }: {
   name: keyof ApplicationInput;
   label: string;
@@ -305,6 +306,7 @@ function TextField({
   inputMode?: "text" | "numeric" | "tel" | "email";
   type?: string;
   className?: string;
+  optional?: boolean;
 }) {
   const { t } = useTranslation("apply");
   const {
@@ -315,7 +317,7 @@ function TextField({
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
       <Label htmlFor={name} className="text-[13px] font-bold">
-        {label} <span className="text-primary">*</span>
+        {label} {!optional && <span className="text-primary">*</span>}
       </Label>
       <Input
         id={name}
@@ -501,6 +503,7 @@ function PersonalStep() {
         placeholder="10 цифри"
         hint={t("fields.egnHint")}
         className="md:col-span-6"
+        optional
       />
       <TextField
         name="idCardNumber"
