@@ -87,7 +87,7 @@
 .offers-result-count{display:flex;min-width:142px;align-items:center;justify-content:center;gap:9px;padding:18px 22px;border:1px solid var(--offers-line);border-radius:20px;background:linear-gradient(145deg,#fff,#f4f8fa);box-shadow:0 14px 34px rgba(7,59,92,.1);text-align:center}
 .offers-result-count strong{color:var(--offers-navy);font-size:32px;line-height:1}.offers-result-count span{color:var(--offers-muted);font-size:13px;font-weight:700}
 .offers-filter-panel{position:relative;padding:24px;border:1px solid var(--offers-line);border-radius:24px;background:rgba(255,255,255,.98);box-shadow:0 20px 55px rgba(7,59,92,.11)}
-.offers-filter-grid{display:grid;grid-template-columns:minmax(240px,1.45fr) repeat(3,minmax(170px,1fr));gap:14px;align-items:end}
+.offers-filter-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:end}
 .offers-field{display:flex;min-width:0;flex-direction:column;gap:8px;color:var(--offers-navy);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
 .offers-field input[type=search],.offers-field select{width:100%;height:50px;padding:0 15px;border:1px solid #d6e0e6;border-radius:14px;background:var(--offers-soft);color:var(--offers-ink);font:600 14px/1.2 inherit;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
 .offers-field input:focus,.offers-field select:focus{border-color:var(--offers-red);background:#fff;box-shadow:0 0 0 4px rgba(181,9,18,.09)}
@@ -115,10 +115,10 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
 .offers-hero__content{width:100%;max-width:1224px;margin:0 auto}.offers-hero__eyebrow{margin:0 0 12px;color:#fff;font-size:12px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}.offers-hero h1{max-width:780px;margin:0 0 14px;color:#fff;font-size:clamp(38px,5vw,68px);line-height:.98;letter-spacing:-.04em;text-shadow:0 4px 24px rgba(0,0,0,.22)}
 .offers-hero__lead{max-width:660px;margin:0;color:rgba(255,255,255,.9);font-size:clamp(16px,2vw,20px);line-height:1.5}.offers-hero__actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:24px}.offers-hero__button{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 20px;border-radius:12px;background:var(--offers-red);color:#fff;font-size:13px;font-weight:900;letter-spacing:.04em;text-decoration:none;text-transform:uppercase;box-shadow:0 10px 24px rgba(181,9,18,.26)}.offers-hero__button--ghost{border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.11);box-shadow:none;backdrop-filter:blur(8px)}
 .offers-hero__status{display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:13px;font-weight:800}.offers-hero__status:before{content:"";width:9px;height:9px;border-radius:50%;background:#3fd081;box-shadow:0 0 0 5px rgba(63,208,129,.15)}
-#offers-section{width:100%;gap:28px;padding:0 0 46px;background:linear-gradient(#f4f8fa 0,#fff 420px);text-transform:none}.offers-discovery{position:relative;z-index:3;margin-top:-42px!important}.offers-discovery__intro{align-items:center;margin:0 0 16px;padding:0 4px}.offers-discovery__intro h1{font-size:clamp(26px,3.2vw,40px);text-transform:none}
+#offers-section{width:100%;gap:28px;padding:0 0 46px;background:linear-gradient(#f4f8fa 0,#fff 420px);text-transform:none}.offers-discovery{position:relative;z-index:3;margin-top:30px!important}.offers-discovery__intro{align-items:center;margin:0 0 16px;padding:0 4px}.offers-discovery__intro h1{font-size:clamp(26px,3.2vw,40px);text-transform:none}
 .student-tools{margin-top:16px;padding:17px;border:1px solid #cfe3ed;border-radius:18px;background:linear-gradient(135deg,#eef8fc,#f8fbfd)}.student-tools__heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:13px}.student-tools__heading strong{color:var(--offers-navy);font-size:14px}.student-tools__heading span{color:#5e7280;font-size:12px}.student-tools__grid{display:grid;grid-template-columns:repeat(3,minmax(170px,1fr));gap:12px}.student-tools .offers-field select{background:#fff}
-.offers-container{display:block!important;width:100%;max-width:1280px;padding:0 28px!important}.offer-slides{display:block!important;width:100%}.offer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;width:100%}.job-card{position:relative;display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid #e1eaee;border-radius:22px;background:#fff;box-shadow:0 12px 34px rgba(7,59,92,.09);transition:transform .2s,box-shadow .2s}.job-card:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(7,59,92,.15)}
-.job-card__image{position:relative;aspect-ratio:1.5/1;overflow:hidden;background:#dfe9ee}.job-card__image img{width:100%;height:100%;object-fit:cover;transition:transform .35s}.job-card:hover .job-card__image img{transform:scale(1.035)}.job-card__image:after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(transparent,rgba(2,24,38,.58));pointer-events:none}
+.offers-container{display:block!important;width:100%;max-width:1280px;padding:0 28px!important}.offer-slides{display:block!important;width:100%}.offer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;width:100%}.job-card{position:relative;display:flex;min-width:0;flex-direction:column;overflow:hidden;border:1px solid #e1eaee;border-radius:24px 24px 34px 34px;background:#fff;box-shadow:0 12px 34px rgba(7,59,92,.09);transition:transform .2s,box-shadow .2s}.job-card:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(7,59,92,.15)}
+.job-card__image{position:relative;aspect-ratio:1.5/1;overflow:hidden;border-radius:0 0 50% 50% / 0 0 13% 13%;background:#dfe9ee}.job-card__image img{width:100%;height:100%;object-fit:cover;transition:transform .35s}.job-card:hover .job-card__image img{transform:scale(1.035)}.job-card__image:after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(transparent,rgba(2,24,38,.58));pointer-events:none}.job-card__image:before{content:"";position:absolute;z-index:2;inset:16px 16px 13px;border:3px solid rgba(255,255,255,.94);border-radius:22px 22px 50% 50% / 22px 22px 12% 12%;pointer-events:none}
 .job-card__badges{position:absolute;z-index:2;top:14px;left:14px;display:flex;flex-wrap:wrap;gap:7px}.job-badge{padding:6px 9px;border-radius:999px;background:#fff;color:var(--offers-navy);font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 4px 15px rgba(0,0,0,.14)}.job-badge--available{background:#dcf6e7;color:#11653a}.job-badge--last{background:#fff0d5;color:#8b5400}.job-badge--occupied{background:#f4dfe1;color:#8d1720}.job-badge--premium{background:var(--offers-navy);color:#fff}
 .job-favorite{position:absolute;z-index:3;top:13px;right:13px;display:grid;width:38px;height:38px;place-items:center;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(255,255,255,.92);color:var(--offers-navy);font-size:21px;line-height:1;cursor:pointer;box-shadow:0 5px 16px rgba(0,0,0,.15)}.job-favorite[aria-pressed=true]{background:var(--offers-red);color:#fff}.job-card__body{display:flex;flex:1;flex-direction:column;padding:18px}.job-card__employer{margin:0 0 5px;color:#69808c;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}.job-card h3{min-height:48px;margin:0;color:var(--offers-navy);font-size:19px;line-height:1.25;text-transform:none}.job-card__location{display:flex;align-items:center;gap:6px;margin:8px 0 15px;color:#506671;font-size:13px;font-weight:700}.job-card__facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}.job-fact{padding:10px;border-radius:12px;background:#f3f7f9}.job-fact small{display:block;margin-bottom:2px;color:#738690;font-size:9px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.job-fact strong{color:#132f3e;font-size:14px}.job-card__meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;min-height:26px;margin-top:auto}.job-meta-pill{padding:5px 8px;border-radius:999px;background:#edf4f7;color:#345566;font-size:10px;font-weight:900}.job-meta-pill--tips{background:#e8f6ed;color:#17713d}.job-card__footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;padding-top:14px;border-top:1px solid #edf1f3}.job-card__details{color:var(--offers-red);font-size:12px;font-weight:900;text-decoration:none;text-transform:uppercase}.job-card__updated{color:#80909a;font-size:10px}
 .favorite-counter{display:inline-flex;align-items:center;gap:7px;padding:10px 13px;border:1px solid #dbe5ea;border-radius:999px;background:#fff;color:var(--offers-navy);font-size:12px;font-weight:900;box-shadow:0 7px 20px rgba(7,59,92,.08)}.favorite-counter b{display:grid;min-width:23px;height:23px;place-items:center;border-radius:50%;background:var(--offers-red);color:#fff;font-size:11px}
@@ -182,10 +182,22 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                             {% for state in states %}<option value="{{ state }}" {% if state == selected_state %}selected{% endif %}>{{ state }}</option>{% endfor %}
                         </select>
                     </label>
+                    <label class="offers-field"><span>Град</span>
+                        <select name="city" data-auto-filter>
+                            <option value="">Всички градове</option>
+                            {% for city in cities %}<option value="{{ city.name }}" {% if city.name == selected_city %}selected{% endif %}>{{ city.name }}, {{ city.state }}</option>{% endfor %}
+                        </select>
+                    </label>
                     <label class="offers-field"><span>Категория работа</span>
                         <select name="job_position" data-auto-filter>
                             <option value="">Всички категории</option>
                             {% for key, label in position_groups %}<option value="{{ key }}" {% if key == selected_job_position %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                        </select>
+                    </label>
+                    <label class="offers-field"><span>Настаняване</span>
+                        <select name="housing" data-auto-filter>
+                            <option value="">Всички цени</option>
+                            {% for option in housing %}<option value="{{ option }}" {% if option == selected_housing %}selected{% endif %}>{{ option|housing_summary }}</option>{% endfor %}
                         </select>
                     </label>
                     <label class="offers-field"><span>Сортирай</span>
@@ -262,25 +274,13 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                     </section>
                 {% endif %}
 
-                <details class="offers-more-filters" {% if selected_city or selected_suitable_for or selected_housing %}open{% endif %}>
+                <details class="offers-more-filters" {% if selected_suitable_for %}open{% endif %}>
                     <summary>Още филтри</summary>
                     <div class="offers-filter-grid offers-filter-grid--more">
-                        <label class="offers-field"><span>Град</span>
-                            <select name="city" data-auto-filter>
-                                <option value="">Всички градове</option>
-                                {% for city in cities %}<option value="{{ city.name }}" {% if city.name == selected_city %}selected{% endif %}>{{ city.name }}, {{ city.state }}</option>{% endfor %}
-                            </select>
-                        </label>
                         <label class="offers-field"><span>Подходящо за</span>
                             <select name="suitable_for" data-auto-filter>
                                 <option value="">Всички</option>
                                 {% for option in suitable_for %}<option value="{{ option }}" {% if option == selected_suitable_for %}selected{% endif %}>{{ option }}</option>{% endfor %}
-                            </select>
-                        </label>
-                        <label class="offers-field"><span>Настаняване</span>
-                            <select name="housing" data-auto-filter>
-                                <option value="">Всички варианти</option>
-                                {% for option in housing %}<option value="{{ option }}" {% if option == selected_housing %}selected{% endif %}>{{ option }}</option>{% endfor %}
                             </select>
                         </label>
                     </div>
