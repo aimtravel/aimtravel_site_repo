@@ -12,7 +12,6 @@ from rest_framework import serializers
 
 from .models import Application, Office, ProgramOption, YearOfStudy
 from .validators import (
-    age_is_eligible,
     dob_from_egn,
     egn_checksum_ok,
     is_valid_latin_name,
@@ -31,7 +30,13 @@ class ApplicationCreateSerializer(serializers.Serializer):
     last_name = serializers.CharField(max_length=30, trim_whitespace=True)
     phone = serializers.CharField(max_length=24)
     date_of_birth = serializers.DateField()
-    egn = serializers.RegexField(r"^\d{10}$", error_messages={"invalid": "errors.egn.checksum"})
+    # ЕГН е незадължително. Ако е дадено, чака се точно 10 цифри + checksum.
+    egn = serializers.RegexField(
+        r"^\d{10}$",
+        required=False,
+        allow_blank=True,
+        error_messages={"invalid": "errors.egn.checksum"},
+    )
     id_card_number = serializers.RegexField(
         r"^\d{9}$", error_messages={"invalid": "errors.idCard.invalid"}
     )
@@ -81,7 +86,9 @@ class ApplicationCreateSerializer(serializers.Serializer):
         return normalized
 
     def validate_egn(self, v: str) -> str:
-        if not egn_checksum_ok(v):
+        # Празно ЕГН е валидно (полето е незадължително). Ако е попълнено,
+        # минава checksum.
+        if v and not egn_checksum_ok(v):
             raise serializers.ValidationError("errors.egn.checksum")
         return v
 
@@ -110,16 +117,14 @@ class ApplicationCreateSerializer(serializers.Serializer):
 
     # ------------------------------------------------------------------
     def validate(self, attrs):
-        egn, dob, season = attrs["egn"], attrs["date_of_birth"], attrs["season"]
+        egn = attrs.get("egn", "")
+        dob = attrs["date_of_birth"]
 
-        # Ако тези две се разминат, договорът излиза с едни данни,
-        # а DS-2019 с други — грешка, която се хваща чак в посолството.
-        if dob_from_egn(egn) != dob:
+        # Cross-check ЕГН ↔ дата на раждане: пропускаме, ако ЕГН не е дадено
+        # (полето е незадължително). Ако е дадено, разминаване не се допуска —
+        # иначе договорът излиза с едни данни, а DS-2019 с други.
+        if egn and dob_from_egn(egn) != dob:
             raise serializers.ValidationError({"egn": "errors.egn.dobMismatch"})
-
-        # Възрастовият критерий по чл. 8.1.3 се мери спрямо старта на програмата.
-        if not age_is_eligible(dob, season):
-            raise serializers.ValidationError({"date_of_birth": "errors.dateOfBirth.age"})
 
         return attrs
 

@@ -79,7 +79,7 @@ class Application(models.Model):
     last_name = models.CharField(max_length=30)
     phone = models.CharField(max_length=16)
     date_of_birth = models.DateField()
-    egn = models.CharField(max_length=10)
+    egn = models.CharField(max_length=10, blank=True)
     id_card_number = models.CharField(max_length=9)
     place_of_birth = models.CharField(max_length=80)
 

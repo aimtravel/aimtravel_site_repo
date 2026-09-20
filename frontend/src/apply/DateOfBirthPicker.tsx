@@ -8,40 +8,36 @@ import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { seasonStart } from "../helpers/applySchema";
 
 type DateOfBirthPickerProps = {
   id: string;
   label: string;
   value?: string; // ISO: YYYY-MM-DD
-  season: string; // „2027“ — критерият 18–28 г. е спрямо старта на сезона
+  season: string; // подава се, но не се използва за ограничение на picker-a
   error?: string;
   onChange: (iso: string) => void;
 };
 
 /**
- * Date picker вместо три select-а или маскирано поле.
- * Прозорецът е ограничен до датите, при които участникът ще е на 18–28 г.
- * към старта на програмата (чл. 8.1.3 от договора) — невалидни дати
- * просто не могат да бъдат избрани, вместо да се отхвърлят след това.
+ * Date picker с широк прозорец 1900-01-01 → днес. Възрастовият критерий
+ * от чл. 8.1.3 (18–28 г.) е изключен, за да може формата да се тества и
+ * с произволна дата на раждане.
  */
 export function DateOfBirthPicker({
   id,
   label,
   value,
   onChange,
-  season,
   error,
 }: DateOfBirthPickerProps) {
   const { t } = useTranslation("apply");
   const [open, setOpen] = useState(false);
 
   const { min, max, defaultMonth } = useMemo(() => {
-    const start = seasonStart(season);
-    const max = new Date(start.getFullYear() - 18, start.getMonth(), start.getDate());
-    const min = new Date(start.getFullYear() - 29, start.getMonth(), start.getDate() + 1);
+    const min = new Date(1900, 0, 1);
+    const max = new Date();
     return { min, max, defaultMonth: value ? parseISO(value) : max };
-  }, [season, value]);
+  }, [value]);
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -88,9 +84,6 @@ export function DateOfBirthPicker({
               }
             }}
           />
-          <p className="border-t px-3 py-2 text-[11.5px] text-muted-foreground">
-            {t("fields.dateOfBirthRule", { season })}
-          </p>
         </PopoverContent>
       </Popover>
 

@@ -77,7 +77,11 @@ export const step1Schema = z.object({
        водещата ∈ {7,8,9} (мобилните оператори в BG). */
     .refine((v) => /^\+359[789]\d{8}$/.test(v), "apply:errors.phone.invalid"),
   dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "apply:errors.dateOfBirth.required"),
-  egn: z.string().trim().refine(isValidEgn, "apply:errors.egn.checksum"),
+  /* ЕГН е незадължително. Ако бъде подадено, минава checksum. */
+  egn: z
+    .string()
+    .trim()
+    .refine((v) => v === "" || isValidEgn(v), "apply:errors.egn.checksum"),
   idCardNumber: z
     .string()
     .trim()
@@ -114,19 +118,13 @@ export const applicationSchema = step1Schema
   .merge(step2Schema)
   .merge(step3Schema)
   .merge(step4Schema)
-  /* ЕГН-то и датата на раждане трябва да си съвпадат — иначе договорът излиза грешен */
-  .refine((d) => dobFromEgn(d.egn) === d.dateOfBirth, {
+  /* Ако ЕГН е подадено, то и датата на раждане трябва да си съвпадат —
+     иначе договорът излиза с едни данни, а DS-2019 с други. Празно ЕГН
+     не прави cross-check. */
+  .refine((d) => !d.egn || dobFromEgn(d.egn) === d.dateOfBirth, {
     message: "apply:errors.egn.dobMismatch",
     path: ["egn"],
-  })
-  /* Възрастовият критерий по чл. 8.1.3 се мери към старта на програмата */
-  .refine(
-    (d) => {
-      const age = ageAt(d.dateOfBirth, seasonStart(d.season));
-      return age >= 18 && age <= 28;
-    },
-    { message: "apply:errors.dateOfBirth.age", path: ["dateOfBirth"] },
-  );
+  });
 
 export type ApplicationInput = z.infer<typeof applicationSchema>;
 
