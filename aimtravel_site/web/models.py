@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import pre_delete
 import os
+import uuid
 
 from django.urls import reverse
 from model_utils import Choices
@@ -411,6 +412,42 @@ class JobOffer(models.Model):
 
     def get_absolute_url(self):
         return reverse('offers')
+
+
+class OfferLead(models.Model):
+    STATUS_CHOICES = (
+        ('new', 'Нов потенциал'),
+        ('contacted', 'Потърсен'),
+        ('enrolled', 'Записан студент'),
+        ('closed', 'Затворен'),
+    )
+
+    public_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    first_name = models.CharField('Име', max_length=80)
+    last_name = models.CharField('Фамилия', max_length=80)
+    email = models.EmailField('Имейл', unique=True)
+    phone = models.CharField('Телефон', max_length=40)
+    university = models.CharField('Университет', max_length=160)
+    course = models.CharField('Курс', max_length=40)
+    specialty = models.CharField('Специалност', max_length=160)
+    favorite_offers = models.ManyToManyField(
+        JobOffer, verbose_name='Любими оферти', related_name='offer_leads', blank=True,
+    )
+    status = models.CharField(
+        'CRM статус', max_length=20, choices=STATUS_CHOICES, default='new',
+    )
+    source = models.CharField('Източник', max_length=80, default='Работни оферти')
+    privacy_consent = models.BooleanField('Съгласие за контакт', default=True)
+    created_at = models.DateTimeField('Създаден на', auto_now_add=True)
+    updated_at = models.DateTimeField('Обновен на', auto_now=True)
+
+    class Meta:
+        verbose_name = 'CRM потенциал от офертите'
+        verbose_name_plural = 'CRM потенциали от офертите'
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} – {self.email}'
 
 
 class Prices(models.Model):
