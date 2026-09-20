@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, City, Feedback
+from aimtravel_site.web.models import JobOffer, OfferLead, Prices, AdditionalServices, Company, City, Feedback
 
 
 def duplicate_selected(modeladmin, request, queryset):
@@ -45,6 +45,22 @@ class JobOfferAdmin(admin.ModelAdmin):
     sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
 
 
+@admin.register(OfferLead)
+class OfferLeadAdmin(admin.ModelAdmin):
+    list_display = [
+        'first_name', 'last_name', 'email', 'phone', 'university', 'course',
+        'status', 'favorite_count', 'created_at',
+    ]
+    list_filter = ['status', 'university', 'course', 'created_at']
+    search_fields = ['first_name', 'last_name', 'email', 'phone', 'university', 'specialty']
+    readonly_fields = ['public_id', 'created_at', 'updated_at']
+    filter_horizontal = ['favorite_offers']
+
+    @admin.display(description='Любими')
+    def favorite_count(self, obj):
+        return obj.favorite_offers.count()
+
+
 @admin.register(Prices)
 class PricesAdmin(admin.ModelAdmin):
     list_filter = ['actual_self_arrange', 'actual_standard', 'actual_premium']
@@ -60,5 +76,4 @@ class AdditionalServicesAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['employer_name', 'employer_city', 'employer_state']
     list_filter = ['employer_name']
-
 
