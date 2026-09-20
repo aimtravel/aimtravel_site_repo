@@ -358,7 +358,7 @@ header#offers-header{height:auto!important;min-height:0!important;background:#07
                                 {% endif %}
                                 <div class="job-card__badges">
                                     <span class="job-badge job-badge--premium">Premium</span>
-                                    {% if offer.new_offer == "True" %}<span class="job-badge">Нова</span>{% endif %}
+                                    {% if student_mode and offer.new_offer == "True" %}<span class="job-badge">Нова</span>{% endif %}
                                     {% if student_mode %}
                                         {% if offer.availability_status == 'available' %}<span class="job-badge job-badge--available">Свободна</span>{% endif %}
                                         {% if offer.availability_status == 'last_seats' %}<span class="job-badge job-badge--last">Последни места</span>{% endif %}
@@ -379,7 +379,7 @@ header#offers-header{height:auto!important;min-height:0!important;background:#07
                                     </div>
                                     <div class="job-fact">
                                         <small>Настаняване</small>
-                                        <strong>{% if offer.housing and offer.housing != 'Не' %}${{ offer.housing }}/седм.{% else %}По оферта{% endif %}</strong>
+                                        <strong>{{ offer.housing|housing_summary }}</strong>
                                     </div>
                                 </div>
                                 <div class="job-card__meta">
