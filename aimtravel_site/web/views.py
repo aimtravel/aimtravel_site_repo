@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
-from django.db.models import Q, Min, Max
+from django.db.models import Q, Min, Max, Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -231,34 +231,43 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 class JobOfferListView(views.ListView):
     template_name = 'job_offer/offers.html'
 
+    # Normalize the many partner-specific job titles into student-friendly roles.
+    # A combined title such as "Busser/Runner" therefore appears only once.
     POSITION_GROUPS = (
-        ('restaurant', 'Ресторант и обслужване', (
-            'server', 'busser', 'runner', 'host', 'bartender', 'banquet',
-            'food and beverage', 'food concession', 'restaurant', 'breakfast',
+        ('server', 'Server', ('server', 'waiter', 'waitress')),
+        ('busser_runner', 'Busser / Runner', ('busser', 'runner', 'food runner')),
+        ('host', 'Host / Hostess', ('host', 'hostess')),
+        ('bartender', 'Bartender', ('bartender', 'bar staff')),
+        ('barista', 'Barista', ('barista', 'coffee')),
+        ('food_beverage', 'Food & Beverage', (
+            'food and beverage', 'food & beverage', 'food concession', 'banquet',
+            'breakfast attendant',
         )),
-        ('kitchen', 'Кухня и приготвяне на храна', (
-            'cook', 'kitchen', 'chocolatier', 'meat', 'deli', 'seafood',
+        ('cook', 'Cook / Prep Cook', (
+            'cook', 'prep', 'kitchen', 'chocolatier', 'meat', 'deli', 'seafood',
         )),
-        ('hotel', 'Хотел и обслужване на гости', (
-            'front desk', 'guest service', 'bellperson', 'resort worker', 'clubhouse',
+        ('dishwasher', 'Dishwasher / Steward', ('dishwasher', 'steward')),
+        ('front_desk', 'Front Desk / Guest Services', (
+            'front desk', 'guest service', 'bellperson', 'concierge',
         )),
-        ('housekeeping', 'Housekeeping и перално', (
-            'housekeep', 'laundry', 'room attendant', 'houseperson',
-            'public area', 'general cleaner',
+        ('housekeeping', 'Housekeeping / Room Attendant', (
+            'housekeep', 'room attendant', 'general cleaner', 'public area',
         )),
-        ('lifeguard', 'Спасители, басейн и плаж', (
+        ('laundry', 'Laundry / Houseperson', ('laundry', 'houseperson')),
+        ('lifeguard', 'Lifeguard / Pool / Beach', (
             'lifeguard', 'pool', 'beach', 'ocean',
         )),
-        ('retail', 'Продажби и обслужване на клиенти', (
-            'retail', 'cashier', 'customer service',
+        ('retail', 'Retail / Cashier', ('retail', 'cashier', 'sales associate')),
+        ('maintenance', 'Maintenance / Grounds', (
+            'maintenance', 'grounds', 'engineering', 'landscap',
         )),
-        ('maintenance', 'Поддръжка и озеленяване', (
-            'maintenance', 'grounds', 'engineering',
+        ('recreation', 'Recreation / Attractions', (
+            'recreation', 'activities', 'rentals', 'amusement', 'rides', 'attraction',
         )),
-        ('activities', 'Забавления и общ персонал', (
-            'activities', 'rentals', 'amusement', 'crew member',
-            'team member', 'general staff',
+        ('resort', 'Resort / General Staff', (
+            'resort worker', 'crew member', 'team member', 'general staff', 'clubhouse',
         )),
+        ('security', 'Security', ('security',)),
     )
 
     @staticmethod
@@ -271,6 +280,7 @@ class JobOfferListView(views.ListView):
         student_mode = request.user.is_authenticated
         public_session_keys = {
             'state': 'selected_state', 'city': 'selected_city',
+            'employer': 'selected_employer',
             'job_position': 'selected_job_position',
             'suitable_for': 'selected_suitable_for',
             'min_wage': 'selected_min_wage', 'max_wage': 'selected_max_wage',
@@ -336,6 +346,8 @@ class JobOfferListView(views.ListView):
             offers = offers.filter(city__state=selected['state'])
         if selected['city']:
             offers = offers.filter(city__name=selected['city'])
+        if selected['employer']:
+            offers = offers.filter(employer_name=selected['employer'])
         if selected['job_position']:
             terms = dict((key, words) for key, label, words in self.POSITION_GROUPS).get(
                 selected['job_position']
@@ -409,6 +421,14 @@ class JobOfferListView(views.ListView):
             'city__state', flat=True
         ).distinct().order_by('city__state')
         cities = City.objects.filter(joboffer__isnull=False).distinct().order_by('name')
+        employers = JobOffer.objects.exclude(employer_name__isnull=True).exclude(
+            employer_name=''
+        ).values_list('employer_name', flat=True).distinct().order_by('employer_name')
+        popular_states = JobOffer.objects.exclude(city__state__isnull=True).exclude(
+            city__state=''
+        ).values('city__state').annotate(
+            offer_count=Count('id')
+        ).order_by('-offer_count', 'city__state')[:6]
         position_groups = tuple((key, label) for key, label, terms in self.POSITION_GROUPS)
         position_labels = dict(position_groups)
         suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
@@ -422,7 +442,8 @@ class JobOfferListView(views.ListView):
         page_query = query_params.urlencode()
 
         labels = {
-            'state': 'Щат', 'city': 'Град', 'job_position': 'Категория',
+            'state': 'Щат', 'city': 'Град', 'employer': 'Работодател',
+            'job_position': 'Позиция',
             'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
             'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
             'housing_min': 'Настаняване от', 'housing_max': 'Настаняване до',
@@ -455,13 +476,15 @@ class JobOfferListView(views.ListView):
             })
 
         context = {
-            'states': states, 'cities': cities, 'position_groups': position_groups,
+            'states': states, 'cities': cities, 'employers': employers,
+            'popular_states': popular_states, 'position_groups': position_groups,
             'suitable_for': suitable_for,
             'page_obj': page_obj, 'result_count': paginator.count,
             'active_filters': active_filters,
             'page_query_prefix': (page_query + '&') if page_query else '',
             'selected_state': selected['state'],
             'selected_city': selected['city'],
+            'selected_employer': selected['employer'],
             'selected_job_position': selected['job_position'],
             'selected_suitable_for': selected['suitable_for'],
             'selected_min_wage': selected['min_wage'] or wage_min,
