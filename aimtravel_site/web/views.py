@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
@@ -12,6 +14,7 @@ from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
 
 from aimtravel_site.posting.models import *
+from aimtravel_site.templatetags.custom_filters import housing_summary
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
@@ -376,11 +379,20 @@ class JobOfferListView(views.ListView):
         suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
             suitable_for=''
         ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
-        housing = JobOffer.objects.exclude(housing__isnull=True).exclude(
+        housing_values = JobOffer.objects.exclude(housing__isnull=True).exclude(
             housing=''
         ).exclude(
             housing__in=('', '-', '$', '0', 'N/A', 'Не')
-        ).values_list('housing', flat=True).distinct().order_by('housing')
+        ).values_list('housing', flat=True).distinct()
+        housing_by_label = {}
+        for value in housing_values:
+            label = housing_summary(value)
+            if label != 'По оферта':
+                housing_by_label.setdefault(label, value)
+        housing = sorted(
+            ((value, label) for label, value in housing_by_label.items()),
+            key=lambda option: float(re.search(r'\d+', option[1]).group()),
+        )
 
         paginator = Paginator(offers, 12)
         page_obj = paginator.get_page(request.GET.get('page'))
@@ -409,6 +421,8 @@ class JobOfferListView(views.ListView):
                 display_value = 'Само с бакшиш'
             elif key == 'job_position':
                 display_value = position_labels.get(value, value)
+            elif key == 'housing':
+                display_value = housing_summary(value)
             elif key == 'assignment':
                 display_value = 'Само assignments'
             elif key == 'availability':
