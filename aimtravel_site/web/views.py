@@ -748,7 +748,7 @@ def offer_lead_view(request):
             lead.status = 'new' if lead.status == 'closed' else lead.status
             lead.save()
 
-        if created:
+        if created and not lead.email.endswith('@example.com'):
             send_mail(
                 f'Нов CRM потенциал: {lead.first_name} {lead.last_name}',
                 (
