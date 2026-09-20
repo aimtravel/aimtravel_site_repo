@@ -1,0 +1,11 @@
+{
+  "src/entries/apply.tsx": {
+    "file": "assets/apply-Df8pT41l.js",
+    "name": "apply",
+    "src": "src/entries/apply.tsx",
+    "isEntry": true,
+    "css": [
+      "assets/apply-BSRoc-Io.css"
+    ]
+  }
+}

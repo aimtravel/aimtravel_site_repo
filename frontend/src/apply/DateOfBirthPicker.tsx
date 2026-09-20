@@ -14,9 +14,9 @@ type DateOfBirthPickerProps = {
   id: string;
   label: string;
   value?: string; // ISO: YYYY-MM-DD
-  onChange: (iso: string) => void;
   season: string; // „2027“ — критерият 18–28 г. е спрямо старта на сезона
   error?: string;
+  onChange: (iso: string) => void;
 };
 
 /**

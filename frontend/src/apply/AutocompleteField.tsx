@@ -59,18 +59,18 @@ export function AutocompleteField({
     inputRef.current?.focus();
   };
 
-  const onKeyDown = (e: KeyboardEvent) => {
+  const onKeyDown = (event: KeyboardEvent) => {
     if (!canOpen || !items.length) return;
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
       setActive((i) => (i + 1) % items.length);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
       setActive((i) => (i - 1 + items.length) % items.length);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
+    } else if (event.key === "Enter") {
+      event.preventDefault();
       commit(items[active].value);
-    } else if (e.key === "Escape") setOpen(false);
+    } else if (event.key === "Escape") setOpen(false);
   };
 
   const describedBy = error ? `${id}-error` : hint ? `${id}-hint` : undefined;
