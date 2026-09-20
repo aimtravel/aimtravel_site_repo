@@ -19,7 +19,12 @@ from .serializers import (
     consent_metadata,
 )
 from .services import ContractGenerationError, create_application
-from .throttles import ApplyBurstThrottle, ApplyDailyThrottle, LookupThrottle
+from .throttles import (
+    ApplyBurstThrottle,
+    ApplyDailyThrottle,
+    ApplyDraftBurstThrottle,
+    LookupThrottle,
+)
 from .turnstile import TurnstileError, verify_turnstile
 
 log = logging.getLogger(__name__)
@@ -72,7 +77,7 @@ class DraftView(APIView):
     """
 
     permission_classes = [AllowAny]
-    throttle_classes = [ApplyBurstThrottle]
+    throttle_classes = [ApplyDraftBurstThrottle]
 
     def put(self, request):
         serializer = DraftSerializer(data=request.data)

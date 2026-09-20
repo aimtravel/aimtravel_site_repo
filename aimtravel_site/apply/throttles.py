@@ -19,6 +19,14 @@ class ApplyBurstThrottle(_IpThrottle):
     scope = "apply_burst"      # settings: "5/min"
 
 
+class ApplyDraftBurstThrottle(_IpThrottle):
+    """Автозаписът на чернова стреля на всяка пауза при писане (виж
+    TIMEOUT_SAVE_DRAFT във фронтенда) — отделен, по-щедър scope от
+    ApplyBurstThrottle, за да не изяжда бюджета на финалния submit преди
+    потребителят изобщо да е стигнал до бутона "Изпрати"."""
+    scope = "apply_draft_burst"    # settings: "30/min"
+
+
 class ApplyDailyThrottle(_IpThrottle):
     """Таван на ден за един IP. Оставен е достатъчно висок за университетски
     NAT, откъдето може да подадат няколко студента от една мрежа."""
@@ -36,6 +44,7 @@ class LookupThrottle(_IpThrottle):
 # REST_FRAMEWORK = {
 #     "DEFAULT_THROTTLE_RATES": {
 #         "apply_burst": "5/min",
+#         "apply_draft_burst": "30/min",
 #         "apply_day": "20/day",
 #         "lookup": "120/min",
 #     },

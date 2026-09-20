@@ -255,11 +255,12 @@ DJANGO_VITE = {
 
 REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
-        # In DEBUG we effectively disable throttling. The draft-save endpoint
-        # fires on every keystroke (debounced), so 5/min blocks local testing
-        # and — because the same scope guards the submit — also blocks the
-        # final "Изпрати" click. Production values stay strict.
+        # In DEBUG we effectively disable throttling. Draft-save has its own
+        # scope (apply_draft_burst) so autosave traffic can't exhaust the
+        # submit endpoint's budget before the user reaches "Изпрати".
+        # Production values stay strict.
         "apply_burst": "10000/min" if DEBUG else "5/min",
+        "apply_draft_burst": "10000/min" if DEBUG else "30/min",
         "apply_day": "100000/day" if DEBUG else "20/day",
         "lookup": "10000/min" if DEBUG else "120/min",
     },
