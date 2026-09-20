@@ -104,7 +104,7 @@
 .tips-switch{position:relative;flex:0 0 52px;height:30px}.tips-switch input{position:absolute;opacity:0;pointer-events:none}.tips-switch__track{position:absolute;inset:0;border-radius:999px;background:#cbd7dd;transition:.2s}.tips-switch__track:after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:.2s}.tips-switch input:checked+.tips-switch__track{background:var(--offers-red)}.tips-switch input:checked+.tips-switch__track:after{transform:translateX(22px)}.tips-switch input:focus-visible+.tips-switch__track{outline:3px solid rgba(181,9,18,.18);outline-offset:2px}
 .offers-more-filters{margin-top:16px;border-top:1px solid #edf1f3;padding-top:15px}.offers-more-filters summary{display:flex;width:max-content;align-items:center;gap:7px;color:var(--offers-navy);font-size:14px;font-weight:900;cursor:pointer;list-style:none}.offers-more-filters summary:before{content:"+";display:grid;width:22px;height:22px;place-items:center;border-radius:50%;background:#edf4f7}.offers-more-filters[open] summary:before{content:"−"}
 .offers-filter-grid--more{grid-template-columns:repeat(3,minmax(180px,1fr));margin-top:15px}
-.offers-active-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px}.offers-active-filters__label{color:var(--offers-muted);font-size:13px;font-weight:800}.filter-chip{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #d8e5ea;border-radius:999px;background:#edf5f8;color:var(--offers-navy);font:800 12px/1 inherit;cursor:pointer;transition:.2s}.filter-chip:hover{border-color:#c7d9e1;background:#e3eff3}.filter-chip b{margin-left:7px;color:var(--offers-red);font-size:16px}.offers-clear-filters{margin-left:auto;color:var(--offers-red);font-size:13px;font-weight:900;text-decoration:underline}
+.offers-active-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px}.offers-active-filters__label{color:var(--offers-muted);font-size:13px;font-weight:800}.filter-chip{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #d8e5ea;border-radius:999px;background:#edf5f8;color:var(--offers-navy);font:800 12px/1 inherit;cursor:pointer;transition:.2s}.filter-chip:hover{border-color:#c7d9e1;background:#e3eff3}.filter-chip b{margin-left:7px;color:var(--offers-red);font-size:16px}.offers-clear-filters{display:inline-flex;min-height:36px;align-items:center;gap:7px;margin-left:auto;padding:0 13px;border:1px solid #d7e2e7;border-radius:11px;background:#fff;color:var(--offers-navy);font-size:12px;font-weight:900;text-decoration:none;box-shadow:0 4px 12px rgba(7,59,92,.05);transition:.2s}.offers-clear-filters:hover{border-color:rgba(181,9,18,.35);background:#fff7f7;color:var(--offers-red);transform:translateY(-1px)}.offers-clear-filters span{color:var(--offers-red);font-size:17px;line-height:1}
 .offer-card-meta{display:flex;align-items:center;justify-content:center;gap:7px;color:#536873;font-size:12px;font-weight:700}.offer-tips-badge{padding:4px 8px;border-radius:999px;background:#e8f6ed;color:#17713d;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
 .offers-container .offer-slide{border:1px solid #e8eef1;border-radius:24px;background:#fff;box-shadow:0 12px 34px rgba(7,59,92,.09);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease}.offers-container .offer-slide:hover{transform:translateY(-5px);box-shadow:0 20px 46px rgba(7,59,92,.15)}
 header#offers-header{height:auto!important;min-height:0!important;background:#071e2d}
@@ -139,7 +139,6 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
     {% include 'navigation.html' %}
     <section class="offers-hero">
         <div class="offers-hero__content">
-            <p class="offers-hero__eyebrow">Work &amp; Travel USA · Premium 2027</p>
             <h1>Твоето лято започва тук.</h1>
             <p class="offers-hero__lead">Открий подходящата работа в САЩ — сравни заплащане, локация и настаняване.</p>
             <div class="offers-hero__actions">
@@ -269,7 +268,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                                 {{ filter.label }}: {{ filter.value }} <b aria-hidden="true">×</b>
                             </button>
                         {% endfor %}
-                        <a class="offers-clear-filters" href="?clear_filter=1#offers-page-top-row">Изчисти всички</a>
+                        <a class="offers-clear-filters" href="?clear_filter=1#offers-page-top-row"><span aria-hidden="true">↻</span> Нулирай филтрите</a>
                     </div>
                 {% endif %}
                 <noscript><button class="slider-btn" type="submit">Покажи офертите</button></noscript>
