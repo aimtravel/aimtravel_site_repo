@@ -66,7 +66,7 @@ def send_contract_issued_email(application: Application, document: ContractDocum
         f"Summer Work & Travel USA {application.season}",
         body=render_to_string("email/contract_issued.txt", context),
         from_email=settings.AIM_FROM_EMAIL,
-        to=["stoyan.ch.stoyanov11@gmail.com"],  # application.email
+        to=["info@aimtravel.bg"],  # TODO: replace with application.email once dynamic
         # Студентът отговаря на имейла със снимката в паспортен формат —
         # този отговор трябва да падне при агента, а не в no-reply кутия.
         reply_to=[agent_email],
