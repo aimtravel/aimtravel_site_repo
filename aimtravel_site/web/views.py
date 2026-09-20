@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -226,122 +227,110 @@ class JobOfferListView(views.ListView):
     template_name = 'job_offer/offers.html'
 
     def get(self, request):
-        # Retrieve the selected filter options from the session
-        selected_state = request.session.get('selected_state')
-        selected_city = request.session.get('selected_city')
-        selected_job_position = request.session.get('selected_job_position')
-        selected_suitable_for = request.session.get('selected_suitable_for')
-        selected_wage = request.session.get('selected_wage')
-        selected_housing = request.session.get('selected_housing')
-
-        # Check if the "clear_filter" parameter is present in the request's GET parameters
+        session_keys = {
+            'state': 'selected_state', 'city': 'selected_city',
+            'job_position': 'selected_job_position',
+            'suitable_for': 'selected_suitable_for',
+            'min_wage': 'selected_min_wage', 'housing': 'selected_housing',
+            'q': 'offer_search',
+        }
         if 'clear_filter' in request.GET:
-            # Remove filter options from the session
-            request.session.pop('selected_state', None)
-            request.session.pop('selected_city', None)
-            request.session.pop('selected_job_position', None)
-            request.session.pop('selected_suitable_for', None)
-            request.session.pop('selected_wage', None)
-            request.session.pop('selected_housing', None)
-
-            # Redirect to the same page to clear the URL query parameters
+            for session_key in session_keys.values():
+                request.session.pop(session_key, None)
             return redirect(f"{reverse('offers')}#offers-page-top-row")
 
-        states = JobOffer.objects.values_list('city__state', flat=True).distinct()
-        cities = JobOffer.objects.values_list('city', flat=True).distinct()
-        job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
-        suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
-        wages = JobOffer.objects.values_list('wage', flat=True).distinct()
-        housing = JobOffer.objects.values_list('housing', flat=True).distinct()
+        selected = {}
+        for query_key, session_key in session_keys.items():
+            if query_key in request.GET:
+                value = request.GET.get(query_key, '').strip()
+                request.session[session_key] = value
+            else:
+                value = request.session.get(session_key, '')
+            selected[query_key] = value
 
-        states = sorted(states)
-        cities = sorted(cities)
-        job_positions = sorted(job_positions)
-        suitable_for = sorted(suitable_for)
-        wages = sorted(wages)
-        housing = sorted(housing)
+        sort_by = request.GET.get('sort_by') or 'popular'
+        offers = JobOffer.objects.select_related('city').all()
 
-        filtered_offers = JobOffer.objects.all()
-        filtered_offers = filtered_offers.order_by(
-            '-ranking',
-            '-last_seats',
-            '-new_offer',
-            '-wage',
-            'job_position',
-            'sold_out_offer'
-        )
+        if selected['q']:
+            offers = offers.filter(
+                Q(job_position__icontains=selected['q']) |
+                Q(employer_name__icontains=selected['q']) |
+                Q(city__name__icontains=selected['q']) |
+                Q(city__state__icontains=selected['q'])
+            )
+        if selected['state']:
+            offers = offers.filter(city__state=selected['state'])
+        if selected['city']:
+            offers = offers.filter(city__name=selected['city'])
+        if selected['job_position']:
+            offers = offers.filter(job_position=selected['job_position'])
+        if selected['suitable_for']:
+            offers = offers.filter(suitable_for=selected['suitable_for'])
+        if selected['min_wage']:
+            try:
+                offers = offers.filter(wage__gte=float(selected['min_wage']))
+            except (TypeError, ValueError):
+                selected['min_wage'] = ''
+        if selected['housing']:
+            offers = offers.filter(housing=selected['housing'])
 
-        # Check if the filter parameters are present in the request's GET parameters
-        if 'state' in request.GET:
-            selected_state = request.GET.getlist('state')
-        if 'city' in request.GET:
-            selected_city = request.GET.getlist('city')
-        if 'job_position' in request.GET:
-            selected_job_position = request.GET.getlist('job_position')
-        if 'suitable_for' in request.GET:
-            selected_suitable_for = request.GET.getlist('suitable_for')
-        if 'wage' in request.GET:
-            selected_wage = request.GET.getlist('wage')
-        if 'housing' in request.GET:
-            selected_housing = request.GET.getlist('housing')
+        ordering = {
+            'new': ('-new_offer', '-ranking', '-wage'),
+            'decrease_wage': ('-wage', '-ranking'),
+            'increase_wage': ('wage', '-ranking'),
+            'last_offer': ('-last_seats', '-ranking', '-wage'),
+            'popular': ('sold_out_offer', '-ranking', '-last_seats', '-new_offer', '-wage'),
+        }
+        offers = offers.order_by(*ordering.get(sort_by, ordering['popular']))
 
-        # Store the selected filter options in the session
-        request.session['selected_state'] = selected_state
-        request.session['selected_city'] = selected_city
-        request.session['selected_job_position'] = selected_job_position
-        request.session['selected_suitable_for'] = selected_suitable_for
-        request.session['selected_wage'] = selected_wage
-        request.session['selected_housing'] = selected_housing
-        request.session.save()
+        states = JobOffer.objects.exclude(city__state__isnull=True).values_list(
+            'city__state', flat=True
+        ).distinct().order_by('city__state')
+        cities = City.objects.filter(joboffer__isnull=False).distinct().order_by('name')
+        job_positions = JobOffer.objects.exclude(job_position__isnull=True).exclude(
+            job_position=''
+        ).values_list('job_position', flat=True).distinct().order_by('job_position')
+        suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
+            suitable_for=''
+        ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
+        housing = JobOffer.objects.exclude(housing__isnull=True).exclude(
+            housing=''
+        ).values_list('housing', flat=True).distinct().order_by('housing')
 
-        # Apply the selected filter options to the queryset
-        if selected_state:
-            filtered_offers = filtered_offers.filter(city__state__in=selected_state)
-        if selected_city:
-            filtered_offers = filtered_offers.filter(city__in=selected_city)
-        if selected_job_position:
-            filtered_offers = filtered_offers.filter(job_position__in=selected_job_position)
-        if selected_suitable_for:
-            filtered_offers = filtered_offers.filter(suitable_for__in=selected_suitable_for)
-        if selected_wage:
-            filtered_offers = filtered_offers.filter(wage__in=selected_wage)
-        if selected_housing:
-            filtered_offers = filtered_offers.filter(housing__in=selected_housing)
+        paginator = Paginator(offers, 12)
+        page_obj = paginator.get_page(request.GET.get('page'))
+        query_params = request.GET.copy()
+        query_params.pop('page', None)
+        query_params.pop('clear_filter', None)
+        page_query = query_params.urlencode()
 
-        sort_by = request.GET.get('sort_by')
-        if sort_by == 'new':
-            filtered_offers = filtered_offers.order_by('-new_offer')
-        elif sort_by == 'decrease_wage':
-            filtered_offers = filtered_offers.order_by('-wage')
-        elif sort_by == 'increase_wage':
-            filtered_offers = filtered_offers.order_by('wage')
-        elif sort_by == 'last_offer':
-            filtered_offers = filtered_offers.order_by('-last_seats')
-        elif sort_by == 'popular':
-            filtered_offers = filtered_offers.order_by('-ranking')
-
-        paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        labels = {
+            'state': 'Щат', 'city': 'Град', 'job_position': 'Позиция',
+            'suitable_for': 'Подходящо за', 'min_wage': 'Заплащане',
+            'housing': 'Настаняване', 'q': 'Търсене',
+        }
+        active_filters = []
+        for key, value in selected.items():
+            if value:
+                display_value = ('$' + value + '+') if key == 'min_wage' else value
+                active_filters.append({
+                    'param': key, 'label': labels[key], 'value': display_value,
+                })
 
         context = {
-            'states': states,
-            'cities': cities,
-            'job_positions': job_positions,
-            'suitable_for': suitable_for,
-            'wages': wages,
-            'housing': housing,
-            'filtered_offers': filtered_offers,
-            'page_obj': page_obj,
-            'selected_state': selected_state,
-            'selected_city': selected_city,
-            'selected_job_position': selected_job_position,
-            'selected_suitable_for': selected_suitable_for,
-            'selected_wage': selected_wage,
-            'selected_housing': selected_housing,
-            'sort_by': sort_by,  # Pass the current sort option to the template
+            'states': states, 'cities': cities, 'job_positions': job_positions,
+            'suitable_for': suitable_for, 'housing': housing,
+            'page_obj': page_obj, 'result_count': paginator.count,
+            'active_filters': active_filters,
+            'page_query_prefix': (page_query + '&') if page_query else '',
+            'selected_state': selected['state'],
+            'selected_city': selected['city'],
+            'selected_job_position': selected['job_position'],
+            'selected_suitable_for': selected['suitable_for'],
+            'selected_min_wage': selected['min_wage'],
+            'selected_housing': selected['housing'],
+            'offer_search': selected['q'], 'sort_by': sort_by,
         }
-
         return render(request, self.template_name, context)
 
     def get_success_url(self):
