@@ -112,8 +112,7 @@
     "keepNumber": "Пази този номер — с него агентът намира досието ти.",
     "mailTo": "До:",
     "mailSubject": "Тема:",
-    "download": "Изтегли договора (PDF)",
-    "toPortal": "Към студентския профил"
+    "download": "Изтегли договора (PDF)"
   },
   "email": {
     "subject": "Договор {{contractNumber}} — Summer Work & Travel USA {{season}}",

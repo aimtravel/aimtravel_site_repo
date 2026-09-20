@@ -5,13 +5,12 @@ import { Card } from "@/components/ui/card";
 import type { ContractResult } from "../api/api";
 import type { ApplicationInput } from "../helpers/applySchema";
 
-export function ContractIssued({
-  result,
-  values,
-}: {
+type ContractIssuedProps = {
   result: ContractResult;
   values: ApplicationInput;
-}) {
+};
+
+export function ContractIssued({ result, values }: ContractIssuedProps) {
   const { t } = useTranslation("apply");
   const fullName = [values.firstName, values.middleName, values.lastName].filter(Boolean).join(" ");
 
@@ -84,9 +83,6 @@ export function ContractIssued({
           <a href={result.contractPdfUrl} download>
             <Download className="mr-2 h-4 w-4" /> {t("success.download")}
           </a>
-        </Button>
-        <Button asChild variant="outline">
-          <a href="/profil">{t("success.toPortal")}</a>
         </Button>
       </div>
     </Card>

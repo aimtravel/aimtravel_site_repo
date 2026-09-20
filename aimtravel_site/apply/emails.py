@@ -39,7 +39,6 @@ def build_context(application: Application) -> dict:
         "deposit_usd": DEPOSIT_USD,
         "sevis_usd": SEVIS_USD,
         "price_usd": application.price_usd,
-        "portal_url": f"{settings.SITE_URL}/profil",
     }
 
 

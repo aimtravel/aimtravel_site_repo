@@ -150,11 +150,11 @@ Expected: `type: WSGIHandler`.
 
 ---
 
-## `settings.py` patches (four edits)
+## `settings.py` patches (five edits)
 
 Path on server: `/home/aimtrave/staging.aimtravel.bg/aimtravel_site/settings.py`
 
-The repo version of `settings.py` is dev-configured (DEBUG=True, hardcoded root/mysql_pw DB). Staging needs four surgical edits. **Never edit repo `settings.py` for these — they are server-only.**
+The repo version of `settings.py` is dev-configured (DEBUG=True, hardcoded root/mysql_pw DB, SITE_URL=localhost:8000). Staging needs five surgical edits. **Never edit repo `settings.py` for these — they are server-only.**
 
 Patch script (idempotent — safely re-runnable):
 
@@ -226,6 +226,17 @@ new_mw = '''MIDDLEWARE = [
 if old_mw in text:
     text = text.replace(old_mw, new_mw)
     changes.append("WhiteNoise middleware added")
+
+# 5. SITE_URL: used to build absolute links (signed contract-download URL).
+# Left at the dev default this makes the download link point at the
+# visitor's own localhost:8000 — looks like a dead button in production.
+old_site_url = 'SITE_URL = "http://localhost:8000"'
+new_site_url = 'SITE_URL = "https://staging.aimtravel.bg"'
+if new_site_url in text:
+    pass
+elif old_site_url in text:
+    text = text.replace(old_site_url, new_site_url, 1)
+    changes.append("SITE_URL: localhost:8000 -> https://staging.aimtravel.bg")
 
 open(path, "w").write(text)
 print("settings.py patches applied:")

@@ -280,6 +280,9 @@ AIM_COMPANY_UIC = "203634922"
 # configured "send as" alias — 530 5.7.0 Authentication Required — so during
 # dev we send From = EMAIL_HOST_USER instead.
 AIM_FROM_EMAIL = EMAIL_HOST_USER
+# Used to build absolute links (signed contract-download URL, etc). Dev-only
+# value — each deployed environment patches this on the server, same as
+# DEBUG/ALLOWED_HOSTS/DATABASES (see redeploy-staging skill's file-templates.md).
 SITE_URL = "http://localhost:8000"
 
 AIM_CONTRACT_TEMPLATES = os.path.join(BASE_DIR, "media", "contract_templates")
