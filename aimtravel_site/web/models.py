@@ -216,6 +216,19 @@ class JobOffer(models.Model):
         ('False', 'Не'),
     )
 
+    SPONSOR_CHOICES = (
+        ('CHI', 'CHI'),
+        ('United', 'United'),
+        ('Dynamic', 'Dynamic'),
+        ('AWA', 'AWA'),
+    )
+
+    AVAILABILITY_CHOICES = (
+        ('available', 'Свободна'),
+        ('last_seats', 'Последни места'),
+        ('occupied', 'Заета'),
+    )
+
     employer_name = models.CharField(
         verbose_name='Име на работодател',
         max_length=EMPLOYER,
@@ -347,6 +360,29 @@ class JobOffer(models.Model):
         choices=TRUE_FALSE,
         max_length=5,
         default=False,
+        blank=True,
+        null=True,
+    )
+    sponsor = models.CharField(
+        verbose_name='Спонсор',
+        choices=SPONSOR_CHOICES,
+        max_length=10,
+        blank=True,
+        default='',
+    )
+    assignment = models.BooleanField(
+        verbose_name='Assignment',
+        default=False,
+    )
+    availability_status = models.CharField(
+        verbose_name='Реална наличност',
+        choices=AVAILABILITY_CHOICES,
+        max_length=20,
+        blank=True,
+        default='',
+    )
+    availability_updated_at = models.DateTimeField(
+        verbose_name='Наличността е обновена на',
         blank=True,
         null=True,
     )
