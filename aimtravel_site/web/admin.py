@@ -33,8 +33,14 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
     actions = [duplicate_selected]
-    list_display = ['id', 'job_position', 'employer_name', 'wage', 'city', 'ranking']
-    list_filter = ['new_offer', 'sold_out_offer', 'last_seats', 'city', 'ranking']
+    list_display = [
+        'id', 'job_position', 'employer_name', 'wage', 'city', 'sponsor',
+        'assignment', 'availability_status', 'availability_updated_at', 'ranking',
+    ]
+    list_filter = [
+        'availability_status', 'sponsor', 'assignment', 'new_offer',
+        'sold_out_offer', 'last_seats', 'city', 'ranking',
+    ]
     search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
     sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
 
@@ -54,6 +60,5 @@ class AdditionalServicesAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['employer_name', 'employer_city', 'employer_state']
     list_filter = ['employer_name']
-
 
 
