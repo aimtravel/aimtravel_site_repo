@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
-from django.db.models import Q
+from django.db.models import Q, Min, Max
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
@@ -226,12 +226,49 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 class JobOfferListView(views.ListView):
     template_name = 'job_offer/offers.html'
 
+    POSITION_GROUPS = (
+        ('restaurant', 'Ресторант и обслужване', (
+            'server', 'busser', 'runner', 'host', 'bartender', 'banquet',
+            'food and beverage', 'food concession', 'restaurant', 'breakfast',
+        )),
+        ('kitchen', 'Кухня и приготвяне на храна', (
+            'cook', 'kitchen', 'chocolatier', 'meat', 'deli', 'seafood',
+        )),
+        ('hotel', 'Хотел и обслужване на гости', (
+            'front desk', 'guest service', 'bellperson', 'resort worker', 'clubhouse',
+        )),
+        ('housekeeping', 'Housekeeping и перално', (
+            'housekeep', 'laundry', 'room attendant', 'houseperson',
+            'public area', 'general cleaner',
+        )),
+        ('lifeguard', 'Спасители, басейн и плаж', (
+            'lifeguard', 'pool', 'beach', 'ocean',
+        )),
+        ('retail', 'Продажби и обслужване на клиенти', (
+            'retail', 'cashier', 'customer service',
+        )),
+        ('maintenance', 'Поддръжка и озеленяване', (
+            'maintenance', 'grounds', 'engineering',
+        )),
+        ('activities', 'Забавления и общ персонал', (
+            'activities', 'rentals', 'amusement', 'crew member',
+            'team member', 'general staff',
+        )),
+    )
+
+    @staticmethod
+    def compact_wage(value):
+        if value is None:
+            return ''
+        return ('%.2f' % float(value)).rstrip('0').rstrip('.')
+
     def get(self, request):
         session_keys = {
             'state': 'selected_state', 'city': 'selected_city',
             'job_position': 'selected_job_position',
             'suitable_for': 'selected_suitable_for',
-            'min_wage': 'selected_min_wage', 'housing': 'selected_housing',
+            'min_wage': 'selected_min_wage', 'max_wage': 'selected_max_wage',
+            'tips_only': 'selected_tips_only', 'housing': 'selected_housing',
             'q': 'offer_search',
         }
         if 'clear_filter' in request.GET:
@@ -239,17 +276,27 @@ class JobOfferListView(views.ListView):
                 request.session.pop(session_key, None)
             return redirect(f"{reverse('offers')}#offers-page-top-row")
 
+        filter_submission = (
+            any(key in request.GET for key in session_keys) or
+            'sort_by' in request.GET
+        )
         selected = {}
         for query_key, session_key in session_keys.items():
             if query_key in request.GET:
                 value = request.GET.get(query_key, '').strip()
                 request.session[session_key] = value
+            elif filter_submission:
+                value = ''
+                request.session[session_key] = ''
             else:
                 value = request.session.get(session_key, '')
             selected[query_key] = value
 
         sort_by = request.GET.get('sort_by') or 'popular'
         offers = JobOffer.objects.select_related('city').all()
+        wage_stats = JobOffer.objects.aggregate(minimum=Min('wage'), maximum=Max('wage'))
+        wage_min = self.compact_wage(wage_stats['minimum'] or 0)
+        wage_max = self.compact_wage(wage_stats['maximum'] or 0)
 
         if selected['q']:
             offers = offers.filter(
@@ -263,7 +310,16 @@ class JobOfferListView(views.ListView):
         if selected['city']:
             offers = offers.filter(city__name=selected['city'])
         if selected['job_position']:
-            offers = offers.filter(job_position=selected['job_position'])
+            terms = dict((key, words) for key, label, words in self.POSITION_GROUPS).get(
+                selected['job_position']
+            )
+            if terms:
+                position_query = Q()
+                for term in terms:
+                    position_query |= Q(job_position__icontains=term)
+                offers = offers.filter(position_query)
+            else:
+                offers = offers.filter(job_position=selected['job_position'])
         if selected['suitable_for']:
             offers = offers.filter(suitable_for=selected['suitable_for'])
         if selected['min_wage']:
@@ -271,6 +327,13 @@ class JobOfferListView(views.ListView):
                 offers = offers.filter(wage__gte=float(selected['min_wage']))
             except (TypeError, ValueError):
                 selected['min_wage'] = ''
+        if selected['max_wage']:
+            try:
+                offers = offers.filter(wage__lte=float(selected['max_wage']))
+            except (TypeError, ValueError):
+                selected['max_wage'] = ''
+        if selected['tips_only'] == '1':
+            offers = offers.filter(tips__iexact='Да')
         if selected['housing']:
             offers = offers.filter(housing=selected['housing'])
 
@@ -287,9 +350,8 @@ class JobOfferListView(views.ListView):
             'city__state', flat=True
         ).distinct().order_by('city__state')
         cities = City.objects.filter(joboffer__isnull=False).distinct().order_by('name')
-        job_positions = JobOffer.objects.exclude(job_position__isnull=True).exclude(
-            job_position=''
-        ).values_list('job_position', flat=True).distinct().order_by('job_position')
+        position_groups = tuple((key, label) for key, label, terms in self.POSITION_GROUPS)
+        position_labels = dict(position_groups)
         suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
             suitable_for=''
         ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
@@ -305,20 +367,29 @@ class JobOfferListView(views.ListView):
         page_query = query_params.urlencode()
 
         labels = {
-            'state': 'Щат', 'city': 'Град', 'job_position': 'Позиция',
-            'suitable_for': 'Подходящо за', 'min_wage': 'Заплащане',
+            'state': 'Щат', 'city': 'Град', 'job_position': 'Категория',
+            'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
+            'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
             'housing': 'Настаняване', 'q': 'Търсене',
         }
         active_filters = []
         for key, value in selected.items():
-            if value:
-                display_value = ('$' + value + '+') if key == 'min_wage' else value
-                active_filters.append({
-                    'param': key, 'label': labels[key], 'value': display_value,
-                })
+            if not value:
+                continue
+            if key in ('min_wage', 'max_wage'):
+                display_value = '$' + self.compact_wage(value)
+            elif key == 'tips_only':
+                display_value = 'Само с бакшиш'
+            elif key == 'job_position':
+                display_value = position_labels.get(value, value)
+            else:
+                display_value = value
+            active_filters.append({
+                'param': key, 'label': labels[key], 'value': display_value,
+            })
 
         context = {
-            'states': states, 'cities': cities, 'job_positions': job_positions,
+            'states': states, 'cities': cities, 'position_groups': position_groups,
             'suitable_for': suitable_for, 'housing': housing,
             'page_obj': page_obj, 'result_count': paginator.count,
             'active_filters': active_filters,
@@ -327,8 +398,11 @@ class JobOfferListView(views.ListView):
             'selected_city': selected['city'],
             'selected_job_position': selected['job_position'],
             'selected_suitable_for': selected['suitable_for'],
-            'selected_min_wage': selected['min_wage'],
+            'selected_min_wage': selected['min_wage'] or wage_min,
+            'selected_max_wage': selected['max_wage'] or wage_max,
+            'selected_tips_only': selected['tips_only'],
             'selected_housing': selected['housing'],
+            'wage_min': wage_min, 'wage_max': wage_max,
             'offer_search': selected['q'], 'sort_by': sort_by,
         }
         return render(request, self.template_name, context)
