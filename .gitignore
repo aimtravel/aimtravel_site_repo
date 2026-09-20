@@ -20,6 +20,11 @@ ENV/
 *.swp
 .DS_Store
 
+# --- Claude Code ---
+# Per-user config (permission grants, local paths). Skills under .claude/skills/
+# ARE committed — they are shared team knowledge (e.g. deploy playbooks).
+.claude/settings.local.json
+
 # --- Archives / build artifacts ---
 *.rar
 *.zip
