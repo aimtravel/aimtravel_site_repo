@@ -378,6 +378,8 @@ class JobOfferListView(views.ListView):
         ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
         housing = JobOffer.objects.exclude(housing__isnull=True).exclude(
             housing=''
+        ).exclude(
+            housing__in=('', '-', '$', '0', 'N/A', 'Не')
         ).values_list('housing', flat=True).distinct().order_by('housing')
 
         paginator = Paginator(offers, 12)
