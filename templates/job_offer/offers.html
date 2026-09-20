@@ -78,29 +78,37 @@
 
 
 <style>
-.offers-discovery{max-width:1240px;margin:0 auto 42px;padding:0 28px}
-.offers-discovery__intro{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:24px}
-.offers-discovery__intro h1{margin:4px 0 8px;color:#073b5c;font-size:clamp(28px,4vw,46px);line-height:1.08}
-.offers-discovery__intro p{max-width:760px;margin:0;color:#596772}
-.offers-eyebrow{color:#b50912!important;font-size:13px;font-weight:800;letter-spacing:.12em}
-.offers-result-count{min-width:112px;padding:16px 20px;border:1px solid #e2e7eb;border-radius:18px;background:#fff;box-shadow:0 10px 30px rgba(7,59,92,.08);text-align:center}
-.offers-result-count strong{display:block;color:#073b5c;font-size:30px;line-height:1}
-.offers-result-count span{color:#65737d;font-size:13px}
-.offers-filter-panel{padding:22px;border:1px solid #e1e7eb;border-radius:22px;background:#fff;box-shadow:0 16px 45px rgba(7,59,92,.09)}
-.offers-filter-grid{display:grid;grid-template-columns:minmax(240px,1.5fr) repeat(4,minmax(150px,1fr));gap:14px;align-items:end}
-.offers-filter-grid label{display:flex;min-width:0;flex-direction:column;gap:7px;color:#073b5c;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
-.offers-filter-grid input,.offers-filter-grid select{width:100%;height:48px;padding:0 14px;border:1px solid #d8e0e5;border-radius:12px;background:#f8fafb;color:#182c38;font:500 15px/1.2 inherit;outline:none;transition:.2s}
-.offers-filter-grid input:focus,.offers-filter-grid select:focus{border-color:#b50912;background:#fff;box-shadow:0 0 0 3px rgba(181,9,18,.1)}
-.offers-more-filters{margin-top:16px;border-top:1px solid #edf0f2;padding-top:14px}
-.offers-more-filters summary{width:max-content;color:#073b5c;font-weight:800;cursor:pointer}
+:root{--offers-navy:#073b5c;--offers-red:#b50912;--offers-ink:#17313f;--offers-muted:#657783;--offers-line:#dfe7ec;--offers-soft:#f4f8fa}
+.offers-discovery{max-width:1280px;margin:0 auto 48px;padding:0 28px}
+.offers-discovery__intro{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:26px}
+.offers-discovery__intro h1{margin:4px 0 9px;color:var(--offers-navy);font-size:clamp(30px,4vw,48px);line-height:1.06;letter-spacing:-.025em}
+.offers-discovery__intro p{max-width:760px;margin:0;color:#596b76;font-size:16px}
+.offers-eyebrow{color:var(--offers-red)!important;font-size:12px!important;font-weight:900!important;letter-spacing:.15em!important}
+.offers-result-count{display:flex;min-width:142px;align-items:center;justify-content:center;gap:9px;padding:18px 22px;border:1px solid var(--offers-line);border-radius:20px;background:linear-gradient(145deg,#fff,#f4f8fa);box-shadow:0 14px 34px rgba(7,59,92,.1);text-align:center}
+.offers-result-count strong{color:var(--offers-navy);font-size:32px;line-height:1}.offers-result-count span{color:var(--offers-muted);font-size:13px;font-weight:700}
+.offers-filter-panel{position:relative;padding:24px;border:1px solid var(--offers-line);border-radius:24px;background:rgba(255,255,255,.98);box-shadow:0 20px 55px rgba(7,59,92,.11)}
+.offers-filter-grid{display:grid;grid-template-columns:minmax(240px,1.45fr) repeat(3,minmax(170px,1fr));gap:14px;align-items:end}
+.offers-field{display:flex;min-width:0;flex-direction:column;gap:8px;color:var(--offers-navy);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+.offers-field input[type=search],.offers-field select{width:100%;height:50px;padding:0 15px;border:1px solid #d6e0e6;border-radius:14px;background:var(--offers-soft);color:var(--offers-ink);font:600 14px/1.2 inherit;outline:none;transition:border-color .2s,box-shadow .2s,background .2s}
+.offers-field input:focus,.offers-field select:focus{border-color:var(--offers-red);background:#fff;box-shadow:0 0 0 4px rgba(181,9,18,.09)}
+.offers-filter-secondary{display:grid;grid-template-columns:minmax(360px,2fr) minmax(230px,.8fr);gap:14px;margin-top:16px}
+.wage-range-card,.tips-switch-card{min-width:0;padding:17px 18px;border:1px solid #e0e8ed;border-radius:18px;background:linear-gradient(145deg,#f9fbfc,#f1f6f8)}
+.wage-range-card__header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:15px}
+.wage-range-card__title{color:var(--offers-navy);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.07em}
+.wage-range-values{display:flex;gap:7px;color:var(--offers-navy);font-size:13px;font-weight:900}.wage-range-values span{min-width:68px;padding:6px 9px;border:1px solid #dce6eb;border-radius:10px;background:#fff;text-align:center}
+.dual-range{position:relative;height:22px}.dual-range__rail,.dual-range__fill{position:absolute;top:9px;right:0;left:0;height:6px;border-radius:999px}.dual-range__rail{background:#d9e3e8}.dual-range__fill{right:calc(100% - var(--range-end,100%));left:var(--range-start,0);background:linear-gradient(90deg,var(--offers-red),#e33b44)}
+.dual-range input[type=range]{position:absolute;top:0;left:0;width:100%;height:22px;margin:0;background:transparent;pointer-events:none;-webkit-appearance:none;appearance:none}
+.dual-range input[type=range]::-webkit-slider-runnable-track{height:6px;background:transparent}.dual-range input[type=range]::-webkit-slider-thumb{width:22px;height:22px;margin-top:-8px;border:4px solid #fff;border-radius:50%;background:var(--offers-red);box-shadow:0 2px 8px rgba(7,59,92,.3);pointer-events:auto;-webkit-appearance:none}
+.dual-range input[type=range]::-moz-range-track{height:6px;background:transparent}.dual-range input[type=range]::-moz-range-thumb{width:15px;height:15px;border:4px solid #fff;border-radius:50%;background:var(--offers-red);box-shadow:0 2px 8px rgba(7,59,92,.3);pointer-events:auto}
+.tips-switch-card{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer}.tips-switch-card__copy strong{display:block;margin-bottom:4px;color:var(--offers-navy);font-size:14px}.tips-switch-card__copy span{color:var(--offers-muted);font-size:12px;line-height:1.35}
+.tips-switch{position:relative;flex:0 0 52px;height:30px}.tips-switch input{position:absolute;opacity:0;pointer-events:none}.tips-switch__track{position:absolute;inset:0;border-radius:999px;background:#cbd7dd;transition:.2s}.tips-switch__track:after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.22);transition:.2s}.tips-switch input:checked+.tips-switch__track{background:var(--offers-red)}.tips-switch input:checked+.tips-switch__track:after{transform:translateX(22px)}.tips-switch input:focus-visible+.tips-switch__track{outline:3px solid rgba(181,9,18,.18);outline-offset:2px}
+.offers-more-filters{margin-top:16px;border-top:1px solid #edf1f3;padding-top:15px}.offers-more-filters summary{display:flex;width:max-content;align-items:center;gap:7px;color:var(--offers-navy);font-size:14px;font-weight:900;cursor:pointer;list-style:none}.offers-more-filters summary:before{content:"+";display:grid;width:22px;height:22px;place-items:center;border-radius:50%;background:#edf4f7}.offers-more-filters[open] summary:before{content:"−"}
 .offers-filter-grid--more{grid-template-columns:repeat(3,minmax(180px,1fr));margin-top:15px}
-.offers-active-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px}
-.offers-active-filters__label{color:#667681;font-size:13px;font-weight:700}
-.filter-chip{padding:8px 11px;border:0;border-radius:999px;background:#edf4f7;color:#073b5c;font:700 13px/1 inherit;cursor:pointer}
-.filter-chip:hover{background:#dfecef}.filter-chip b{margin-left:5px;color:#b50912;font-size:16px}
-.offers-clear-filters{margin-left:auto;color:#b50912;font-size:13px;font-weight:800;text-decoration:underline}
-@media(max-width:1050px){.offers-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.offers-search{grid-column:1/-1}}
-@media(max-width:640px){.offers-discovery{padding:0 16px;margin-bottom:28px}.offers-discovery__intro{align-items:flex-start;flex-direction:column;gap:14px}.offers-result-count{display:flex;align-items:baseline;gap:6px;min-width:0;padding:10px 14px}.offers-result-count strong{font-size:22px}.offers-filter-panel{padding:16px;border-radius:16px}.offers-filter-grid,.offers-filter-grid--more{grid-template-columns:1fr}.offers-search{grid-column:auto}.offers-clear-filters{width:100%;margin:4px 0 0}}
+.offers-active-filters{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:18px}.offers-active-filters__label{color:var(--offers-muted);font-size:13px;font-weight:800}.filter-chip{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #d8e5ea;border-radius:999px;background:#edf5f8;color:var(--offers-navy);font:800 12px/1 inherit;cursor:pointer;transition:.2s}.filter-chip:hover{border-color:#c7d9e1;background:#e3eff3}.filter-chip b{margin-left:7px;color:var(--offers-red);font-size:16px}.offers-clear-filters{margin-left:auto;color:var(--offers-red);font-size:13px;font-weight:900;text-decoration:underline}
+.offer-card-meta{display:flex;align-items:center;justify-content:center;gap:7px;color:#536873;font-size:12px;font-weight:700}.offer-tips-badge{padding:4px 8px;border-radius:999px;background:#e8f6ed;color:#17713d;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.offers-container .offer-slide{border:1px solid #e8eef1;border-radius:24px;background:#fff;box-shadow:0 12px 34px rgba(7,59,92,.09);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease}.offers-container .offer-slide:hover{transform:translateY(-5px);box-shadow:0 20px 46px rgba(7,59,92,.15)}
+@media(max-width:1050px){.offers-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.offers-search{grid-column:1/-1}.offers-filter-secondary{grid-template-columns:1fr}}
+@media(max-width:640px){.offers-discovery{padding:0 14px;margin-bottom:30px}.offers-discovery__intro{align-items:flex-start;flex-direction:column;gap:15px}.offers-result-count{min-width:0;padding:12px 16px}.offers-result-count strong{font-size:24px}.offers-filter-panel{padding:15px;border-radius:18px}.offers-filter-grid,.offers-filter-grid--more{grid-template-columns:1fr}.offers-search{grid-column:auto}.offers-filter-secondary{grid-template-columns:1fr}.wage-range-card__header{align-items:flex-start;flex-direction:column;gap:8px}.wage-range-card,.tips-switch-card{padding:15px}.offers-clear-filters{width:100%;margin:5px 0 0}.offers-container .offer-slide{border-radius:20px}}
 </style>
 </head>
 
@@ -172,35 +180,27 @@
             </div>
 
             <form id="job-offer-filter-form" class="offers-filter-panel" method="get"
-                  action="{% url 'offers' %}#offers-page-top-row">
+                  action="{% url 'offers' %}#offers-page-top-row"
+                  data-wage-min="{{ wage_min }}" data-wage-max="{{ wage_max }}">
                 <div class="offers-filter-grid">
-                    <label class="offers-search">
+                    <label class="offers-field offers-search">
                         <span>Търси</span>
                         <input type="search" name="q" value="{{ offer_search }}"
                                placeholder="Позиция, град или работодател" autocomplete="off">
                     </label>
-                    <label><span>Щат</span>
+                    <label class="offers-field"><span>Щат</span>
                         <select name="state" data-auto-filter>
                             <option value="">Всички щати</option>
                             {% for state in states %}<option value="{{ state }}" {% if state == selected_state %}selected{% endif %}>{{ state }}</option>{% endfor %}
                         </select>
                     </label>
-                    <label><span>Позиция</span>
+                    <label class="offers-field"><span>Категория работа</span>
                         <select name="job_position" data-auto-filter>
-                            <option value="">Всички позиции</option>
-                            {% for position in job_positions %}<option value="{{ position }}" {% if position == selected_job_position %}selected{% endif %}>{{ position }}</option>{% endfor %}
+                            <option value="">Всички категории</option>
+                            {% for key, label in position_groups %}<option value="{{ key }}" {% if key == selected_job_position %}selected{% endif %}>{{ label }}</option>{% endfor %}
                         </select>
                     </label>
-                    <label><span>Минимално заплащане</span>
-                        <select name="min_wage" data-auto-filter>
-                            <option value="">Без минимум</option>
-                            <option value="15" {% if selected_min_wage == '15' %}selected{% endif %}>$15+ / час</option>
-                            <option value="18" {% if selected_min_wage == '18' %}selected{% endif %}>$18+ / час</option>
-                            <option value="20" {% if selected_min_wage == '20' %}selected{% endif %}>$20+ / час</option>
-                            <option value="22" {% if selected_min_wage == '22' %}selected{% endif %}>$22+ / час</option>
-                        </select>
-                    </label>
-                    <label><span>Сортирай</span>
+                    <label class="offers-field"><span>Сортирай</span>
                         <select name="sort_by" data-auto-filter>
                             <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>Най-популярни</option>
                             <option value="new" {% if sort_by == 'new' %}selected{% endif %}>Най-нови</option>
@@ -211,22 +211,55 @@
                     </label>
                 </div>
 
+                <div class="offers-filter-secondary">
+                    <div class="wage-range-card" data-wage-range>
+                        <div class="wage-range-card__header">
+                            <span class="wage-range-card__title">Заплащане на час</span>
+                            <div class="wage-range-values" aria-live="polite">
+                                <span data-range-min-output>${{ selected_min_wage }}</span>
+                                <span data-range-max-output>${{ selected_max_wage }}</span>
+                            </div>
+                        </div>
+                        <div class="dual-range">
+                            <div class="dual-range__rail"></div>
+                            <div class="dual-range__fill"></div>
+                            <input type="range" name="min_wage" min="{{ wage_min }}" max="{{ wage_max }}"
+                                   step="0.01" value="{{ selected_min_wage }}" data-range-min data-auto-filter
+                                   aria-label="Минимално заплащане">
+                            <input type="range" name="max_wage" min="{{ wage_min }}" max="{{ wage_max }}"
+                                   step="0.01" value="{{ selected_max_wage }}" data-range-max data-auto-filter
+                                   aria-label="Максимално заплащане">
+                        </div>
+                    </div>
+                    <label class="tips-switch-card">
+                        <span class="tips-switch-card__copy">
+                            <strong>Само оферти с бакшиш</strong>
+                            <span>Покажи позиции с допълнителен доход от tips</span>
+                        </span>
+                        <span class="tips-switch">
+                            <input type="checkbox" name="tips_only" value="1" data-auto-filter
+                                   {% if selected_tips_only == '1' %}checked{% endif %}>
+                            <span class="tips-switch__track" aria-hidden="true"></span>
+                        </span>
+                    </label>
+                </div>
+
                 <details class="offers-more-filters" {% if selected_city or selected_suitable_for or selected_housing %}open{% endif %}>
                     <summary>Още филтри</summary>
                     <div class="offers-filter-grid offers-filter-grid--more">
-                        <label><span>Град</span>
+                        <label class="offers-field"><span>Град</span>
                             <select name="city" data-auto-filter>
                                 <option value="">Всички градове</option>
                                 {% for city in cities %}<option value="{{ city.name }}" {% if city.name == selected_city %}selected{% endif %}>{{ city.name }}, {{ city.state }}</option>{% endfor %}
                             </select>
                         </label>
-                        <label><span>Подходящо за</span>
+                        <label class="offers-field"><span>Подходящо за</span>
                             <select name="suitable_for" data-auto-filter>
                                 <option value="">Всички</option>
                                 {% for option in suitable_for %}<option value="{{ option }}" {% if option == selected_suitable_for %}selected{% endif %}>{{ option }}</option>{% endfor %}
                             </select>
                         </label>
-                        <label><span>Настаняване</span>
+                        <label class="offers-field"><span>Настаняване</span>
                             <select name="housing" data-auto-filter>
                                 <option value="">Всички варианти</option>
                                 {% for option in housing %}<option value="{{ option }}" {% if option == selected_housing %}selected{% endif %}>{{ option }}</option>{% endfor %}
@@ -337,10 +370,12 @@
                     {% endif %}
                     <h3 class="offer-header">{{ offer.job_position }}</h3>
                     <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
-                    <p class="offer-type">Premium Offer</p>
+                    <div class="offer-card-meta">
+                        <span>Premium Offer</span>
+                        {% if offer.tips == 'Да' %}<span class="offer-tips-badge">Бакшиш</span>{% endif %}
+                    </div>
                     <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
-                        {% if offer.tips == 'Да' %} +
-                            Tips {% endif %}</p>
+                        {% if offer.tips == 'Да' %} + Tips{% endif %}</p>
                     </div>
                     </div>
 
@@ -493,12 +528,47 @@
 
 <script>
 (function(){
- const form=document.getElementById('job-offer-filter-form'); if(!form)return;
- const submitFilters=function(){const data=new FormData(form),params=new URLSearchParams();for(const pair of data.entries()){if(String(pair[1]).trim())params.set(pair[0],pair[1]);}window.location.href=form.action.split('#')[0]+'?'+params.toString()+'#offers-page-top-row';};
+ const form=document.getElementById('job-offer-filter-form');if(!form)return;
+ const cleanNumber=function(value){const number=Number(value);return Number.isInteger(number)?String(number):number.toFixed(2);};
+ const range=form.querySelector('[data-wage-range]');
+ if(range){
+  const lower=range.querySelector('[data-range-min]');
+  const upper=range.querySelector('[data-range-max]');
+  const lowerOutput=range.querySelector('[data-range-min-output]');
+  const upperOutput=range.querySelector('[data-range-max-output]');
+  const syncRange=function(changed){
+   let low=Number(lower.value),high=Number(upper.value);
+   if(low>high){if(changed===lower){high=low;upper.value=high;}else{low=high;lower.value=low;}}
+   const span=Number(upper.max)-Number(lower.min)||1;
+   range.style.setProperty('--range-start',((low-Number(lower.min))/span*100)+'%');
+   range.style.setProperty('--range-end',((high-Number(lower.min))/span*100)+'%');
+   lowerOutput.textContent='$'+cleanNumber(low);
+   upperOutput.textContent='$'+cleanNumber(high);
+  };
+  lower.addEventListener('input',function(){syncRange(lower);});
+  upper.addEventListener('input',function(){syncRange(upper);});
+  syncRange();
+ }
+ const submitFilters=function(){
+  const data=new FormData(form),params=new URLSearchParams();
+  for(const pair of data.entries()){
+   const key=pair[0],value=String(pair[1]).trim();
+   if(key==='min_wage'&&value===form.dataset.wageMin)continue;
+   if(key==='max_wage'&&value===form.dataset.wageMax)continue;
+   if(value)params.set(key,value);
+  }
+  window.location.href=form.action.split('#')[0]+'?'+params.toString()+'#offers-page-top-row';
+ };
  form.querySelectorAll('[data-auto-filter]').forEach(function(field){field.addEventListener('change',submitFilters);});
  const search=form.querySelector('input[name="q"]');let timer;
  if(search){search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(submitFilters,550);});}
- form.querySelectorAll('[data-remove-filter]').forEach(function(chip){chip.addEventListener('click',function(){const params=new URLSearchParams(window.location.search);params.delete(chip.dataset.removeFilter);params.delete('page');window.location.href=window.location.pathname+(params.toString()?'?'+params.toString():'')+'#offers-page-top-row';});});
+ form.querySelectorAll('[data-remove-filter]').forEach(function(chip){chip.addEventListener('click',function(){
+  const params=new URLSearchParams(window.location.search);
+  params.delete(chip.dataset.removeFilter);params.delete('page');
+  const remaining=[...params.entries()].some(function(pair){return pair[0]!=='sort_by';});
+  if(!remaining){window.location.href=window.location.pathname+'?clear_filter=1#offers-page-top-row';return;}
+  window.location.href=window.location.pathname+'?'+params.toString()+'#offers-page-top-row';
+ });});
 })();
 </script>
 </body>
