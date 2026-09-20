@@ -170,8 +170,8 @@
                                 return false;
                             } </script>
                         <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'SubmitApplication');
+                            document.currentScript.parentElement.addEventListener('click', function () {
+                                if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
                             });
                         </script>
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
@@ -339,8 +339,8 @@
                                 return false;
                             } </script>
                         <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'SubmitApplication');
+                            document.currentScript.parentElement.addEventListener('click', function () {
+                                if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
                             });
                         </script>
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
