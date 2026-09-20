@@ -197,7 +197,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                     <label class="offers-field"><span>Настаняване</span>
                         <select name="housing" data-auto-filter>
                             <option value="">Всички цени</option>
-                            {% for option in housing %}<option value="{{ option }}" {% if option == selected_housing %}selected{% endif %}>{{ option|housing_summary }}</option>{% endfor %}
+                            {% for value, label in housing %}<option value="{{ value }}" {% if value == selected_housing %}selected{% endif %}>{{ label }}</option>{% endfor %}
                         </select>
                     </label>
                     <label class="offers-field"><span>Сортирай</span>
