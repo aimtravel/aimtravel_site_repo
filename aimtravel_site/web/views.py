@@ -263,7 +263,8 @@ class JobOfferListView(views.ListView):
         return ('%.2f' % float(value)).rstrip('0').rstrip('.')
 
     def get(self, request):
-        session_keys = {
+        student_mode = request.user.is_authenticated
+        public_session_keys = {
             'state': 'selected_state', 'city': 'selected_city',
             'job_position': 'selected_job_position',
             'suitable_for': 'selected_suitable_for',
@@ -271,8 +272,16 @@ class JobOfferListView(views.ListView):
             'tips_only': 'selected_tips_only', 'housing': 'selected_housing',
             'q': 'offer_search',
         }
+        private_session_keys = {
+            'sponsor': 'selected_sponsor',
+            'assignment': 'selected_assignment',
+            'availability': 'selected_availability',
+        }
+        session_keys = dict(public_session_keys)
+        if student_mode:
+            session_keys.update(private_session_keys)
         if 'clear_filter' in request.GET:
-            for session_key in session_keys.values():
+            for session_key in tuple(public_session_keys.values()) + tuple(private_session_keys.values()):
                 request.session.pop(session_key, None)
             return redirect(f"{reverse('offers')}#offers-page-top-row")
 
@@ -336,6 +345,18 @@ class JobOfferListView(views.ListView):
             offers = offers.filter(tips__iexact='Да')
         if selected['housing']:
             offers = offers.filter(housing=selected['housing'])
+        if student_mode:
+            if selected['sponsor']:
+                offers = offers.filter(sponsor=selected['sponsor'])
+            if selected['assignment'] == '1':
+                offers = offers.filter(assignment=True)
+            if selected['availability'] == 'active':
+                offers = offers.filter(
+                    Q(availability_status='available') |
+                    Q(availability_status='last_seats')
+                )
+            elif selected['availability']:
+                offers = offers.filter(availability_status=selected['availability'])
 
         ordering = {
             'new': ('-new_offer', '-ranking', '-wage'),
@@ -371,7 +392,11 @@ class JobOfferListView(views.ListView):
             'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
             'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
             'housing': 'Настаняване', 'q': 'Търсене',
+            'sponsor': 'Спонсор', 'assignment': 'Assignment',
+            'availability': 'Наличност',
         }
+        availability_labels = dict((key, label) for key, label in JobOffer.AVAILABILITY_CHOICES)
+        availability_labels['active'] = 'Само активни'
         active_filters = []
         for key, value in selected.items():
             if not value:
@@ -382,6 +407,10 @@ class JobOfferListView(views.ListView):
                 display_value = 'Само с бакшиш'
             elif key == 'job_position':
                 display_value = position_labels.get(value, value)
+            elif key == 'assignment':
+                display_value = 'Само assignments'
+            elif key == 'availability':
+                display_value = availability_labels.get(value, value)
             else:
                 display_value = value
             active_filters.append({
@@ -404,6 +433,12 @@ class JobOfferListView(views.ListView):
             'selected_housing': selected['housing'],
             'wage_min': wage_min, 'wage_max': wage_max,
             'offer_search': selected['q'], 'sort_by': sort_by,
+            'student_mode': student_mode,
+            'sponsors': JobOffer.SPONSOR_CHOICES,
+            'availability_choices': JobOffer.AVAILABILITY_CHOICES,
+            'selected_sponsor': selected.get('sponsor', ''),
+            'selected_assignment': selected.get('assignment', ''),
+            'selected_availability': selected.get('availability', ''),
         }
         return render(request, self.template_name, context)
 
