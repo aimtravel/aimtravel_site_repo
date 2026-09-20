@@ -1,5 +1,3 @@
-import re
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
@@ -10,11 +8,15 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
 
 from aimtravel_site.posting.models import *
-from aimtravel_site.templatetags.custom_filters import housing_summary
+from aimtravel_site.templatetags.custom_filters import housing_summary, housing_weekly_range
 from aimtravel_site.user_profile.models import Employee
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
@@ -272,7 +274,10 @@ class JobOfferListView(views.ListView):
             'job_position': 'selected_job_position',
             'suitable_for': 'selected_suitable_for',
             'min_wage': 'selected_min_wage', 'max_wage': 'selected_max_wage',
-            'tips_only': 'selected_tips_only', 'housing': 'selected_housing',
+            'tips_only': 'selected_tips_only',
+            'housing_min': 'selected_housing_min',
+            'housing_max': 'selected_housing_max',
+            'free_housing': 'selected_free_housing',
             'q': 'offer_search',
         }
         private_session_keys = {
@@ -309,6 +314,16 @@ class JobOfferListView(views.ListView):
         wage_stats = JobOffer.objects.aggregate(minimum=Min('wage'), maximum=Max('wage'))
         wage_min = self.compact_wage(wage_stats['minimum'] or 0)
         wage_max = self.compact_wage(wage_stats['maximum'] or 0)
+        housing_ranges = [
+            housing_weekly_range(value)
+            for value in JobOffer.objects.values_list('housing', flat=True)
+        ]
+        paid_housing_values = [
+            amount for housing_range in housing_ranges if housing_range
+            for amount in housing_range if amount > 0
+        ]
+        housing_min = min(paid_housing_values, default=0)
+        housing_max = max(paid_housing_values, default=0)
 
         if selected['q']:
             offers = offers.filter(
@@ -346,8 +361,6 @@ class JobOfferListView(views.ListView):
                 selected['max_wage'] = ''
         if selected['tips_only'] == '1':
             offers = offers.filter(tips__iexact='Да')
-        if selected['housing']:
-            offers = offers.filter(housing=selected['housing'])
         if student_mode:
             if selected['sponsor']:
                 offers = offers.filter(sponsor=selected['sponsor'])
@@ -370,6 +383,28 @@ class JobOfferListView(views.ListView):
         }
         offers = offers.order_by(*ordering.get(sort_by, ordering['popular']))
 
+        selected_housing_min = selected['housing_min'] or str(housing_min)
+        selected_housing_max = selected['housing_max'] or str(housing_max)
+        if selected['free_housing'] == '1':
+            offers = [
+                offer for offer in offers
+                if housing_weekly_range(offer.housing) == (0, 0)
+            ]
+        elif selected['housing_min'] or selected['housing_max']:
+            try:
+                chosen_min = int(float(selected_housing_min))
+                chosen_max = int(float(selected_housing_max))
+                offers = [
+                    offer for offer in offers
+                    if housing_weekly_range(offer.housing)
+                    and housing_weekly_range(offer.housing) != (0, 0)
+                    and housing_weekly_range(offer.housing)[1] >= chosen_min
+                    and housing_weekly_range(offer.housing)[0] <= chosen_max
+                ]
+            except (TypeError, ValueError):
+                selected['housing_min'] = ''
+                selected['housing_max'] = ''
+
         states = JobOffer.objects.exclude(city__state__isnull=True).values_list(
             'city__state', flat=True
         ).distinct().order_by('city__state')
@@ -379,21 +414,6 @@ class JobOfferListView(views.ListView):
         suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
             suitable_for=''
         ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
-        housing_values = JobOffer.objects.exclude(housing__isnull=True).exclude(
-            housing=''
-        ).exclude(
-            housing__in=('', '-', '$', '0', 'N/A', 'Не')
-        ).values_list('housing', flat=True).distinct()
-        housing_by_label = {}
-        for value in housing_values:
-            label = housing_summary(value)
-            if label != 'По оферта':
-                housing_by_label.setdefault(label, value)
-        housing = sorted(
-            ((value, label) for label, value in housing_by_label.items()),
-            key=lambda option: float(re.search(r'\d+', option[1]).group()),
-        )
-
         paginator = Paginator(offers, 12)
         page_obj = paginator.get_page(request.GET.get('page'))
         query_params = request.GET.copy()
@@ -405,7 +425,8 @@ class JobOfferListView(views.ListView):
             'state': 'Щат', 'city': 'Град', 'job_position': 'Категория',
             'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
             'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
-            'housing': 'Настаняване', 'q': 'Търсене',
+            'housing_min': 'Настаняване от', 'housing_max': 'Настаняване до',
+            'free_housing': 'Настаняване', 'q': 'Търсене',
             'sponsor': 'Спонсор', 'assignment': 'Assignment',
             'availability': 'Наличност',
         }
@@ -415,14 +436,14 @@ class JobOfferListView(views.ListView):
         for key, value in selected.items():
             if not value:
                 continue
-            if key in ('min_wage', 'max_wage'):
+            if key in ('min_wage', 'max_wage', 'housing_min', 'housing_max'):
                 display_value = '$' + self.compact_wage(value)
             elif key == 'tips_only':
                 display_value = 'Само с бакшиш'
             elif key == 'job_position':
                 display_value = position_labels.get(value, value)
-            elif key == 'housing':
-                display_value = housing_summary(value)
+            elif key == 'free_housing':
+                display_value = 'Само безплатно'
             elif key == 'assignment':
                 display_value = 'Само assignments'
             elif key == 'availability':
@@ -435,7 +456,7 @@ class JobOfferListView(views.ListView):
 
         context = {
             'states': states, 'cities': cities, 'position_groups': position_groups,
-            'suitable_for': suitable_for, 'housing': housing,
+            'suitable_for': suitable_for,
             'page_obj': page_obj, 'result_count': paginator.count,
             'active_filters': active_filters,
             'page_query_prefix': (page_query + '&') if page_query else '',
@@ -446,8 +467,12 @@ class JobOfferListView(views.ListView):
             'selected_min_wage': selected['min_wage'] or wage_min,
             'selected_max_wage': selected['max_wage'] or wage_max,
             'selected_tips_only': selected['tips_only'],
-            'selected_housing': selected['housing'],
+            'selected_housing_min': selected_housing_min,
+            'selected_housing_max': selected_housing_max,
+            'selected_free_housing': selected['free_housing'],
             'wage_min': wage_min, 'wage_max': wage_max,
+            'housing_min': housing_min, 'housing_max': housing_max,
+            'state_count': len(states), 'city_count': cities.count(),
             'offer_search': selected['q'], 'sort_by': sort_by,
             'student_mode': student_mode,
             'sponsors': JobOffer.SPONSOR_CHOICES,
@@ -675,3 +700,76 @@ def form_submission_view(request):
     send_mail(subject, encoded_message, email, ['studentski@aimtravel.bg'], fail_silently=False)
 
     return render(request, 'success.html')
+
+
+@require_POST
+def offer_lead_view(request):
+    if request.POST.get('website'):
+        return JsonResponse({'ok': True})
+
+    offer = get_object_or_404(JobOffer, pk=request.POST.get('offer_id'))
+    lead_token = request.POST.get('lead_token', '').strip()
+    action = request.POST.get('action', 'add')
+
+    if lead_token:
+        lead = OfferLead.objects.filter(public_id=lead_token).first()
+        if not lead:
+            return JsonResponse({'ok': False, 'error': 'Невалиден профил.'}, status=404)
+    else:
+        if request.POST.get('privacy_consent') != '1':
+            return JsonResponse(
+                {'ok': False, 'error': 'Необходимо е съгласие, за да се свържем с теб.'},
+                status=400,
+            )
+        fields = {
+            'first_name': request.POST.get('first_name', '').strip(),
+            'last_name': request.POST.get('last_name', '').strip(),
+            'email': request.POST.get('email', '').strip().lower(),
+            'phone': request.POST.get('phone', '').strip(),
+            'university': request.POST.get('university', '').strip(),
+            'course': request.POST.get('course', '').strip(),
+            'specialty': request.POST.get('specialty', '').strip(),
+        }
+        if not all(fields.values()):
+            return JsonResponse(
+                {'ok': False, 'error': 'Моля, попълни всички полета.'}, status=400,
+            )
+        try:
+            validate_email(fields['email'])
+        except ValidationError:
+            return JsonResponse({'ok': False, 'error': 'Въведи валиден имейл.'}, status=400)
+
+        lead, created = OfferLead.objects.get_or_create(
+            email=fields['email'], defaults=fields,
+        )
+        if not created:
+            for field, value in fields.items():
+                setattr(lead, field, value)
+            lead.status = 'new' if lead.status == 'closed' else lead.status
+            lead.save()
+
+        if created:
+            send_mail(
+                f'Нов CRM потенциал: {lead.first_name} {lead.last_name}',
+                (
+                    f'Име: {lead.first_name} {lead.last_name}\n'
+                    f'Имейл: {lead.email}\nТелефон: {lead.phone}\n'
+                    f'Университет: {lead.university}\nКурс: {lead.course}\n'
+                    f'Специалност: {lead.specialty}\n'
+                    f'Първа любима оферта: {offer}'
+                ),
+                None,
+                ['studentski@aimtravel.bg'],
+                fail_silently=True,
+            )
+
+    if action == 'remove':
+        lead.favorite_offers.remove(offer)
+    else:
+        lead.favorite_offers.add(offer)
+
+    return JsonResponse({
+        'ok': True,
+        'lead_token': str(lead.public_id),
+        'favorite_count': lead.favorite_offers.count(),
+    })
