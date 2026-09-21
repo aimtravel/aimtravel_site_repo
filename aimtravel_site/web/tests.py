@@ -69,4 +69,13 @@ class JobOfferFilterTests(TestCase):
         self.assertEqual(response.context['result_count'], 0)
         self.assertContains(response, 'placeholder="Позиция или град"')
 
+    def test_mobile_offer_controls_are_rendered(self):
+        response = self.client.get(reverse('offers'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'data-mobile-filter-open')
+        self.assertContains(response, 'data-mobile-sort')
+        self.assertContains(response, 'mobile-filter-footer')
+        self.assertContains(response, 'Промените се прилагат автоматично')
+
 # Create your tests here.
