@@ -85,6 +85,87 @@ class SignInForm(auth_forms.AuthenticationForm):
         }),
     )
 
+    def confirm_login_allowed(self, user):
+        super().confirm_login_allowed(user)
+        if not user.is_staff:
+            raise ValidationError(
+                'Този вход е само за консултанти на AIM Travel.',
+                code='staff_only',
+            )
+
+
+class PersonAccessForm(forms.Form):
+    email = forms.EmailField(
+        label='Имейл',
+        widget=forms.EmailInput(attrs={
+            'autocomplete': 'email',
+            'placeholder': 'ivan.petrov@gmail.com',
+        }),
+    )
+    phone = forms.CharField(
+        label='Телефон',
+        max_length=40,
+        widget=forms.TextInput(attrs={
+            'autocomplete': 'tel',
+            'inputmode': 'tel',
+            'placeholder': '0888 123 456',
+        }),
+    )
+    first_name = forms.CharField(
+        label='Име', max_length=80, required=False,
+        widget=forms.TextInput(attrs={'autocomplete': 'given-name'}),
+    )
+    last_name = forms.CharField(
+        label='Фамилия', max_length=80, required=False,
+        widget=forms.TextInput(attrs={'autocomplete': 'family-name'}),
+    )
+    university = forms.CharField(label='Университет', max_length=160, required=False)
+    course = forms.ChoiceField(
+        label='Курс', required=False,
+        choices=(
+            ('', 'Избери курс'), ('1 курс', '1 курс'), ('2 курс', '2 курс'),
+            ('3 курс', '3 курс'), ('4 курс', '4 курс'), ('5 курс', '5 курс'),
+            ('Магистратура', 'Магистратура'),
+        ),
+    )
+    specialty = forms.CharField(label='Специалност', max_length=160, required=False)
+    lead_token = forms.CharField(required=False, widget=forms.HiddenInput())
+    privacy_consent = forms.BooleanField(
+        label='Съгласен/на съм AIM Travel да използва данните ми за профила и програмата.',
+    )
+
+    def clean_email(self):
+        return self.cleaned_data['email'].strip().lower()
+
+    def clean_phone(self):
+        raw_phone = self.cleaned_data['phone'].strip()
+        digits = ''.join(character for character in raw_phone if character.isdigit())
+        if digits.startswith('359') and len(digits) >= 11:
+            digits = '0' + digits[3:]
+        if len(digits) < 9:
+            raise ValidationError('Въведи валиден телефонен номер.')
+        return digits
+
+
+class VerificationCodeForm(forms.Form):
+    code = forms.CharField(
+        label='Код за вход',
+        min_length=6,
+        max_length=6,
+        widget=forms.TextInput(attrs={
+            'autocomplete': 'one-time-code',
+            'inputmode': 'numeric',
+            'pattern': '[0-9]{6}',
+            'placeholder': '000000',
+        }),
+    )
+
+    def clean_code(self):
+        code = self.cleaned_data['code'].strip()
+        if not code.isdigit():
+            raise ValidationError('Кодът съдържа само цифри.')
+        return code
+
 
 class EditForm(auth_forms.UserChangeForm):
     fieldsets = (
