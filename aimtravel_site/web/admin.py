@@ -49,9 +49,11 @@ class JobOfferAdmin(admin.ModelAdmin):
 class OfferLeadAdmin(admin.ModelAdmin):
     list_display = [
         'first_name', 'last_name', 'email', 'phone', 'university', 'course',
-        'status', 'favorite_count', 'created_at',
+        'lifecycle_stage', 'contract_status', 'status', 'favorite_count', 'created_at',
     ]
-    list_filter = ['status', 'university', 'course', 'created_at']
+    list_filter = [
+        'lifecycle_stage', 'contract_status', 'status', 'university', 'course', 'created_at',
+    ]
     search_fields = ['first_name', 'last_name', 'email', 'phone', 'university', 'specialty']
     readonly_fields = ['public_id', 'created_at', 'updated_at']
     filter_horizontal = ['favorite_offers']
@@ -76,4 +78,3 @@ class AdditionalServicesAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['employer_name', 'employer_city', 'employer_state']
     list_filter = ['employer_name']
-
