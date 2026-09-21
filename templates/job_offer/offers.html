@@ -191,7 +191,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                 <div class="offers-filter-grid">
                     <label class="offers-field offers-search"><span>Търси оферта</span>
                         <input type="search" name="q" value="{{ offer_search }}"
-                               placeholder="Позиция, град или работодател" autocomplete="off">
+                               placeholder="Позиция или град" autocomplete="off">
                     </label>
                     <label class="offers-field"><span>Щат</span>
                         <select name="state" data-auto-filter><option value="">Всички щати</option>{% for state in states %}<option value="{{ state }}" {% if state == selected_state %}selected{% endif %}>{{ state }}</option>{% endfor %}</select>
