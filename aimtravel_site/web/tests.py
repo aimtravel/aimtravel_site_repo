@@ -62,4 +62,11 @@ class JobOfferFilterTests(TestCase):
         self.assertEqual(response.context['result_count'], 2)
         self.assertNotContains(response, 'name="employer"')
 
+    def test_free_text_search_does_not_filter_by_employer(self):
+        response = self.client.get(reverse('offers'), {'q': 'California Employer'})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['result_count'], 0)
+        self.assertContains(response, 'placeholder="Позиция или град"')
+
 # Create your tests here.
