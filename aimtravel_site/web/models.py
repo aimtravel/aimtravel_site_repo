@@ -422,19 +422,53 @@ class OfferLead(models.Model):
         ('closed', 'Затворен'),
     )
 
+    LIFECYCLE_CHOICES = (
+        ('lead', 'Lead / потенциал'),
+        ('customer', 'Customer / попълнена application форма'),
+        ('enrolled', 'Записан / договор подписан'),
+    )
+
+    CONTRACT_STATUS_CHOICES = (
+        ('none', 'Няма генериран договор'),
+        ('generated', 'Генериран'),
+        ('sent', 'Изпратен за подпис'),
+        ('signed', 'Подписан'),
+    )
+
     public_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
-    first_name = models.CharField('Име', max_length=80)
-    last_name = models.CharField('Фамилия', max_length=80)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Потребителски профил',
+        related_name='offer_lead',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    first_name = models.CharField('Име', max_length=80, blank=True, default='')
+    last_name = models.CharField('Фамилия', max_length=80, blank=True, default='')
     email = models.EmailField('Имейл', unique=True)
     phone = models.CharField('Телефон', max_length=40)
-    university = models.CharField('Университет', max_length=160)
-    course = models.CharField('Курс', max_length=40)
-    specialty = models.CharField('Специалност', max_length=160)
+    university = models.CharField('Университет', max_length=160, blank=True, default='')
+    course = models.CharField('Курс', max_length=40, blank=True, default='')
+    specialty = models.CharField('Специалност', max_length=160, blank=True, default='')
     favorite_offers = models.ManyToManyField(
         JobOffer, verbose_name='Любими оферти', related_name='offer_leads', blank=True,
     )
     status = models.CharField(
         'CRM статус', max_length=20, choices=STATUS_CHOICES, default='new',
+    )
+    lifecycle_stage = models.CharField(
+        'Тип профил', max_length=20, choices=LIFECYCLE_CHOICES, default='lead',
+    )
+    application_submitted_at = models.DateTimeField(
+        'Application изпратена на', blank=True, null=True,
+    )
+    contract_status = models.CharField(
+        'Статус на договора', max_length=20,
+        choices=CONTRACT_STATUS_CHOICES, default='none',
+    )
+    contract_file = models.FileField(
+        'Договор', upload_to='contracts/%Y/%m/', blank=True, null=True,
     )
     source = models.CharField('Източник', max_length=80, default='Работни оферти')
     privacy_consent = models.BooleanField('Съгласие за контакт', default=True)
@@ -447,7 +481,8 @@ class OfferLead(models.Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name} – {self.email}'
+        name = f'{self.first_name} {self.last_name}'.strip()
+        return f'{name or "Lead"} – {self.email}'
 
 
 class Prices(models.Model):
