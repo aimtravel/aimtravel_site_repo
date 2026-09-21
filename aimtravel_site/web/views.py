@@ -452,10 +452,14 @@ class JobOfferListView(views.ListView):
         states = JobOffer.objects.exclude(city__state__isnull=True).values_list(
             'city__state', flat=True
         ).distinct().order_by('city__state')
-        cities = City.objects.filter(joboffer__isnull=False)
+        available_cities = City.objects.filter(joboffer__isnull=False).distinct()
+        city_count = available_cities.count()
         if selected['state']:
-            cities = cities.filter(state=selected['state'])
-        cities = cities.distinct().order_by('name')
+            cities = available_cities.filter(state=selected['state']).order_by('name')
+        else:
+            # Keep the disabled city selector lightweight until a state is
+            # chosen. The catalogue statistic still uses all available cities.
+            cities = available_cities.none()
         popular_states = JobOffer.objects.exclude(city__state__isnull=True).exclude(
             city__state=''
         ).values('city__state').annotate(
@@ -527,7 +531,7 @@ class JobOfferListView(views.ListView):
             'selected_free_housing': selected['free_housing'],
             'wage_min': wage_min, 'wage_max': wage_max,
             'housing_min': housing_min, 'housing_max': housing_max,
-            'state_count': len(states), 'city_count': cities.count(),
+            'state_count': len(states), 'city_count': city_count,
             'offer_search': selected['q'], 'sort_by': sort_by,
             'student_mode': student_mode,
             'lead_mode': lead_mode,
