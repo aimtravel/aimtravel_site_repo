@@ -297,7 +297,6 @@ class JobOfferListView(views.ListView):
         lead_mode = bool(request.user.is_authenticated and not student_mode)
         public_session_keys = {
             'state': 'selected_state', 'city': 'selected_city',
-            'employer': 'selected_employer',
             'job_position': 'selected_job_position',
             'suitable_for': 'selected_suitable_for',
             'min_wage': 'selected_min_wage', 'max_wage': 'selected_max_wage',
@@ -336,6 +335,24 @@ class JobOfferListView(views.ListView):
                 value = request.session.get(session_key, '')
             selected[query_key] = value
 
+        # The employer dropdown is intentionally not part of the public
+        # catalogue at this stage. Drop any value left in an older session or
+        # bookmarked URL so it cannot keep filtering results invisibly.
+        request.session.pop('selected_employer', None)
+
+        # A state change can arrive together with the previously selected city
+        # (the browser submits the whole form). Never apply a city that does
+        # not belong to the currently selected state.
+        if selected['state'] and selected['city']:
+            city_is_valid = City.objects.filter(
+                name=selected['city'],
+                state=selected['state'],
+                joboffer__isnull=False,
+            ).exists()
+            if not city_is_valid:
+                selected['city'] = ''
+                request.session['selected_city'] = ''
+
         sort_by = request.GET.get('sort_by') or 'popular'
         offers = JobOffer.objects.select_related('city').all()
         wage_stats = JobOffer.objects.aggregate(minimum=Min('wage'), maximum=Max('wage'))
@@ -363,8 +380,6 @@ class JobOfferListView(views.ListView):
             offers = offers.filter(city__state=selected['state'])
         if selected['city']:
             offers = offers.filter(city__name=selected['city'])
-        if selected['employer']:
-            offers = offers.filter(employer_name=selected['employer'])
         if selected['job_position']:
             terms = dict((key, words) for key, label, words in self.POSITION_GROUPS).get(
                 selected['job_position']
@@ -437,10 +452,10 @@ class JobOfferListView(views.ListView):
         states = JobOffer.objects.exclude(city__state__isnull=True).values_list(
             'city__state', flat=True
         ).distinct().order_by('city__state')
-        cities = City.objects.filter(joboffer__isnull=False).distinct().order_by('name')
-        employers = JobOffer.objects.exclude(employer_name__isnull=True).exclude(
-            employer_name=''
-        ).values_list('employer_name', flat=True).distinct().order_by('employer_name')
+        cities = City.objects.filter(joboffer__isnull=False)
+        if selected['state']:
+            cities = cities.filter(state=selected['state'])
+        cities = cities.distinct().order_by('name')
         popular_states = JobOffer.objects.exclude(city__state__isnull=True).exclude(
             city__state=''
         ).values('city__state').annotate(
@@ -456,10 +471,11 @@ class JobOfferListView(views.ListView):
         query_params = request.GET.copy()
         query_params.pop('page', None)
         query_params.pop('clear_filter', None)
+        query_params.pop('employer', None)
         page_query = query_params.urlencode()
 
         labels = {
-            'state': 'Щат', 'city': 'Град', 'employer': 'Работодател',
+            'state': 'Щат', 'city': 'Град',
             'job_position': 'Позиция',
             'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
             'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
@@ -493,7 +509,7 @@ class JobOfferListView(views.ListView):
             })
 
         context = {
-            'states': states, 'cities': cities, 'employers': employers,
+            'states': states, 'cities': cities,
             'popular_states': popular_states, 'position_groups': position_groups,
             'suitable_for': suitable_for,
             'page_obj': page_obj, 'result_count': paginator.count,
@@ -501,7 +517,6 @@ class JobOfferListView(views.ListView):
             'page_query_prefix': (page_query + '&') if page_query else '',
             'selected_state': selected['state'],
             'selected_city': selected['city'],
-            'selected_employer': selected['employer'],
             'selected_job_position': selected['job_position'],
             'selected_suitable_for': selected['suitable_for'],
             'selected_min_wage': selected['min_wage'] or wage_min,
