@@ -146,6 +146,8 @@ LOGOUT_REDIRECT_URL = reverse_lazy('index')
 AUTH_USER_MODEL = 'user_auth.AppUser'
 LOGIN_USERNAME_FIELDS = ['email', ]
 
+APPLICATION_FORM_URL = 'https://staging.aimtravel.bg/zapisvane-za-brigada/'
+
 DATE_INPUT_FORMATS = [
     '%d-%m-%Y',
     '%d-%m-%y',
