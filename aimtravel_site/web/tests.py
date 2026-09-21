@@ -33,6 +33,15 @@ class JobOfferFilterTests(TestCase):
         self.assertContains(response, 'Всички градове в CA')
         self.assertNotContains(response, 'value="New York"')
 
+    def test_city_options_wait_for_state_without_changing_catalogue_count(self):
+        response = self.client.get(reverse('offers'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(list(response.context['cities']), [])
+        self.assertEqual(response.context['city_count'], 2)
+        self.assertContains(response, 'Първо избери щат')
+        self.assertContains(response, 'name="city" data-auto-filter disabled')
+
     def test_city_is_cleared_when_it_does_not_match_state(self):
         response = self.client.get(
             reverse('offers'),
