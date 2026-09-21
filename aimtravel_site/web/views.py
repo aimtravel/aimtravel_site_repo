@@ -17,7 +17,7 @@ from django.utils.encoding import smart_str
 
 from aimtravel_site.posting.models import *
 from aimtravel_site.templatetags.custom_filters import housing_summary, housing_weekly_range
-from aimtravel_site.user_profile.models import Employee
+from aimtravel_site.user_profile.models import Employee, Students
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
 from aimtravel_site.web.models import *
@@ -277,7 +277,24 @@ class JobOfferListView(views.ListView):
         return ('%.2f' % float(value)).rstrip('0').rstrip('.')
 
     def get(self, request):
-        student_mode = request.user.is_authenticated
+        lead_profile = None
+        if request.user.is_authenticated and not request.user.is_staff:
+            lead_profile = OfferLead.objects.filter(user=request.user).first()
+            if not lead_profile:
+                lead_profile = OfferLead.objects.filter(email=request.user.email).first()
+        student_mode = bool(
+            request.user.is_authenticated and (
+                request.user.is_staff or
+                Students.objects.filter(user=request.user).exists() or
+                (
+                    lead_profile and (
+                        lead_profile.lifecycle_stage == 'enrolled' or
+                        lead_profile.contract_status == 'signed'
+                    )
+                )
+            )
+        )
+        lead_mode = bool(request.user.is_authenticated and not student_mode)
         public_session_keys = {
             'state': 'selected_state', 'city': 'selected_city',
             'employer': 'selected_employer',
@@ -498,11 +515,16 @@ class JobOfferListView(views.ListView):
             'state_count': len(states), 'city_count': cities.count(),
             'offer_search': selected['q'], 'sort_by': sort_by,
             'student_mode': student_mode,
+            'lead_mode': lead_mode,
             'sponsors': JobOffer.SPONSOR_CHOICES,
             'availability_choices': JobOffer.AVAILABILITY_CHOICES,
             'selected_sponsor': selected.get('sponsor', ''),
             'selected_assignment': selected.get('assignment', ''),
             'selected_availability': selected.get('availability', ''),
+            'account_lead_token': str(lead_profile.public_id) if lead_profile else '',
+            'account_favorite_ids': list(
+                lead_profile.favorite_offers.values_list('pk', flat=True)
+            ) if lead_profile else [],
         }
         return render(request, self.template_name, context)
 
@@ -753,9 +775,9 @@ def offer_lead_view(request):
             'course': request.POST.get('course', '').strip(),
             'specialty': request.POST.get('specialty', '').strip(),
         }
-        if not all(fields.values()):
+        if not fields['email'] or not fields['phone']:
             return JsonResponse(
-                {'ok': False, 'error': 'Моля, попълни всички полета.'}, status=400,
+                {'ok': False, 'error': 'Имейлът и телефонът са задължителни.'}, status=400,
             )
         try:
             validate_email(fields['email'])
@@ -767,13 +789,20 @@ def offer_lead_view(request):
         )
         if not created:
             for field, value in fields.items():
-                setattr(lead, field, value)
+                if value or field in ('email', 'phone'):
+                    setattr(lead, field, value)
             lead.status = 'new' if lead.status == 'closed' else lead.status
             lead.save()
 
+        if request.user.is_authenticated and not request.user.is_staff:
+            if not lead.user_id or lead.user_id == request.user.pk:
+                lead.user = request.user
+                lead.save(update_fields=['user'])
+
         if created and not lead.email.endswith('@example.com'):
+            lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
             send_mail(
-                f'Нов CRM потенциал: {lead.first_name} {lead.last_name}',
+                f'Нов CRM потенциал: {lead_name}',
                 (
                     f'Име: {lead.first_name} {lead.last_name}\n'
                     f'Имейл: {lead.email}\nТелефон: {lead.phone}\n'
