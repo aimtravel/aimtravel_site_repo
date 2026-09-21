@@ -97,13 +97,13 @@
                 </div>
                 <div id="top-header-right-login">
                     {% if user.is_authenticated %}
-                        {% if user.is_superuser %}
+                        {% if user.is_staff %}
                             <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">Admin</a>
                         {% else %}
-                            <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">Профил</a>
+                            <a id="top-header-right-login-p1" href="{% url 'student portal' %}">Моят профил</a>
                         {% endif %}
                     {% else %}
-                        <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
+                        <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Вход</a>
                     {% endif %}
                 </div>
             </div>
@@ -301,23 +301,23 @@
             </li>
             <li>
                 {% if user.is_authenticated %}
-                    {% if user.is_superuser %}
+                    {% if user.is_staff %}
                         <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">
                             <div class="main-element-header">
                                 <p>Admin</p>
                             </div>
                         </a>
                     {% else %}
-                        <a id="top-header-right-login-p1" href="{% url 'my-profile' slug=user.slug %}">
+                        <a id="top-header-right-login-p1" href="{% url 'student portal' %}">
                             <div class="main-element-header">
-                                <p>Профил</p>
+                                <p>Моят профил</p>
                             </div>
                         </a>
                     {% endif %}
                 {% else %}
                     <a id="top-header-right-login-p1" href="{% url 'sign in' %}">
                         <div class="main-element-header">
-                            <p>Login</p>
+                            <p>Вход</p>
                         </div>
                     </a>
                 {% endif %}
