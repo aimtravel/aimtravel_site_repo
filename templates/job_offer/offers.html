@@ -535,23 +535,23 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
         <button type="button" class="lead-modal__close" data-lead-close aria-label="Затвори">×</button>
         <p class="offers-eyebrow">ТВОИТЕ ЛЮБИМИ ОФЕРТИ</p>
         <h2 id="lead-modal-title">Нека се свържем с теб</h2>
-        <p class="lead-modal__intro">Попълни кратките данни само веднъж. Ще запазим любимите ти оферти и консултант на AIM Travel ще те потърси.</p>
+        <p class="lead-modal__intro">Имейлът и телефонът са достатъчни, за да запазим офертата. Останалата информация е по желание и ще помогне на консултанта.</p>
         <form data-lead-form method="post" action="{% url 'offer lead' %}">
             {% csrf_token %}
             <input type="hidden" name="offer_id" data-lead-offer-id>
             <label class="lead-form__honeypot">Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
             <div class="lead-form__grid">
-                <label>Име<input type="text" name="first_name" autocomplete="given-name" required maxlength="80"></label>
-                <label>Фамилия<input type="text" name="last_name" autocomplete="family-name" required maxlength="80"></label>
+                <label>Име <small>(по желание)</small><input type="text" name="first_name" autocomplete="given-name" maxlength="80"></label>
+                <label>Фамилия <small>(по желание)</small><input type="text" name="last_name" autocomplete="family-name" maxlength="80"></label>
                 <label>Имейл<input type="email" name="email" autocomplete="email" required maxlength="254"></label>
                 <label>Телефон<input type="tel" name="phone" autocomplete="tel" required maxlength="40"></label>
-                <label class="lead-form__full">Университет<input type="text" name="university" autocomplete="organization" required maxlength="160"></label>
-                <label>Курс
-                    <select name="course" required>
+                <label class="lead-form__full">Университет <small>(по желание)</small><input type="text" name="university" autocomplete="organization" maxlength="160"></label>
+                <label>Курс <small>(по желание)</small>
+                    <select name="course">
                         <option value="">Избери курс</option><option value="1 курс">1 курс</option><option value="2 курс">2 курс</option><option value="3 курс">3 курс</option><option value="4 курс">4 курс</option><option value="5 курс">5 курс</option><option value="Магистратура">Магистратура</option>
                     </select>
                 </label>
-                <label>Специалност<input type="text" name="specialty" required maxlength="160"></label>
+                <label>Специалност <small>(по желание)</small><input type="text" name="specialty" maxlength="160"></label>
             </div>
             <label class="lead-form__consent"><input type="checkbox" name="privacy_consent" value="1" required> Съгласен/на съм AIM Travel да използва данните ми, за да се свърже с мен относно програмата и избраните оферти.</label>
             <p class="lead-form__error" data-lead-error aria-live="polite"></p>
@@ -561,6 +561,8 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
 </section>
 
 {% include 'footer.html' %}
+<meta name="offer-lead-token" content="{{ account_lead_token }}">
+{{ account_favorite_ids|json_script:"account-favorite-ids" }}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
@@ -620,6 +622,10 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
  let favorites=[];
  let pendingOfferId='';
  try{favorites=JSON.parse(window.localStorage.getItem(storageKey)||'[]');if(!Array.isArray(favorites))favorites=[];}catch(error){favorites=[];}
+ const accountToken=document.querySelector('meta[name="offer-lead-token"]')?.content||'';
+ const accountFavoritesNode=document.getElementById('account-favorite-ids');
+ if(accountToken){try{window.localStorage.setItem(leadKey,accountToken);}catch(error){}}
+ if(accountFavoritesNode){try{const serverFavorites=JSON.parse(accountFavoritesNode.textContent).map(String);favorites=[...new Set(favorites.concat(serverFavorites))];}catch(error){}}
  const count=document.querySelector('[data-favorite-count]');
  const modal=document.querySelector('[data-lead-modal]');
  const leadForm=document.querySelector('[data-lead-form]');
