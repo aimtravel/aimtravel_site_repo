@@ -128,10 +128,20 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
 .offers-filter-secondary{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.wage-range-card{padding:13px 15px;border-radius:15px;background:#fff}.wage-range-card__header{margin-bottom:8px}.wage-range-values span{min-width:54px;padding:4px 7px;border:0;background:#eef4f7}.dual-range{height:18px}.dual-range__rail,.dual-range__fill{top:7px;height:4px}.dual-range input[type=range]{height:18px}.dual-range input[type=range]::-webkit-slider-runnable-track{height:4px}.dual-range input[type=range]::-webkit-slider-thumb{width:18px;height:18px;margin-top:-7px;border-width:3px}.range-card__tools{display:flex;align-items:center;gap:12px}.mini-check{display:inline-flex;align-items:center;gap:6px;color:var(--offers-navy);font-size:11px;font-weight:800;text-transform:none;cursor:pointer}.mini-check input{accent-color:var(--offers-red)}.quick-filter-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.tips-switch-card{min-height:46px;padding:10px 14px;border-radius:14px;background:#fff}.tips-switch-card__copy span{display:none}
 .lead-modal[hidden]{display:none}.lead-modal{position:fixed;z-index:10000;inset:0;display:grid;place-items:center;padding:20px}.lead-modal__backdrop{position:absolute;inset:0;background:rgba(2,24,38,.72);backdrop-filter:blur(5px)}.lead-modal__dialog{position:relative;width:min(680px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:28px;border-radius:24px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.34)}.lead-modal__close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:0;border-radius:50%;background:#edf3f6;color:var(--offers-navy);font-size:24px;cursor:pointer}.lead-modal h2{margin:0 45px 7px 0;color:var(--offers-navy);font-size:28px}.lead-modal__intro{margin:0 0 20px;color:#617681}.lead-form__grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.lead-form__grid label{display:flex;flex-direction:column;gap:6px;color:var(--offers-navy);font-size:11px;font-weight:900;text-transform:uppercase}.lead-form__grid input,.lead-form__grid select{height:46px;padding:0 12px;border:1px solid #d7e2e7;border-radius:11px;background:#f8fbfc;color:var(--offers-ink);font:600 14px Jost,sans-serif;outline:none}.lead-form__grid input:focus,.lead-form__grid select:focus{border-color:var(--offers-red);box-shadow:0 0 0 3px rgba(181,9,18,.08)}.lead-form__full{grid-column:1/-1}.lead-form__error{min-height:20px;margin:12px 0 0;color:var(--offers-red);font-size:13px;font-weight:800}.lead-form__submit{width:100%;height:48px;border:0;border-radius:12px;background:var(--offers-red);color:#fff;font:900 13px Jost,sans-serif;text-transform:uppercase;cursor:pointer}.lead-form__consent{display:flex;align-items:flex-start;gap:8px;margin:13px 0;color:#657984;font-size:11px;line-height:1.4}.lead-form__consent input{margin-top:2px;accent-color:var(--offers-red)}.lead-form__honeypot{position:absolute!important;left:-9999px!important}
 .offers-video-inline{display:grid;width:min(1224px,calc(100% - 56px));grid-template-columns:minmax(260px,.75fr) minmax(320px,1.25fr);align-items:center;gap:34px;margin:18px auto 10px;padding:24px;border-radius:24px;background:var(--offers-navy);color:#fff;box-shadow:0 20px 46px rgba(7,59,92,.2)}.offers-video-inline__media{position:relative;display:block;overflow:hidden;border-radius:17px}.offers-video-inline__media img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.offers-video-inline__play{position:absolute;inset:50% auto auto 50%;display:grid;width:58px;height:58px;place-items:center;transform:translate(-50%,-50%);border:2px solid #fff;border-radius:50%;background:rgba(181,9,18,.9);color:#fff;font-size:20px}.offers-video-inline h2{margin:0 0 10px;color:#fff;font-size:clamp(24px,3vw,38px);line-height:1.08}.offers-video-inline p{margin:0;color:rgba(255,255,255,.78);font-size:15px;line-height:1.55}
+.mobile-offers-toolbar,.mobile-active-filters,.mobile-filter-head,.mobile-filter-footer,.mobile-filter-backdrop{display:none}
 @media(max-width:1100px){.offer-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:1050px){.offers-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.offers-search{grid-column:1/-1}.offers-filter-secondary{grid-template-columns:1fr}.offers-catalog-bar{align-items:stretch;flex-direction:column}.catalog-actions{justify-content:space-between}}
 @media(max-width:850px){.offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.student-tools__grid{grid-template-columns:1fr}.offers-video-inline{grid-template-columns:1fr}}
-@media(max-width:640px){header#offers-header #header-nav{top:50px;padding:0;background:transparent;border:0;backdrop-filter:none}.offers-hero{min-height:420px;padding:130px 18px 54px;background-position:64% center}.offers-hero h1{font-size:36px}.offers-hero__lead{font-size:15px}.offers-hero__button{width:100%}.offers-discovery{padding:0 14px;margin-bottom:30px}.offers-discovery__intro{align-items:flex-start;flex-direction:column;gap:15px}.catalog-stats{grid-template-columns:1fr 1fr}.catalog-stat:last-child{grid-column:1/-1}.catalog-actions{align-items:stretch;flex-direction:column}.catalog-sort{justify-content:space-between}.favorite-counter{align-self:flex-start}.offers-filter-panel{padding:13px;border-radius:18px}.offers-filter-grid{grid-template-columns:1fr}.offers-search,.offers-span-2{grid-column:auto}.offers-filter-secondary,.quick-filter-row{grid-template-columns:1fr}.wage-range-card__header{align-items:flex-start;flex-direction:column;gap:8px}.wage-range-card,.tips-switch-card{padding:13px}.offers-clear-filters{width:100%;margin:5px 0 0}.offers-container{padding:0 14px!important}.offer-grid{grid-template-columns:1fr}.offers-video-inline{width:calc(100% - 28px);padding:16px}.offers-video-inline__copy{padding:4px}.job-card h3{min-height:0}.lead-form__grid{grid-template-columns:1fr}.lead-form__full{grid-column:auto}.lead-modal__dialog{padding:22px 17px}.lead-modal h2{font-size:23px}}
+@media(max-width:640px){
+ body.mobile-filters-open{overflow:hidden}.mobile-filter-backdrop{position:fixed;z-index:9997;inset:0;display:block;background:rgba(2,24,38,.58);opacity:0;visibility:hidden;backdrop-filter:blur(3px);transition:.22s}.mobile-filter-backdrop.is-visible{opacity:1;visibility:visible}
+ header#offers-header #header-nav{top:28px;padding:0;background:transparent;border:0;backdrop-filter:none}.offers-hero{min-height:350px;padding:105px 16px 30px;background-position:65% center}.offers-hero h1{max-width:330px;margin-bottom:10px;font-size:32px;line-height:1.03}.offers-hero__lead{max-width:330px;font-size:14px;line-height:1.4}.offers-hero__actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:18px}.offers-hero__button{min-height:44px;padding:0 10px;border-radius:11px;font-size:12px;text-align:center}.offers-hero__status{grid-column:1/-1;font-size:12px}
+ #offers-section{padding-bottom:32px;background:linear-gradient(#f4f8fa 0,#fff 280px)}.offers-discovery{padding:0 12px;margin-top:18px!important;margin-bottom:24px}.offers-discovery__intro{align-items:flex-start;gap:7px;margin-bottom:12px;padding:0 2px}.offers-discovery__intro h1{margin:0;font-size:25px;line-height:1.08}.offers-discovery__intro p{font-size:13px;line-height:1.45}.offers-eyebrow{font-size:10px!important}.offers-catalog-bar{gap:10px;margin:12px 0 10px}.catalog-stats{display:flex;gap:7px;overflow-x:auto;padding:1px 1px 4px;scrollbar-width:none}.catalog-stats::-webkit-scrollbar{display:none}.catalog-stat{min-width:116px;min-height:52px;padding:8px 10px;border-radius:14px;box-shadow:0 5px 15px rgba(7,59,92,.055)}.catalog-stat:last-child{grid-column:auto}.catalog-stat strong{font-size:20px}.catalog-stat span{font-size:10px}.catalog-actions{display:none}
+ .mobile-offers-toolbar{position:sticky;z-index:20;top:64px;display:grid;grid-template-columns:1fr 1fr 48px;gap:8px;margin:0 0 10px;padding:7px;border:1px solid rgba(213,226,233,.92);border-radius:17px;background:rgba(255,255,255,.94);box-shadow:0 10px 28px rgba(7,59,92,.14);backdrop-filter:blur(12px)}.mobile-filter-trigger,.mobile-sort,.mobile-favorite{min-height:46px;border:0;border-radius:12px;background:#edf4f7;color:var(--offers-navy);font:900 12px Jost,sans-serif}.mobile-filter-trigger{display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;touch-action:manipulation}.mobile-filter-trigger__icon{font-size:16px}.mobile-filter-count{display:grid;min-width:21px;height:21px;place-items:center;border-radius:50%;background:var(--offers-red);color:#fff;font-size:10px}.mobile-sort{position:relative;display:flex;align-items:center;padding:0 8px 0 12px;overflow:hidden}.mobile-sort select{width:100%;height:42px;border:0;background:transparent;color:var(--offers-navy);font:800 12px Jost,sans-serif;outline:none}.mobile-favorite{position:relative;display:grid;place-items:center;font-size:20px}.mobile-favorite b{position:absolute;transform:translate(13px,-13px);display:grid;min-width:18px;height:18px;place-items:center;border:2px solid #fff;border-radius:50%;background:var(--offers-red);color:#fff;font-size:9px}
+ .mobile-active-filters{display:flex;gap:7px;margin:0 -12px 12px;padding:0 12px 3px;overflow-x:auto;scrollbar-width:none}.mobile-active-filters::-webkit-scrollbar{display:none}.mobile-active-filters .filter-chip{flex:0 0 auto;min-height:36px;padding:7px 11px;background:#fff}.mobile-active-filters .offers-clear-filters{flex:0 0 auto;width:auto;min-height:36px;margin:0}
+ .offers-filter-panel{position:fixed;z-index:9998;right:0;bottom:0;left:0;max-height:min(88dvh,760px);margin:0;padding:0 15px calc(88px + env(safe-area-inset-bottom));overflow-y:auto;border:0;border-radius:24px 24px 0 0;background:#f7fafb;box-shadow:0 -24px 70px rgba(2,24,38,.28);transform:translateY(105%);visibility:hidden;transition:transform .25s ease,visibility .25s}.offers-filter-panel.is-mobile-open{transform:translateY(0);visibility:visible}.mobile-filter-head{position:sticky;z-index:5;top:0;display:flex;align-items:center;justify-content:space-between;margin:0 -15px 14px;padding:16px 17px 12px;border-bottom:1px solid #e1e9ed;background:rgba(255,255,255,.96);backdrop-filter:blur(10px)}.mobile-filter-head strong{display:block;color:var(--offers-navy);font-size:19px}.mobile-filter-head span{display:block;margin-top:2px;color:#6a7d88;font-size:11px}.mobile-filter-close{display:grid;width:40px;height:40px;place-items:center;border:0;border-radius:50%;background:#edf3f6;color:var(--offers-navy);font-size:24px;cursor:pointer}.mobile-filter-footer{position:fixed;z-index:6;right:0;bottom:0;left:0;display:flex;gap:9px;padding:12px 15px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #dfe8ec;background:rgba(255,255,255,.97);backdrop-filter:blur(10px)}.mobile-filter-apply{width:100%;min-height:50px;border:0;border-radius:14px;background:var(--offers-red);color:#fff;font:900 14px Jost,sans-serif;box-shadow:0 9px 22px rgba(181,9,18,.23)}
+ .offers-filter-grid{grid-template-columns:1fr}.offers-search,.offers-span-2{grid-column:auto}.offers-field{gap:5px}.offers-field>span{font-size:10px}.offers-field input[type=search],.offers-field select{height:49px;border-radius:13px;font-size:15px}.popular-states{margin:11px -15px 0;padding:2px 15px 5px}.popular-states__label{display:none}.popular-state{min-height:39px}.offers-filter-secondary,.quick-filter-row{grid-template-columns:1fr;gap:10px}.offers-filter-secondary{margin-top:12px}.wage-range-card{padding:14px 13px;border-radius:15px}.wage-range-card__header{align-items:center;flex-direction:row;gap:8px;margin-bottom:13px}.wage-range-card__title{font-size:10px}.wage-range-values{gap:5px}.wage-range-values span{min-width:48px;padding:5px 6px}.dual-range{height:28px}.dual-range__rail,.dual-range__fill{top:12px;height:5px}.dual-range input[type=range]{height:28px}.dual-range input[type=range]::-webkit-slider-thumb{width:24px;height:24px;margin-top:-9px}.tips-switch-card{min-height:54px;padding:11px 14px}.tips-switch-card__copy span{display:block}.student-tools{padding:13px;border-radius:15px}.student-tools__heading{align-items:flex-start;flex-direction:column;gap:3px}.student-tools__grid{grid-template-columns:1fr}.offers-active-filters{display:none}
+ .offers-container{padding:0 12px!important}.offer-grid{grid-template-columns:1fr;gap:14px}.job-card{border-radius:21px 21px 29px 29px;box-shadow:0 9px 26px rgba(7,59,92,.1)}.job-card:hover{transform:none}.job-card__image{aspect-ratio:16/9}.job-card__image:before{inset:11px 11px 9px;border-width:2px;border-radius:16px 16px 50% 50% / 16px 16px 11% 11%}.job-card__badges{top:20px;left:20px;max-width:calc(100% - 78px);gap:5px}.job-badge{padding:6px 8px;font-size:9px}.job-favorite{top:17px;right:18px;width:44px;height:44px;font-size:24px}.job-card__body{padding:15px}.job-card__employer{margin-bottom:4px;font-size:10px}.job-card h3{min-height:0;font-size:21px;line-height:1.17}.job-card__location{margin:7px 0 12px;font-size:13px}.job-card__facts{gap:7px;margin-bottom:11px}.job-fact{padding:10px 9px;border-radius:11px}.job-fact strong{font-size:13px}.job-card__meta{min-height:0}.job-card__footer{margin-top:13px;padding-top:12px}.job-card__details{display:inline-flex;min-height:38px;align-items:center;padding:0 12px;border-radius:10px;background:#fff4f4;font-size:11px}.offers-video-inline{width:calc(100% - 24px);gap:16px;padding:14px;border-radius:20px}.offers-video-inline__copy{padding:2px}.offers-video-inline h2{font-size:23px}.offers-video-inline p{font-size:13px}.lead-form__grid{grid-template-columns:1fr}.lead-form__full{grid-column:auto}.lead-modal{padding:8px}.lead-modal__dialog{max-height:calc(100dvh - 16px);padding:21px 15px;border-radius:20px}.lead-modal h2{font-size:23px}
+}
 </style>
 </head>
 
@@ -184,10 +194,45 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                 </div>
             </div>
 
+            <div class="mobile-offers-toolbar" aria-label="Мобилни инструменти за офертите">
+                <button type="button" class="mobile-filter-trigger" data-mobile-filter-open>
+                    <span class="mobile-filter-trigger__icon" aria-hidden="true">☰</span>
+                    Филтри
+                    {% if active_filters %}<span class="mobile-filter-count">{{ active_filters|length }}</span>{% endif %}
+                </button>
+                <label class="mobile-sort" aria-label="Подреди офертите">
+                    <select data-mobile-sort>
+                        <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>Популярни</option>
+                        <option value="new" {% if sort_by == 'new' %}selected{% endif %}>Най-нови</option>
+                        <option value="decrease_wage" {% if sort_by == 'decrease_wage' %}selected{% endif %}>Най-висока заплата</option>
+                        <option value="increase_wage" {% if sort_by == 'increase_wage' %}selected{% endif %}>Най-ниска заплата</option>
+                        <option value="last_offer" {% if sort_by == 'last_offer' %}selected{% endif %}>Последни места</option>
+                    </select>
+                </label>
+                <div class="mobile-favorite" aria-label="Брой любими оферти">♡<b data-favorite-count>0</b></div>
+            </div>
+
+            {% if active_filters %}
+                <div class="mobile-active-filters" aria-label="Активни мобилни филтри">
+                    {% for filter in active_filters %}
+                        <button type="button" class="filter-chip" data-remove-filter="{{ filter.param }}">
+                            {{ filter.label }}: {{ filter.value }} <b aria-hidden="true">×</b>
+                        </button>
+                    {% endfor %}
+                    <a class="offers-clear-filters" href="?clear_filter=1#offers-page-top-row"><span aria-hidden="true">↻</span> Изчисти</a>
+                </div>
+            {% endif %}
+
+            <div class="mobile-filter-backdrop" data-mobile-filter-close aria-hidden="true"></div>
+
             <form id="job-offer-filter-form" class="offers-filter-panel" method="get"
                   action="{% url 'offers' %}#offers-page-top-row"
                   data-wage-min="{{ wage_min }}" data-wage-max="{{ wage_max }}"
                   data-housing-min="{{ housing_min }}" data-housing-max="{{ housing_max }}">
+                <div class="mobile-filter-head">
+                    <div><strong>Филтрирай офертите</strong><span>Промените се прилагат автоматично</span></div>
+                    <button type="button" class="mobile-filter-close" data-mobile-filter-close aria-label="Затвори филтрите">×</button>
+                </div>
                 <div class="offers-filter-grid">
                     <label class="offers-field offers-search"><span>Търси оферта</span>
                         <input type="search" name="q" value="{{ offer_search }}"
@@ -284,6 +329,9 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                         <a class="offers-clear-filters" href="?clear_filter=1#offers-page-top-row"><span aria-hidden="true">↻</span> Нулирай филтрите</a>
                     </div>
                 {% endif %}
+                <div class="mobile-filter-footer">
+                    <button type="button" class="mobile-filter-apply" data-mobile-filter-close>Покажи {{ result_count }} оферти</button>
+                </div>
                 <noscript><button class="slider-btn" type="submit">Покажи офертите</button></noscript>
             </form>
         </div>
@@ -569,6 +617,25 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
 <script>
 (function(){
  const form=document.getElementById('job-offer-filter-form');if(!form)return;
+ const mobileQuery=window.matchMedia('(max-width:640px)');
+ const mobileOpenKey='aimtravel-mobile-filters-open';
+ const backdrop=document.querySelector('.mobile-filter-backdrop');
+ const openMobileFilters=function(){
+  if(!mobileQuery.matches)return;
+  form.classList.add('is-mobile-open');backdrop.classList.add('is-visible');
+  document.body.classList.add('mobile-filters-open');
+  try{window.sessionStorage.setItem(mobileOpenKey,'1');}catch(error){}
+ };
+ const closeMobileFilters=function(){
+  form.classList.remove('is-mobile-open');backdrop.classList.remove('is-visible');
+  document.body.classList.remove('mobile-filters-open');
+  try{window.sessionStorage.removeItem(mobileOpenKey);}catch(error){}
+ };
+ document.querySelectorAll('[data-mobile-filter-open]').forEach(function(button){button.addEventListener('click',openMobileFilters);});
+ document.querySelectorAll('[data-mobile-filter-close]').forEach(function(button){button.addEventListener('click',closeMobileFilters);});
+ document.addEventListener('keydown',function(event){if(event.key==='Escape'&&form.classList.contains('is-mobile-open'))closeMobileFilters();});
+ if(!mobileQuery.matches){closeMobileFilters();}else{try{if(window.sessionStorage.getItem(mobileOpenKey)==='1')openMobileFilters();}catch(error){}}
+ mobileQuery.addEventListener('change',function(event){if(!event.matches)closeMobileFilters();});
  const cleanNumber=function(value){const number=Number(value);return Number.isInteger(number)?String(number):number.toFixed(2);};
  form.querySelectorAll('[data-range-card]').forEach(function(range){
   const lower=range.querySelector('[data-range-min]');
@@ -590,6 +657,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
   syncRange();
  });
  const submitFilters=function(){
+  if(mobileQuery.matches&&form.classList.contains('is-mobile-open')){try{window.sessionStorage.setItem(mobileOpenKey,'1');}catch(error){}}
   const data=new FormData(form),params=new URLSearchParams();
   for(const pair of data.entries()){
    const key=pair[0],value=String(pair[1]).trim();
@@ -603,19 +671,24 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
  };
  const stateField=form.querySelector('select[name="state"]');
  const cityField=form.querySelector('select[name="city"]');
+ const desktopSort=document.querySelector('select[name="sort_by"]');
+ const mobileSort=document.querySelector('[data-mobile-sort]');
+ if(mobileSort&&desktopSort){mobileSort.addEventListener('change',function(){desktopSort.value=mobileSort.value;submitFilters();});}
  document.querySelectorAll('[data-auto-filter]').forEach(function(field){field.addEventListener('change',function(){
   if(field===stateField&&cityField){cityField.value='';cityField.disabled=false;}
   submitFilters();
  });});
  const search=form.querySelector('input[name="q"]');let timer;
- if(search){search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(submitFilters,550);});}
- form.querySelectorAll('[data-remove-filter]').forEach(function(chip){chip.addEventListener('click',function(){
+ if(search){search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(submitFilters,mobileQuery.matches?850:550);});}
+ document.querySelectorAll('[data-remove-filter]').forEach(function(chip){chip.addEventListener('click',function(){
+  if(chip.closest('.offers-filter-panel')){try{window.sessionStorage.setItem(mobileOpenKey,'1');}catch(error){}}
   const params=new URLSearchParams(window.location.search);
   params.delete(chip.dataset.removeFilter);params.delete('page');
   const remaining=[...params.entries()].some(function(pair){return pair[0]!=='sort_by';});
   if(!remaining){window.location.href=window.location.pathname+'?clear_filter=1#offers-page-top-row';return;}
   window.location.href=window.location.pathname+'?'+params.toString()+'#offers-page-top-row';
  });});
+ form.querySelectorAll('.popular-state,.offers-clear-filters').forEach(function(link){link.addEventListener('click',function(){if(mobileQuery.matches){try{window.sessionStorage.setItem(mobileOpenKey,'1');}catch(error){}}});});
 })();
 
 (function(){
@@ -628,7 +701,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
  const accountFavoritesNode=document.getElementById('account-favorite-ids');
  if(accountToken){try{window.localStorage.setItem(leadKey,accountToken);}catch(error){}}
  if(accountFavoritesNode){try{const serverFavorites=JSON.parse(accountFavoritesNode.textContent).map(String);favorites=[...new Set(favorites.concat(serverFavorites))];}catch(error){}}
- const count=document.querySelector('[data-favorite-count]');
+ const counts=document.querySelectorAll('[data-favorite-count]');
  const modal=document.querySelector('[data-lead-modal]');
  const leadForm=document.querySelector('[data-lead-form]');
  const leadError=document.querySelector('[data-lead-error]');
@@ -636,7 +709,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
  const getLeadToken=function(){try{return window.localStorage.getItem(leadKey)||'';}catch(error){return '';}};
  const saveFavorites=function(){try{window.localStorage.setItem(storageKey,JSON.stringify(favorites));}catch(error){}};
  const sync=function(){
-  if(count)count.textContent=String(favorites.length);
+  counts.forEach(function(count){count.textContent=String(favorites.length);});
   document.querySelectorAll('[data-favorite-button]').forEach(function(button){
    const card=button.closest('[data-offer-id]');
    const active=card&&favorites.indexOf(card.dataset.offerId)!==-1;
