@@ -1,7 +1,9 @@
-from django.test import TestCase
+from django.contrib.auth import get_user_model
+from django.core import mail
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from .models import City, JobOffer
+from .models import City, JobOffer, OfferLead
 
 
 class JobOfferFilterTests(TestCase):
@@ -77,5 +79,61 @@ class JobOfferFilterTests(TestCase):
         self.assertContains(response, 'data-mobile-sort')
         self.assertContains(response, 'mobile-filter-footer')
         self.assertContains(response, 'Промените се прилагат автоматично')
+
+
+@override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+class JobOfferDetailFunnelTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.city = City.objects.create(name='Greenville Test', state='ME')
+        cls.offer = JobOffer.objects.create(
+            city=cls.city,
+            employer_name='Dockside Test',
+            job_position='Server',
+            wage=13.80,
+            sponsor='CHI',
+            assignment=True,
+            availability_status='available',
+        )
+
+    def test_public_detail_hides_operational_availability(self):
+        response = self.client.get(reverse('details offer', kwargs={'pk': self.offer.pk}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Реална наличност')
+        self.assertNotContains(response, 'Assignment')
+        self.assertContains(response, 'Безплатна консултация')
+
+    def test_staff_detail_shows_operational_availability(self):
+        user = get_user_model().objects.create_user(
+            email='consultant@aimtravel.bg', password='test-pass', is_staff=True,
+        )
+        self.client.force_login(user)
+
+        response = self.client.get(reverse('details offer', kwargs={'pk': self.offer.pk}))
+
+        self.assertContains(response, 'Реална наличност')
+        self.assertContains(response, 'Свободна')
+        self.assertContains(response, 'Assignment')
+
+    def test_consultation_creates_lead_and_tracks_offer(self):
+        response = self.client.post(reverse('offer lead'), {
+            'offer_id': self.offer.pk,
+            'intent': 'consultation',
+            'first_name': 'Test',
+            'last_name': 'Student',
+            'email': 'student@aimtravel.bg',
+            'phone': '0888123456',
+            'university': 'СУ',
+            'course': '2 курс',
+            'specialty': 'Икономика',
+            'privacy_consent': '1',
+        })
+
+        self.assertEqual(response.status_code, 200)
+        lead = OfferLead.objects.get(email='student@aimtravel.bg')
+        self.assertTrue(lead.favorite_offers.filter(pk=self.offer.pk).exists())
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertIn('Заявка за безплатна консултация', mail.outbox[0].subject)
 
 # Create your tests here.
