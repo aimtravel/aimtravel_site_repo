@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>My AIM Journey | AIM Travel</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--navy:#073b5c;--red:#b50912;--ink:#17313f;--muted:#657984;--line:#dce6eb;--soft:#f3f7f9;--green:#197444}
+        body{margin:0;background:#f2f6f8;color:var(--ink);font-family:Jost,Arial,sans-serif}#portal-header #header-nav{position:relative!important;top:auto!important;background:var(--navy)!important}#portal-header #top-header{display:none}
+        .portal-wrap{max-width:1180px;margin:0 auto;padding:42px 24px 70px}.portal-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:22px;padding:30px;border-radius:25px;background:linear-gradient(135deg,var(--navy),#0c658e);color:#fff;box-shadow:0 22px 50px rgba(7,59,92,.18)}.portal-hero small{font-size:11px;font-weight:900;letter-spacing:.13em;text-transform:uppercase;color:#afd0df}.portal-hero h1{margin:7px 0 7px;font-size:clamp(30px,4vw,48px);line-height:1}.portal-hero p{max-width:680px;margin:0;color:#d3e4ec}.portal-hero__actions{display:flex;flex:0 0 auto;gap:9px}.portal-button{display:inline-flex;min-height:44px;align-items:center;justify-content:center;padding:0 17px;border-radius:11px;background:var(--red);color:#fff;font-size:12px;font-weight:900;text-decoration:none;text-transform:uppercase}.portal-button--light{background:#fff;color:var(--navy)}
+        .journey-status{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}.stage{position:relative;padding:15px 16px 15px 48px;border:1px solid var(--line);border-radius:16px;background:#fff}.stage i{position:absolute;top:14px;left:14px;display:grid;width:25px;height:25px;place-items:center;border-radius:50%;background:#e9eff2;color:#70838d;font-style:normal;font-size:11px;font-weight:900}.stage b{display:block;color:var(--navy);font-size:13px}.stage span{color:#778a94;font-size:11px}.stage.is-done i,.stage.is-current i{background:#e4f3ea;color:var(--green)}.stage.is-current{border-color:#a8d3ba;background:#f8fdf9}
+        .portal-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.7fr);gap:18px}.portal-card{overflow:hidden;border:1px solid var(--line);border-radius:20px;background:#fff;box-shadow:0 10px 30px rgba(7,59,92,.06)}.portal-card__head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 20px;border-bottom:1px solid #e9eff2}.portal-card__head h2{margin:0;color:var(--navy);font-size:18px}.portal-card__body{padding:20px}.status-pill{display:inline-flex;padding:6px 9px;border-radius:999px;background:#eef4f7;color:var(--navy);font-size:10px;font-weight:900;text-transform:uppercase}.status-pill--green{background:#e5f4eb;color:var(--green)}
+        .next-step{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:17px;border-radius:15px;background:#f7fafb}.next-step h3{margin:0 0 4px;color:var(--navy);font-size:16px}.next-step p{margin:0;color:var(--muted);font-size:12px}.lock-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:15px}.locked{position:relative;min-height:110px;padding:15px;border:1px dashed #cdd9df;border-radius:14px;background:#f8fafb}.locked b{display:block;margin-bottom:5px;color:#526b78;font-size:13px}.locked p{margin:0;color:#82939c;font-size:11px}.locked:after{position:absolute;top:12px;right:12px;content:"🔒";filter:grayscale(1);opacity:.55}
+        .favorite-list{display:grid;gap:10px}.favorite{display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px;border:1px solid #e3ebef;border-radius:13px}.favorite b{color:var(--navy);font-size:14px}.favorite span{display:block;color:#738690;font-size:11px}.favorite em{align-self:center;color:var(--red);font-size:12px;font-style:normal;font-weight:900}.empty{padding:22px;border-radius:13px;background:var(--soft);color:#6d818b;font-size:13px;text-align:center}.portal-meta{display:grid;gap:10px}.meta-row{display:flex;justify-content:space-between;gap:20px;padding-bottom:10px;border-bottom:1px solid #edf1f3;font-size:12px}.meta-row span{color:#748791}.meta-row b{color:var(--navy);text-align:right}.logout{display:block;margin-top:16px;color:#6c808b;font-size:11px;font-weight:800;text-align:center;text-decoration:none}
+        @media(max-width:850px){.portal-hero{align-items:flex-start;flex-direction:column}.portal-grid{grid-template-columns:1fr}.journey-status{grid-template-columns:1fr}.portal-hero__actions{width:100%;flex-wrap:wrap}.portal-button{flex:1}.lock-grid{grid-template-columns:1fr}}
+        @media(max-width:560px){.portal-wrap{padding:24px 14px 50px}.portal-hero{padding:22px 18px}.portal-hero__actions{flex-direction:column}.next-step{align-items:flex-start;flex-direction:column}.portal-button{width:100%}}
+    </style>
+</head>
+<body>
+<header id="portal-header">{% include 'navigation.html' %}</header>
+<main class="portal-wrap">
+    <section class="portal-hero">
+        <div><small>MY AIM JOURNEY · WORK &amp; TRAVEL USA 2027</small><h1>Здравей{% if lead.first_name %}, {{ lead.first_name }}{% endif %}!</h1><p>{% if is_enrolled %}Твоят профил е активен и имаш достъп до пълната програма.{% elif is_customer %}Application формата ти е получена. Следва договорът и активирането на програмата.{% else %}Запази любимите си оферти и попълни application формата, когато си готов/а да се запишеш.{% endif %}</p></div>
+        <div class="portal-hero__actions"><a class="portal-button portal-button--light" href="{% url 'offers' %}">Работни оферти</a>{% if not is_enrolled %}<a class="portal-button" href="{{ application_url }}" target="_blank" rel="noopener">Запиши се за бригада</a>{% endif %}</div>
+    </section>
+    <section class="journey-status" aria-label="Етап на профила">
+        <div class="stage is-done"><i>✓</i><b>Профил и любими</b><span>Lead / потенциал</span></div>
+        <div class="stage{% if is_customer %} is-done{% else %} is-current{% endif %}"><i>{% if is_customer %}✓{% else %}2{% endif %}</i><b>Application форма</b><span>{% if is_customer %}Получена{% else %}Следваща стъпка{% endif %}</span></div>
+        <div class="stage{% if is_enrolled %} is-done{% elif is_customer %} is-current{% endif %}"><i>{% if is_enrolled %}✓{% else %}3{% endif %}</i><b>Договор и програма</b><span>{% if is_enrolled %}Активирана{% elif lead.contract_status == 'generated' or lead.contract_status == 'sent' %}Готов за подпис{% else %}Предстои{% endif %}</span></div>
+    </section>
+    <div class="portal-grid">
+        <div>
+            <section class="portal-card">
+                <div class="portal-card__head"><h2>Следваща стъпка</h2><span class="status-pill{% if is_enrolled %} status-pill--green{% endif %}">{% if is_enrolled %}Записан студент{% elif is_customer %}Customer{% else %}Lead{% endif %}</span></div>
+                <div class="portal-card__body">
+                    {% if is_enrolled %}<div class="next-step"><div><h3>Програмата ти е активна</h3><p>Вече виждаш реалните наличности и всички отключени функции.</p></div><a class="portal-button" href="{% url 'offers' %}">Виж наличностите</a></div>
+                    {% elif is_customer %}<div class="next-step"><div><h3>{% if lead.contract_file %}Договорът ти е готов{% else %}Подготвяме договора ти{% endif %}</h3><p>{% if lead.contract_file %}Прегледай документа и следвай указанията за подписване.{% else %}Ще го видиш тук веднага след генерирането му.{% endif %}</p></div>{% if lead.contract_file %}<a class="portal-button" href="{{ lead.contract_file.url }}" target="_blank">Отвори договора</a>{% endif %}</div>
+                    {% else %}<div class="next-step"><div><h3>Попълни application формата</h3><p>Формата е в 4 стъпки. След изпращането ще получиш генериран договор.</p></div><a class="portal-button" href="{{ application_url }}" target="_blank" rel="noopener">Започни</a></div>{% endif %}
+                    {% if not is_enrolled %}<div class="lock-grid"><div class="locked"><b>Реални свободни места</b><p>Отключват се за официално записани студенти.</p></div><div class="locked"><b>Документи и плащания</b><p>Появяват се след активиране на договора.</p></div></div>{% endif %}
+                </div>
+            </section>
+            <section class="portal-card" style="margin-top:18px"><div class="portal-card__head"><h2>Любими оферти</h2><span class="status-pill">{{ favorite_offers|length }} избрани</span></div><div class="portal-card__body"><div class="favorite-list">{% for offer in favorite_offers %}<div class="favorite"><div><b>{{ offer.job_position }}</b><span>{{ offer.employer_name }} · {{ offer.city.name }}, {{ offer.city.state }}</span></div><em>${{ offer.wage }}/ч</em></div>{% empty %}<div class="empty">Все още нямаш любими оферти. Разгледай каталога и натисни сърцето на тези, които харесваш.</div>{% endfor %}</div></div></section>
+        </div>
+        <aside class="portal-card"><div class="portal-card__head"><h2>Твоят профил</h2></div><div class="portal-card__body"><div class="portal-meta"><div class="meta-row"><span>Имейл</span><b>{{ request.user.email }}</b></div><div class="meta-row"><span>Телефон</span><b>{% if lead %}{{ lead.phone }}{% else %}{{ request.user.phone }}{% endif %}</b></div><div class="meta-row"><span>Статус</span><b>{% if is_enrolled %}Записан студент{% elif is_customer %}Customer{% else %}Lead{% endif %}</b></div><div class="meta-row"><span>Договор</span><b>{% if lead %}{{ lead.get_contract_status_display }}{% else %}—{% endif %}</b></div></div><a class="logout" href="{% url 'sign out' %}">Изход от профила</a></div></aside>
+    </div>
+</main>
+</body>
+</html>
