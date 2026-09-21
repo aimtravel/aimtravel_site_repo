@@ -372,7 +372,6 @@ class JobOfferListView(views.ListView):
         if selected['q']:
             offers = offers.filter(
                 Q(job_position__icontains=selected['q']) |
-                Q(employer_name__icontains=selected['q']) |
                 Q(city__name__icontains=selected['q']) |
                 Q(city__state__icontains=selected['q'])
             )
