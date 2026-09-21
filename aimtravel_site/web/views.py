@@ -556,6 +556,56 @@ class DetailsOfferView(views.DetailView):
     form_class = JobOfferDetailForm
     context_object_name = 'offer_details'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request = self.request
+        offer = self.object
+
+        lead_profile = None
+        if request.user.is_authenticated and not request.user.is_staff:
+            lead_profile = OfferLead.objects.filter(user=request.user).first()
+            if not lead_profile and request.user.email:
+                lead_profile = OfferLead.objects.filter(email=request.user.email).first()
+
+        student_mode = bool(
+            request.user.is_authenticated and (
+                request.user.is_staff or
+                Students.objects.filter(user=request.user).exists() or
+                (
+                    lead_profile and (
+                        lead_profile.lifecycle_stage == 'enrolled' or
+                        lead_profile.contract_status == 'signed'
+                    )
+                )
+            )
+        )
+
+        if offer.employer_name:
+            employer_positions = JobOffer.objects.filter(
+                employer_name=offer.employer_name,
+                city=offer.city,
+            ).order_by('-wage', 'job_position')
+        else:
+            employer_positions = JobOffer.objects.filter(pk=offer.pk)
+
+        similar_offers = JobOffer.objects.select_related('city').filter(
+            city__state=offer.city.state,
+        ).exclude(pk=offer.pk).exclude(
+            employer_name=offer.employer_name,
+        ).order_by('-ranking', '-wage')[:3]
+
+        context.update({
+            'student_mode': student_mode,
+            'lead_mode': bool(request.user.is_authenticated and not student_mode),
+            'employer_positions': employer_positions,
+            'similar_offers': similar_offers,
+            'account_lead_token': str(lead_profile.public_id) if lead_profile else '',
+            'account_favorite_ids': list(
+                lead_profile.favorite_offers.values_list('pk', flat=True)
+            ) if lead_profile else [],
+        })
+        return context
+
 
 class EditOfferView(LoginRequiredMixin, UserPassesTestMixin, views.UpdateView):
     model = JobOffer
@@ -773,6 +823,11 @@ def offer_lead_view(request):
     offer = get_object_or_404(JobOffer, pk=request.POST.get('offer_id'))
     lead_token = request.POST.get('lead_token', '').strip()
     action = request.POST.get('action', 'add')
+    intent = request.POST.get('intent', 'favorite').strip()
+    if intent not in ('favorite', 'consultation'):
+        intent = 'favorite'
+    message = request.POST.get('message', '').strip()[:1000]
+    created = False
 
     if lead_token:
         lead = OfferLead.objects.filter(public_id=lead_token).first()
@@ -817,7 +872,7 @@ def offer_lead_view(request):
                 lead.user = request.user
                 lead.save(update_fields=['user'])
 
-        if created and not lead.email.endswith('@example.com'):
+        if created and intent != 'consultation' and not lead.email.endswith('@example.com'):
             lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
             send_mail(
                 f'Нов CRM потенциал: {lead_name}',
@@ -838,8 +893,27 @@ def offer_lead_view(request):
     else:
         lead.favorite_offers.add(offer)
 
+    if intent == 'consultation' and not lead.email.endswith('@example.com'):
+        lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
+        send_mail(
+            f'Заявка за безплатна консултация: {lead_name}',
+            (
+                f'Име: {lead.first_name} {lead.last_name}\n'
+                f'Имейл: {lead.email}\nТелефон: {lead.phone}\n'
+                f'Университет: {lead.university}\nКурс: {lead.course}\n'
+                f'Специалност: {lead.specialty}\n\n'
+                f'Оферта: {offer}\n'
+                f'Линк: {request.build_absolute_uri(reverse("details offer", kwargs={"pk": offer.pk}))}\n'
+                f'Съобщение: {message or "Няма допълнително съобщение."}'
+            ),
+            None,
+            ['studentski@aimtravel.bg'],
+            fail_silently=True,
+        )
+
     return JsonResponse({
         'ok': True,
         'lead_token': str(lead.public_id),
         'favorite_count': lead.favorite_offers.count(),
+        'intent': intent,
     })
