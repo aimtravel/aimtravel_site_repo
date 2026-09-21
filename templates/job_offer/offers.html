@@ -197,13 +197,10 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                         <select name="state" data-auto-filter><option value="">Всички щати</option>{% for state in states %}<option value="{{ state }}" {% if state == selected_state %}selected{% endif %}>{{ state }}</option>{% endfor %}</select>
                     </label>
                     <label class="offers-field"><span>Град</span>
-                        <select name="city" data-auto-filter><option value="">Всички градове</option>{% for city in cities %}<option value="{{ city.name }}" {% if city.name == selected_city %}selected{% endif %}>{{ city.name }}, {{ city.state }}</option>{% endfor %}</select>
+                        <select name="city" data-auto-filter {% if not selected_state %}disabled{% endif %}><option value="">{% if selected_state %}Всички градове в {{ selected_state }}{% else %}Първо избери щат{% endif %}</option>{% for city in cities %}<option value="{{ city.name }}" {% if city.name == selected_city %}selected{% endif %}>{{ city.name }}</option>{% endfor %}</select>
                     </label>
-                    <label class="offers-field"><span>Работна позиция</span>
+                    <label class="offers-field offers-span-2"><span>Работна позиция</span>
                         <select name="job_position" data-auto-filter><option value="">Всички позиции</option>{% for key, label in position_groups %}<option value="{{ key }}" {% if key == selected_job_position %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
-                    </label>
-                    <label class="offers-field"><span>Работодател</span>
-                        <select name="employer" data-auto-filter><option value="">Всички работодатели</option>{% for employer in employers %}<option value="{{ employer }}" {% if employer == selected_employer %}selected{% endif %}>{{ employer }}</option>{% endfor %}</select>
                     </label>
                     <label class="offers-field offers-span-2"><span>Подходящо за</span>
                         <select name="suitable_for" data-auto-filter><option value="">Всички студенти</option>{% for option in suitable_for %}<option value="{{ option }}" {% if option == selected_suitable_for %}selected{% endif %}>{{ option }}</option>{% endfor %}</select>
@@ -604,7 +601,12 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
   }
   window.location.href=form.action.split('#')[0]+'?'+params.toString()+'#offers-page-top-row';
  };
- document.querySelectorAll('[data-auto-filter]').forEach(function(field){field.addEventListener('change',submitFilters);});
+ const stateField=form.querySelector('select[name="state"]');
+ const cityField=form.querySelector('select[name="city"]');
+ document.querySelectorAll('[data-auto-filter]').forEach(function(field){field.addEventListener('change',function(){
+  if(field===stateField&&cityField){cityField.value='';cityField.disabled=false;}
+  submitFilters();
+ });});
  const search=form.querySelector('input[name="q"]');let timer;
  if(search){search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(submitFilters,550);});}
  form.querySelectorAll('[data-remove-filter]').forEach(function(chip){chip.addEventListener('click',function(){
