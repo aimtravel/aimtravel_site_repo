@@ -1,3 +1,5 @@
+import re
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
@@ -594,11 +596,30 @@ class DetailsOfferView(views.DetailView):
             employer_name=offer.employer_name,
         ).order_by('-ranking', '-wage')[:3]
 
+        description_sentences = [
+            sentence.strip()
+            for sentence in re.split(
+                r'(?<=[.!?])\s+(?=[A-ZА-Я])', offer.job_description or ''
+            )
+            if sentence.strip()
+        ]
+        role_rates = []
+        if description_sentences and ':' in description_sentences[0]:
+            heading, values = description_sentences[0].split(':', 1)
+            if 'ставк' in heading.lower() or 'позици' in heading.lower():
+                role_rates = [
+                    item.strip().rstrip('.')
+                    for item in values.split(';') if item.strip()
+                ]
+                description_sentences = description_sentences[1:]
+
         context.update({
             'student_mode': student_mode,
             'lead_mode': bool(request.user.is_authenticated and not student_mode),
             'employer_positions': employer_positions,
             'similar_offers': similar_offers,
+            'role_rates': role_rates,
+            'description_sentences': description_sentences,
             'account_lead_token': str(lead_profile.public_id) if lead_profile else '',
             'account_favorite_ids': list(
                 lead_profile.favorite_offers.values_list('pk', flat=True)
