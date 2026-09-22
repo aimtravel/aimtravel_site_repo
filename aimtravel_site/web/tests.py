@@ -94,6 +94,11 @@ class JobOfferDetailFunnelTests(TestCase):
             sponsor='CHI',
             assignment=True,
             availability_status='available',
+            job_description=(
+                'Работодателят предлага следните позиции и начални ставки: '
+                'Host $13.80; Server $6.90; Busser - negotiated rate. '
+                'Ще получите въвеждащо обучение. Очаква се да спазвате графика.'
+            ),
         )
 
     def test_public_detail_hides_operational_availability(self):
@@ -103,6 +108,9 @@ class JobOfferDetailFunnelTests(TestCase):
         self.assertNotContains(response, 'Реална наличност')
         self.assertNotContains(response, 'Assignment')
         self.assertContains(response, 'Безплатна консултация')
+        self.assertContains(response, 'Позиции и начални ставки')
+        self.assertContains(response, 'Host $13.80')
+        self.assertContains(response, 'Какво да очакваш')
 
     def test_staff_detail_shows_operational_availability(self):
         user = get_user_model().objects.create_user(
