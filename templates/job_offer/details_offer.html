@@ -38,9 +38,88 @@
         .mobile-action-bar{display:none}
         .lead-modal[hidden]{display:none}.lead-modal{position:fixed;z-index:10000;inset:0;display:grid;place-items:center;padding:20px;font-family:Jost,sans-serif}.lead-modal__backdrop{position:absolute;inset:0;background:rgba(2,24,38,.72);backdrop-filter:blur(5px)}.lead-modal__dialog{position:relative;width:min(680px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:28px;border-radius:24px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.34)}.lead-modal__close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:0;border-radius:50%;background:#edf3f6;color:var(--detail-navy);font-size:24px;cursor:pointer}.lead-modal h2{margin:0 45px 7px 0;color:var(--detail-navy);font-size:28px}.lead-modal__intro{margin:0 0 20px;color:#617681}.lead-form__grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.lead-form__grid label{display:flex;flex-direction:column;gap:6px;color:var(--detail-navy);font-size:11px;font-weight:900;text-transform:uppercase}.lead-form__grid input,.lead-form__grid select{height:46px;padding:0 12px;border:1px solid #d7e2e7;border-radius:11px;background:#f8fbfc;color:var(--detail-ink);font:600 14px Jost,sans-serif;outline:none}.lead-form__full{grid-column:1/-1}.lead-form__error{min-height:20px;margin:12px 0 0;color:var(--detail-red);font-size:13px;font-weight:800}.lead-form__submit{width:100%;height:48px;border:0;border-radius:12px;background:var(--detail-red);color:#fff;font:900 13px Jost,sans-serif;text-transform:uppercase}.lead-form__consent{display:flex;align-items:flex-start;gap:8px;margin:13px 0;color:#657984;font-size:11px;line-height:1.4}.lead-form__honeypot{position:absolute!important;left:-9999px!important}
         .staff-actions{display:flex;justify-content:center;gap:10px;padding-top:25px}.staff-actions a{padding:10px 14px;border-radius:10px;background:#eaf1f4;color:var(--detail-navy);font-size:11px;font-weight:900}
+        .detail-back-mobile,.detail-mobile-heading{display:none}
         @media(max-width:900px){.detail-hero{grid-template-columns:1fr;gap:24px}.detail-media{min-height:460px}.detail-summary{padding-top:0}.info-grid{grid-template-columns:1fr 1fr}.info-card:last-child{grid-column:1/-1}.city-guide{grid-template-columns:1fr}.city-guide__media{min-height:350px}.similar-grid{grid-template-columns:1fr 1fr}.similar-card:last-child{display:none}}
         @media(max-width:640px){#offer-details-header{height:64px!important}.detail-shell{width:calc(100% - 24px)}.detail-crumbs{padding:17px 2px 12px;font-size:10px}.detail-crumbs span:last-child{display:none}.detail-hero{gap:18px}.detail-media{min-height:0;aspect-ratio:16/11;border-radius:21px 21px 42px 42px}.detail-media:after{inset:11px;border-radius:15px 15px 37px 37px}.detail-badges{top:20px;left:20px;max-width:calc(100% - 40px)}.detail-badge{min-height:27px;padding:0 9px;font-size:8px}.detail-summary h1{font-size:31px}.detail-location{margin:9px 0 17px;font-size:14px}.detail-metrics{gap:7px}.detail-metric{min-height:72px;padding:11px;border-radius:13px}.detail-metric strong{font-size:14px}.detail-live{padding:11px 12px}.detail-actions{display:none}.detail-description{position:relative;max-height:118px;overflow:hidden;margin-top:16px;font-size:14px}.detail-description.is-open{max-height:none}.detail-description:not(.is-open):after{content:"";position:absolute;right:0;bottom:0;left:0;height:55px;background:linear-gradient(transparent,#fff)}.detail-more-toggle{display:block;margin:8px 0 0;padding:0;border:0;background:none;color:var(--detail-red);font:900 11px Jost,sans-serif;text-transform:uppercase}.detail-section{padding-top:48px}.detail-section-heading{display:block;margin-bottom:15px}.detail-section-heading h2{font-size:26px}.detail-section-heading span{display:block;margin-top:8px}.position-row{grid-template-columns:1fr auto;padding:14px}.position-open{display:none}.position-row h3{font-size:15px}.position-pay{font-size:15px}.info-grid{grid-template-columns:1fr;gap:10px}.info-card,.info-card:last-child{grid-column:auto;padding:17px;border-radius:18px}.info-card__icon{float:left;width:36px;height:36px;margin:0 10px 12px 0;font-size:17px}.info-card h3{min-height:36px;padding-top:7px;font-size:16px}.city-guide{border-radius:22px}.city-guide__media{min-height:280px}.city-guide__name{left:24px;bottom:22px;font-size:39px}.city-guide__copy{padding:24px 17px}.city-guide__copy h2{font-size:25px}.guide-fact{padding:13px}.similar-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:-12px;padding:0 12px 8px 0}.similar-card,.similar-card:last-child{display:block;min-width:82%;scroll-snap-align:start}.detail-cta{margin-top:50px;padding:38px 18px 105px}.detail-cta h2{font-size:27px}.mobile-action-bar{position:fixed;z-index:80;right:0;bottom:0;left:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #d9e4e9;background:rgba(255,255,255,.96);box-shadow:0 -10px 35px rgba(7,59,92,.13);backdrop-filter:blur(12px)}.mobile-action-bar .detail-primary,.mobile-action-bar .detail-secondary{min-height:48px;font-size:10px}.lead-modal{padding:8px}.lead-modal__dialog{max-height:calc(100dvh - 16px);padding:21px 15px;border-radius:20px}.lead-modal h2{font-size:23px}.lead-form__grid{grid-template-columns:1fr}.lead-form__full{grid-column:auto}}
         @media(max-width:640px){.detail-description{max-height:154px;margin-top:12px;font-size:13px}.detail-description:not(.is-open):after{height:45px;background:linear-gradient(transparent,#fff7f7)}.city-guide__name{right:24px;left:24px;font-size:34px;text-align:center}.detail-role-rates{padding:13px}.detail-role-rate{font-size:10px}}
+        @media(max-width:640px){
+            body{padding-bottom:calc(76px + env(safe-area-inset-bottom));background:#f8fafb}
+            #offer-details-header{height:82px!important}
+            #offer-details-header .background{height:82px!important;background:linear-gradient(135deg,#041f32,#0a4e73)}
+            #offer-details-page #header-nav{height:82px;padding:0}
+            #offer-details-page #navbar-responsive .header-nav-links-container{margin-left:14px}
+            #offer-details-page #navbar-responsive .header-nav-links-container li{top:15px;left:14px;background:rgba(0,0,0,.18);box-shadow:0 5px 18px rgba(0,0,0,.18)}
+            #offer-details-page .hamburger-button{top:23px;right:12px;margin:0;background-color:rgba(0,0,0,.18);box-shadow:0 5px 18px rgba(0,0,0,.18)}
+            #offer-details-page #ham-but-content{top:0;height:100dvh;padding-top:105px}
+            .offer-detail-v2{background:linear-gradient(180deg,#f4f8fa 0,#fff 520px)}
+            .detail-shell{width:calc(100% - 28px)}
+            .detail-crumbs{display:none}
+            .detail-back-mobile{display:inline-flex;align-items:center;min-height:44px;margin:7px 0 4px;color:var(--detail-blue)!important;font-size:12px;font-weight:850}
+            .detail-hero{display:flex;flex-direction:column;gap:14px}
+            .detail-mobile-heading{display:block;order:0;min-width:0;padding:2px 1px 0}
+            .detail-mobile-heading .detail-eyebrow{margin-bottom:6px;font-size:9px}
+            .detail-mobile-heading h1{margin:0;color:var(--detail-navy);font-size:clamp(28px,8.5vw,36px);line-height:1.02;letter-spacing:-.025em;overflow-wrap:anywhere}
+            .detail-mobile-heading .detail-location{margin:9px 0 0;font-size:13px}
+            .detail-media{order:1;aspect-ratio:4/3;max-height:330px;border-radius:20px 20px 42px 42px;box-shadow:0 16px 38px rgba(7,59,92,.14)}
+            .detail-media:after{inset:10px;border-width:1.5px;border-radius:14px 14px 36px 36px}
+            .detail-badges{top:18px;left:18px;gap:6px;max-width:calc(100% - 36px)}
+            .detail-badge{min-height:26px;padding:0 9px;font-size:8px;box-shadow:0 5px 14px rgba(0,0,0,.14)}
+            .detail-summary{order:2;min-width:0;padding:0}
+            .detail-summary>.detail-eyebrow,.detail-summary>h1,.detail-summary>.detail-location{display:none}
+            .detail-metrics{gap:8px}
+            .detail-metric{display:flex;min-width:0;min-height:76px;flex-direction:column;justify-content:center;padding:11px 12px;border-color:#e0e9ed;border-radius:15px;background:#fff;box-shadow:0 7px 22px rgba(7,59,92,.055)}
+            .detail-metric small{margin-bottom:6px;font-size:8px}
+            .detail-metric strong{font-size:14px;line-height:1.25;overflow-wrap:anywhere}
+            .detail-live{margin-top:9px;border-radius:15px;background:#fff;box-shadow:0 7px 22px rgba(7,59,92,.05)}
+            .detail-description-wrap{margin-top:13px}
+            .detail-role-rates{border-radius:15px;background:#fff;box-shadow:0 7px 22px rgba(7,59,92,.05)}
+            .detail-role-rates__list{display:grid;grid-template-columns:1fr;gap:6px}
+            .detail-role-rate{min-height:36px;padding:0 11px;border:1px solid #e8eef1;box-shadow:none}
+            .detail-description{max-height:171px;padding:15px 14px;border-left:0;border-top:3px solid var(--detail-red);border-radius:15px;background:#fff;box-shadow:0 7px 22px rgba(7,59,92,.05)}
+            .detail-description:not(.is-open):after{background:linear-gradient(transparent,#fff)}
+            .detail-description-list{gap:10px}
+            .detail-description-list li{padding-left:22px;font-size:13px;line-height:1.45}
+            .detail-more-toggle{min-height:40px;margin:2px auto 0;padding:0 12px}
+            .detail-section{padding-top:42px}
+            .detail-section-heading{margin-bottom:14px}
+            .detail-section-heading p{font-size:9px}
+            .detail-section-heading h2{font-size:25px;line-height:1.08}
+            .detail-section-heading span{margin-top:7px;font-size:12px;line-height:1.4}
+            .position-list{border-radius:18px;box-shadow:0 9px 28px rgba(7,59,92,.065)}
+            .position-row{grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:14px 13px}
+            .position-row h3{font-size:14px;line-height:1.25;overflow-wrap:anywhere}
+            .position-row p{font-size:10px}
+            .position-pay{font-size:14px;white-space:nowrap}
+            .info-grid{gap:11px}
+            .info-card,.info-card:last-child{padding:16px 15px 14px;border-radius:18px;box-shadow:0 8px 25px rgba(7,59,92,.055)}
+            .info-card__icon{width:38px;height:38px;margin:0 10px 10px 0;border-radius:12px;font-size:17px}
+            .info-card h3{min-height:38px;margin-bottom:11px;padding-top:7px;font-size:16px}
+            .info-list{clear:both;gap:9px}
+            .info-row{gap:12px;padding-bottom:9px}
+            .info-row dt{font-size:11px}.info-row dd{max-width:58%;font-size:12px;overflow-wrap:anywhere}
+            .city-guide{border-radius:21px;box-shadow:0 12px 34px rgba(7,59,92,.15)}
+            .city-guide__media{min-height:0;aspect-ratio:4/3}
+            .city-guide__media:after{inset:11px;border-width:1.5px;border-radius:15px 15px 38px 38px}
+            .city-guide__name{right:20px;bottom:22px;left:20px;font-size:clamp(26px,9vw,38px);overflow-wrap:anywhere}
+            .city-guide__copy{padding:22px 15px 17px}
+            .city-guide__copy h2{margin-bottom:16px;font-size:24px}
+            .guide-facts{gap:9px}.guide-fact{padding:12px;border-radius:13px}.guide-fact p{font-size:12px;line-height:1.45}
+            .similar-grid{margin-right:-14px;padding:0 14px 12px 0;gap:11px;scrollbar-width:none}.similar-grid::-webkit-scrollbar{display:none}
+            .similar-card,.similar-card:last-child{min-width:86%;border-radius:18px 18px 26px 26px;scroll-snap-stop:always}
+            .similar-card__image{height:155px}.similar-card__body{padding:14px}.similar-card__body h3{font-size:16px}
+            .detail-cta{margin-top:45px;padding:35px 18px 36px}.detail-cta h2{font-size:25px}.detail-cta p{font-size:13px}.detail-cta-button{min-height:50px;width:100%;justify-content:center}
+            .mobile-action-bar{z-index:1200;grid-template-columns:.82fr 1.18fr;gap:7px;padding:9px 10px calc(9px + env(safe-area-inset-bottom));border-top:1px solid rgba(7,59,92,.12);background:rgba(255,255,255,.94);box-shadow:0 -8px 30px rgba(7,59,92,.14)}
+            .mobile-action-bar .detail-primary,.mobile-action-bar .detail-secondary{min-height:50px;border-radius:13px;font-size:10px;line-height:1.15;touch-action:manipulation}
+            .mobile-action-bar .detail-primary{box-shadow:0 8px 20px rgba(181,9,18,.22)}
+            .lead-modal{align-items:end;padding:0}
+            .lead-modal__dialog{width:100%;max-height:92dvh;padding:24px 16px calc(20px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}
+            .lead-modal__close{position:sticky;z-index:2;top:0;float:right;margin:-7px -1px 0 8px}
+            .lead-modal h2{font-size:24px;line-height:1.1}.lead-modal__intro{font-size:13px;line-height:1.45}
+            .lead-form__grid{gap:11px}.lead-form__grid input,.lead-form__grid select{height:50px;font-size:16px}.lead-form__submit{height:52px;font-size:12px;touch-action:manipulation}
+        }
+        @media(max-width:370px){
+            .detail-shell{width:calc(100% - 20px)}.detail-mobile-heading h1{font-size:27px}.detail-metric{padding:10px}.detail-metric strong{font-size:13px}.mobile-action-bar{grid-template-columns:.76fr 1.24fr;padding-right:8px;padding-left:8px}
+        }
     </style>
 </head>
 <body id="offer-details-page">
@@ -51,8 +130,10 @@
 
 <main class="offer-detail-v2" data-offer-id="{{ offer_details.pk }}">
     <div class="detail-shell">
+        <a class="detail-back-mobile" href="{% url 'offers' %}">← Всички работни оферти</a>
         <nav class="detail-crumbs" aria-label="Навигация"><a href="{% url 'index' %}">Начало</a><span>›</span><a href="{% url 'offers' %}">Работни оферти</a><span>›</span><span>{{ offer_details.job_position }}</span></nav>
         <section class="detail-hero">
+            <div class="detail-mobile-heading"><p class="detail-eyebrow">{{ offer_details.employer_name|default:'AIM Travel Premium Employer' }}</p><h1>{{ offer_details.job_position }}</h1><p class="detail-location">● {{ offer_details.city }}, {{ offer_details.city.state }}</p></div>
             <div class="detail-media">
                 {% if offer_details.offer_pic %}<img src="{{ offer_details.offer_pic.url }}" alt="{{ offer_details.employer_name }} – {{ offer_details.job_position }}" onerror="this.onerror=null;this.src='{% static 'img/Ready-stock/WEBP version/offers_page.jpg' %}'">{% else %}<img src="{% static 'img/Ready-stock/WEBP version/offers_page.jpg' %}" alt="{{ offer_details.job_position }}">{% endif %}
                 <div class="detail-badges">{% if offer_details.new_offer == 'True' %}<span class="detail-badge detail-badge--new">Нова</span>{% endif %}{% if offer_details.last_seats == 'True' %}<span class="detail-badge detail-badge--last">Последни места</span>{% endif %}{% if offer_details.tips == 'Да' %}<span class="detail-badge">С бакшиши</span>{% endif %}</div>
