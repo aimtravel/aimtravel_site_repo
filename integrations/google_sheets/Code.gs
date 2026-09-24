@@ -47,7 +47,7 @@ function doPost(event) {
       ...offerBoxes,
       safeCell(additionalOffers),
       parseDate(data.updated_at),
-      '',
+      safeCell(data.inquiry_message),
     ]];
     sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, EXPECTED_COLUMNS).setValues(rows);
     return jsonResponse({ok: true, rows: rows.length});
