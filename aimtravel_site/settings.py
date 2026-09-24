@@ -30,6 +30,10 @@ ALLOWED_HOSTS = [
     'testpetar.aimtravel.bg',
 ]
 
+# Optional CRM synchronization. Configure these only in the hosting environment.
+GOOGLE_SHEETS_WEBHOOK_URL = os.environ.get('GOOGLE_SHEETS_WEBHOOK_URL', '')
+GOOGLE_SHEETS_WEBHOOK_SECRET = os.environ.get('GOOGLE_SHEETS_WEBHOOK_SECRET', '')
+
 # Application definition
 
 INSTALLED_APPS = [

@@ -23,6 +23,7 @@ from aimtravel_site.user_profile.models import Employee, Students
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
 from aimtravel_site.web.models import *
+from aimtravel_site.web.sheets_sync import sync_offer_lead_to_sheet
 from aimtravel_site.main_page.models import *
 
 UserModel = get_user_model()
@@ -932,6 +933,7 @@ def offer_lead_view(request):
         lead.favorite_offers.remove(offer)
     else:
         lead.favorite_offers.add(offer)
+    sync_offer_lead_to_sheet(lead.pk, request.build_absolute_uri('/').rstrip('/'))
 
     if intent == 'consultation' and not lead.email.endswith('@example.com'):
         lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
@@ -957,4 +959,3 @@ def offer_lead_view(request):
         'favorite_count': lead.favorite_offers.count(),
         'intent': intent,
     })
-

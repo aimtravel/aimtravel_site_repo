@@ -14,6 +14,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_http_methods, require_POST
 
 from .models import OfferLead
+from .sheets_sync import sync_offer_lead_to_sheet
 from aimtravel_site.templatetags.custom_filters import housing_summary
 
 
@@ -77,6 +78,7 @@ def remove_favorite(request):
     lead.favorite_offers.remove(int(offer_id))
     lead.updated_at = timezone.now()
     lead.save(update_fields=['updated_at'])
+    sync_offer_lead_to_sheet(lead.pk, request.build_absolute_uri('/').rstrip('/'))
     return JsonResponse({'ok': True})
 
 
