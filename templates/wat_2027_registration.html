@@ -1,0 +1,42 @@
+{% load static %}
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Регистрирай се за WAT 2027 | AIM Travel</title>
+<meta name="description" content="Остави контакт за Work and Travel USA 2027 и консултант на AIM Travel ще се свърже с теб.">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<style>
+:root{--navy:#073b5c;--red:#b50912;--ink:#17313f;--muted:#657984;--line:#dce6eb}
+*{box-sizing:border-box}body{margin:0;background:#f4f7f9;color:var(--ink);font-family:Jost,Arial,sans-serif}
+#wat-header{display:block!important;height:auto!important;min-height:0!important}#wat-header #header-nav{position:relative!important;top:auto!important;background:var(--navy)!important}#wat-header #top-header{display:none}
+.wat-wrap{max-width:1180px;margin:auto;padding:34px 24px 64px}.wat-back{display:inline-flex;min-height:44px;align-items:center;color:var(--navy);font-weight:700;text-decoration:none}
+.wat-layout{display:grid;grid-template-columns:minmax(0,.9fr) minmax(420px,1.1fr);gap:28px;align-items:start;margin-top:12px}.wat-intro,.wat-card{border-radius:24px}.wat-intro{position:sticky;top:20px;padding:38px;background:var(--navy);color:white;overflow:hidden}.wat-intro:after{content:"USA";position:absolute;right:-18px;bottom:-35px;color:#ffffff12;font-size:120px;font-weight:900}.wat-kicker{display:inline-flex;padding:7px 12px;border-radius:999px;background:#ffffff18;font-size:13px;font-weight:700}.wat-intro h1{margin:18px 0 14px;font-size:clamp(34px,5vw,56px);line-height:1.02}.wat-intro p{margin:0;color:#d8e7ee;font-size:17px;line-height:1.65}.wat-points{display:grid;gap:12px;margin:26px 0 0;padding:0;list-style:none}.wat-points li{display:flex;gap:10px;align-items:flex-start}.wat-points li:before{content:"✓";color:#fff;font-weight:900}.wat-note{margin-top:28px!important;padding-top:20px;border-top:1px solid #ffffff2b;font-size:13px!important}
+.wat-card{padding:30px;background:white;border:1px solid var(--line);box-shadow:0 14px 40px #073b5c12}.wat-card h2{margin:0 0 6px;color:var(--navy);font-size:28px}.wat-card>p{margin:0 0 24px;color:var(--muted);line-height:1.55}.wat-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.wat-field{display:grid;gap:7px}.wat-field.wide{grid-column:1/-1}.wat-field label{color:var(--navy);font-weight:700}.wat-optional{color:var(--muted);font-size:12px;font-weight:400}.wat-field input,.wat-field select,.wat-field textarea{width:100%;min-height:52px;padding:12px 14px;border:1px solid #b9cbd4;border-radius:12px;background:#fff;color:var(--ink);font:16px/1.45 Jost,Arial,sans-serif}.wat-field textarea{min-height:120px;resize:vertical}.wat-field input:focus,.wat-field select:focus,.wat-field textarea:focus{outline:3px solid #1683bb33;border-color:#1683bb}.wat-submit{width:100%;min-height:54px;margin-top:22px;border:0;border-radius:12px;background:var(--red);color:white;font:700 16px Jost,Arial,sans-serif;cursor:pointer}.wat-submit:hover{background:#93070e}.wat-form-error{margin:0 0 18px;padding:13px 15px;border-radius:12px;background:#fff0f1;color:#8b0910}.wat-error{color:#9a0b13;font-size:13px}.wat-privacy{margin:13px 0 0!important;font-size:12px!important}.wat-success{padding:50px 28px;text-align:center}.wat-success-mark{display:grid;place-items:center;width:72px;height:72px;margin:0 auto 20px;border-radius:50%;background:#e8f7ef;color:#197444;font-size:34px;font-weight:900}.wat-success .wat-submit{display:inline-flex;align-items:center;justify-content:center;max-width:330px;text-decoration:none}
+.wat-hp{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:860px){.wat-layout{grid-template-columns:1fr}.wat-intro{position:static}.wat-intro h1{font-size:40px}.wat-wrap{padding:22px 16px 46px}}
+@media(max-width:560px){.wat-card,.wat-intro{padding:24px 20px;border-radius:18px}.wat-grid{grid-template-columns:1fr}.wat-field.wide{grid-column:auto}.wat-intro p{font-size:15px}.wat-card h2{font-size:24px}}
+</style>
+</head>
+<body>
+<header id="wat-header">{% include 'navigation.html' %}</header>
+<main class="wat-wrap">
+<a class="wat-back" href="{% url 'index' %}">← Към началната страница</a>
+<div class="wat-layout">
+<section class="wat-intro"><span class="wat-kicker">WORK AND TRAVEL USA</span><h1>Регистрирай се за WAT 2027</h1><p>Остави ни контакт и ще ти изпратим подробна информация за студентските бригади. Наш консултант може да ти се обади, за да уговорите удобен час за безплатна консултация.</p><ul class="wat-points"><li>Без профил и парола</li><li>Без ЕГН и данни от лична карта</li><li>Само кратка заявка за интерес</li></ul><p class="wat-note">Това не е записване за бригада и не създава договор. Полетата са по желание.</p></section>
+<section class="wat-card">
+{% if success %}<div class="wat-success" role="status"><div class="wat-success-mark">✓</div><h2>Готово!</h2><p>Получихме данните ти. Екипът на AIM Travel ще се свърже с теб с информация за WAT 2027.</p><a class="wat-submit" href="{% url 'index' %}">Към сайта</a></div>
+{% else %}<h2>Контакт за WAT 2027</h2><p>Попълни колкото информация желаеш. За да можем да се свържем, остави поне телефон или имейл.</p>
+{% if errors.form %}<div class="wat-form-error" role="alert">{{ errors.form }}</div>{% endif %}
+<form method="post" novalidate>{% csrf_token %}<div class="wat-hp" aria-hidden="true"><label for="website">Уебсайт</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<div class="wat-grid">
+<div class="wat-field"><label for="full_name">Две имена <span class="wat-optional">(по желание)</span></label><input id="full_name" name="full_name" maxlength="160" autocomplete="name" value="{{ values.full_name|default:'' }}"></div>
+<div class="wat-field"><label for="phone">Телефон <span class="wat-optional">(по желание)</span></label><input id="phone" name="phone" maxlength="50" inputmode="tel" autocomplete="tel" value="{{ values.phone|default:'' }}"></div>
+<div class="wat-field"><label for="email">Имейл <span class="wat-optional">(по желание)</span></label><input id="email" name="email" type="email" maxlength="254" inputmode="email" autocomplete="email" aria-describedby="email-error" value="{{ values.email|default:'' }}">{% if errors.email %}<span class="wat-error" id="email-error">{{ errors.email }}</span>{% endif %}</div>
+<div class="wat-field"><label for="course">Курс <span class="wat-optional">(по желание)</span></label><select id="course" name="course"><option value="">Избери</option><option {% if values.course == '1' %}selected{% endif %}>1</option><option {% if values.course == '2' %}selected{% endif %}>2</option><option {% if values.course == '3' %}selected{% endif %}>3</option><option {% if values.course == '4' %}selected{% endif %}>4</option><option {% if values.course == 'Магистър' %}selected{% endif %}>Магистър</option><option {% if values.course == 'Не съм студент' %}selected{% endif %}>Не съм студент</option></select></div>
+<div class="wat-field wide"><label for="university">Университет <span class="wat-optional">(по желание)</span></label><input id="university" name="university" maxlength="200" autocomplete="organization" value="{{ values.university|default:'' }}"></div>
+<div class="wat-field wide"><label for="notes">Бележки <span class="wat-optional">(по желание)</span></label><textarea id="notes" name="notes" maxlength="1000" placeholder="Например: удобен ден за разговор или въпрос за програмата">{{ values.notes|default:'' }}</textarea></div>
+</div><button class="wat-submit" type="submit">Изпрати регистрацията</button><p class="wat-privacy">С изпращането ни позволяваш да се свържем с теб по имейл или телефон относно WAT 2027. Не изпращай ЕГН, номер на лична карта или други лични документи.</p></form>{% endif %}
+</section></div></main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><script src="{% static 'javascript/js_dropdown.js' %}"></script><script src="{% static 'javascript/js_navbar.js' %}"></script><script src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+</body></html>
