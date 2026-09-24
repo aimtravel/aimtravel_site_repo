@@ -1,5 +1,6 @@
 import csv
 import io
+from unittest.mock import patch
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
@@ -81,6 +82,30 @@ class FavoriteOffersTests(TestCase):
 
     def test_remove_rejects_oversized_identifier(self):
         response = self._post('remove favorite', self.lead, offer_id='9' * 80)
+        self.assertEqual(response.status_code, 400)
+
+    @patch('aimtravel_site.web.favorites.sync_offer_lead_to_sheet')
+    @patch('aimtravel_site.web.favorites.send_mail')
+    def test_inquiry_saves_message_and_notifies_staff(self, send_mail_mock, sync_mock):
+        response = self._post(
+            'favorite inquiry', self.lead,
+            message='Коя от избраните оферти е най-подходяща за мен?',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.lead.refresh_from_db()
+        self.assertIn('Коя от избраните оферти', self.lead.inquiry_message)
+        send_mail_mock.assert_called_once()
+        sync_mock.assert_called_once()
+
+    def test_inquiry_requires_a_message_and_favorite_offer(self):
+        response = self._post('favorite inquiry', self.lead, message=' ')
+        self.assertEqual(response.status_code, 400)
+        self.lead.favorite_offers.clear()
+        response = self._post('favorite inquiry', self.lead, message='Имам въпрос')
+        self.assertEqual(response.status_code, 400)
+
+    def test_inquiry_rejects_an_oversized_message(self):
+        response = self._post('favorite inquiry', self.lead, message='а' * 1001)
         self.assertEqual(response.status_code, 400)
 
     def test_logged_in_account_ignores_token_from_shared_browser(self):
