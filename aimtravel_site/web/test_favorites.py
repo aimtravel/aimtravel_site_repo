@@ -85,7 +85,7 @@ class FavoriteOffersTests(TestCase):
 
     def test_logged_in_account_ignores_token_from_shared_browser(self):
         user = get_user_model().objects.create_user(
-            username='student', email=self.other_lead.email, password='secret-pass',
+            email=self.other_lead.email, password='secret-pass',
         )
         self.client.force_login(user)
         response = self._post('favorite offers', self.lead)
@@ -99,7 +99,7 @@ class FavoriteOffersTests(TestCase):
         self.lead.first_name = '=HYPERLINK("https://invalid.example")'
         self.lead.save(update_fields=['first_name'])
         user = get_user_model().objects.create_user(
-            username='employee', email='employee@example.com', password='secret-pass',
+            email='employee@example.com', password='secret-pass',
             is_staff=True,
         )
         user.user_permissions.add(Permission.objects.get(codename='view_offerlead'))
