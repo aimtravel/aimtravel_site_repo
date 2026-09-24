@@ -43,7 +43,7 @@ function doPost(event) {
       parseDate(data.created_at),
       safeCell(fullName),
       safeCell(data.email),
-      safeCell(data.phone),
+      forceText(data.phone),
       safeCell(data.university),
       safeCell(data.course),
       safeCell(data.specialty),
@@ -70,7 +70,7 @@ function appendWatRegistration(data) {
     safeCell(data.registration_id),
     parseDate(data.registered_at),
     safeCell(data.full_name),
-    safeCell(data.phone),
+    forceText(data.phone),
     safeCell(data.course),
     safeCell(data.email),
     safeCell(data.university),
@@ -99,6 +99,12 @@ function formatOffer(offer) {
 function safeCell(value) {
   const text = value === null || value === undefined ? '' : String(value);
   return /^[=+\-@]/.test(text.trimStart()) ? "'" + text : text;
+}
+
+function forceText(value) {
+  const text = value === null || value === undefined ? '' : String(value);
+  if (!text) return '';
+  return "'" + text.replace(/^'/, '');
 }
 
 function parseDate(value) {
