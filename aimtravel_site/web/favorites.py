@@ -5,6 +5,7 @@ from uuid import UUID
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -78,6 +79,60 @@ def remove_favorite(request):
     lead.favorite_offers.remove(int(offer_id))
     lead.updated_at = timezone.now()
     lead.save(update_fields=['updated_at'])
+    sync_offer_lead_to_sheet(lead.pk, request.build_absolute_uri('/').rstrip('/'))
+    return JsonResponse({'ok': True})
+
+
+@never_cache
+@require_POST
+def favorite_inquiry(request):
+    lead = _lead(request)
+    if not lead:
+        return JsonResponse({'ok': False, 'error': 'Списъкът не е достъпен.'}, status=404)
+    if not lead.favorite_offers.exists():
+        return JsonResponse({
+            'ok': False,
+            'error': 'Добави поне една любима оферта, преди да изпратиш запитване.',
+        }, status=400)
+
+    message = ' '.join(request.POST.get('message', '').split()).strip()
+    if len(message) < 5:
+        return JsonResponse({'ok': False, 'error': 'Напиши кратко съобщение.'}, status=400)
+    if len(message) > 1000:
+        return JsonResponse({'ok': False, 'error': 'Съобщението може да е до 1000 знака.'}, status=400)
+
+    submitted_at = timezone.localtime()
+    entry = f'[{submitted_at:%d.%m.%Y %H:%M}] {message}'
+    history = '\n\n'.join(filter(None, (entry, lead.inquiry_message)))
+    lead.inquiry_message = history[:8000]
+    lead.updated_at = submitted_at
+    lead.save(update_fields=['inquiry_message', 'updated_at'])
+
+    offers = list(_offers(lead))
+    offer_lines = [
+        f'- {offer.job_position or "Работна оферта"} — {offer.employer_name or "AIM Travel"}'
+        for offer in offers
+    ]
+    send_mail(
+        f'Запитване от любими оферти: {lead.first_name} {lead.last_name}'.strip(),
+        '\n'.join([
+            f'Име: {lead.first_name} {lead.last_name}'.strip(),
+            f'Имейл: {lead.email}',
+            f'Телефон: {lead.phone}',
+            f'Университет: {lead.university}',
+            f'Курс: {lead.course}',
+            f'Специалност: {lead.specialty}',
+            '',
+            'Съобщение:',
+            message,
+            '',
+            'Любими оферти:',
+            *(offer_lines or ['- Няма избрани оферти']),
+        ]),
+        None,
+        ['studentski@aimtravel.bg'],
+        fail_silently=True,
+    )
     sync_offer_lead_to_sheet(lead.pk, request.build_absolute_uri('/').rstrip('/'))
     return JsonResponse({'ok': True})
 
