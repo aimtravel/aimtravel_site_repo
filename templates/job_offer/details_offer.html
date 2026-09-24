@@ -131,6 +131,7 @@
 <main class="offer-detail-v2" data-offer-id="{{ offer_details.pk }}">
     <div class="detail-shell">
         <a class="detail-back-mobile" href="{% url 'offers' %}">← Всички работни оферти</a>
+        <a href="{% url 'favorite offers' %}" style="display:inline-flex;align-items:center;min-height:44px;color:#073b5c;font-weight:700;text-decoration:none">♡ Моите любими оферти →</a>
         <nav class="detail-crumbs" aria-label="Навигация"><a href="{% url 'index' %}">Начало</a><span>›</span><a href="{% url 'offers' %}">Работни оферти</a><span>›</span><span>{{ offer_details.job_position }}</span></nav>
         <section class="detail-hero">
             <div class="detail-mobile-heading"><p class="detail-eyebrow">{{ offer_details.employer_name|default:'AIM Travel Premium Employer' }}</p><h1>{{ offer_details.job_position }}</h1><p class="detail-location">● {{ offer_details.city }}, {{ offer_details.city.state }}</p></div>

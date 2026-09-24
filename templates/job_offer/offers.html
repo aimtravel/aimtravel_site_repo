@@ -181,7 +181,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                     <div class="catalog-stat"><strong>{{ city_count }}</strong><span>града в<br>каталога</span></div>
                 </div>
                 <div class="catalog-actions">
-                    <div class="favorite-counter" aria-live="polite">♡ Любими <b data-favorite-count>0</b></div>
+                    <a class="favorite-counter" style="text-decoration:none" href="{% url 'favorite offers' %}" aria-label="Моите любими оферти">♡ Любими <b data-favorite-count>0</b></a>
                     <label class="catalog-sort">Подреди
                         <select name="sort_by" form="job-offer-filter-form" data-auto-filter>
                             <option value="popular" {% if sort_by == 'popular' %}selected{% endif %}>Най-популярни</option>
@@ -209,7 +209,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                         <option value="last_offer" {% if sort_by == 'last_offer' %}selected{% endif %}>Последни места</option>
                     </select>
                 </label>
-                <div class="mobile-favorite" aria-label="Брой любими оферти">♡<b data-favorite-count>0</b></div>
+                <a class="mobile-favorite" style="text-decoration:none" href="{% url 'favorite offers' %}" aria-label="Моите любими оферти">♡<b data-favorite-count>0</b></a>
             </div>
 
             {% if active_filters %}

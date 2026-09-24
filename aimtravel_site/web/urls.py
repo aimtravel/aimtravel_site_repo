@@ -1,8 +1,12 @@
 from django.urls import path, include
 
 from aimtravel_site.web.views import *
+from aimtravel_site.web.favorites import favorites_page, remove_favorite, export_favorites
 
 urlpatterns = (
+    path('rabotnioferti/lyubimi/', favorites_page, name='favorite offers'),
+    path('rabotnioferti/lyubimi/remove/', remove_favorite, name='remove favorite'),
+    path('crm/offers/export/', export_favorites, name='export favorites'),
     # path('', CombinedView.as_view(), name='index'),
     path('under-construction/', under_construction, name='under-construction'),
     path('contacts/', contacts, name='contacts'),

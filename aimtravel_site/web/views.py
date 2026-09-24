@@ -851,7 +851,10 @@ def offer_lead_view(request):
     created = False
 
     if lead_token:
-        lead = OfferLead.objects.filter(public_id=lead_token).first()
+        try:
+            lead = OfferLead.objects.filter(public_id=lead_token).first()
+        except (ValueError, ValidationError):
+            lead = None
         if not lead:
             return JsonResponse({'ok': False, 'error': 'Невалиден профил.'}, status=404)
     else:
@@ -878,15 +881,31 @@ def offer_lead_view(request):
         except ValidationError:
             return JsonResponse({'ok': False, 'error': 'Въведи валиден имейл.'}, status=400)
 
-        lead, created = OfferLead.objects.get_or_create(
-            email=fields['email'], defaults=fields,
+        lead = OfferLead.objects.filter(email=fields['email']).first()
+        owns_email = (
+            request.user.is_authenticated and not request.user.is_staff and
+            (request.user.email or '').strip().lower() == fields['email']
         )
-        if not created:
+        if lead and not owns_email:
+            return JsonResponse(
+                {
+                    'ok': False,
+                    'error': (
+                        'За този имейл вече има запазен списък. '
+                        'Използвай същия браузър или влез в профила си.'
+                    ),
+                },
+                status=409,
+            )
+        if lead:
             for field, value in fields.items():
                 if value or field in ('email', 'phone'):
                     setattr(lead, field, value)
             lead.status = 'new' if lead.status == 'closed' else lead.status
             lead.save()
+        else:
+            lead = OfferLead.objects.create(**fields)
+            created = True
 
         if request.user.is_authenticated and not request.user.is_staff:
             if not lead.user_id or lead.user_id == request.user.pk:
@@ -938,3 +957,4 @@ def offer_lead_view(request):
         'favorite_count': lead.favorite_offers.count(),
         'intent': intent,
     })
+

@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Моите любими оферти | AIM Travel</title>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<style>
+:root{--navy:#073b5c;--red:#b50912;--ink:#17313f;--muted:#657984;--line:#dce6eb}
+*{box-sizing:border-box}body{margin:0;background:#f4f7f9;color:var(--ink);font-family:Jost,Arial,sans-serif}
+#favorites-header #header-nav{position:relative!important;top:auto!important;background:var(--navy)!important}#favorites-header #top-header{display:none}
+.fav-wrap{max-width:1240px;margin:auto;padding:36px 24px 64px}.fav-back{display:inline-flex;align-items:center;min-height:44px;color:var(--navy);text-decoration:none;font-weight:700}
+.fav-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 34px;margin:12px 0 24px;border-radius:24px;background:var(--navy);color:white}.fav-hero h1{margin:0 0 10px;font-size:clamp(30px,4vw,46px);line-height:1.1}.fav-hero p{max-width:640px;margin:0;color:#d5e5ed;line-height:1.6}.fav-heart{font-size:70px;color:#fff;line-height:1}
+.fav-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start}.fav-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px}.fav-toolbar h2{margin:0;font-size:20px;color:var(--navy)}.fav-toolbar select{min-height:44px;max-width:100%;border:1px solid var(--line);border-radius:12px;padding:8px;background:white;color:var(--navy);font:inherit}
+.fav-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.fav-card{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:20px;background:white;box-shadow:0 8px 24px #073b5c0a}.fav-picture{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;border-radius:0 0 48% 48% / 0 0 10% 10%;background:#dce6eb}.fav-picture:after{content:"";position:absolute;inset:12px;border:2px solid white;border-radius:10px 10px 48% 48% / 10px 10px 10% 10%;pointer-events:none}.fav-picture img{width:100%;height:100%;object-fit:cover}.fav-body{padding:20px}.fav-employer{color:var(--muted);font-size:12px;font-weight:700;overflow-wrap:anywhere}.fav-body h3{margin:6px 0;font-size:23px;line-height:1.2;overflow-wrap:anywhere}.fav-body h3 a{color:var(--navy);text-decoration:none}.fav-place{color:var(--muted);margin:8px 0 16px}.fav-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.fav-fact{padding:12px 10px;border-radius:12px;background:#f3f7f9;overflow-wrap:anywhere}.fav-fact small{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}.fav-fact strong{font-size:15px}.fav-tips{color:#197444;font-size:12px;margin-top:8px}.fav-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.fav-actions a{color:var(--red);font-weight:700;text-decoration:none;min-height:44px;display:flex;align-items:center}.fav-actions button{min-height:44px;padding:8px;border:0;border-radius:8px;background:#f3f7f9;color:#657984;cursor:pointer;font:inherit;font-size:12px}
+.fav-help{position:sticky;top:20px;padding:24px;border:1px solid var(--line);border-radius:20px;background:white}.fav-help h2{margin:0 0 12px;font-size:23px;color:var(--navy)}.fav-help p{font-size:14px;color:var(--muted);line-height:1.65}.fav-button{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border:0;border-radius:12px;background:var(--red);color:white;text-decoration:none;font:700 14px Jost,Arial,sans-serif;cursor:pointer;text-align:center}.fav-button.secondary{background:#edf4f7;color:var(--navy);margin-top:10px}.fav-note{font-size:12px!important}.fav-state{padding:36px 24px;border:1px solid var(--line);border-radius:18px;background:white;text-align:center}.fav-state h2{color:var(--navy)}.fav-state p{color:var(--muted);line-height:1.6}.fav-state .fav-button{max-width:300px;margin:16px auto 0}#fav-notice{color:var(--red);line-height:1.5}button:disabled{opacity:.6;cursor:wait}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #1683bb;outline-offset:4px}[hidden]{display:none!important}
+@media(max-width:980px){.fav-layout{grid-template-columns:1fr}.fav-help{position:static}.fav-help .fav-button{max-width:420px}.fav-heart{font-size:56px}}
+@media(max-width:580px){.fav-wrap{padding:20px 14px 40px}.fav-hero{padding:24px 20px}.fav-heart{display:none}.fav-grid{grid-template-columns:1fr}.fav-toolbar{align-items:flex-start}.fav-toolbar select{font-size:16px}.fav-body{padding:18px}.fav-hero p{font-size:14px}}
+</style>
+</head>
+<body>
+<header id="favorites-header">{% include 'navigation.html' %}</header>
+<main class="fav-wrap" id="fav-app" data-list-url="{% url 'favorite offers' %}" data-remove-url="{% url 'remove favorite' %}" data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}" data-fallback="{% static 'img/Ready-stock/WEBP version/offers_page.jpg' %}">
+<a class="fav-back" href="{% url 'offers' %}">← Към всички работни оферти</a>
+<section class="fav-hero"><div><h1>Моите любими оферти</h1><p>Твоят списък за едно незабравимо лято. Разгледай избраните места, сравни условията и обсъди възможностите с AIM консултант.</p></div><span class="fav-heart" aria-hidden="true">♥</span></section>
+<form hidden id="fav-csrf">{% csrf_token %}</form>
+<div class="fav-layout"><section aria-label="Избрани оферти">
+<div class="fav-toolbar"><h2><span id="fav-count">…</span> избрани оферти</h2><label>Подреди по <select id="fav-sort"><option value="wage">Заплащане ↓</option><option value="city">Град А–Я</option><option value="employer">Работодател А–Я</option></select></label></div>
+<p id="fav-notice" role="status" aria-live="polite"></p>
+<div id="fav-loading" class="fav-state" role="status">Зареждаме любимите ти оферти…</div>
+<div id="fav-empty" class="fav-state" hidden><h2>Следващото ти лято започва с избор</h2><p>Все още няма запазени оферти в този списък. Натисни сърцето в каталога и ще ги намериш тук.</p><a class="fav-button" href="{% url 'offers' %}">Разгледай офертите</a></div>
+<div id="fav-error" class="fav-state" hidden><h2>Не успяхме да заредим списъка</h2><p>Изборът ти не е променен. Провери връзката и опитай отново.</p><button class="fav-button" id="fav-retry" type="button">Опитай отново</button></div>
+<div id="fav-grid" class="fav-grid"></div>
+<noscript><p>Включи JavaScript, за да видиш и управляваш любимите си оферти.</p></noscript>
+</section><aside class="fav-help"><h2>Кое място е за теб?</h2><p>Ще ти помогнем да сравниш работата, настаняването и дестинациите според твоите предпочитания.</p><a class="fav-button" href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener">Безплатна консултация ↗</a><a class="fav-button secondary" href="{% url 'offers' %}">Добави още оферти</a><p class="fav-note">Запазването в любими не е кандидатстване или резервация. Консултант ще потвърди актуалната наличност.</p><p class="fav-note">За да се върнеш към този списък, използвай същия браузър. Не изтривай данните му.</p></aside></div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'javascript/js_dropdown.js' %}"></script><script src="{% static 'javascript/js_navbar.js' %}"></script><script src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+<script>
+(function(){
+'use strict';
+const app=document.getElementById('fav-app'),grid=document.getElementById('fav-grid'),notice=document.getElementById('fav-notice'),sort=document.getElementById('fav-sort');
+const storageKey='aimtravel-favorite-offers',leadKey='aimtravel-offer-lead-token';let items=[];
+const getToken=()=>{try{return localStorage.getItem(leadKey)||'';}catch(e){return '';}};
+const saveIds=()=>{try{localStorage.setItem(storageKey,JSON.stringify(items.map(x=>x.id)));}catch(e){}};
+const node=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;};
+async function post(url,extra={}){const data=new FormData(document.getElementById('fav-csrf'));data.set('lead_token',getToken());Object.entries(extra).forEach(([k,v])=>data.set(k,v));const response=await fetch(url,{method:'POST',credentials:'same-origin',body:data});let payload;try{payload=await response.json();}catch(e){throw new Error('Връзката прекъсна. Опитай отново.');}if(!response.ok||!payload.ok){const e=new Error(payload.error||'Опитай отново.');e.status=response.status;throw e;}return payload;}
+function render(){grid.replaceChildren();document.getElementById('fav-count').textContent=items.length;document.getElementById('fav-empty').hidden=items.length>0;
+ const ordered=[...items].sort((a,b)=>sort.value==='wage'?(b.wage??-1)-(a.wage??-1):String(a[sort.value]).localeCompare(String(b[sort.value]),'bg'));
+ ordered.forEach(item=>{const card=node('article','fav-card'),picture=node('a','fav-picture');picture.href=item.url;picture.setAttribute('aria-label',item.position);const img=node('img');img.src=item.image||app.dataset.fallback;img.alt=item.employer;img.loading='lazy';img.onerror=()=>{img.onerror=null;img.src=app.dataset.fallback;};picture.append(img);card.append(picture);
+ const body=node('div','fav-body');body.append(node('div','fav-employer',item.employer));const title=node('h3'),link=node('a','',item.position);link.href=item.url;title.append(link);body.append(title,node('p','fav-place',item.city+', '+item.state));const facts=node('div','fav-facts');[['Заплащане',item.wage===null?'По оферта':'$'+Number(item.wage).toFixed(2)+'/час'],['Настаняване',item.housing||'По оферта']].forEach(([label,value])=>{const fact=node('div','fav-fact');fact.append(node('small','',label),node('strong','',value));facts.append(fact);});body.append(facts);if(item.tips)body.append(node('p','fav-tips','+ Възможност за бакшиши'));
+ const actions=node('div','fav-actions'),details=node('a','','Виж офертата →'),remove=node('button','','Премахни');details.href=item.url;remove.type='button';remove.setAttribute('aria-label','Премахни '+item.position+' — '+item.employer);remove.addEventListener('click',async()=>{remove.disabled=true;notice.textContent='';try{await post(app.dataset.removeUrl,{offer_id:item.id});items=items.filter(x=>x.id!==item.id);saveIds();render();notice.textContent='Офертата е премахната от любимите.';sort.focus();}catch(e){remove.disabled=false;notice.textContent=e.message;}});actions.append(details,remove);body.append(actions);card.append(body);grid.append(card);});
+}
+async function load(){document.getElementById('fav-loading').hidden=false;document.getElementById('fav-error').hidden=true;document.getElementById('fav-empty').hidden=true;notice.textContent='';try{if(!getToken()&&app.dataset.authenticated!=='true'){items=[];render();return;}const data=await post(app.dataset.listUrl);items=data.offers;saveIds();render();}catch(e){document.getElementById('fav-count').textContent='—';document.getElementById('fav-error').hidden=false;if(e.status===404)notice.textContent='Този списък вече не е достъпен. Върни се в каталога, за да запазиш офертите отново.';}finally{document.getElementById('fav-loading').hidden=true;}}
+sort.addEventListener('change',render);document.getElementById('fav-retry').addEventListener('click',load);window.addEventListener('pageshow',e=>{if(e.persisted)load();});load();
+})();
+</script>
+</body></html>
