@@ -1,4 +1,9 @@
 {% load static %}
+<style>
+#top-header-left-p3.wat-registration-link{display:inline-flex;align-items:center;min-height:32px;padding:5px 12px;border-radius:999px;background:#b50912;color:#fff!important;font-weight:700;text-decoration:none;white-space:nowrap}
+#top-header-left-p3.wat-registration-link:hover{background:#93070e}
+#ham-but-content .wat-registration-mobile a{display:block;margin:10px 16px;padding:14px 16px;border-radius:10px;background:#b50912;color:#fff;text-align:center;font-weight:700;text-decoration:none}
+</style>
 
 <section id="top-header-section">
     <div id="top-header">
@@ -19,8 +24,7 @@
             <div class="vl">
                 <hr>
             </div>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqelCnUhkOrWtr7UJtpcKxIuBBfNsaRg4_JytT9lJGKqXt8Q/viewform"
-               id="top-header-left-p3" target="_blank">Абонирай се</a>
+            <a href="{% url 'wat 2027 registration' %}" id="top-header-left-p3" class="wat-registration-link">Регистрирай се за WAT 2027</a>
         </div>
         <div id="top-header-right">
             <p id="top-header-right-p1">Последвай ни в:</p>
@@ -298,6 +302,9 @@
                         <p>Контакти</p>
                     </div>
                 </a>
+            </li>
+            <li class="wat-registration-mobile">
+                <a href="{% url 'wat 2027 registration' %}">Регистрирай се за WAT 2027</a>
             </li>
             <li>
                 {% if user.is_authenticated %}
