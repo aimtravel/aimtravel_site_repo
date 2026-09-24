@@ -2,8 +2,10 @@ from django.urls import path, include
 
 from aimtravel_site.web.views import *
 from aimtravel_site.web.favorites import favorites_page, remove_favorite, favorite_inquiry, export_favorites
+from aimtravel_site.web.wat_registration import wat_2027_registration
 
 urlpatterns = (
+    path('wat-2027/registracia/', wat_2027_registration, name='wat 2027 registration'),
     path('rabotnioferti/lyubimi/', favorites_page, name='favorite offers'),
     path('rabotnioferti/lyubimi/remove/', remove_favorite, name='remove favorite'),
     path('rabotnioferti/lyubimi/zapitvane/', favorite_inquiry, name='favorite inquiry'),
