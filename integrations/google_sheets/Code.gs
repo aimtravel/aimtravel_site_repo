@@ -1,5 +1,6 @@
 const SPREADSHEET_ID = '1V_ZywpcvTufLf3Sa-Br2KwuaCZ58vaVeUSbTNulZIbI';
 const SHEET_NAME = 'Потенциални Клиенти Сайт';
+const REGISTRATION_SHEET_NAME = 'Таблет Данни';
 const EXPECTED_COLUMNS = 18;
 const VISIBLE_OFFER_COLUMNS = 5;
 
@@ -11,6 +12,10 @@ function doPost(event) {
     const expectedSecret = PropertiesService.getScriptProperties().getProperty('AIM_WEBHOOK_SECRET');
     if (!expectedSecret || data.secret !== expectedSecret) {
       return jsonResponse({ok: false, error: 'unauthorized'});
+    }
+
+    if (data.kind === 'wat_registration') {
+      return appendWatRegistration(data);
     }
 
     const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
@@ -56,6 +61,25 @@ function doPost(event) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function appendWatRegistration(data) {
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(REGISTRATION_SHEET_NAME);
+  if (!sheet) return jsonResponse({ok: false, error: 'registration_sheet_not_found'});
+  const row = [[
+    safeCell(data.registration_id),
+    parseDate(data.registered_at),
+    safeCell(data.full_name),
+    safeCell(data.phone),
+    safeCell(data.course),
+    safeCell(data.email),
+    safeCell(data.university),
+    safeCell(data.notes),
+    safeCell(data.source),
+    safeCell(data.page),
+  ]];
+  sheet.getRange(sheet.getLastRow() + 1, 1, 1, row[0].length).setValues(row);
+  return jsonResponse({ok: true, rows: 1});
 }
 
 function formatOffer(offer) {
