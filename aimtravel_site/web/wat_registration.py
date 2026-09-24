@@ -8,7 +8,8 @@ from uuid import uuid4
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -47,13 +48,17 @@ def _send_to_sheet(payload):
 @ensure_csrf_cookie
 @require_http_methods(['GET', 'POST'])
 def wat_2027_registration(request):
-    context = {'values': {}, 'errors': {}}
+    context = {
+        'values': {},
+        'errors': {},
+        'success': request.GET.get('success') == '1',
+    }
     if request.method == 'GET':
         return render(request, 'wat_2027_registration.html', context)
 
     # Hidden field: bots often fill it, people never see it.
     if request.POST.get('website'):
-        return render(request, 'wat_2027_registration.html', {'success': True})
+        return redirect(f"{reverse('wat 2027 registration')}?success=1")
 
     values = {
         'full_name': _clean(request.POST.get('full_name'), 160),
@@ -89,4 +94,4 @@ def wat_2027_registration(request):
             'values': values,
             'errors': {'form': 'В момента не успяхме да запазим данните. Опитай отново след малко.'},
         }, status=503)
-    return render(request, 'wat_2027_registration.html', {'success': True})
+    return redirect(f"{reverse('wat 2027 registration')}?success=1")
