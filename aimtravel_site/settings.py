@@ -168,14 +168,19 @@ DATE_INPUT_FORMATS = [
     "%d %B, %Y",
 ]
 
+# Sender account. Every value can be overridden in credentials.py, so a
+# different mailbox (another Gmail, or the cPanel one at mail.aimtravel.bg)
+# works without touching this file. Defaults = the original Gmail setup.
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True  # Or False if not using TLS
-EMAIL_HOST_USER = "stoyan.ch.stoyanov11@gmail.com"  # Email account to send emails from
+EMAIL_BACKEND = getattr(credentials, "EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = getattr(credentials, "EMAIL_HOST", "smtp.gmail.com")
+EMAIL_PORT = getattr(credentials, "EMAIL_PORT", 587)
+# 587 → TLS, 465 → SSL. Django refuses both at once.
+EMAIL_USE_SSL = getattr(credentials, "EMAIL_USE_SSL", False)
+EMAIL_USE_TLS = getattr(credentials, "EMAIL_USE_TLS", not EMAIL_USE_SSL)
+EMAIL_HOST_USER = getattr(credentials, "EMAIL_HOST_USER", "stoyan.ch.stoyanov11@gmail.com")
 EMAIL_HOST_PASSWORD = credentials.EMAILPASSWORD  # Password for the email account
-DEFAULT_FROM_EMAIL = "stoyan.ch.stoyanov11@gmail.com"  # Default sender address
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -280,6 +285,9 @@ AIM_COMPANY_UIC = "203634922"
 # configured "send as" alias — 530 5.7.0 Authentication Required — so during
 # dev we send From = EMAIL_HOST_USER instead.
 AIM_FROM_EMAIL = EMAIL_HOST_USER
+# Where the contract email goes. Temporary fixed inbox until it is sent to
+# application.email; override with CONTRACT_EMAIL_TO in credentials.py.
+AIM_CONTRACT_EMAIL_TO = getattr(credentials, "CONTRACT_EMAIL_TO", "s.stoyanov@aimtravel.bg")
 # Used to build absolute links (signed contract-download URL, etc). Dev-only
 # value — each deployed environment patches this on the server, same as
 # DEBUG/ALLOWED_HOSTS/DATABASES (see redeploy-staging skill's file-templates.md).

@@ -27,22 +27,31 @@ class _Task:
 
 
 @_Task
-def send_contract_email_task(application_id: int, document_id: int) -> None:
-    """Send contract email with attachments synchronously for testing."""
-    from .emails import send_contract_issued_email
+def send_contract_email_task(application_id: int, document_id: int) -> bool:
+    """Send contract email with attachments synchronously for testing.
+
+    Never raises: the contract is already issued, so a mail failure must not
+    turn the submission into an error. Returns whether the email went out;
+    `email_sent_at` stays empty on failure so the agent can resend from admin.
+    """
+    from .emails import EmailNotConfiguredError, send_contract_issued_email
     from .models import Application, ContractDocument
 
     try:
         application = Application.objects.get(pk=application_id)
         document = ContractDocument.objects.get(pk=document_id)
         send_contract_issued_email(application, document)
-        log.info("apply.tasks: Contract email sent successfully to %s", application.email)
+        log.info("apply.tasks: Contract email for %s sent", application.contract_number)
+        return True
     except Application.DoesNotExist:
         log.error("apply.tasks: Application %s not found", application_id)
     except ContractDocument.DoesNotExist:
         log.error("apply.tasks: ContractDocument %s not found", document_id)
-    except Exception as e:
-        log.error("apply.tasks: Failed to send contract email: %s", e)
+    except EmailNotConfiguredError as e:
+        log.error("apply.tasks: Contract email NOT sent: %s", e)
+    except Exception:
+        log.exception("apply.tasks: Failed to send contract email")
+    return False
 
 
 @_Task

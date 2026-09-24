@@ -23,6 +23,23 @@ from .models import Application, ContractDocument, ProgramOption
 DEPOSIT_USD = 200
 SEVIS_USD = 35
 
+SMTP_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+
+class EmailNotConfiguredError(RuntimeError):
+    """SMTP е избран, но липсва парола — Gmail ще върне 530 при изпращане."""
+
+
+def _ensure_smtp_configured() -> None:
+    # Без парола Django пропуска login-а, връзката "успява", а Gmail отказва
+    # чак при MAIL FROM с 530 Authentication Required. Спираме по-рано с ясна
+    # причина, вместо с неясна SMTP грешка.
+    if settings.EMAIL_BACKEND == SMTP_BACKEND and not settings.EMAIL_HOST_PASSWORD:
+        raise EmailNotConfiguredError(
+            f"EMAIL_HOST_PASSWORD is empty — set EMAILPASSWORD in credentials.py "
+            f"(Gmail app password for {settings.EMAIL_HOST_USER})."
+        )
+
 
 def build_context(application: Application) -> dict:
     agent = settings.AIM_OFFICE_AGENTS[application.office]
@@ -56,6 +73,7 @@ def _name_slug(application: Application) -> str:
 
 
 def send_contract_issued_email(application: Application, document: ContractDocument) -> None:
+    _ensure_smtp_configured()
     context = build_context(application)
     agent_email = context["agent_email"]
     name_slug = _name_slug(application)
@@ -65,7 +83,9 @@ def send_contract_issued_email(application: Application, document: ContractDocum
         f"Summer Work & Travel USA {application.season}",
         body=render_to_string("email/contract_issued.txt", context),
         from_email=settings.AIM_FROM_EMAIL,
-        to=["info@aimtravel.bg"],  # TODO: replace with application.email once dynamic
+        # TODO: replace with application.email once dynamic. getattr: the
+        # server-managed settings.py may predate AIM_CONTRACT_EMAIL_TO.
+        to=[getattr(settings, "AIM_CONTRACT_EMAIL_TO", "s.stoyanov@aimtravel.bg")],
         # Студентът отговаря на имейла със снимката в паспортен формат —
         # този отговор трябва да падне при агента, а не в no-reply кутия.
         reply_to=[agent_email],

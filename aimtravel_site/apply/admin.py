@@ -29,16 +29,27 @@ class ApplicationAdmin(admin.ModelAdmin):
 
     @admin.action(description="Изпрати имейла отново")
     def resend_email(self, request, queryset):
-        sent = 0
+        sent, failed = 0, []
         for application in queryset.select_related("contract_document"):
             document = getattr(application, "contract_document", None)
             if document is None:
                 continue
             document.email_sent_at = None
             document.save(update_fields=["email_sent_at"])
-            send_contract_email_task.delay(application.pk, document.pk)
-            sent += 1
-        self.message_user(request, f"Пуснати {sent} имейла в опашката.")
+            # Задачата засега се изпълнява синхронно и връща дали имейлът е
+            # тръгнал — затова тук можем да кажем истината на агента.
+            if send_contract_email_task.delay(application.pk, document.pk):
+                sent += 1
+            else:
+                failed.append(application.contract_number)
+        if sent:
+            self.message_user(request, f"Изпратени {sent} имейла.")
+        if failed:
+            self.message_user(
+                request,
+                f"Неуспешно изпращане за: {', '.join(failed)}. Виж лога на сървъра.",
+                level=messages.ERROR,
+            )
 
     @admin.action(description="Генерирай договора отново")
     def regenerate_contract(self, request, queryset):
