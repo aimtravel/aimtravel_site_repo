@@ -55,6 +55,7 @@ def sync_offer_lead_to_sheet(lead_id, base_url):
         'specialty': lead.specialty,
         'status': lead.get_status_display(),
         'updated_at': lead.updated_at.isoformat(),
+        'inquiry_message': lead.inquiry_message,
         'offers': offers,
     }
     request = Request(
