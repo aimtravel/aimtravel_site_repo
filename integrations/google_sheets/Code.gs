@@ -1,6 +1,7 @@
 const SPREADSHEET_ID = '1V_ZywpcvTufLf3Sa-Br2KwuaCZ58vaVeUSbTNulZIbI';
 const SHEET_NAME = 'Потенциални Клиенти Сайт';
-const EXPECTED_COLUMNS = 20;
+const EXPECTED_COLUMNS = 18;
+const VISIBLE_OFFER_COLUMNS = 5;
 
 function doPost(event) {
   const lock = LockService.getScriptLock();
@@ -24,29 +25,30 @@ function doPost(event) {
       }
     }
 
-    const offers = Array.isArray(data.offers) && data.offers.length ? data.offers : [{}];
-    const rows = offers.map(offer => [
+    const offers = Array.isArray(data.offers) ? data.offers : [];
+    const offerBoxes = offers.slice(0, VISIBLE_OFFER_COLUMNS).map(formatOffer);
+    while (offerBoxes.length < VISIBLE_OFFER_COLUMNS) offerBoxes.push('');
+    const additionalOffers = offers
+      .slice(VISIBLE_OFFER_COLUMNS)
+      .map(formatOffer)
+      .join('\n\n');
+    const fullName = [data.first_name, data.last_name].filter(Boolean).join(' ');
+    const rows = [[
       data.student_id || '',
       parseDate(data.created_at),
-      safeCell(data.first_name),
-      safeCell(data.last_name),
+      safeCell(fullName),
       safeCell(data.email),
       safeCell(data.phone),
       safeCell(data.university),
       safeCell(data.course),
       safeCell(data.specialty),
       safeCell(data.status),
-      offer.id || '',
-      safeCell(offer.employer),
-      safeCell(offer.position),
-      safeCell(offer.city),
-      safeCell(offer.state),
-      offer.wage === null || offer.wage === undefined ? '' : Number(offer.wage),
-      safeCell(offer.housing),
-      safeCell(offer.url),
+      offers.length,
+      ...offerBoxes,
+      safeCell(additionalOffers),
       parseDate(data.updated_at),
       '',
-    ]);
+    ]];
     sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, EXPECTED_COLUMNS).setValues(rows);
     return jsonResponse({ok: true, rows: rows.length});
   } catch (error) {
@@ -54,6 +56,20 @@ function doPost(event) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function formatOffer(offer) {
+  const location = [offer.city, offer.state].filter(Boolean).join(', ');
+  const wage = offer.wage === null || offer.wage === undefined || offer.wage === ''
+    ? 'Заплащане по оферта'
+    : '$' + Number(offer.wage).toFixed(2) + '/час';
+  const details = [location, wage, offer.housing].filter(Boolean).join(' · ');
+  return safeCell([
+    offer.position,
+    offer.employer,
+    details,
+    offer.url,
+  ].filter(Boolean).join('\n'));
 }
 
 function safeCell(value) {
