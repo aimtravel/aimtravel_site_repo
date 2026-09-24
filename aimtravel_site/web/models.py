@@ -472,6 +472,7 @@ class OfferLead(models.Model):
     )
     source = models.CharField('Източник', max_length=80, default='Работни оферти')
     privacy_consent = models.BooleanField('Съгласие за контакт', default=True)
+    inquiry_message = models.TextField('Запитвания от любими оферти', blank=True, default='')
     created_at = models.DateTimeField('Създаден на', auto_now_add=True)
     updated_at = models.DateTimeField('Обновен на', auto_now=True)
 
