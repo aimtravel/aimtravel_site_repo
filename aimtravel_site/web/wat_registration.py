@@ -16,6 +16,41 @@ from django.views.decorators.http import require_http_methods
 
 logger = logging.getLogger(__name__)
 
+PRIORITY_UNIVERSITIES = (
+    'УНСС – Университет за национално и световно стопанство',
+    'НБУ – Нов български университет',
+    'ТУ-София – Технически университет – София',
+    'НСА – Национална спортна академия „Васил Левски“',
+    'СУ – Софийски университет „Св. Климент Охридски“',
+    'УАСГ (ВИАС) – Университет по архитектура, строителство и геодезия',
+)
+
+OTHER_SOFIA_UNIVERSITIES = (
+    'Академия на МВР – София',
+    'Висше строително училище „Любен Каравелов“ – София',
+    'Висше транспортно училище „Тодор Каблешков“ – София',
+    'Висше училище по телекомуникации и пощи – София',
+    'Военна академия „Георги Стойков Раковски“ – София',
+    'Лесотехнически университет – София',
+    'Медицински университет – София',
+    'Минно-геоложки университет „Св. Иван Рилски“ – София',
+    'НАТФИЗ „Кръстьо Сарафов“ – София',
+    'Национална музикална академия „Проф. Панчо Владигеров“ – София',
+    'Национална художествена академия – София',
+    'Театрален колеж „Любен Гройс“ – София',
+    'УниБИТ – Университет по библиотекознание и информационни технологии',
+    'Университет по застраховане и финанси – София',
+    'ХТМУ – Химикотехнологичен и металургичен университет',
+)
+
+
+def _form_context(**extra):
+    return {
+        'priority_universities': PRIORITY_UNIVERSITIES,
+        'other_universities': OTHER_SOFIA_UNIVERSITIES,
+        **extra,
+    }
+
 
 def _clean(value, limit):
     return ' '.join((value or '').split()).strip()[:limit]
@@ -46,11 +81,11 @@ def _send_to_sheet(payload):
 @ensure_csrf_cookie
 @require_http_methods(['GET', 'POST'])
 def wat_2027_registration(request):
-    context = {
+    context = _form_context(**{
         'values': {},
         'errors': {},
         'success': request.GET.get('success') == '1',
-    }
+    })
     if request.method == 'GET':
         return render(request, 'wat_2027_registration.html', context)
 
@@ -64,6 +99,7 @@ def wat_2027_registration(request):
         'course': _clean(request.POST.get('course'), 40),
         'email': _clean(request.POST.get('email'), 254),
         'university': _clean(request.POST.get('university'), 200),
+        'specialty': _clean(request.POST.get('specialty'), 200),
         'notes': _clean(request.POST.get('notes'), 1000),
     }
     payload = {
@@ -75,8 +111,8 @@ def wat_2027_registration(request):
         'page': request.build_absolute_uri(request.path),
     }
     if not _send_to_sheet(payload):
-        return render(request, 'wat_2027_registration.html', {
+        return render(request, 'wat_2027_registration.html', _form_context(**{
             'values': values,
             'errors': {'form': 'В момента не успяхме да запазим данните. Опитай отново след малко.'},
-        }, status=503)
+        }), status=503)
     return redirect(f"{reverse('wat 2027 registration')}?success=1")
