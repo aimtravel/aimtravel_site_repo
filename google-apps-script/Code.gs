@@ -66,8 +66,16 @@ function doPost(event) {
 function appendWatRegistration(data) {
   const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(REGISTRATION_SHEET_NAME);
   if (!sheet) return jsonResponse({ok: false, error: 'registration_sheet_not_found'});
+  const registrationId = String(data.registration_id || '').trim();
+  const lastRow = sheet.getLastRow();
+  if (registrationId && lastRow > 1) {
+    const existingIds = sheet.getRange(2, 1, lastRow - 1, 1).getDisplayValues();
+    if (existingIds.some(row => row[0] === registrationId)) {
+      return jsonResponse({ok: true, rows: 0, duplicate: true});
+    }
+  }
   const row = [[
-    safeCell(data.registration_id),
+    safeCell(registrationId),
     parseDate(data.registered_at),
     safeCell(data.full_name),
     forceText(data.phone),
