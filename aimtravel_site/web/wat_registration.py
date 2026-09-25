@@ -6,8 +6,6 @@ from urllib.request import Request, urlopen
 from uuid import uuid4
 
 from django.conf import settings
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils import timezone
@@ -68,19 +66,6 @@ def wat_2027_registration(request):
         'university': _clean(request.POST.get('university'), 200),
         'notes': _clean(request.POST.get('notes'), 1000),
     }
-    errors = {}
-    if values['email']:
-        try:
-            validate_email(values['email'])
-        except ValidationError:
-            errors['email'] = 'Провери дали имейл адресът е изписан правилно.'
-    if not any(values.values()):
-        errors['form'] = 'Попълни поне едно поле, за да имаме информация за контакт.'
-    if errors:
-        return render(request, 'wat_2027_registration.html', {
-            'values': values, 'errors': errors,
-        }, status=400)
-
     payload = {
         'kind': 'wat_registration',
         'registration_id': str(uuid4()),
