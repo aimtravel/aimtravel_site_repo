@@ -3,7 +3,7 @@ import json
 import logging
 from urllib.error import URLError
 from urllib.request import Request, urlopen
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 from django.conf import settings
 from django.shortcuts import redirect, render
@@ -56,6 +56,13 @@ def _clean(value, limit):
     return ' '.join((value or '').split()).strip()[:limit]
 
 
+def _registration_id(value):
+    try:
+        return str(UUID(str(value)))
+    except (TypeError, ValueError, AttributeError):
+        return str(uuid4())
+
+
 def _send_to_sheet(payload):
     webhook_url = getattr(settings, 'GOOGLE_SHEETS_WEBHOOK_URL', '').strip()
     webhook_secret = getattr(settings, 'GOOGLE_SHEETS_WEBHOOK_SECRET', '').strip()
@@ -85,6 +92,7 @@ def wat_2027_registration(request):
         'values': {},
         'errors': {},
         'success': request.GET.get('success') == '1',
+        'registration_id': str(uuid4()),
     })
     if request.method == 'GET':
         return render(request, 'wat_2027_registration.html', context)
@@ -104,7 +112,7 @@ def wat_2027_registration(request):
     }
     payload = {
         'kind': 'wat_registration',
-        'registration_id': str(uuid4()),
+        'registration_id': _registration_id(request.POST.get('registration_id')),
         'registered_at': timezone.now().isoformat(),
         **values,
         'source': 'WAT 2027 сайт',
@@ -114,5 +122,6 @@ def wat_2027_registration(request):
         return render(request, 'wat_2027_registration.html', _form_context(**{
             'values': values,
             'errors': {'form': 'В момента не успяхме да запазим данните. Опитай отново след малко.'},
+            'registration_id': payload['registration_id'],
         }), status=503)
     return redirect(f"{reverse('wat 2027 registration')}?success=1")
