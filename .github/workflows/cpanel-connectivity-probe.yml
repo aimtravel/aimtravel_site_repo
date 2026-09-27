@@ -31,10 +31,15 @@ jobs:
       - name: Probe
         shell: bash
         run: |
+          # `shell: bash` runs with -e; turn it off so every check reports
+          # instead of the first non-zero exit (e.g. jq on non-JSON) killing the step.
+          set +e
           set -uo pipefail
           S=$GITHUB_STEP_SUMMARY
-          pass() { echo "| $1 | ✅ PASS | $2 |" >> $S; }
-          fail() { echo "| $1 | ❌ FAIL | $2 |" >> $S; FAILED=1; }
+          # Table-safe: strip newlines/pipes, cap length.
+          clean() { tr '\r\n|' '  /' <<<"$1" | head -c 300; }
+          pass() { echo "PASS  $1: $2"; echo "| $1 | ✅ PASS | $(clean "$2") |" >> $S; }
+          fail() { echo "FAIL  $1: $2"; echo "| $1 | ❌ FAIL | $(clean "$2") |" >> $S; FAILED=1; }
           FAILED=0
 
           echo "## Attempt ${{ matrix.attempt }}" >> $S
@@ -65,15 +70,24 @@ jobs:
           fi
 
           CODE=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "https://$CPANEL_HOST:$PORT/")
+          RC=$?
           [ "$CODE" = "200" ] && pass "4. TLS + login page" "HTTP $CODE" \
-                              || fail "4. TLS + login page" "HTTP $CODE (expected 200)"
+                              || fail "4. TLS + login page" "HTTP $CODE, curl exit $RC (expected 200)"
 
           # Read-only authenticated UAPI call — the same API family the
           # deploy workflow will use (VersionControl / VersionControlDeployment).
           BODY=$(curl -s --max-time 30 -w '\n%{http_code}' \
             -H "Authorization: cpanel $CPANEL_USER:$CPANEL_TOKEN" \
             "https://$CPANEL_HOST:$PORT/execute/VersionControl/retrieve")
+          RC=$?
           HTTP=$(tail -1 <<<"$BODY"); JSON=$(sed '$d' <<<"$BODY")
+          echo "UAPI response: HTTP $HTTP, curl exit $RC, body (first 500 chars):"
+          head -c 500 <<<"$JSON"; echo
+          if ! jq -e . <<<"$JSON" >/dev/null 2>&1; then
+            fail "5. UAPI auth (VersionControl/retrieve)" \
+              "HTTP $HTTP — non-JSON reply (wrong CPANEL_USER/TOKEN, API tokens disabled, or cPHulk block): $(head -c 200 <<<"$JSON")"
+            JSON='{}'
+          fi
           STATUS=$(jq -r '.status // empty' <<<"$JSON" 2>/dev/null)
           if [ "$HTTP" = "200" ] && [ "$STATUS" = "1" ]; then
             pass "5. UAPI auth (VersionControl/retrieve)" "HTTP 200, status=1"
@@ -83,7 +97,7 @@ jobs:
             else
               fail "6. Server repo registered" "$EXPECTED_REPO not found. Repos: ${REPOS:-none}"
             fi
-          else
+          elif [ "$JSON" != '{}' ]; then
             ERR=$(jq -r '(.errors // []) | join("; ")' <<<"$JSON" 2>/dev/null)
             fail "5. UAPI auth (VersionControl/retrieve)" "HTTP $HTTP status=${STATUS:-?} ${ERR:-$(head -c 200 <<<"$JSON")}"
           fi
