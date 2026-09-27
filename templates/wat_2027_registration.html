@@ -47,6 +47,15 @@
   const form = document.getElementById('wat-registration-form');
   if (!form) return;
   const button = form.querySelector('button[type="submit"]');
+  const registrationInput = form.querySelector('input[name="registration_id"]');
+  if (registrationInput && !registrationInput.value) {
+    registrationInput.value = window.crypto?.randomUUID
+      ? window.crypto.randomUUID()
+      : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+          const value = Math.random() * 16 | 0;
+          return (char === 'x' ? value : (value & 3 | 8)).toString(16);
+        });
+  }
   let submitting = false;
   form.addEventListener('submit', (event) => {
     if (submitting) {
