@@ -1,5 +1,6 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useErrorMessage } from "@/i18n/errors";
 import { Check, Loader2 } from "lucide-react";
 import {
   Command,
@@ -45,6 +46,7 @@ export function AutocompleteField({
   required = true,
 }: AutocompleteFieldProps) {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -155,7 +157,7 @@ export function AutocompleteField({
 
       {error ? (
         <p id={`${id}-error`} role="alert" className="text-xs font-semibold text-destructive">
-          {t(error as any)}
+          {genericError(error)}
         </p>
       ) : (
         hint && (

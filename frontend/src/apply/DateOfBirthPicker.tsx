@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useErrorMessage } from "@/i18n/errors";
 import { format, parseISO } from "date-fns";
 import { bg } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
@@ -31,6 +32,7 @@ export function DateOfBirthPicker({
   error,
 }: DateOfBirthPickerProps) {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const [open, setOpen] = useState(false);
 
   const { min, max, defaultMonth } = useMemo(() => {
@@ -89,7 +91,7 @@ export function DateOfBirthPicker({
 
       {error && (
         <p id={`${id}-error`} role="alert" className="text-xs font-semibold text-destructive">
-          {t(error as "errors.required")}
+          {genericError(error)}
         </p>
       )}
     </div>

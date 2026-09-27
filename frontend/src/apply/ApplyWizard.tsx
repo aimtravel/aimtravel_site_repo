@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
+import { useErrorMessage } from "@/i18n/errors";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, Loader2, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ const STEP_KEYS = ["personal", "education", "program", "contract"] as const;
 
 export function ApplyWizard({ config }: { config: ApplyConfig }) {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const [step, setStep] = useState(0);
   const [result, setResult] = useState<ContractResult | null>(null);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
@@ -122,7 +124,7 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
               firstStep = stepIndex;
           }
           if (firstStep !== null) setStep(firstStep);
-          setSubmitError(t(error.detail ?? ("errors.fixFieldsBelow" as any)));
+          setSubmitError(genericError(error.detail, "errors.fixFieldsBelow"));
         } else if (error instanceof ApiError && error.status === 429) {
           setSubmitError(t("errors.tooManyRequests"));
         } else {
@@ -142,7 +144,7 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
         const stepIndex = STEP_FIELDS.findIndex((fields) => fields.includes(firstBad));
         if (stepIndex >= 0) setStep(stepIndex);
       }
-      setSubmitError(t("errors.fixFieldsBelow" as any));
+      setSubmitError(genericError("errors.fixFieldsBelow"));
     },
   );
 
@@ -308,7 +310,7 @@ function TextField({
   className?: string;
   optional?: boolean;
 }) {
-  const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const {
     register,
     formState: { errors },
@@ -336,7 +338,7 @@ function TextField({
       />
       {error ? (
         <p id={`${name}-error`} role="alert" className="text-xs font-semibold text-destructive">
-          {t(error as any)}
+          {genericError(error)}
         </p>
       ) : (
         hint && (
@@ -351,6 +353,7 @@ function TextField({
 
 function PhoneField({ className }: { className?: string }) {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const {
     control,
     formState: { errors },
@@ -408,7 +411,7 @@ function PhoneField({ className }: { className?: string }) {
       />
       {error && (
         <p id="phone-error" role="alert" className="text-xs font-semibold text-destructive">
-          {t(error as any)}
+          {genericError(error)}
         </p>
       )}
     </div>
@@ -518,6 +521,7 @@ function PersonalStep() {
 
 function EducationStep() {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const {
     control,
     register,
@@ -580,7 +584,7 @@ function EducationStep() {
         </select>
         {errors.yearOfStudy && (
           <p role="alert" className="text-xs font-semibold text-destructive">
-            {t(errors.yearOfStudy.message as any)}
+            {genericError(errors.yearOfStudy.message)}
           </p>
         )}
       </div>
@@ -692,6 +696,7 @@ function ProgramStep() {
 
 function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
   const { t } = useTranslation("apply");
+  const genericError = useErrorMessage("apply");
   const {
     watch,
     register,
@@ -738,7 +743,7 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
         </label>
         {err && (
           <p role="alert" className="pl-4 text-xs font-semibold text-destructive">
-            {t(err as never)}
+            {genericError(err)}
           </p>
         )}
       </div>
