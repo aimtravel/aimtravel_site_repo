@@ -136,7 +136,7 @@
                             <p>{{ second_slider.content1 }}</p>
                             {% if prices.amount_of_discount %}
                                 <p>до <span
-                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}$</span>
+                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}€</span>
                                     ОТСТЪПКА</p>
                             {% endif %}
                             <div class="slider-btn" id="slider-1-button">
@@ -415,7 +415,7 @@
                 <h3 class="offer-header">{{ offer.job_position }}</h3>
                 <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
                 <p class="offer-type">Premium Offer</p>
-                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                <p class="offer-salary">€{{ offer.wage|floatformat:2 }} per hour
                     {% if offer.tips == 'Да' %} + Tips
                     {% endif %}</p>
                 </div>
