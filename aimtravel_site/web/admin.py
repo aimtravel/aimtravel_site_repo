@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from aimtravel_site.web.models import JobOffer, Prices, AdditionalServices, Company, City, Feedback
+from aimtravel_site.web.models import JobOffer, OfferLead, Prices, AdditionalServices, Company, City, Feedback
 
 
 def duplicate_selected(modeladmin, request, queryset):
@@ -33,10 +33,34 @@ class CityAdmin(admin.ModelAdmin):
 @admin.register(JobOffer)
 class JobOfferAdmin(admin.ModelAdmin):
     actions = [duplicate_selected]
-    list_display = ['id', 'job_position', 'employer_name', 'wage', 'city', 'ranking']
-    list_filter = ['new_offer', 'sold_out_offer', 'last_seats', 'city', 'ranking']
+    list_display = [
+        'id', 'job_position', 'employer_name', 'wage', 'city', 'sponsor',
+        'assignment', 'availability_status', 'availability_updated_at', 'ranking',
+    ]
+    list_filter = [
+        'availability_status', 'sponsor', 'assignment', 'new_offer',
+        'sold_out_offer', 'last_seats', 'city', 'ranking',
+    ]
     search_fields = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
     sortable_by = ['job_position', 'employer_name', 'wage', 'city', 'ranking']
+
+
+@admin.register(OfferLead)
+class OfferLeadAdmin(admin.ModelAdmin):
+    list_display = [
+        'first_name', 'last_name', 'email', 'phone', 'university', 'course',
+        'lifecycle_stage', 'contract_status', 'status', 'favorite_count', 'created_at',
+    ]
+    list_filter = [
+        'lifecycle_stage', 'contract_status', 'status', 'university', 'course', 'created_at',
+    ]
+    search_fields = ['first_name', 'last_name', 'email', 'phone', 'university', 'specialty']
+    readonly_fields = ['public_id', 'created_at', 'updated_at']
+    filter_horizontal = ['favorite_offers']
+
+    @admin.display(description='Любими')
+    def favorite_count(self, obj):
+        return obj.favorite_offers.count()
 
 
 @admin.register(Prices)
@@ -54,6 +78,3 @@ class AdditionalServicesAdmin(admin.ModelAdmin):
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['employer_name', 'employer_city', 'employer_state']
     list_filter = ['employer_name']
-
-
-

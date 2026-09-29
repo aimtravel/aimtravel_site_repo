@@ -1,74 +1,97 @@
-{% extends 'base.html' %}
 {% load static %}
-
-{% block content %}
-    <!-- **************** MAIN CONTENT START **************** -->
-    <main>
-        <div id="register-section" class="pre-taxes-section">
-            <div id="pre-taxes-form" class="container taxes-section oval-border">
-                <!-- =======================
-                Main Content START -->
-                <section class="auth-page">
-                    <!-- Information -->
-                    <!-- Logo -->
-                    <a href="{% url 'index' %}">
-                        <img class="h-50px mb-4" src="{% static "img/Ready-stock/Logo/AIM_logo-colored.png" %}"
-                             alt="logo">
-                    </a>
-                    <!-- Title -->
-                    <h1 class="mb-2 h3">Добре дошъл!</h1>
-
-
-                    <form class="text-start" method="post" action="{% url 'sign in' %}">
-                        {% csrf_token %}
-                        {% if form.errors %}
-                        <div class="form-errors">
-                            <p>Please correct the following errors:</p>
-                            <ul>
-                                {% for error in form.non_field_errors %}
-                                    <li>{{ error }}</li>
-                                {% endfor %}
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        <li>{{ field.label }}: {{ field.errors.0 }}</li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                        <!-- Email -->
-                        <div class="mb-3">
-                            <label class="form-label">Въведи e-mail:
-                                {{ form.username }}</label>
-                        </div>
-                        <!-- Password -->
-                        <div class="mb-3 position-relative">
-                            <label class="form-label">Въведи парола:
-                                {{ form.password }} </label>
-                            {#                            <span class="position-absolute top-50 end-0 translate-middle-y p-0 mt-3">#}
-                            {#											<i class="fakepasswordicon fas fa-eye-slash cursor-pointer p-2"></i>#}
-                            {#										</span>#}
-                        </div>
-                        <!-- Remember me -->
-                        <div class="mb-3 d-sm-flex justify-content-between">
-                            {#                                            <div>#}
-                            {#                                                <input type="checkbox" class="form-check-input" id="rememberCheck">#}
-                            {#                                                <label class="form-check-label" for="rememberCheck">Запомни ме?</label>#}
-                            {#                                            </div>#}
-                            <a href="{% url 'password_reset' %}">Забравена парола</a>
-                        </div>
-                        <!-- Button -->
-                        <div id="button">
-                            <button type="submit" class="slider-btn">Вход</button>
-                        </div>
-                        <p class="mb-0">Нямаш профил?<a href="{% url 'sign up' %}"> Регистрирай се</a></p>
-                    </form>
-                    <!-- Form END -->
-                </section>
-                <!-- =======================
-                Main Content END -->
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вход в My AIM Journey | AIM Travel</title>
+    <meta name="description" content="Влез в профила си в AIM Travel или в служебния портал за консултанти.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--navy:#073b5c;--red:#b50912;--ink:#17313f;--muted:#657984;--line:#dce6eb;--soft:#f2f7f9}
+        *{box-sizing:border-box}body{min-height:100vh;margin:0;background:#edf3f6;color:var(--ink);font-family:Jost,Arial,sans-serif}a{color:inherit}
+        .auth-shell{display:grid;min-height:100vh;grid-template-columns:minmax(340px,.82fr) minmax(520px,1.18fr)}
+        .auth-story{position:relative;display:flex;overflow:hidden;flex-direction:column;justify-content:space-between;padding:42px clamp(32px,5vw,78px);background:linear-gradient(145deg,rgba(3,38,61,.97),rgba(7,75,110,.92)),url('{% static "img/Ready-stock/WEBP version/offers_page.jpg" %}') center/cover;color:#fff}
+        .auth-story:after{position:absolute;right:-110px;bottom:-130px;width:380px;height:380px;border:70px solid rgba(255,255,255,.055);border-radius:50%;content:""}
+        .brand{position:relative;z-index:1;display:flex;align-items:center;gap:14px;text-decoration:none}.brand img{width:92px;filter:brightness(0) invert(1)}.brand span{padding-left:14px;border-left:1px solid rgba(255,255,255,.3);font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+        .story-copy{position:relative;z-index:1;max-width:520px}.story-copy__eyebrow{margin:0 0 14px;color:#ffd7d9;font-size:12px;font-weight:900;letter-spacing:.15em;text-transform:uppercase}.story-copy h1{margin:0 0 17px;font-size:clamp(38px,5vw,64px);line-height:.98;letter-spacing:-.04em}.story-copy>p{max-width:480px;margin:0;color:#d8e6ed;font-size:17px;line-height:1.55}
+        .journey{position:relative;z-index:1;display:grid;gap:9px;margin-top:34px}.journey-step{display:flex;align-items:center;gap:12px;color:#d9e8ef;font-size:13px;font-weight:700}.journey-step i{display:grid;width:28px;height:28px;place-items:center;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(255,255,255,.08);color:#fff;font-style:normal}.story-foot{position:relative;z-index:1;color:#a9c2cf;font-size:11px}
+        .auth-main{display:flex;align-items:center;justify-content:center;padding:38px}.auth-card{width:min(650px,100%);padding:34px;border:1px solid rgba(7,59,92,.08);border-radius:28px;background:#fff;box-shadow:0 28px 80px rgba(7,59,92,.13)}
+        .auth-card__top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:24px}.auth-card__top h2{margin:0 0 6px;color:var(--navy);font-size:30px;line-height:1.1;letter-spacing:-.025em}.auth-card__top p{margin:0;color:var(--muted);font-size:14px}.home-link{flex:0 0 auto;padding:8px 11px;border-radius:10px;background:var(--soft);color:var(--navy);font-size:11px;font-weight:900;text-decoration:none;text-transform:uppercase}
+        .role-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;padding:5px;border-radius:15px;background:var(--soft)}.role-tab{height:48px;border:0;border-radius:11px;background:transparent;color:#637883;font:800 13px Jost,sans-serif;cursor:pointer}.role-tab.is-active{background:#fff;color:var(--navy);box-shadow:0 5px 16px rgba(7,59,92,.1)}.auth-panel[hidden]{display:none}
+        .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;min-width:0;flex-direction:column;gap:6px}.field--full{grid-column:1/-1}.field label{color:var(--navy);font-size:11px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.field input,.field select{width:100%;height:49px;padding:0 13px;border:1px solid var(--line);border-radius:12px;background:#f9fbfc;color:var(--ink);font:600 14px Jost,sans-serif;outline:none}.field input:focus,.field select:focus{border-color:var(--red);background:#fff;box-shadow:0 0 0 4px rgba(181,9,18,.08)}
+        .required-note{margin:-8px 0 14px;color:#7b8d96;font-size:11px}.optional{margin-top:14px;border:1px solid var(--line);border-radius:14px;background:#fbfcfd}.optional summary{padding:13px 15px;color:var(--navy);font-size:12px;font-weight:900;cursor:pointer;list-style:none}.optional summary::-webkit-details-marker{display:none}.optional summary:after{float:right;content:"＋"}.optional[open] summary:after{content:"−"}.optional__body{padding:2px 15px 15px}
+        .consent{display:flex;align-items:flex-start;gap:9px;margin:15px 0;color:#637983;font-size:11px;line-height:1.45}.consent input{margin-top:2px;accent-color:var(--red)}.primary-button{width:100%;height:51px;border:0;border-radius:12px;background:var(--red);color:#fff;font:900 13px Jost,sans-serif;letter-spacing:.035em;cursor:pointer;box-shadow:0 10px 25px rgba(181,9,18,.2)}.primary-button:hover{background:#97070e}.form-help{margin:13px 0 0;color:#748690;font-size:11px;text-align:center}
+        .form-errors,.field-error{color:#a60810;font-size:12px}.form-errors{margin:0 0 14px;padding:11px 13px;border:1px solid #f0c8ca;border-radius:11px;background:#fff3f3}.field-error{margin:0}.consultant-note{display:flex;gap:11px;margin-bottom:16px;padding:13px;border-radius:13px;background:#eef6fa;color:#526c79;font-size:12px;line-height:1.45}.consultant-note b{color:var(--navy)}
+        .verify{text-align:center}.verify-icon{display:grid;width:62px;height:62px;margin:0 auto 16px;place-items:center;border-radius:50%;background:#e9f5ef;color:#167344;font-size:25px}.verify h3{margin:0 0 7px;color:var(--navy);font-size:25px}.verify>p{margin:0 auto 20px;color:var(--muted);font-size:13px}.verify .field{max-width:260px;margin:0 auto 14px;text-align:left}.verify input{text-align:center;font-size:22px;letter-spacing:.3em}.verify .primary-button{max-width:260px}.verify-back{display:inline-block;margin-top:14px;color:var(--navy);font-size:12px;font-weight:800;text-decoration:none}
+        @media(max-width:920px){.auth-shell{grid-template-columns:1fr}.auth-story{min-height:310px;padding:28px}.story-copy h1{font-size:40px}.journey{display:none}.story-foot{margin-top:28px}.auth-main{padding:24px}}
+        @media(max-width:580px){.auth-story{min-height:245px}.brand span{display:none}.story-copy h1{font-size:34px}.story-copy>p{font-size:14px}.auth-main{align-items:flex-start;padding:14px}.auth-card{padding:22px 16px;border-radius:20px}.auth-card__top h2{font-size:25px}.form-grid{grid-template-columns:1fr}.field--full{grid-column:auto}.role-tab{font-size:11px}}
+    </style>
+</head>
+<body>
+<div class="auth-shell">
+    <aside class="auth-story">
+        <a class="brand" href="{% url 'index' %}"><img src="{% static 'img/Ready-stock/Logo/AIM_logo-colored.png' %}" alt="AIM Travel"><span>Work &amp; Travel USA</span></a>
+        <div class="story-copy">
+            <p class="story-copy__eyebrow">MY AIM JOURNEY</p>
+            <h1>Цялото ти лято.<br>На едно място.</h1>
+            <p>Запази оферти, попълни application формата и следи договора и следващите стъпки по програмата.</p>
+            <div class="journey">
+                <div class="journey-step"><i>1</i> Създаваш профил и избираш любими оферти</div>
+                <div class="journey-step"><i>2</i> Попълваш application формата</div>
+                <div class="journey-step"><i>3</i> Получаваш договор и отключваш програмата</div>
             </div>
         </div>
+        <div class="story-foot">AIM Travel USA · Premium Work &amp; Travel experience</div>
+    </aside>
+    <main class="auth-main">
+        <section class="auth-card">
+            <div class="auth-card__top">
+                <div><h2>{% if verification_mode %}Провери имейла си{% else %}Добре дошъл{% endif %}</h2><p>{% if verification_mode %}Изпратихме ти защитен код за вход.{% else %}Избери как искаш да влезеш.{% endif %}</p></div>
+                <a class="home-link" href="{% url 'index' %}">Към сайта</a>
+            </div>
+            {% if verification_mode %}
+                <div class="verify">
+                    <div class="verify-icon">✉</div><h3>Въведи 6-цифрения код</h3><p>Кодът е изпратен до <strong>{{ verification_email }}</strong> и е валиден 10 минути.</p>
+                    <form method="post" action="{% url 'sign in' %}">{% csrf_token %}<input type="hidden" name="action" value="person_verify">
+                        {% if code_form.non_field_errors %}<div class="form-errors">{{ code_form.non_field_errors.0 }}</div>{% endif %}
+                        <div class="field"><label for="{{ code_form.code.id_for_label }}">Код за вход</label>{{ code_form.code }}{% if code_form.code.errors %}<p class="field-error">{{ code_form.code.errors.0 }}</p>{% endif %}</div>
+                        <button class="primary-button" type="submit">Влез в профила</button>
+                    </form><a class="verify-back" href="{% url 'sign in' %}">← Въведи данните отново</a>
+                </div>
+            {% else %}
+                <div class="role-tabs" role="tablist"><button class="role-tab{% if active_tab != 'consultant' %} is-active{% endif %}" type="button" data-auth-tab="person">Студент / кандидат</button><button class="role-tab{% if active_tab == 'consultant' %} is-active{% endif %}" type="button" data-auth-tab="consultant">AIM консултант</button></div>
+                <div class="auth-panel" data-auth-panel="person" {% if active_tab == 'consultant' %}hidden{% endif %}>
+                    <p class="required-note">Само имейлът и телефонът са задължителни. Няма нужда да помниш парола.</p>
+                    <form method="post" action="{% url 'sign in' %}" autocomplete="on">{% csrf_token %}<input type="hidden" name="action" value="person_start"><input type="hidden" name="next" value="{{ request.GET.next }}">{{ person_form.lead_token }}
+                        {% if person_form.non_field_errors %}<div class="form-errors">{{ person_form.non_field_errors.0 }}</div>{% endif %}
+                        <div class="form-grid">
+                            <div class="field"><label for="{{ person_form.email.id_for_label }}">Имейл *</label>{{ person_form.email }}{% if person_form.email.errors %}<p class="field-error">{{ person_form.email.errors.0 }}</p>{% endif %}</div>
+                            <div class="field"><label for="{{ person_form.phone.id_for_label }}">Телефон *</label>{{ person_form.phone }}{% if person_form.phone.errors %}<p class="field-error">{{ person_form.phone.errors.0 }}</p>{% endif %}</div>
+                        </div>
+                        <details class="optional"><summary>Добави информация за по-бърза консултация <span style="font-weight:500;color:#7d8d95">(по желание)</span></summary><div class="optional__body"><div class="form-grid">
+                            <div class="field"><label for="{{ person_form.first_name.id_for_label }}">Име</label>{{ person_form.first_name }}</div><div class="field"><label for="{{ person_form.last_name.id_for_label }}">Фамилия</label>{{ person_form.last_name }}</div><div class="field field--full"><label for="{{ person_form.university.id_for_label }}">Университет</label>{{ person_form.university }}</div><div class="field"><label for="{{ person_form.course.id_for_label }}">Курс</label>{{ person_form.course }}</div><div class="field"><label for="{{ person_form.specialty.id_for_label }}">Специалност</label>{{ person_form.specialty }}</div>
+                        </div></div></details>
+                        <label class="consent">{{ person_form.privacy_consent }} <span>{{ person_form.privacy_consent.label }}</span></label>{% if person_form.privacy_consent.errors %}<p class="field-error">Необходимо е съгласие за създаване на профила.</p>{% endif %}
+                        <button class="primary-button" type="submit">Продължи с код по имейл</button><p class="form-help">Ако вече имаш профил, ще отворим същото досие и любимите ти оферти.</p>
+                    </form>
+                </div>
+                <div class="auth-panel" data-auth-panel="consultant" {% if active_tab != 'consultant' %}hidden{% endif %}>
+                    <div class="consultant-note"><span>●</span><span><b>Служебен достъп</b><br>Само за активни профили на консултанти и администратори на AIM Travel.</span></div>
+                    <form method="post" action="{% url 'sign in' %}">{% csrf_token %}<input type="hidden" name="action" value="consultant_login"><input type="hidden" name="next" value="{{ request.GET.next }}">
+                        {% if consultant_form.non_field_errors %}<div class="form-errors">{{ consultant_form.non_field_errors.0 }}</div>{% endif %}
+                        <div class="form-grid"><div class="field field--full"><label for="{{ consultant_form.username.id_for_label }}">Служебен имейл</label>{{ consultant_form.username }}{% if consultant_form.username.errors %}<p class="field-error">{{ consultant_form.username.errors.0 }}</p>{% endif %}</div><div class="field field--full"><label for="{{ consultant_form.password.id_for_label }}">Парола</label>{{ consultant_form.password }}{% if consultant_form.password.errors %}<p class="field-error">{{ consultant_form.password.errors.0 }}</p>{% endif %}</div></div>
+                        <p style="margin:9px 0 15px;text-align:right"><a href="{% url 'password_reset' %}" style="color:var(--navy);font-size:12px;font-weight:800">Забравена парола</a></p><button class="primary-button" type="submit">Вход за консултант</button>
+                    </form>
+                </div>
+            {% endif %}
+        </section>
     </main>
-    <!-- **************** MAIN CONTENT END **************** -->
-{% endblock %}
+</div>
+<script>
+(function(){const tabs=document.querySelectorAll('[data-auth-tab]'),panels=document.querySelectorAll('[data-auth-panel]');tabs.forEach(function(tab){tab.addEventListener('click',function(){tabs.forEach(function(item){item.classList.toggle('is-active',item===tab);});panels.forEach(function(panel){panel.hidden=panel.dataset.authPanel!==tab.dataset.authTab;});});});const leadToken=document.querySelector('input[name="lead_token"]');if(leadToken){try{leadToken.value=window.localStorage.getItem('aimtravel-offer-lead-token')||'';}catch(error){}}})();
+</script>
+</body>
+</html>

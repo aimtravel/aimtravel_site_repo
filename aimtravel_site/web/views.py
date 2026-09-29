@@ -1,17 +1,25 @@
+import re
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.sessions.models import Session
 from django.core.paginator import Paginator
+from django.db.models import Q, Min, Max, Count
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic as views
 
 from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 from django.utils.encoding import smart_str
 
 from aimtravel_site.posting.models import *
-from aimtravel_site.user_profile.models import Employee
+from aimtravel_site.templatetags.custom_filters import housing_summary, housing_weekly_range
+from aimtravel_site.user_profile.models import Employee, Students
 from aimtravel_site.web.forms import JobOfferDetailForm, CompanyDetailForm, CompanyEditForm, PriceDetailForm, \
     ServiceDetailForm
 from aimtravel_site.web.models import *
@@ -225,123 +233,319 @@ class CreateOfferView(LoginRequiredMixin, UserPassesTestMixin, views.CreateView)
 class JobOfferListView(views.ListView):
     template_name = 'job_offer/offers.html'
 
+    # Normalize the many partner-specific job titles into student-friendly roles.
+    # A combined title such as "Busser/Runner" therefore appears only once.
+    POSITION_GROUPS = (
+        ('server', 'Server', ('server', 'waiter', 'waitress')),
+        ('busser_runner', 'Busser / Runner', ('busser', 'runner', 'food runner')),
+        ('host', 'Host / Hostess', ('host', 'hostess')),
+        ('bartender', 'Bartender', ('bartender', 'bar staff')),
+        ('barista', 'Barista', ('barista', 'coffee')),
+        ('food_beverage', 'Food & Beverage', (
+            'food and beverage', 'food & beverage', 'food concession', 'banquet',
+            'breakfast attendant',
+        )),
+        ('cook', 'Cook / Prep Cook', (
+            'cook', 'prep', 'kitchen', 'chocolatier', 'meat', 'deli', 'seafood',
+        )),
+        ('dishwasher', 'Dishwasher / Steward', ('dishwasher', 'steward')),
+        ('front_desk', 'Front Desk / Guest Services', (
+            'front desk', 'guest service', 'bellperson', 'concierge',
+        )),
+        ('housekeeping', 'Housekeeping / Room Attendant', (
+            'housekeep', 'room attendant', 'general cleaner', 'public area',
+        )),
+        ('laundry', 'Laundry / Houseperson', ('laundry', 'houseperson')),
+        ('lifeguard', 'Lifeguard / Pool / Beach', (
+            'lifeguard', 'pool', 'beach', 'ocean',
+        )),
+        ('retail', 'Retail / Cashier', ('retail', 'cashier', 'sales associate')),
+        ('maintenance', 'Maintenance / Grounds', (
+            'maintenance', 'grounds', 'engineering', 'landscap',
+        )),
+        ('recreation', 'Recreation / Attractions', (
+            'recreation', 'activities', 'rentals', 'amusement', 'rides', 'attraction',
+        )),
+        ('resort', 'Resort / General Staff', (
+            'resort worker', 'crew member', 'team member', 'general staff', 'clubhouse',
+        )),
+        ('security', 'Security', ('security',)),
+    )
+
+    @staticmethod
+    def compact_wage(value):
+        if value is None:
+            return ''
+        return ('%.2f' % float(value)).rstrip('0').rstrip('.')
+
     def get(self, request):
-        # Retrieve the selected filter options from the session
-        selected_state = request.session.get('selected_state')
-        selected_city = request.session.get('selected_city')
-        selected_job_position = request.session.get('selected_job_position')
-        selected_suitable_for = request.session.get('selected_suitable_for')
-        selected_wage = request.session.get('selected_wage')
-        selected_housing = request.session.get('selected_housing')
-
-        # Check if the "clear_filter" parameter is present in the request's GET parameters
+        lead_profile = None
+        if request.user.is_authenticated and not request.user.is_staff:
+            lead_profile = OfferLead.objects.filter(user=request.user).first()
+            if not lead_profile:
+                lead_profile = OfferLead.objects.filter(email=request.user.email).first()
+        student_mode = bool(
+            request.user.is_authenticated and (
+                request.user.is_staff or
+                Students.objects.filter(user=request.user).exists() or
+                (
+                    lead_profile and (
+                        lead_profile.lifecycle_stage == 'enrolled' or
+                        lead_profile.contract_status == 'signed'
+                    )
+                )
+            )
+        )
+        lead_mode = bool(request.user.is_authenticated and not student_mode)
+        public_session_keys = {
+            'state': 'selected_state', 'city': 'selected_city',
+            'job_position': 'selected_job_position',
+            'suitable_for': 'selected_suitable_for',
+            'min_wage': 'selected_min_wage', 'max_wage': 'selected_max_wage',
+            'tips_only': 'selected_tips_only',
+            'housing_min': 'selected_housing_min',
+            'housing_max': 'selected_housing_max',
+            'free_housing': 'selected_free_housing',
+            'q': 'offer_search',
+        }
+        private_session_keys = {
+            'sponsor': 'selected_sponsor',
+            'assignment': 'selected_assignment',
+            'availability': 'selected_availability',
+        }
+        session_keys = dict(public_session_keys)
+        if student_mode:
+            session_keys.update(private_session_keys)
         if 'clear_filter' in request.GET:
-            # Remove filter options from the session
-            request.session.pop('selected_state', None)
-            request.session.pop('selected_city', None)
-            request.session.pop('selected_job_position', None)
-            request.session.pop('selected_suitable_for', None)
-            request.session.pop('selected_wage', None)
-            request.session.pop('selected_housing', None)
-
-            # Redirect to the same page to clear the URL query parameters
+            for session_key in tuple(public_session_keys.values()) + tuple(private_session_keys.values()):
+                request.session.pop(session_key, None)
             return redirect(f"{reverse('offers')}#offers-page-top-row")
 
-        states = JobOffer.objects.values_list('city__state', flat=True).distinct()
-        cities = JobOffer.objects.values_list('city', flat=True).distinct()
-        job_positions = JobOffer.objects.values_list('job_position', flat=True).distinct()
-        suitable_for = JobOffer.objects.values_list('suitable_for', flat=True).distinct()
-        wages = JobOffer.objects.values_list('wage', flat=True).distinct()
-        housing = JobOffer.objects.values_list('housing', flat=True).distinct()
-
-        states = sorted(states)
-        cities = sorted(cities)
-        job_positions = sorted(job_positions)
-        suitable_for = sorted(suitable_for)
-        wages = sorted(wages)
-        housing = sorted(housing)
-
-        filtered_offers = JobOffer.objects.all()
-        filtered_offers = filtered_offers.order_by(
-            '-ranking',
-            '-last_seats',
-            '-new_offer',
-            '-wage',
-            'job_position',
-            'sold_out_offer'
+        filter_submission = (
+            any(key in request.GET for key in session_keys) or
+            'sort_by' in request.GET
         )
+        selected = {}
+        for query_key, session_key in session_keys.items():
+            if query_key in request.GET:
+                value = request.GET.get(query_key, '').strip()
+                request.session[session_key] = value
+            elif filter_submission:
+                value = ''
+                request.session[session_key] = ''
+            else:
+                value = request.session.get(session_key, '')
+            selected[query_key] = value
 
-        # Check if the filter parameters are present in the request's GET parameters
-        if 'state' in request.GET:
-            selected_state = request.GET.getlist('state')
-        if 'city' in request.GET:
-            selected_city = request.GET.getlist('city')
-        if 'job_position' in request.GET:
-            selected_job_position = request.GET.getlist('job_position')
-        if 'suitable_for' in request.GET:
-            selected_suitable_for = request.GET.getlist('suitable_for')
-        if 'wage' in request.GET:
-            selected_wage = request.GET.getlist('wage')
-        if 'housing' in request.GET:
-            selected_housing = request.GET.getlist('housing')
+        # The employer dropdown is intentionally not part of the public
+        # catalogue at this stage. Drop any value left in an older session or
+        # bookmarked URL so it cannot keep filtering results invisibly.
+        request.session.pop('selected_employer', None)
 
-        # Store the selected filter options in the session
-        request.session['selected_state'] = selected_state
-        request.session['selected_city'] = selected_city
-        request.session['selected_job_position'] = selected_job_position
-        request.session['selected_suitable_for'] = selected_suitable_for
-        request.session['selected_wage'] = selected_wage
-        request.session['selected_housing'] = selected_housing
-        request.session.save()
+        # A state change can arrive together with the previously selected city
+        # (the browser submits the whole form). Never apply a city that does
+        # not belong to the currently selected state.
+        if selected['state'] and selected['city']:
+            city_is_valid = City.objects.filter(
+                name=selected['city'],
+                state=selected['state'],
+                joboffer__isnull=False,
+            ).exists()
+            if not city_is_valid:
+                selected['city'] = ''
+                request.session['selected_city'] = ''
 
-        # Apply the selected filter options to the queryset
-        if selected_state:
-            filtered_offers = filtered_offers.filter(city__state__in=selected_state)
-        if selected_city:
-            filtered_offers = filtered_offers.filter(city__in=selected_city)
-        if selected_job_position:
-            filtered_offers = filtered_offers.filter(job_position__in=selected_job_position)
-        if selected_suitable_for:
-            filtered_offers = filtered_offers.filter(suitable_for__in=selected_suitable_for)
-        if selected_wage:
-            filtered_offers = filtered_offers.filter(wage__in=selected_wage)
-        if selected_housing:
-            filtered_offers = filtered_offers.filter(housing__in=selected_housing)
+        sort_by = request.GET.get('sort_by') or 'popular'
+        offers = JobOffer.objects.select_related('city').all()
+        wage_stats = JobOffer.objects.aggregate(minimum=Min('wage'), maximum=Max('wage'))
+        wage_min = self.compact_wage(wage_stats['minimum'] or 0)
+        wage_max = self.compact_wage(wage_stats['maximum'] or 0)
+        housing_ranges = [
+            housing_weekly_range(value)
+            for value in JobOffer.objects.values_list('housing', flat=True)
+        ]
+        paid_housing_values = [
+            amount for housing_range in housing_ranges if housing_range
+            for amount in housing_range if amount > 0
+        ]
+        housing_min = min(paid_housing_values, default=0)
+        housing_max = max(paid_housing_values, default=0)
 
-        sort_by = request.GET.get('sort_by')
-        if sort_by == 'new':
-            filtered_offers = filtered_offers.order_by('-new_offer')
-        elif sort_by == 'decrease_wage':
-            filtered_offers = filtered_offers.order_by('-wage')
-        elif sort_by == 'increase_wage':
-            filtered_offers = filtered_offers.order_by('wage')
-        elif sort_by == 'last_offer':
-            filtered_offers = filtered_offers.order_by('-last_seats')
-        elif sort_by == 'popular':
-            filtered_offers = filtered_offers.order_by('-ranking')
+        if selected['q']:
+            offers = offers.filter(
+                Q(job_position__icontains=selected['q']) |
+                Q(city__name__icontains=selected['q']) |
+                Q(city__state__icontains=selected['q'])
+            )
+        if selected['state']:
+            offers = offers.filter(city__state=selected['state'])
+        if selected['city']:
+            offers = offers.filter(city__name=selected['city'])
+        if selected['job_position']:
+            terms = dict((key, words) for key, label, words in self.POSITION_GROUPS).get(
+                selected['job_position']
+            )
+            if terms:
+                position_query = Q()
+                for term in terms:
+                    position_query |= Q(job_position__icontains=term)
+                offers = offers.filter(position_query)
+            else:
+                offers = offers.filter(job_position=selected['job_position'])
+        if selected['suitable_for']:
+            offers = offers.filter(suitable_for=selected['suitable_for'])
+        if selected['min_wage']:
+            try:
+                offers = offers.filter(wage__gte=float(selected['min_wage']))
+            except (TypeError, ValueError):
+                selected['min_wage'] = ''
+        if selected['max_wage']:
+            try:
+                offers = offers.filter(wage__lte=float(selected['max_wage']))
+            except (TypeError, ValueError):
+                selected['max_wage'] = ''
+        if selected['tips_only'] == '1':
+            offers = offers.filter(tips__iexact='Да')
+        if student_mode:
+            if selected['sponsor']:
+                offers = offers.filter(sponsor=selected['sponsor'])
+            if selected['assignment'] == '1':
+                offers = offers.filter(assignment=True)
+            if selected['availability'] == 'active':
+                offers = offers.filter(
+                    Q(availability_status='available') |
+                    Q(availability_status='last_seats')
+                )
+            elif selected['availability']:
+                offers = offers.filter(availability_status=selected['availability'])
 
-        paginator = Paginator(filtered_offers, 12)  # Display 12 offers per page
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
+        ordering = {
+            'new': ('-new_offer', '-ranking', '-wage'),
+            'decrease_wage': ('-wage', '-ranking'),
+            'increase_wage': ('wage', '-ranking'),
+            'last_offer': ('-last_seats', '-ranking', '-wage'),
+            'popular': ('sold_out_offer', '-ranking', '-last_seats', '-new_offer', '-wage'),
+        }
+        offers = offers.order_by(*ordering.get(sort_by, ordering['popular']))
+
+        selected_housing_min = selected['housing_min'] or str(housing_min)
+        selected_housing_max = selected['housing_max'] or str(housing_max)
+        if selected['free_housing'] == '1':
+            offers = [
+                offer for offer in offers
+                if housing_weekly_range(offer.housing) == (0, 0)
+            ]
+        elif selected['housing_min'] or selected['housing_max']:
+            try:
+                chosen_min = int(float(selected_housing_min))
+                chosen_max = int(float(selected_housing_max))
+                offers = [
+                    offer for offer in offers
+                    if housing_weekly_range(offer.housing)
+                    and housing_weekly_range(offer.housing) != (0, 0)
+                    and housing_weekly_range(offer.housing)[1] >= chosen_min
+                    and housing_weekly_range(offer.housing)[0] <= chosen_max
+                ]
+            except (TypeError, ValueError):
+                selected['housing_min'] = ''
+                selected['housing_max'] = ''
+
+        states = JobOffer.objects.exclude(city__state__isnull=True).values_list(
+            'city__state', flat=True
+        ).distinct().order_by('city__state')
+        available_cities = City.objects.filter(joboffer__isnull=False).distinct()
+        city_count = available_cities.count()
+        if selected['state']:
+            cities = available_cities.filter(state=selected['state']).order_by('name')
+        else:
+            # Keep the disabled city selector lightweight until a state is
+            # chosen. The catalogue statistic still uses all available cities.
+            cities = available_cities.none()
+        popular_states = JobOffer.objects.exclude(city__state__isnull=True).exclude(
+            city__state=''
+        ).values('city__state').annotate(
+            offer_count=Count('id')
+        ).order_by('-offer_count', 'city__state')[:6]
+        position_groups = tuple((key, label) for key, label, terms in self.POSITION_GROUPS)
+        position_labels = dict(position_groups)
+        suitable_for = JobOffer.objects.exclude(suitable_for__isnull=True).exclude(
+            suitable_for=''
+        ).values_list('suitable_for', flat=True).distinct().order_by('suitable_for')
+        paginator = Paginator(offers, 12)
+        page_obj = paginator.get_page(request.GET.get('page'))
+        query_params = request.GET.copy()
+        query_params.pop('page', None)
+        query_params.pop('clear_filter', None)
+        query_params.pop('employer', None)
+        page_query = query_params.urlencode()
+
+        labels = {
+            'state': 'Щат', 'city': 'Град',
+            'job_position': 'Позиция',
+            'suitable_for': 'Подходящо за', 'min_wage': 'Минимум',
+            'max_wage': 'Максимум', 'tips_only': 'Бакшиш',
+            'housing_min': 'Настаняване от', 'housing_max': 'Настаняване до',
+            'free_housing': 'Настаняване', 'q': 'Търсене',
+            'sponsor': 'Спонсор', 'assignment': 'Assignment',
+            'availability': 'Наличност',
+        }
+        availability_labels = dict((key, label) for key, label in JobOffer.AVAILABILITY_CHOICES)
+        availability_labels['active'] = 'Само активни'
+        active_filters = []
+        for key, value in selected.items():
+            if not value:
+                continue
+            if key in ('min_wage', 'max_wage', 'housing_min', 'housing_max'):
+                display_value = '$' + self.compact_wage(value)
+            elif key == 'tips_only':
+                display_value = 'Само с бакшиш'
+            elif key == 'job_position':
+                display_value = position_labels.get(value, value)
+            elif key == 'free_housing':
+                display_value = 'Само безплатно'
+            elif key == 'assignment':
+                display_value = 'Само assignments'
+            elif key == 'availability':
+                display_value = availability_labels.get(value, value)
+            else:
+                display_value = value
+            active_filters.append({
+                'param': key, 'label': labels[key], 'value': display_value,
+            })
 
         context = {
-            'states': states,
-            'cities': cities,
-            'job_positions': job_positions,
+            'states': states, 'cities': cities,
+            'popular_states': popular_states, 'position_groups': position_groups,
             'suitable_for': suitable_for,
-            'wages': wages,
-            'housing': housing,
-            'filtered_offers': filtered_offers,
-            'page_obj': page_obj,
-            'selected_state': selected_state,
-            'selected_city': selected_city,
-            'selected_job_position': selected_job_position,
-            'selected_suitable_for': selected_suitable_for,
-            'selected_wage': selected_wage,
-            'selected_housing': selected_housing,
-            'sort_by': sort_by,  # Pass the current sort option to the template
+            'page_obj': page_obj, 'result_count': paginator.count,
+            'active_filters': active_filters,
+            'page_query_prefix': (page_query + '&') if page_query else '',
+            'selected_state': selected['state'],
+            'selected_city': selected['city'],
+            'selected_job_position': selected['job_position'],
+            'selected_suitable_for': selected['suitable_for'],
+            'selected_min_wage': selected['min_wage'] or wage_min,
+            'selected_max_wage': selected['max_wage'] or wage_max,
+            'selected_tips_only': selected['tips_only'],
+            'selected_housing_min': selected_housing_min,
+            'selected_housing_max': selected_housing_max,
+            'selected_free_housing': selected['free_housing'],
+            'wage_min': wage_min, 'wage_max': wage_max,
+            'housing_min': housing_min, 'housing_max': housing_max,
+            'state_count': len(states), 'city_count': city_count,
+            'offer_search': selected['q'], 'sort_by': sort_by,
+            'student_mode': student_mode,
+            'lead_mode': lead_mode,
+            'sponsors': JobOffer.SPONSOR_CHOICES,
+            'availability_choices': JobOffer.AVAILABILITY_CHOICES,
+            'selected_sponsor': selected.get('sponsor', ''),
+            'selected_assignment': selected.get('assignment', ''),
+            'selected_availability': selected.get('availability', ''),
+            'account_lead_token': str(lead_profile.public_id) if lead_profile else '',
+            'account_favorite_ids': list(
+                lead_profile.favorite_offers.values_list('pk', flat=True)
+            ) if lead_profile else [],
         }
-
         return render(request, self.template_name, context)
 
     def get_success_url(self):
@@ -353,6 +557,75 @@ class DetailsOfferView(views.DetailView):
     template_name = 'job_offer/details_offer.html'
     form_class = JobOfferDetailForm
     context_object_name = 'offer_details'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request = self.request
+        offer = self.object
+
+        lead_profile = None
+        if request.user.is_authenticated and not request.user.is_staff:
+            lead_profile = OfferLead.objects.filter(user=request.user).first()
+            if not lead_profile and request.user.email:
+                lead_profile = OfferLead.objects.filter(email=request.user.email).first()
+
+        student_mode = bool(
+            request.user.is_authenticated and (
+                request.user.is_staff or
+                Students.objects.filter(user=request.user).exists() or
+                (
+                    lead_profile and (
+                        lead_profile.lifecycle_stage == 'enrolled' or
+                        lead_profile.contract_status == 'signed'
+                    )
+                )
+            )
+        )
+
+        if offer.employer_name:
+            employer_positions = JobOffer.objects.filter(
+                employer_name=offer.employer_name,
+                city=offer.city,
+            ).order_by('-wage', 'job_position')
+        else:
+            employer_positions = JobOffer.objects.filter(pk=offer.pk)
+
+        similar_offers = JobOffer.objects.select_related('city').filter(
+            city__state=offer.city.state,
+        ).exclude(pk=offer.pk).exclude(
+            employer_name=offer.employer_name,
+        ).order_by('-ranking', '-wage')[:3]
+
+        description_sentences = [
+            sentence.strip()
+            for sentence in re.split(
+                r'(?<=[.!?])\s+(?=[A-ZА-Я])', offer.job_description or ''
+            )
+            if sentence.strip()
+        ]
+        role_rates = []
+        if description_sentences and ':' in description_sentences[0]:
+            heading, values = description_sentences[0].split(':', 1)
+            if 'ставк' in heading.lower() or 'позици' in heading.lower():
+                role_rates = [
+                    item.strip().rstrip('.')
+                    for item in values.split(';') if item.strip()
+                ]
+                description_sentences = description_sentences[1:]
+
+        context.update({
+            'student_mode': student_mode,
+            'lead_mode': bool(request.user.is_authenticated and not student_mode),
+            'employer_positions': employer_positions,
+            'similar_offers': similar_offers,
+            'role_rates': role_rates,
+            'description_sentences': description_sentences,
+            'account_lead_token': str(lead_profile.public_id) if lead_profile else '',
+            'account_favorite_ids': list(
+                lead_profile.favorite_offers.values_list('pk', flat=True)
+            ) if lead_profile else [],
+        })
+        return context
 
 
 class EditOfferView(LoginRequiredMixin, UserPassesTestMixin, views.UpdateView):
@@ -561,3 +834,107 @@ def form_submission_view(request):
     send_mail(subject, encoded_message, email, ['studentski@aimtravel.bg'], fail_silently=False)
 
     return render(request, 'success.html')
+
+
+@require_POST
+def offer_lead_view(request):
+    if request.POST.get('website'):
+        return JsonResponse({'ok': True})
+
+    offer = get_object_or_404(JobOffer, pk=request.POST.get('offer_id'))
+    lead_token = request.POST.get('lead_token', '').strip()
+    action = request.POST.get('action', 'add')
+    intent = request.POST.get('intent', 'favorite').strip()
+    if intent not in ('favorite', 'consultation'):
+        intent = 'favorite'
+    message = request.POST.get('message', '').strip()[:1000]
+    created = False
+
+    if lead_token:
+        lead = OfferLead.objects.filter(public_id=lead_token).first()
+        if not lead:
+            return JsonResponse({'ok': False, 'error': 'Невалиден профил.'}, status=404)
+    else:
+        if request.POST.get('privacy_consent') != '1':
+            return JsonResponse(
+                {'ok': False, 'error': 'Необходимо е съгласие, за да се свържем с теб.'},
+                status=400,
+            )
+        fields = {
+            'first_name': request.POST.get('first_name', '').strip(),
+            'last_name': request.POST.get('last_name', '').strip(),
+            'email': request.POST.get('email', '').strip().lower(),
+            'phone': request.POST.get('phone', '').strip(),
+            'university': request.POST.get('university', '').strip(),
+            'course': request.POST.get('course', '').strip(),
+            'specialty': request.POST.get('specialty', '').strip(),
+        }
+        if not fields['email'] or not fields['phone']:
+            return JsonResponse(
+                {'ok': False, 'error': 'Имейлът и телефонът са задължителни.'}, status=400,
+            )
+        try:
+            validate_email(fields['email'])
+        except ValidationError:
+            return JsonResponse({'ok': False, 'error': 'Въведи валиден имейл.'}, status=400)
+
+        lead, created = OfferLead.objects.get_or_create(
+            email=fields['email'], defaults=fields,
+        )
+        if not created:
+            for field, value in fields.items():
+                if value or field in ('email', 'phone'):
+                    setattr(lead, field, value)
+            lead.status = 'new' if lead.status == 'closed' else lead.status
+            lead.save()
+
+        if request.user.is_authenticated and not request.user.is_staff:
+            if not lead.user_id or lead.user_id == request.user.pk:
+                lead.user = request.user
+                lead.save(update_fields=['user'])
+
+        if created and intent != 'consultation' and not lead.email.endswith('@example.com'):
+            lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
+            send_mail(
+                f'Нов CRM потенциал: {lead_name}',
+                (
+                    f'Име: {lead.first_name} {lead.last_name}\n'
+                    f'Имейл: {lead.email}\nТелефон: {lead.phone}\n'
+                    f'Университет: {lead.university}\nКурс: {lead.course}\n'
+                    f'Специалност: {lead.specialty}\n'
+                    f'Първа любима оферта: {offer}'
+                ),
+                None,
+                ['studentski@aimtravel.bg'],
+                fail_silently=True,
+            )
+
+    if action == 'remove':
+        lead.favorite_offers.remove(offer)
+    else:
+        lead.favorite_offers.add(offer)
+
+    if intent == 'consultation' and not lead.email.endswith('@example.com'):
+        lead_name = f'{lead.first_name} {lead.last_name}'.strip() or lead.email
+        send_mail(
+            f'Заявка за безплатна консултация: {lead_name}',
+            (
+                f'Име: {lead.first_name} {lead.last_name}\n'
+                f'Имейл: {lead.email}\nТелефон: {lead.phone}\n'
+                f'Университет: {lead.university}\nКурс: {lead.course}\n'
+                f'Специалност: {lead.specialty}\n\n'
+                f'Оферта: {offer}\n'
+                f'Линк: {request.build_absolute_uri(reverse("details offer", kwargs={"pk": offer.pk}))}\n'
+                f'Съобщение: {message or "Няма допълнително съобщение."}'
+            ),
+            None,
+            ['studentski@aimtravel.bg'],
+            fail_silently=True,
+        )
+
+    return JsonResponse({
+        'ok': True,
+        'lead_token': str(lead.public_id),
+        'favorite_count': lead.favorite_offers.count(),
+        'intent': intent,
+    })

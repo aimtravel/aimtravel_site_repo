@@ -48,4 +48,5 @@ urlpatterns = (
         path('delete/<int:pk>/', DeleteCompanyView.as_view(), name='delete employer'),
     ])),
     path('submit-form/', form_submission_view, name='form_submission'),
+    path('offer-interest/', offer_lead_view, name='offer lead'),
 )

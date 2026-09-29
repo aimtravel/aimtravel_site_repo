@@ -8,9 +8,9 @@ from aimtravel_site.user_auth.models import AppUser
 @admin.register(AppUser)
 class AppUserAdmin(auth_admin.UserAdmin):
     ordering = ('email',)
-    list_display = ['email', 'date_joined', 'last_login', 'is_staff', 'is_superuser', 'is_active', 'first_name', "last_name"]
+    list_display = ['email', 'phone', 'date_joined', 'last_login', 'is_staff', 'is_superuser', 'is_active', 'first_name', "last_name"]
     list_filter = ('email', "is_staff", "is_superuser", "is_active")
-    search_fields = ("email",)
+    search_fields = ("email", "phone")
     filter_horizontal = (
         "groups",
         "user_permissions",
@@ -27,7 +27,7 @@ class AppUserAdmin(auth_admin.UserAdmin):
         ),
     )
     fieldsets = (
-        (None, {"fields": ("email", "password", 'first_name', 'last_name')}),
+        (None, {"fields": ("email", "phone", "password", 'first_name', 'last_name')}),
         ("Permissions",
          {
              "fields": (

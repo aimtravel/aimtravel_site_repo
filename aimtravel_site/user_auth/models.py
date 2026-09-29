@@ -23,7 +23,8 @@ def get_date():
 
 def generate_slug(instance):
     random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=4))
-    return f"{instance.first_name}-{random_str}"
+    base = instance.first_name or instance.email.split('@')[0] or 'profile'
+    return f"{base}-{random_str}"
 
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
@@ -43,6 +44,15 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         unique=True,
         null=False,
         blank=False,
+    )
+
+    phone = models.CharField(
+        'Телефон',
+        max_length=40,
+        blank=True,
+        default='',
+        db_index=True,
+        help_text='Телефонът се използва за свързване с CRM профила на човека.',
     )
 
     first_name = models.CharField(
