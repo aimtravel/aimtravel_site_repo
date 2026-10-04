@@ -26,7 +26,10 @@ jobs:
       CPANEL_USER: ${{ secrets.CPANEL_USER }}
       CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
       PORT: "2083"
-      EXPECTED_REPO: /home/aimtrave/repos/aimtravel-site
+      # Registered in cPanel → Git Version Control (Stage 2). The older
+      # /home/aimtrave/repos/aimtravel-site is a plain terminal clone, not
+      # cPanel-managed, so the API cannot pull or deploy it.
+      EXPECTED_REPO: /home/aimtrave/repositories/aimtravel-deploy-sandbox
     steps:
       - name: Probe
         shell: bash
@@ -46,11 +49,18 @@ jobs:
           echo "| Check | Result | Detail |" >> $S
           echo "|---|---|---|" >> $S
 
+          # Pasted secrets often carry a stray space or trailing newline,
+          # which turns a valid token into a 401/403.
+          CPANEL_HOST=$(tr -d '[:space:]' <<<"$CPANEL_HOST")
+          CPANEL_USER=$(tr -d '[:space:]' <<<"$CPANEL_USER")
+          CPANEL_TOKEN=$(tr -d '[:space:]' <<<"$CPANEL_TOKEN")
+
           if [ -z "$CPANEL_HOST" ] || [ -z "$CPANEL_USER" ] || [ -z "$CPANEL_TOKEN" ]; then
             fail "0. Secrets present" "CPANEL_HOST / CPANEL_USER / CPANEL_TOKEN missing"
             exit 1
           fi
-          pass "0. Secrets present" "host=$CPANEL_HOST"
+          # Lengths only (never values) — a cPanel API token is 32 characters.
+          pass "0. Secrets present" "host=$CPANEL_HOST, user length=${#CPANEL_USER}, token length=${#CPANEL_TOKEN}"
 
           IP=$(curl -s --max-time 10 https://api.ipify.org || echo unknown)
           pass "1. Runner egress IP" "$IP"

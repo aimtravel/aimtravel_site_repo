@@ -14,7 +14,7 @@ Permissions: `chmod 600` (owner-only)
 Values as of the initial deploy (rotate if compromised):
 - DB_NAME: `aimtrave_staging`
 - DB_USER: `aimtrave_stgusr`
-- DB_PASSWORD: (ask user or check password manager — was `apg%[j]zxwmxddoA` initially, may have been rotated)
+- DB_PASSWORD: ask the user or check the password manager. Never write it into this file — the repo is public.
 - DB_HOST: `localhost`
 - DB_PORT: `3306`
 - SECRET_KEY: 50-char random string. Generate a new one when restoring, do NOT reuse the initial one if it was exposed. Command:
