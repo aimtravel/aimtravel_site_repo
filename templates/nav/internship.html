@@ -331,12 +331,12 @@
                         <div class="price-container-text">
                             <div id="prices">
                                 {% if prices.discounted_self_arrange %}
-                                    <h2>Промо {{ prices.actual_self_arrange|floatformat }}$ -</h2>
-                                    <h3 class="line-thru">{{ prices.discounted_self_arrange|floatformat }}$</h3>
-                                {% else %}
-                                    <h2>{{ prices.actual_self_arrange|floatformat }}$</h2>
+                                    <h2>Промо {{ prices.actual_self_arrange|floatformat }}&euro; -</h2>
+                                    <h3 class="line-thru">{{ prices.discounted_self_arrange|floatformat }}&euro;</h3>
+                                {% elif prices.actual_self_arrange %}
+                                    <h2>{{ prices.actual_self_arrange|floatformat }}&euro;</h2>
                                 {% endif %}
-                                <h3>3500$</h3>
+                                {% if not prices.actual_self_arrange %}<h3>3500&euro;</h3>{% endif %}
                             </div>
 
                         </div>
@@ -349,12 +349,12 @@
                         <div class="price-container-text">
                             <div id="prices">
                                 {% if prices.discounted_standard %}
-                                    <h2>Промо {{ prices.actual_standard|floatformat }}$ -</h2>
-                                    <h3 class="line-thru">{{ prices.discounted_standard|floatformat }}$</h3>
-                                {% else %}
-                                    <h2>{{ prices.actual_standard|floatformat }}$</h2>
+                                    <h2>Промо {{ prices.actual_standard|floatformat }}&euro; -</h2>
+                                    <h3 class="line-thru">{{ prices.discounted_standard|floatformat }}&euro;</h3>
+                                {% elif prices.actual_standard %}
+                                    <h2>{{ prices.actual_standard|floatformat }}&euro;</h2>
                                 {% endif %}
-                                <h3>4199$</h3>
+                                {% if not prices.actual_standard %}<h3>4199&euro;</h3>{% endif %}
                             </div>
                         </div>
 
@@ -366,12 +366,12 @@
                         <div class="price-container-text">
                             <div id="prices">
                                 {% if prices.discounted_premium %}
-                                    <h2>Промо {{ prices.actual_premium|floatformat }}$ -</h2>
-                                    <h3 class="line-thru">{{ prices.discounted_premium|floatformat }}$</h3>
-                                {% else %}
-                                    <h2>{{ prices.actual_premium|floatformat }}$</h2>
+                                    <h2>Промо {{ prices.actual_premium|floatformat }}&euro; -</h2>
+                                    <h3 class="line-thru">{{ prices.discounted_premium|floatformat }}&euro;</h3>
+                                {% elif prices.actual_premium %}
+                                    <h2>{{ prices.actual_premium|floatformat }}&euro;</h2>
                                 {% endif %}
-                                <h3>4799$</h3>
+                                {% if not prices.actual_premium %}<h3>4799&euro;</h3>{% endif %}
                             </div>
                         </div>
                     </div>
@@ -400,16 +400,16 @@
                     </div>
                     <div id="pricing-row1">
                         <div class="element">
-                            <div class="price">{{ prices.sevis|floatformat }}220$</div>
+                            <div class="price">{{ prices.sevis|floatformat }}220&euro;</div>
                             <div class="description">Такса Sevis</div>
                         </div>
                         <div class="element">
-                            <div class="price">{{ prices.visa_interview|floatformat }}185$</div>
+                            <div class="price">{{ prices.visa_interview|floatformat }}185&euro;</div>
                             <div class="description">Такса визово интервю</div>
                         </div>
                         <div class="element">
-                            <div class="price">{{ prices.plane_ticket_lowest|floatformat }}700$
-                                – 1000{{ prices.plane_ticket_highest|floatformat }}$
+                            <div class="price">{{ prices.plane_ticket_lowest|floatformat }}700&euro;
+                                – 1000{{ prices.plane_ticket_highest|floatformat }}&euro;
                             </div>
                             <div class="description">Самолетен билет
                                 <div class="info-tooltip">
@@ -437,7 +437,7 @@
                     </div>
                     <div id="pricing-row2">
                         <div class="element">
-                            {#                            <div class="price">{{ prices.sign_up_fees|floatformat }}$</div>#}
+                            {#                            <div class="price">{{ prices.sign_up_fees|floatformat }}&euro;</div>#}
                             <div class="description">*Възможност за търсене на стаж по зададени от кандидата
                                 критерии.
                             </div>
@@ -480,17 +480,17 @@
                     <h1>Как да платиш</h1>
                     <ul>
                         <li>В брой или по банков път (може и <span>Revolut</span>).</li>
-                        <li>Вариант 1: Депозит от 100$, с който си резервираш мястото в програмата. Останалото след
+                        <li>Вариант 1: Депозит от 100&euro;, с който си резервираш мястото в програмата. Останалото след
                             като
                             вече имаш осигурена работна оферта
                         </li>
-                        <li>Вариант 2: Плащаш 1099$ и остатъкът от програмната такса се заплаща на вноски докато си
-                            в Америка (пример: 12 месеца по 200$ на месеца се приспадат от пейчека).
+                        <li>Вариант 2: Плащаш 1099&euro; и остатъкът от програмната такса се заплаща на вноски докато си
+                            в Америка (пример: 12 месеца по 200&euro; на месеца се приспадат от пейчека).
                         </li>
-                        <span>*Плащаш Sevis Fee в размер от 220$<br>
-*Плащаш визово интервю в размер от 185$<br>
+                        <span>*Плащаш Sevis Fee в размер от 220&euro;<br>
+*Плащаш визово интервю в размер от 185&euro;<br>
                             *Плащаш самолетен билет – заплаща се капаро преди Визовото Интервю в
-Американското посолство в размер от 200$. След като се вземе визата се
+Американското посолство в размер от 200&euro;. След като се вземе визата се
 доплаща остатък за самолетен билет. </span>
                         <div id="anchor-how-to"></div>
                     </ul>

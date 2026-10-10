@@ -22,7 +22,8 @@
 
     <link rel="icon" type="image/x-icon" href="../templates/favicon.ico">
 
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}?v=slider-position-20261001-1727">
+<style id="homepage-cta-single">#main-slider .mobile-offers-link { display: none !important; }</style>
     <link rel="stylesheet" href="../static/node_modules/glightbox/dist/css/glightbox.min.css">
     <script src="../static/node_modules/glightbox/dist/js/glightbox.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS8LXF1MN1"></script>
@@ -99,12 +100,12 @@
 
                         <div id="main-slider">
                             <div class='text-container'>
-                                <p id="main-slider-text-heading">{{ main_slider.title1 }}</p>
-                                <hr>
+                                <h1 id="main-slider-text-heading" style="color:#fff;font-size:clamp(2.4rem,7.5vw,6.25rem);font-weight:800;letter-spacing:.12em;line-height:1.05;margin:0 0 20px;text-align:center;text-transform:uppercase">AIM TRAVEL</h1>
+                    <hr>
                                 <p id="main-slider-text-subheading">{{ main_slider.title2 }}</p>
                             </div>
                             <div class="slider-btn">
-                                <a href="{{ main_slider.button_link }}" target="_blank">
+                                <a class="main-slider-cta" href="/rabotnioferti/" target="_blank">
                                     <script>
                                         function gtag_report_conversion(url) {
                                             var callback = function () {
@@ -118,13 +119,9 @@
                                             });
                                             return false;
                                         }</script>
-                                    <script type="text/javascript">
-                                        $('#$addToCartButton').click(function () {
-                                            fbq('track', 'SubmitApplication');
-                                        });
-                                    </script>
+                                    
 
-                                    {{ main_slider.button_text }}</a>
+                                    ВИЖ ОФЕРТИТЕ</a>
                             </div>
                         </div>
 
@@ -136,7 +133,7 @@
                             <p>{{ second_slider.content1 }}</p>
                             {% if prices.amount_of_discount %}
                                 <p>до <span
-                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}€</span>
+                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}&euro;</span>
                                     ОТСТЪПКА</p>
                             {% endif %}
                             <div class="slider-btn" id="slider-1-button">
@@ -156,18 +153,11 @@
                                             return false;
                                         }
                                     </script>
-                                    <script type="text/javascript">
-                                        $('#$addToCartButton').click(function () {
-                                            fbq('track', 'Subscribe');
-                                        });
-                                    </script>
+                                    
                                     {{ second_slider.button_text }}</a>
                             </div>
                         </div>
                         <div id="slider-2">
-                            {% if third_slider.top_title %}
-                                <h4>{{ third_slider.top_title }}</h4>
-                            {% endif %}
                             <h1>{{ third_slider.main_title }}</h1>
                             <p>{{ third_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-2-button">
@@ -175,9 +165,6 @@
                             </div>
                         </div>
                         <div id="slider-3">
-                            {% if forth_slider.top_title %}
-                                <h4>{{ forth_slider.top_title }}</h4>
-                            {% endif %}
                             <h1>{{ forth_slider.main_title }}</h1>
                             <p>{{ forth_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-3-button">
@@ -256,11 +243,7 @@
                                 return false;
                             }
                         </script>
-                        <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'Subscribe');
-                            });
-                        </script>
+                        
                         {{ about.button_text}}</a>
                 </div>
             </div>
@@ -302,11 +285,7 @@
                                 return false;
                             }
                         </script>
-                        <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'SubmitApplication');
-                            });
-                        </script>
+                        
                         {{ cta.button_text }}</a>
                 </div>
                 <div id="pagination-anchor"></div>
@@ -415,7 +394,7 @@
                 <h3 class="offer-header">{{ offer.job_position }}</h3>
                 <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
                 <p class="offer-type">Premium Offer</p>
-                <p class="offer-salary">€{{ offer.wage|floatformat:2 }} per hour
+                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
                     {% if offer.tips == 'Да' %} + Tips
                     {% endif %}</p>
                 </div>
@@ -611,11 +590,7 @@
                             return false;
                         }
                     </script>
-                    <script type="text/javascript">
-                        $('#$addToCartButton').click(function () {
-                            fbq('track', 'Subscribe');
-                        });
-                    </script>
+                    
                     {{ video.button_text }}</a>
             </div>
         </div>
@@ -863,8 +838,8 @@
 <script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_dynamic_refresh_index.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}?v=20260928a"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}?v=20260930hidekicker2"></script>
 <script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_service_resp.js' %}"></script>
 </body>

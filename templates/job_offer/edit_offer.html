@@ -6,7 +6,7 @@
     <div class="container" align="center">
 
         <div>
-            <form method="post" action="{% url 'edit offer' pk=edit_offer.pk %}" style="{% static 'style.css' %}">
+            <form method="post" action="{% url 'edit offer' pk=edit_offer.pk %}" style="{% static 'style.css' %}?v=20260928mobile20">
                 {{ form.as_p }}
                 {% csrf_token %}
                 <button class="btn btn-primary btn-lg">Запази обявата</button>

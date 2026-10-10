@@ -454,3 +454,4 @@ class MainServicesSection(models.Model):
     def __str__(self):
         result = f'Секция "Услуги'
         return result
+        

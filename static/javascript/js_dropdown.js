@@ -1,5 +1,5 @@
-// let element = document.getElementById('wat-usa');
-// let child = document.getElementById('wat-usa-dropdown')
+// var element = document.getElementById('wat-usa');
+// var child = document.getElementById('wat-usa-dropdown')
 // element.addEventListener('click', () => {
 //     if (child.style.display === "flex") {
 //       child.style.display = "none";
@@ -13,18 +13,18 @@
 
 
 // Get all the elements with the class "target-element"
-let targetElements = document.querySelectorAll('.target-element');
+var targetElements = document.querySelectorAll('.target-element');
 
 // Loop through each target element
 targetElements.forEach(function(element) {
   // Add an onclick event listener to each target element
   element.addEventListener('click', function() {
     // Get the corresponding tooltip element
-    let tooltip = this.nextElementSibling;
+    var tooltip = this.nextElementSibling;
 
     // Check the current display property value
-    let currentDisplay = window.getComputedStyle(tooltip).display;
-    // let currentOpacity = window.getComputedStyle(tooltip).opacity;
+    var currentDisplay = window.getComputedStyle(tooltip).display;
+    // var currentOpacity = window.getComputedStyle(tooltip).opacity;
 
     // Toggle the display property of the tooltip element
     tooltip.style.display = currentDisplay === 'flex' ? 'none' : 'flex';

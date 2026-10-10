@@ -10,7 +10,7 @@
     <div class="container" align="center">
 
         <div>
-            <form method="post" action="{% url 'delete service' pk=delete_service.pk %}" style="{% static 'style.css' %}">
+            <form method="post" action="{% url 'delete service' pk=delete_service.pk %}" style="{% static 'style.css' %}?v=20260928mobile20">
 
                 {% csrf_token %}
 

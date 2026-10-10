@@ -1,0 +1,34 @@
+{% extends 'base3.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div>
+        <br><br><br>
+        <h1 align="center">ЦЕНИ</h1>
+    </div>
+    {% if prices_list %}
+
+        <div class="row" align="center">
+
+            {% for price in prices_list %}
+
+                    <div class="col-md-3">
+                        <h3> {{ price.pricing_type }} </h3>
+                        <h5> $ {{ price.price|floatformat:2 }} </h5>
+                        <h5> {{ price.description }} </h5>
+
+                        <a href="{% url 'details price' pk=price.pk %}">
+                            <button class="btn btn-primary btn-lg">Подробно</button>
+                        </a>
+
+                    </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <br><br>
+        <p align="center">В момента няма актуална информация.</p>
+    {% endif %}
+
+{% endblock %}

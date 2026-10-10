@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIM Travel - Work and Travel USA</title>
+    <meta name="description" content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta name="keywords" content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
+    <meta name="cta-action" content="Sign Up Now for an Adventure">
+
+    <meta property="og:title" content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
+    <meta property="og:description" content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
+    <meta property="og:url" content="https://www.aimtravel.bg">
+
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="{% static "node_modules/glightbox/dist/css/glightbox.min.css" %}">
+    <script src="{% static "node_modules/glightbox/dist/js/glightbox.min.js" %}"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS8LXF1MN1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-QS8LXF1MN1');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-825631983"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'AW-825631983');
+    </script>
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '489738488628741');
+        fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=489738488628741&ev=PageView&noscript=1"
+    /></noscript>
+
+</head>
+
+<body id="offer-details-page">
+<header id="offer-details-header">
+    {% include 'navigation.html' %}
+
+    <section id="offers-header">
+        <div class="background">
+            <div class="background-gradient" id="offers-header-sub">
+            </div>
+        </div>
+    </section>
+
+
+</header>
+<img id="offer-details-page-flag1" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+<main>{% block content %}
+
+{% endblock %}
+</main>
+{% include 'footer.html' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static "javascript/js_filtering.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_dropdown.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_feedback_slider.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_navbar.js" %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_video.js" %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_faq.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_tax.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_tax_resp.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_slider_tax.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_currentYear.js' %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+

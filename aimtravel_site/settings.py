@@ -4,13 +4,36 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
+
+This is production's settings.py (aimtravel.bg, 2026-10-07) with its secrets
+moved out: they are read from credentials.py, a server-only file that is never
+committed (see the PR description for the keys it must define). The other
+environment-specific values below default to production's values and can be
+overridden in credentials.py for local development.
 """
 import os
 from pathlib import Path
 
 from django.urls import reverse_lazy
+from decouple import config
 
 import credentials
+
+GOOGLE_SHEETS_WEBHOOK_URL = os.environ.get('GOOGLE_SHEETS_WEBHOOK_URL', '')
+GOOGLE_SHEETS_WEBHOOK_SECRET = os.environ.get('GOOGLE_SHEETS_WEBHOOK_SECRET', '')
+
+try:
+    from wat_credentials import (
+        GOOGLE_SHEETS_WEBHOOK_SECRET as _WAT_SHEETS_SECRET,
+        GOOGLE_SHEETS_WEBHOOK_URL as _WAT_SHEETS_URL,
+    )
+except ImportError:
+    pass
+else:
+    if not GOOGLE_SHEETS_WEBHOOK_URL:
+        GOOGLE_SHEETS_WEBHOOK_URL = _WAT_SHEETS_URL
+    if not GOOGLE_SHEETS_WEBHOOK_SECRET:
+        GOOGLE_SHEETS_WEBHOOK_SECRET = _WAT_SHEETS_SECRET
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +45,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = credentials.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getattr(credentials, 'DEBUG', False)
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-]
+ALLOWED_HOSTS = getattr(
+    credentials, 'ALLOWED_HOSTS',
+    ['aimtravel.bg', 'www.aimtravel.bg', 'https://www.aimtravel.bg', 'https://aimtravel.bg'],
+)
 
 # Application definition
 
@@ -38,18 +61,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'wkhtmltopdf',
+    'django_social_share',
     'django_ckeditor_5',
-    'private_storage',
-
-    'aimtravel_site',
 
     'aimtravel_site.web.apps.WebConfig',
-    'aimtravel_site.user_auth.apps.AccountConfig',
+    'aimtravel_site.user_auth',
     'aimtravel_site.user_profile',
     'aimtravel_site.posting.apps.PostingConfig',
-    'aimtravel_site.main_page.apps.MainPageConfig',
-    'aimtravel_site.taxes.apps.TaxesConfig',
+    'aimtravel_site.main_page',
+    'aimtravel_site.taxes'
 ]
 
 MIDDLEWARE = [
@@ -67,7 +87,8 @@ ROOT_URLCONF = 'aimtravel_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates', ],
+        'DIRS': [BASE_DIR / 'templates',]
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,11 +110,11 @@ WSGI_APPLICATION = 'aimtravel_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aimtravel',
-        'USER': 'root',
-        'PASSWORD': 'mysql_pw',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': credentials.DB_NAME,
+        'USER': credentials.DB_USER,
+        'PASSWORD': credentials.DB_PASSWORD,
+        'HOST': getattr(credentials, 'DB_HOST', 'localhost'),
+        'PORT': getattr(credentials, 'DB_PORT', '3306'),
     }
 }
 
@@ -129,9 +150,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = (BASE_DIR / 'static/'),
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+STATICFILES_DIRS = getattr(credentials, 'STATICFILES_DIRS', ['/home/aimtrave/public_html/assets', ])
+STATIC_ROOT = getattr(credentials, 'STATIC_ROOT', '/home/aimtrave/public_html/static')
+MEDIA_ROOT = getattr(credentials, 'MEDIA_ROOT', '/home/aimtrave/public_html/media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -149,7 +172,6 @@ DATE_INPUT_FORMATS = [
     '%d-%m-%Y',
     '%d-%m-%y',
     '%d.%m.%y',
-    '%d.%m.%Y',
     '%Y-%m-%d',
     '%m/%d/%Y',
     '%m/%d/%y',
@@ -163,20 +185,14 @@ DATE_INPUT_FORMATS = [
     '%d %B, %Y']
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = getattr(credentials, 'EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = 'mail.aimtravel.bg'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # Or False if not using TLS
-EMAIL_HOST_USER = 'vlzahariev26@gmail.com'  # Email account to send emails from
+EMAIL_HOST_USER = credentials.EMAIL_HOST_USER  # Email account to send emails from
 EMAIL_HOST_PASSWORD = credentials.EMAILPASSWORD  # Password for the email account
-DEFAULT_FROM_EMAIL = 'vlzahariev26@gmail.com' \
+DEFAULT_FROM_EMAIL = 'studentski@aimtravel.bg' \
                      ''  # Default sender address
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-PRIVATE_STORAGE_ROOT = os.path.join(BASE_DIR, 'private_media')
-PRIVATE_STORAGE_AUTH_FUNCTION = 'aimtravel_site.taxes.views.private_storage.permissions'   # Customize permission check
 
 CKEDITOR_5_CONFIGS = {
     'default': {
@@ -213,12 +229,3 @@ CKEDITOR_5_CONFIGS = {
 }
 
 CKEDITOR_5_CUSTOM_CSS = 'css/ckeditor_custom.css'
-
-
-
-
-
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
-SESSION_CACHE_ALIAS = 'default'
-SESSION_COOKIE_AGE = 1800
-SESSION_SAVE_EVERY_REQUEST = True

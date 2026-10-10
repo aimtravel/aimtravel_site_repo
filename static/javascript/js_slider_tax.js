@@ -23,8 +23,10 @@ const nextButtonTax = document.querySelector('#next-button-tax');
 
 let currentSlider = sliderOne;
 
-prevButtonTax.addEventListener('click', prevHandler);
-nextButtonTax.addEventListener('click', nextHandler);
+if (prevButtonTax && nextButtonTax) {
+  prevButtonTax.addEventListener('click', prevHandler);
+  nextButtonTax.addEventListener('click', nextHandler);
+}
 
 
 function prevHandler() {

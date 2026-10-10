@@ -20,7 +20,7 @@
     <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
     <meta property="og:url" content="https://www.aimtravel.bg">
 
-    <link rel="stylesheet" href="../../static/style.css">
+    <link rel="stylesheet" href="../../static/style.css?v=20260928mobile20">
     <link rel="stylesheet" href="../../static/node_modules/glightbox/dist/css/glightbox.min.css">
     <script src="../../static/node_modules/glightbox/dist/js/glightbox.min.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS8LXF1MN1"></script>
@@ -201,10 +201,10 @@
                     <div class="price-container-text">
                         <div id="prices">
                             {% if prices.discounted_self_arrange %}
-                                <h2>Промо {{ prices.actual_self_arrange|floatformat }}€ -</h2>
-                                <h3 class="line-thru">{{ prices.discounted_self_arrange|floatformat }}€</h3>
+                                <h2>Промо {{ prices.actual_self_arrange|floatformat }}&euro; -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_self_arrange|floatformat }}&euro;</h3>
                             {% else %}
-                                <h2>{{ prices.actual_self_arrange|floatformat }}€</h2>
+                                <h2>{{ prices.actual_self_arrange|floatformat }}&euro;</h2>
                             {% endif %}
                         </div>
                         <p>Цена на програмата със Самостоятелна Работна Оферта</p>
@@ -216,7 +216,7 @@
                             <li>Визово интервю в Американското посолство</li>
                             <li>Медицинска застраховка за целия престой</li>
                             <li>Заплащане на месечни вноски</li>
-                            <li>Студентски кретид до 7500 €</li>
+                            <li>Студентски кретид до 10 000&euro;</li>
                         </ul>
                     </div>
                 </div>
@@ -227,10 +227,10 @@
                     <div class="price-container-text">
                         <div id="prices">
                             {% if prices.discounted_standard %}
-                                <h2>Промо {{ prices.actual_standard|floatformat }}€ -</h2>
-                                <h3 class="line-thru">{{ prices.discounted_standard|floatformat }}€</h3>
+                                <h2>Промо {{ prices.actual_standard|floatformat }}&euro; -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_standard|floatformat }}&euro;</h3>
                             {% else %}
-                                <h2>{{ prices.actual_standard|floatformat }}€</h2>
+                                <h2>{{ prices.actual_standard|floatformat }}&euro;</h2>
                             {% endif %}
                         </div>
                         <p>Цена на програмата с осигурена от агенцията Работна Оферта</p>
@@ -243,7 +243,7 @@
                             <li>Визово интервю в Американското посолство</li>
                             <li>Медицинска застраховка за целия престой</li>
                             <li>Заплащане на месечни вноски</li>
-                            <li>Студентски кретид до 7500 €</li>
+                            <li>Студентски кретид до 10 000&euro;</li>
                         </ul>
                     </div>
                 </div>
@@ -254,10 +254,10 @@
                     <div class="price-container-text">
                         <div id="prices">
                             {% if prices.discounted_premium %}
-                                <h2>Промо {{ prices.actual_premium|floatformat }}€ -</h2>
-                                <h3 class="line-thru">{{ prices.discounted_premium|floatformat }}€</h3>
+                                <h2>Промо {{ prices.actual_premium|floatformat }}&euro; -</h2>
+                                <h3 class="line-thru">{{ prices.discounted_premium|floatformat }}&euro;</h3>
                             {% else %}
-                                <h2>{{ prices.actual_premium|floatformat }}€</h2>
+                                <h2>{{ prices.actual_premium|floatformat }}&euro;</h2>
                             {% endif %}
                         </div>
                         <p>Бутикова Премиум <br>Работна Оферта</p>
@@ -270,7 +270,7 @@
                             <li>Визово интервю в Американското посолство</li>
                             <li>Медицинска застраховка за целия престой</li>
                             <li>Заплащане на месечни вноски</li>
-                            <li>Студентски кретид до 7500 €</li>
+                            <li>Студентски кретид до 10 000&euro;</li>
                         </ul>
                     </div>
                 </div>
@@ -281,16 +281,16 @@
                 </div>
                 <div id="pricing-row1">
                     <div class="element">
-                        <div class="price">{{ prices.sevis|floatformat }}€</div>
+                        <div class="price">{{ prices.sevis|floatformat }}&euro;</div>
                         <div class="description">Такса Sevis</div>
                     </div>
                     <div class="element">
-                        <div class="price">{{ prices.visa_interview|floatformat }}€</div>
+                        <div class="price">{{ prices.visa_interview|floatformat }}&euro;</div>
                         <div class="description">Такса визово интервю</div>
                     </div>
                     <div class="element">
-                        <div class="price">{{ prices.plane_ticket_lowest|floatformat }}€
-                            – {{ prices.plane_ticket_highest|floatformat }}€
+                        <div class="price">{{ prices.plane_ticket_lowest|floatformat }}&euro;
+                            – {{ prices.plane_ticket_highest|floatformat }}&euro;
                         </div>
                         <div class="description">Самолетен билет
                             <div class="info-tooltip">
@@ -316,7 +316,7 @@
                 </div>
                 <div id="pricing-row2">
                     <div class="element">
-                        <div class="price">{{ prices.sign_up_fees|floatformat }}€</div>
+                        <div class="price">{{ prices.sign_up_fees|floatformat }}&euro;</div>
                         <div class="description">При записване. Запиши се сега в офис или онлайн.</div>
                     </div>
                 </div>
@@ -357,7 +357,8 @@
                 <h1>Опции за финансиране:</h1>
                 <ul>
                     <li>В брой или по банков път (може и <span>Revolut</span>).</li>
-                    <li>Плати след като се върнеш – Можеш да изтеглиш специален студентски кредит в размер <span>до 7500 €</span>, с който да финансираш програмата си.
+                    <li>Плати след като се върнеш – Можеш да изтеглиш специален студентски кредит в размер <span>до 10 000
+                        лв.</span>, с който да финансираш програмата си.
                     </li>
                     <li>На изплащане <span>без оскъпяване</span> – Това е опция, която дава да платиш студентската
                         бригада на вноски,
@@ -394,8 +395,8 @@
                     всичко в най-големи
                     подробности. Единственото, от което имаш нужда е <span>личната ти карта</span>. При записване не се
                     заплащат
-                    никакви суми, а в срок от 5 работни дни се превежда депозит от 200€. Ако си със студентски кредит
-                    можеш да заплатиш само 50€ депозит.</p>
+                    никакви суми, а в срок от 5 работни дни се превежда депозит от 200&euro;. Ако си със студентски кредит
+                    можеш да заплатиш само 50&euro; депозит.</p>
             </div>
             <div id="how-to-sect2">
                 <div class="how-to-sect-header">
@@ -593,8 +594,8 @@
 <script type="text/javascript" src="{% static 'javascript/js_faq.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
-<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}?v=20260928a"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}?v=20260928mobile5"></script>
 <script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
 </body>
 

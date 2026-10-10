@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load placeholders %}
+
+{% block content %}
+
+
+    <div class="container">
+
+        <div>
+            <form method="post" action="{% url 'admin-delete-taxes' pk=delete_tax.pk %}">
+
+                {% csrf_token %}
+
+                <button type="submit" class="query-btn">Изтрий</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

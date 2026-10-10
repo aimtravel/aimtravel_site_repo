@@ -21,8 +21,10 @@ var currentFeedbackSlider = feedbackText1;
 var prevFeedbackButton = document.querySelector('#prev-feedback-button');
 var nextFeedbackButton = document.querySelector('#next-feedback-button');
 
-prevFeedbackButton.addEventListener('click', prevFeedbackHandler);
-nextFeedbackButton.addEventListener('click', nextFeedbackHandler);
+if (prevFeedbackButton && nextFeedbackButton) {
+  prevFeedbackButton.addEventListener('click', prevFeedbackHandler);
+  nextFeedbackButton.addEventListener('click', nextFeedbackHandler);
+}
 
 
 function prevFeedbackHandler() {

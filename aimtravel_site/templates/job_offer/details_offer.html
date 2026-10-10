@@ -1,0 +1,350 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIM Travel - Offer Details</title>
+
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="{% static "node_modules/glightbox/dist/css/glightbox.min.css" %}">
+    <script src="{% static "node_modules/glightbox/dist/js/glightbox.min.js" %}"></script>
+
+</head>
+
+<body id="offer-details-page">
+<header id="offer-details-header">
+    {% include 'navigation.html' %}
+
+    <section id="offers-header">
+        <div class="background">
+            <div class="background-gradient" id="offers-header-sub">
+            </div>
+        </div>
+    </section>
+
+
+</header>
+<img id="offer-details-page-flag1" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+<main>
+
+    <section id="offer-details-section">
+        <div id="offer-details">
+            <div id="offer-details-top-row">
+                <div id="offer-details-nav">
+                    <p>Начало</p>
+                    <span>/</span>
+                    <p>Работни Оферти</p>
+                    <span>/</span>
+                    <span>{{ offer_details.job_position }}</span>
+                </div>
+                <div id="offer-details-heading">
+                    <h1>{{ offer_details.job_position }}</h1>
+                    <span>Подходящо за {{ offer_details.suitable_for }}</span>
+                </div>
+            </div>
+
+            <div id="offer-details-highlights">
+                <div id="offer-picture">
+                    {% if offer_details.offer_pic %}
+                        <img src="{{ offer_details.offer_pic.url }}" alt="offer picture">
+                        <div class="white-border"></div>
+                    {% else %}
+                        <div id="no-pic">
+                            <span>Няма снимка.</span>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div id="offer-description-container">
+                    <div id="offer-description">
+                        <p>{{ offer_details.job_description }}</p>
+                    </div>
+                    <div id="buttons">
+                        <div class="slider-btn transparent-btn">
+                            <a href="">ЗАПАЗИ ОФЕРТА</a>
+                        </div>
+                        <div class="slider-btn">
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform">ЗАПИШИ СЕ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offer-details-details">
+
+                <div id="offer-location" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Работна позиция:</div>
+                        <div class="detail-content">{{ offer_details.job_position }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Име на работодател:</div>
+                        <div class="detail-content">{{ offer_details.employer_name }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Стартова дата:</div>
+                        <div class="detail-content">{{ offer_details.begin_date }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Крайна дата:</div>
+                        <div class="detail-content">{{ offer_details.end_date }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-payment" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Заплащане:</div>
+                        <div class="detail-content">${{ offer_details.wage|floatformat:2 }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Град:</div>
+                        <div class="detail-content">{{ offer_details.city }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Минимални часове на седмица:</div>
+                        <div class="detail-content">{{ offer_details.minimum_hours|floatformat:0 }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Подходящо за групи:</div>
+                        <div class="detail-content">{{ offer_details.groups }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-additional-information" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Overtime:</div>
+                        <div class="detail-content">{{ offer_details.overtime }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Щат:</div>
+                        <div class="detail-content">{{ offer_details.city.state }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Бакшиши:</div>
+                        <div class="detail-content">{{ offer_details.tips }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Подходящо за двойки:</div>
+                        <div class="detail-content">{{ offer_details.couples }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-suitable-for" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Housing:</div>
+                        <div class="detail-content">${{ offer_details.housing|floatformat:2 }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Ниво на английски:</div>
+                        <div class="detail-content">{{ offer_details.english_level }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Бонус:</div>
+                        <div class="detail-content">{{ offer_details.bonus }}</div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+            <br><br><br>
+            <div id="staff-buttons">
+                {% if user.is_staff %}
+                    <a href="{% url 'edit offer' pk=offer_details.pk %}">
+                        <button>Промени офертата</button>
+                    </a>
+                    <a href="{% url 'delete offer' pk=offer_details.pk %}">
+                        <button>Изтрий офертата</button>
+                    </a>
+                {% endif %}
+            </div>
+            <br><br><br>
+        </div>
+        <div id="offer-details-facts">
+            <div id="offer-details-facts-header">
+                    <p>Интересни факти за града</p>
+                </div>
+            <div id="offer-details-facts-container">
+                <div id="city-facts">
+                    <div class="facts" id="fact1">
+                        <p>ФАКТ 1</p>
+                        <span>{{ offer_details.city.fact1 }}</span>
+                    </div>
+                    <div class="facts" id="fact2">
+                        <p>ФАКТ 2</p>
+                        <span>{{ offer_details.city.fact2 }}</span>
+                    </div>
+                    <div class="facts" id="fact3">
+                        <p>ФАКТ 3</p>
+                        <span>{{ offer_details.city.fact3 }}</span>
+                    </div>
+                </div>
+                <div id="city-picture"
+                     style="background: url('{{ offer_details.city.city_pic.url }}'); background-size: 770px 860px;">
+                    <p>{{ offer_details.city.name }}</p>
+                    {#                    <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">#}
+                    <div class="white-border"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="offer-details-feedback">
+            <div id="heading-feedback">
+                <p>Отзиви от Студенти</p>
+            </div>
+            {% if offer_details.feedback %}
+                <div id="feedback-slider">
+                    <div class="feedback-btn" id="prev-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
+                    <div class="slider-container">
+
+                        <div id='feedback-text-container' class="text-container tooltip1">
+
+                            <div id="feedback-text-1">
+                                <p>
+                                    {% if offer_details.feedback.feedback_1 %}
+                                        {{ offer_details.feedback.feedback_1 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-2">
+                                <p>
+                                    {% if offer_details.feedback.feedback_2 %}
+                                        {{ offer_details.feedback.feedback_2 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-3">
+                                <p>
+                                    {% if offer_details.feedback.feedback_3 %}
+                                        {{ offer_details.feedback.feedback_3 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div id="feedback-picture-container">
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container1">
+                                    {% if offer_details.feedback.student_pic_1 %}
+                                        <img id="feedback-img-1"
+                                             src="{{ offer_details.feedback.student_pic_1.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-1">{{ offer_details.feedback.student_name_1 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container2">
+                                    {% if offer_details.feedback.student_pic_2 %}
+                                        <img id="feedback-img-2"
+                                             src="{{ offer_details.feedback.student_pic_2.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-2">{{ offer_details.feedback.student_name_2 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container3">
+                                    {% if offer_details.feedback.student_pic_3 %}
+                                        <img id="feedback-img-3"
+                                             src="{{ offer_details.feedback.student_pic_3.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-3">{{ offer_details.feedback.student_name_3 }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="feedback-btn" id="next-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </div>
+            {% else %}
+                <p>Все още няма feedback за тази оферта.</p>
+            {% endif %}
+
+        </div>
+
+    </section>
+    <img id="offer-details-page-flag3" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+
+    <section id="cta-section" class="offer-details-cta-section">
+        <div id="cta-background-gradient">
+            <div id="cta-container">
+                <h3>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
+                <h1>НЕ СЕ ПРИТЕСНЯВЙТЕ!</h1>
+                <h3 id="cta-subheading">НИЕ СМЕ НАСРЕЩА!</h3>
+                <div id="cta-subtext">
+                    <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за
+                        безплатна
+                        онлайн
+                        консултация, където ще имате възможност да зададете всичките си въпроси и да получите
+                        квалифициран
+                        отговор.</p>
+                </div>
+                <div class="slider-btn">
+                    <a href="https://calendly.com/aimtravelusa/consultation">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.html' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static "javascript/js_filtering.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_dropdown.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_feedback_slider.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_navbar.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_video.js" %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+
