@@ -1,0 +1,4 @@
+# Server-only secrets — never commit (see aimtravel_site/settings.py).
+credentials.py
+wat_credentials.py
+.env
