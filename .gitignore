@@ -2,3 +2,5 @@
 credentials.py
 wat_credentials.py
 .env
+__pycache__/
+*.pyc
