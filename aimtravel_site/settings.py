@@ -219,7 +219,7 @@ CKEDITOR_5_CONFIGS = {
         # 👉 това задава черен цвят по подразбиране
         'htmlSupport': {
             'allow': [
-                {'name': '/.*/', 'attributes': True, 'classes': True, 'styles': True}
+                {'name': '.*', 'attributes': True, 'classes': True, 'styles': True}
             ]
         },
         'style': {
