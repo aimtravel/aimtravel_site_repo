@@ -1,0 +1,30 @@
+{% extends 'base3.html' %}
+
+{% block content %}
+    <br>
+    <br>
+    <br>
+    <div class="container" align="center">
+        <div class="col-md-6" style="max-height: border-box">
+            <img src="{{ employer_details.employer_photo }}" alt="" style="max-height: 350px">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ employer_details.employer_name }}</h2>
+            <h3>{{ employer_details.employer_city }}, {{ employer_details.employer_state }}</h3>
+            <h3>{{ employer_details.employer_history }}</h3>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        {% if user.is_staff %}
+            <a href="{% url 'edit employer' employer_details.pk %}">
+                <button class="btn btn-primary btn-lg">Редактирай</button>
+            </a>
+            <a href="{% url 'delete employer' employer_details.pk %}">
+                <button class="btn btn-primary btn-lg">Изтрий</button>
+            </a>
+        {% endif %}
+    </div>
+
+{% endblock %}

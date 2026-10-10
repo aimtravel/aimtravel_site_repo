@@ -1,0 +1,628 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIM Travel - Offer Details</title>
+
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link rel="stylesheet" href="{% static "node_modules/glightbox/dist/css/glightbox.min.css" %}">
+    <script src="{% static "node_modules/glightbox/dist/js/glightbox.min.js" %}"></script>
+
+</head>
+
+<body id="offer-details-page">
+<header id="offer-details-header">
+    <section id="top-header-section">
+        <div id="top-header">
+            <div id="top-header-left">
+                <p id="top-header-left-p1">+359 88 99 66 583</p>
+                <div class="vl">
+                    <hr>
+                </div>
+                <p id="top-header-left-p2">studentski@aimtravel.bg</p>
+                <div class="vl">
+                    <hr>
+                </div>
+                <a href="{% url 'wat 2027 registration' %}" id="top-header-left-p3" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 15px;border-radius:999px;background:#b50912;color:#fff;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(181,9,18,.28);white-space:nowrap;">Регистрирай се</a>
+            </div>
+            <div id="top-header-right">
+                <p id="top-header-right-p1">Последвай ни в:</p>
+                <div id="top-header-right-links">
+
+                    <div id="top-header-right-links-icons">
+
+                        <div id="insta-link">
+                            <a href="https://www.instagram.com/aim_workandtravel/">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
+                                          stroke="#FFFFFF" stroke-width="1.5"></path>
+                                    <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="fb-link">
+                            <a href="https://www.facebook.com/profile.php?id=100072235954652">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
+                                          stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="youtube-link">
+                            <a href="https://www.youtube.com/@aimtravel9347">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path
+                                            d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
+                                            stroke="#FFFFFF" stroke-width="1.5"></path>
+                                </svg>
+                            </a>
+
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+                        <div id="tiktok-link">
+                            <a href="https://www.tiktok.com/@aim_travelusa">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
+                                          stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                    <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="vl">
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div id="top-header-right-login">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser %}
+                                <a id="top-header-right-login-p1" href="https://new.aimtravel.bg/admin">Admin</a>
+                            {% endif %}
+                        {% else %}
+                            <a id="top-header-right-login-p1" href="{% url 'sign in' %}">Login</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="header-nav">
+        <nav>
+            <ul id="header-nav-links-container">
+                <li><a class="link-a" id="home-page" href="{% url 'index' %}">НАЧАЛО</a></li>
+                <li class="dropdown link-a">
+                    <a class="target-element" id="wat-usa" href="{% url 'wat usa' %}">Бригада САЩ</a>
+                    {#                    <div class="tooltip">#}
+                    {#                        <a href="https://www.google.com">ЗАЩО НА БРИГАДА В САЩ?</a>#}
+                    {#                        <a href="#">КОЙ МОЖЕ ДА УЧАСТВА?</a>#}
+                    {#                        <a href="#">КАК ДА СЕ ЗАПИШЕШ?</a>#}
+                    {#                        <a href="#">ЦЕНИ</a>#}
+                    {#                        <a href="#">НЕОБХОДИМИ ДОКУМЕНТИ</a>#}
+                    {#                    </div>#}
+                    {#                    <span class="dropdown-icon"></span>#}
+                </li>
+                <li class="dropdown">
+                    <a class="target-element link-a" id="online-services" href="#">Онлайн услуги</a>
+                    {#                    <div class="tooltip">#}
+                    {#                        <a href="#">Безплатна консултация</a>#}
+                    {#                        <a href="#">Запиши се</a>#}
+                    {#                    </div>#}
+                    {#                    <span class="dropdown-icon"></span>#}
+                </li>
+                <li><img id="logo" src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt="">
+                </li>
+                <li class="dropdown">
+                    <a class="target-element link-a" id="other-services" href="#">Други услуги</a>
+                    {#                    <div class="tooltip">#}
+                    {#                        <a href="#">i te tuka edno dulgo</a>#}
+                    {#                        <a href="#">placeholder</a>#}
+                    {#                        <a href="#">placeholder</a>#}
+                    {#                    </div>#}
+                    {#                    <span class="dropdown-icon"></span>#}
+                </li>
+                <li><a class="link-a" id="job-offers" href="{% url 'offers' %}">Работни оферти</a></li>
+                <li><a class="link-a" id="contacts" href="{% url 'under-construction' %}">Контакти</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    <section id="offers-header">
+        <div class="background">
+            <div class="background-gradient" id="offers-header-sub">
+            </div>
+        </div>
+    </section>
+
+
+</header>
+<img id="offer-details-page-flag1" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+<main>
+
+    <section id="offer-details-section">
+        <div id="offer-details">
+            <div id="offer-details-top-row">
+                <div id="offer-details-nav">
+                    <p>Начало</p>
+                    <span>/</span>
+                    <p>Работни Оферти</p>
+                    <span>/</span>
+                    <span>{{ offer_details.job_position }}</span>
+                </div>
+                <div id="offer-details-heading">
+                    <h1>{{ offer_details.job_position }}</h1>
+                    <span>Подходящо за {{ offer_details.suitable_for }}</span>
+                </div>
+            </div>
+
+            <div id="offer-details-highlights">
+                <div id="offer-picture">
+                    {% if offer_details.offer_pic %}
+                        <img src="{{ offer_details.offer_pic.url }}" alt="offer picture">
+                        <div class="white-border"></div>
+                    {% else %}
+                        <div id="no-pic">
+                            <span>Няма снимка.</span>
+                        </div>
+                    {% endif %}
+
+                </div>
+                <div id="offer-description-container">
+                    <div id="offer-description">
+                        <p>{{ offer_details.job_description }}</p>
+                    </div>
+                    <div id="buttons">
+                        <div class="slider-btn transparent-btn">
+                            <a href="">ЗАПАЗИ ОФЕРТА</a>
+                        </div>
+                        <div class="slider-btn">
+                            <a href="">ЗАПИШИ СЕ</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="offer-details-details">
+
+                <div id="offer-location" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Работна позиция:</div>
+                        <div class="detail-content">{{ offer_details.job_position }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Име на работодател:</div>
+                        <div class="detail-content">{{ offer_details.employer_name }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Град:</div>
+                        <div class="detail-content">{{ offer_details.city }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Щат:</div>
+                        <div class="detail-content">{{ offer_details.state }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-payment" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Заплащане:</div>
+                        <div class="detail-content">${{ offer_details.wage }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Бакшиши:</div>
+                        <div class="detail-content">{{ offer_details.tips }}</div>
+                    </div>
+                    <div class="container">
+                        <div class="header">Минимални часове на седмица:</div>
+                        <div class="detail-content">{{ offer_details.minimum_hours }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Overtime:</div>
+                        <div class="detail-content">{{ offer_details.overtime }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-additional-information" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Housing:</div>
+                        <div class="detail-content">{{ offer_details.housing }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Ниво на английски:</div>
+                        <div class="detail-content">{{ offer_details.english_level }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Стартова дата:</div>
+                        <div class="detail-content">{{ offer_details.begin_date }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Крайна дата:</div>
+                        <div class="detail-content">{{ offer_details.end_date }}</div>
+                    </div>
+
+                </div>
+
+                <div id="offer-suitable-for" class="detail-container">
+
+                    <div class="container">
+                        <div class="header">Подходящо за групи:</div>
+                        <div class="detail-content">{{ offer_details.groups }}</div>
+                    </div>
+
+                    <div class="container">
+                        <div class="header">Подходящо за двойки:</div>
+                        <div class="detail-content">{{ offer_details.couples }}</div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br><br><br>
+            <div id="staff-buttons">
+                {% if user.is_staff %}
+                    <a href="{% url 'edit offer' pk=offer_details.pk %}">
+                        <button>Промени офертата</button>
+                    </a>
+                    <a href="{% url 'delete offer' pk=offer_details.pk %}">
+                        <button>Изтрий офертата</button>
+                    </a>
+                {% endif %}
+            </div>
+            <br><br><br>
+        </div>
+        <div id="offer-details-facts">
+            <div id="offer-details-facts-container">
+                <div id="city-facts">
+                    <div class="facts" id="fact1">
+                        <p>ФАКТ 1</p>
+                        <span>{{ offer_details.city.fact1 }}</span>
+                    </div>
+                    <div class="facts" id="fact2">
+                        <p>ФАКТ 2</p>
+                        <span>{{ offer_details.city.fact2 }}</span>
+                    </div>
+                    <div class="facts" id="fact3">
+                        <p>ФАКТ 3</p>
+                        <span>{{ offer_details.city.fact3 }}</span>
+                    </div>
+                </div>
+                <div id="city-picture"
+                     style="background: url('{{ offer_details.city.city_pic.url }}'); background-size: 770px 860px;">
+                    <p>{{ offer_details.city.name }}</p>
+                    {#                    <img src="{{ offer_details.city.city_pic.url }}" alt="City picture">#}
+                    <div class="white-border"></div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="offer-details-feedback">
+            <div id="heading-feedback">
+                <p>Отзиви от Студенти</p>
+            </div>
+            {% if offer_details.feedback %}
+                <div id="feedback-slider">
+                    <div class="feedback-btn" id="prev-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
+                    <div class="slider-container">
+
+                        <div id='feedback-text-container' class="text-container tooltip1">
+
+                            <div id="feedback-text-1">
+                                <p>
+                                    {% if offer_details.feedback.feedback_1 %}
+                                        {{ offer_details.feedback.feedback_1 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-2">
+                                <p>
+                                    {% if offer_details.feedback.feedback_2 %}
+                                        {{ offer_details.feedback.feedback_2 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="feedback-text-3">
+                                <p>
+                                    {% if offer_details.feedback.feedback_3 %}
+                                        {{ offer_details.feedback.feedback_3 }}
+                                    {% endif %}
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div id="feedback-picture-container">
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container1">
+                                    {% if offer_details.feedback.student_pic_1 %}
+                                        <img id="feedback-img-1"
+                                             src="{{ offer_details.feedback.student_pic_1.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-1">{{ offer_details.feedback.student_name_1 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container2">
+                                    {% if offer_details.feedback.student_pic_2 %}
+                                        <img id="feedback-img-2"
+                                             src="{{ offer_details.feedback.student_pic_2.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-2">{{ offer_details.feedback.student_name_2 }}</p>
+                            </div>
+                            <div class="feedback-picture-container">
+                                <div class="feedback-img" id="feedback-img-container3">
+                                    {% if offer_details.feedback.student_pic_3 %}
+                                        <img id="feedback-img-3"
+                                             src="{{ offer_details.feedback.student_pic_3.url }}"
+                                             alt="profile photo">
+                                    {% endif %}
+                                </div>
+                                <p class="student-name"
+                                   id="student-name-3">{{ offer_details.feedback.student_name_3 }}</p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="feedback-btn" id="next-feedback-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </div>
+            {% else %}
+                <p>Все още няма feedback за тази оферта.</p>
+            {% endif %}
+
+        </div>
+
+    </section>
+    <img id="offer-details-page-flag3" class="usa-flag" src="{% static "img/USA Flag.png" %}" alt="">
+
+    <section id="cta-section" class="offer-details-cta-section">
+        <div id="cta-background-gradient">
+            <div id="cta-container">
+                <h3>ВСЕ ОЩЕ НЕ СТЕ СИГУРНИ?</h3>
+                <h1>НЕ СЕ ПРИТЕСНЯВЙТЕ!</h1>
+                <h3 id="cta-subheading">НИЕ СМЕ НАСРЕЩА!</h3>
+                <div id="cta-subtext">
+                    <p>Ако искате да получите помощ от специалист на AIM Travel, можете да се запишете за
+                        безплатна
+                        онлайн
+                        консултация, където ще имате възможност да зададете всичките си въпроси и да получите
+                        квалифициран
+                        отговор.</p>
+                </div>
+                <div class="slider-btn">
+                    <a href="">БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <img class="usa-flag" src="../static/img/USA%20Flag.png" alt="">
+    <div id="footer-nav-container">
+        <div id="logo-container">
+            <a href="{% url 'index' %}">
+                <img src="../static/img/white-AIM_logo%201.png" alt="">
+            </a>
+            <p>Work Hard Travel Far</p>
+        </div>
+        <div class="nav-container">
+            <h1>БЪРЗИ ВРЪЗКИ</h1>
+            <a href="{% url 'index' %}">Начало</a>
+            <a href="#about">За нас</a>
+            <a href="{% url 'offers' %}">Работни оферти</a>
+            <a href="{% url 'under-construction' %}">Блог</a>
+            <a href="{% url 'under-construction' %}">Контакти</a>
+        </div>
+        <div class="nav-container">
+            <h1>БРИГАДА В САЩ</h1>
+            <a href="#">Защо на бригада в САШ?</a>
+            <a href="#">Кой може да участва?</a>
+            <a href="#">Как да се запишеш?</a>
+            <a href="#">Цена</a>
+            <a href="#">Необходими документи</a>
+        </div>
+        <div class="nav-container">
+            <h1>ОНЛАЙН УСЛУГИ</h1>
+            <a href="#">Безплатна консултация</a>
+            <a href="#">Регистрация за бригада</a>
+            <br>
+            <div id="phone-details">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" stroke-width="1.5"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                    <path
+                            d="M18.118 14.702L14 15.5c-2.782-1.396-4.5-3-5.5-5.5l.77-4.13L7.815 2H4.064c-1.128 0-2.016.932-1.847 2.047.42 2.783 1.66 7.83 5.283 11.453 3.805 3.805 9.286 5.456 12.302 6.113 1.165.253 2.198-.655 2.198-1.848v-3.584l-3.882-1.479z"
+                            stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                </svg>
+                <p>
+                    +359 88 99 66 583
+                </p>
+            </div>
+            <div id="email-details">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" stroke-width="1.5"
+                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFF">
+                    <path d="M7 9l5 3.5L17 9" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                    <path d="M2 17V7a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2z" stroke="#FFFFFF"
+                          stroke-width="1.5"></path>
+                </svg>
+                <p>studentski@aimtravel.bg</p>
+            </div>
+        </div>
+        <div class="nav-container">
+            <h1>ДРУГИ УСЛУГИ</h1>
+            <a href="#">Лагер / Стаж САЩ</a>
+            <a href="#">Работа за нестуденти (Н2В Виза)</a>
+            <a href="#">Самолетни билети</a>
+            <a href="#">Данъци в САЩ</a>
+            <a href="#">Данъци</a>
+        </div>
+    </div>
+    <div id="horizontal-line">
+        <hr>
+    </div>
+    <div id="footer-link-container">
+        <div id="footer-text">
+            <p>Copyright © <span>AIM Travel USA</span> 2023. Всички права запазени.</p>
+        </div>
+        <div id="footer-links-icons">
+
+            <div id="footer-right-links-icons">
+                <div id="footer-login">
+                    <a id="footer-login-p1" href="#">Login</a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="insta-link">
+                    <a href="https://www.instagram.com/aim_workandtravel/">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
+                                  stroke="#FFFFFF" stroke-width="1.5"></path>
+                            <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="fb-link">
+                    <a href="https://www.facebook.com/profile.php?id=100072235954652">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
+                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div id="youtube-link">
+                    <a href="https://www.youtube.com/@aimtravel9347">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path
+                                    d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
+                                    stroke="#FFFFFF" stroke-width="1.5"></path>
+                        </svg>
+                    </a>
+
+                </div>
+                <div class="vl">
+                    <hr>
+                </div>
+                <div class="tiktok-link">
+                    <a href="https://www.tiktok.com/@aim_travelusa">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
+                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round">
+                            </path>
+                            <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
+                                  stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </a>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static "javascript/js_filtering.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_dropdown.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_feedback_slider.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_navbar.js" %}"></script>
+<script type="text/javascript" src="{% static "javascript/js_video.js" %}"></script>
+</body>
+
+</html>
+
+
+
+
+
+

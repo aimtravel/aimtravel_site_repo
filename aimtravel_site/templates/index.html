@@ -1,0 +1,872 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIM Travel - Work and Travel USA</title>
+    <meta name="description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta name="keywords"
+          content="Work, Travel, USA, Money, Summer, Vacation, Job, Job Offer, Housing, Overtime, Fun, Happy">
+    <meta name="cta-action" content="Sign Up Now for an Adventure">
+
+    <meta property="og:title"
+          content="USA Work and Travel Program | AIM Work and Travel | Earn Money, Explore, and Have Fun">
+    <meta property="og:description"
+          content="Discover the ultimate work and travel experience in the USA with AIM Work and Travel. Join students and non-students for a summer adventure filled with unforgettable moments, finding new friends and make some money. Sign up now!">
+    <meta property="og:image" content="{% static "img/thumbnail.jpg" %}">
+    <meta property="og:url" content="https://www.aimtravel.bg">
+
+    <link rel="icon" type="image/x-icon" href="../templates/favicon.ico">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="../static/node_modules/glightbox/dist/css/glightbox.min.css">
+    <script src="../static/node_modules/glightbox/dist/js/glightbox.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QS8LXF1MN1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-QS8LXF1MN1');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-825631983"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'AW-825631983');
+    </script>
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '489738488628741');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img alt='' height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=489738488628741&ev=PageView&noscript=1"
+    /></noscript>
+
+
+</head>
+
+<body>
+<header>
+    {% include 'navigation.html' %}
+
+    <section id="slider">
+        <div class="background" id="background">
+            <div class="background-gradient">
+                <div class="slider">
+                    <div class="btn" id="prev-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M15 6l-6 6 6 6" stroke="#FFF" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
+                    <div class="slider-container">
+
+                        <div id="main-slider">
+                            <div class='text-container'>
+                                <p id="main-slider-text-heading">{{ main_slider.title1 }}</p>
+                                <hr>
+                                <p id="main-slider-text-subheading">{{ main_slider.title2 }}</p>
+                            </div>
+                            <div class="slider-btn">
+                                <a href="{{ main_slider.button_link }}" target="_blank">
+                                    <script>
+                                        function gtag_report_conversion(url) {
+                                            var callback = function () {
+                                                if (typeof (url) != 'undefined') {
+                                                    window.location = url;
+                                                }
+                                            };
+                                            gtag('event', 'conversion', {
+                                                'send_to': 'AW-825631983/UYIiCLOC--gYEO_J2IkD',
+                                                'event_callback': callback
+                                            });
+                                            return false;
+                                        }</script>
+                                    <script type="text/javascript">
+                                        $('#$addToCartButton').click(function () {
+                                            fbq('track', 'SubmitApplication');
+                                        });
+                                    </script>
+
+                                    {{ main_slider.button_text }}</a>
+                            </div>
+                        </div>
+
+                        <div id="slider-1" class="slider1">
+                            {% if second_slider.title1 %}
+                                <h4>{{ second_slider.title1 }}</h4>
+                            {% endif %}
+                            <h1>{{ second_slider.title2 }}</h1>
+                            <p>{{ second_slider.content1 }}</p>
+                            {% if prices.amount_of_discount %}
+                                <p>до <span
+                                        style="text-decoration: line-through;">{{ prices.amount_of_discount }}$</span>
+                                    ОТСТЪПКА</p>
+                            {% endif %}
+                            <div class="slider-btn" id="slider-1-button">
+                                <a href="{{ second_slider.button_link }}"
+                                   target="_blank">
+                                    <script>
+                                        function gtag_report_conversion(url) {
+                                            var callback = function () {
+                                                if (typeof (url) != 'undefined') {
+                                                    window.location = url;
+                                                }
+                                            };
+                                            gtag('event', 'conversion', {
+                                                'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                                'event_callback': callback
+                                            });
+                                            return false;
+                                        }
+                                    </script>
+                                    <script type="text/javascript">
+                                        $('#$addToCartButton').click(function () {
+                                            fbq('track', 'Subscribe');
+                                        });
+                                    </script>
+                                    {{ second_slider.button_text }}</a>
+                            </div>
+                        </div>
+                        <div id="slider-2">
+                            {% if third_slider.top_title %}
+                                <h4>{{ third_slider.top_title }}</h4>
+                            {% endif %}
+                            <h1>{{ third_slider.main_title }}</h1>
+                            <p>{{ third_slider.content1 }}</p>
+                            <div class="slider-btn" id="slider-2-button">
+                                <a href="{{ third_slider.button_link }}">{{ third_slider.button_text }}</a>
+                            </div>
+                        </div>
+                        <div id="slider-3">
+                            {% if forth_slider.top_title %}
+                                <h4>{{ forth_slider.top_title }}</h4>
+                            {% endif %}
+                            <h1>{{ forth_slider.main_title }}</h1>
+                            <p>{{ forth_slider.content1 }}</p>
+                            <div class="slider-btn" id="slider-3-button">
+                                <a href="{% url 'offers' %}">{{ forth_slider.button_text }}</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn" id="next-button">
+                        <?xml version="1.0" encoding="UTF-8"?>
+                        <svg width="24px" height="24px" stroke-width="1.5"
+                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                            <path d="M9 6l6 6-6 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                  stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="top-destinations">
+        <div id="col-1">
+
+            <a href="{% url 'offers' %}?city=Provincetown#offers-page-top-row" class="row-1">
+                <p>📍 Provincetown</p>
+            </a>
+            <a href="{% url 'offers' %}?state=NJ#offers-page-top-row" class="row-2">
+                <p>📍 New Jersey</p>
+            </a>
+        </div>
+        <div id="col-2">
+            <a href="{% url 'offers' %}?city=Nantucket#offers-page-top-row" class="row-1">
+                <p>📍 Nantucket</p>
+            </a>
+            <a href="{% url 'offers' %}?state=CA#offers-page-top-row" class="row-2">
+                <p>📍 California</p>
+            </a>
+        </div>
+        <div id="col-3">
+            <a href="{% url 'offers' %}?state=ME#offers-page-top-row" class="row-1">
+                <p>📍 Maine</p>
+            </a>
+            <a href="{% url 'offers' %}?state=CO#offers-page-top-row" class="row-2">
+                <p>📍 Colorado</p>
+
+            </a>
+        </div>
+    </section>
+
+</header>
+<img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
+
+<main>
+
+    <section id="about-section">
+        <div id="about">
+            <div id="about-text">
+
+                <h1>{{ about.title }}</h1>
+                <p>{{ about.content1 }}</p>
+                <p>{{ about.content2 }}</p>
+                <div class="slider-btn resp">
+                    <a href="{{ about.button_link }}"
+                       target="_blank">
+                        <script>
+                            function gtag_report_conversion(url) {
+                                var callback = function () {
+                                    if (typeof (url) != 'undefined') {
+                                        window.location = url;
+                                    }
+                                };
+                                gtag('event', 'conversion', {
+                                    'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                    'event_callback': callback
+                                });
+                                return false;
+                            }
+                        </script>
+                        <script type="text/javascript">
+                            $('#$addToCartButton').click(function () {
+                                fbq('track', 'Subscribe');
+                            });
+                        </script>
+                        {{ about.button_text}}</a>
+                </div>
+            </div>
+
+            <div id="about-img">
+                <div id="img-1">
+                    <img src="../static/img/Ready-stock/WEBP%20version/about_1.webp" alt="img-1">
+                    <div class="white-border"></div>
+                </div>
+                <div id="img-2">
+                    <img src="../static/img/Ready-stock/WEBP%20version/about_2.webp" alt="img-2">
+                    <div class="white-border"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="cta-section">
+        <div id="cta-background-gradient">
+            <div id="cta-container">
+                <h3>{{ cta.title1 }}</h3>
+                <h1>{{ cta.title2 }}</h1>
+                <h3 id="cta-subheading">{{ cta.title3 }}</h3>
+                <div id="cta-subtext">
+                    <p>{{ cta.content1 }}</p>
+                </div>
+                <div class="slider-btn">
+                    <a href="{{ cta.button_link }}" target="_blank">
+                        <script>
+                            function gtag_report_conversion(url) {
+                                var callback = function () {
+                                    if (typeof (url) != 'undefined') {
+                                        window.location = url;
+                                    }
+                                };
+                                gtag('event', 'conversion', {
+                                    'send_to': 'AW-825631983/UYIiCLOC--gYEO_J2IkD',
+                                    'event_callback': callback
+                                });
+                                return false;
+                            }
+                        </script>
+                        <script type="text/javascript">
+                            $('#$addToCartButton').click(function () {
+                                fbq('track', 'SubmitApplication');
+                            });
+                        </script>
+                        {{ cta.button_text }}</a>
+                </div>
+                <div id="pagination-anchor"></div>
+            </div>
+        </div>
+    </section>
+    <section id="offers">
+        <div id="offers-top-row">
+            <div id="offers-section-header">
+                <h1>Работни Оферти</h1>
+            </div>
+            <div id="offers-buttons">
+                {% if offer_list.has_previous %}
+                    <div class="round-shape-background">
+                        <a href="?page={{ offer_list.previous_page_number }}">
+                            <div class="btn" id="prev-button">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="28px" height="29px" stroke-width="1.5"
+                                     viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg" color="#E8E8E8">
+                                    <path d="M17.5 21.5L10.5 14.5L17.5 7.5" stroke="#757575" stroke-width="1.5"
+                                          stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="round-shape-background">
+
+                        <div class="btn" id="prev-button">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M15 6l-6 6 6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+
+                    </div>
+                {% endif %}
+                {% if offer_list.has_next %}
+                    <div class="round-shape-background">
+                        <a href="?page={{ offer_list.next_page_number }}">
+                            <div class="btn" id="next-button">
+                                <?xml version="1.0" encoding="UTF-8"?>
+                                <svg width="24px" height="24px" stroke-width="1.5"
+                                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                    <path d="M9 6l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="round-shape-background">
+
+                        <div class="btn" id="next-button">
+                            <?xml version="1.0" encoding="UTF-8"?>
+                            <svg width="24px" height="24px" stroke-width="1.5"
+                                 viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                                <path d="M9 6l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="offer-slides">
+            {% if offer_list %}
+                <div class="row">
+                {% for offer in offer_list %}
+
+                    <div class="offer-slide">
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="sold-out">
+                            <p>SOLD OUT</p>
+                        </div>
+                    {% endif %}
+                    {% if offer.new_offer == "True" %}
+                        <div class="new-offer">
+                            <p>NEW</p>
+                        </div>
+                    {% endif %}
+
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="offer-pic grayed-out">
+                    {% else %}
+                        <div class="offer-pic">
+                    {% endif %}
+                <div class="curve-line">
+                    {% if offer.offer_pic %}
+                        <img src="{{ offer.offer_pic.url }}" alt="offer_photo">{% endif %}
+                    <div class="white-border"></div>
+                </div>
+                <div class="offer-btn slider-btn">
+                    <a href="{% url 'details offer' pk=offer.pk %}">НАУЧИ ПОВЕЧЕ</a>
+                </div>
+                </div>
+                    {% if offer.sold_out_offer == "True" %}
+                        <div class="offer-text-container grayed-out">
+                    {% else %}
+                        <div class="offer-text-container">
+                    {% endif %}
+                <h3 class="offer-header">{{ offer.job_position }}</h3>
+                <p class="offer-location">{{ offer.city }}, {{ offer.city.state }}</p>
+                <p class="offer-type">Premium Offer</p>
+                <p class="offer-salary">${{ offer.wage|floatformat:2 }} per hour
+                    {% if offer.tips == 'Да' %} + Tips
+                    {% endif %}</p>
+                </div>
+                </div>
+
+                {% endfor %}
+            </div>
+
+            {% endif %}
+
+            </div>
+
+            <div class="slider-btn" id="offers-more-btn">
+                <a href="{% url 'offers' %}">ОЩЕ РАБОТНИ ОФЕРТИ</a>
+            </div>
+    </section>
+    <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
+    <section id="video-section">
+        <div class="max-width-size">
+            <div id="main-video">
+                <a href="{{ video.main_video }}" data-glightbox
+                   class="glightbox2" data-effect="fade">
+                    <div class="fancy-background"></div>
+                    <img src="{{ video.main_video_image.url }}" alt="">
+                    <div class="white-border">
+                        <div class="white-wrapper">
+                            <div class="play-button">
+                                <div class="inner-circle">
+                                    <svg width="34px" height="34px" stroke-width="1.5" viewBox="0 0 22 22" fill="none"
+                                         xmlns="http://www.w3.org/2000/svg" color="#ffffff">
+                                        <path d="M6.906 4.537A.6.6 0 006 5.053v13.894a.6.6 0 00.906.516l11.723-6.947a.6.6 0 000-1.032L6.906 4.537z"
+                                              stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"
+                                              stroke-linejoin="round" fill="white"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="main-video-logo">
+                        <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                    </div>
+                    <div id="main-video-details" class="vertical-line">
+                        <p>AIM Travel</p>
+                    </div>
+                </a>
+            </div>
+            <div id="sub-videos">
+                <div class="subvideo sub1">
+                    <a href="{{ video.video_1 }}" data-glightbox class="glightbox2" data-effect="fade">
+                        <div class="fancy-background"></div>
+                        <img class='thumbnail' src="{{ video.video_1_image.url }}" alt="">
+                        <div class="white-border">
+                            <div class="white-wrapper">
+                                <div class="play-button">
+                                    <div class="inner-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                             viewBox="0 0 16 18"
+                                             fill="none">
+                                            <path d="M14.75 7.70096C15.75 8.27831 15.75 9.72169 14.75 10.299L2.75 17.2272C1.75 17.8046 0.500001 17.0829 0.500001 15.9282L0.500002 2.0718C0.500002 0.917097 1.75 0.195408 2.75 0.772759L14.75 7.70096Z"
+                                                  fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subvideo-logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                        </div>
+                        <div id="main-video-details" class="vertical-line">
+                            <p>AIM Travel</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="subvideo sub2">
+                    <a href="{{ video.video_2 }}" data-glightbox class="glightbox2" data-effect="fade">
+                        <div class="fancy-background"></div>
+                        <img class='thumbnail' src="{{ video.video_2_image.url }}" alt="">
+                        <div class="white-border">
+                            <div class="white-wrapper">
+                                <div class="play-button">
+                                    <div class="inner-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                             viewBox="0 0 16 18"
+                                             fill="none">
+                                            <path d="M14.75 7.70096C15.75 8.27831 15.75 9.72169 14.75 10.299L2.75 17.2272C1.75 17.8046 0.500001 17.0829 0.500001 15.9282L0.500002 2.0718C0.500002 0.917097 1.75 0.195408 2.75 0.772759L14.75 7.70096Z"
+                                                  fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subvideo-logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                        </div>
+                        <div id="main-video-details" class="vertical-line">
+                            <p>AIM Travel</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="subvideo sub3">
+                    <a href="{{ video.video_3 }}" data-glightbox class="glightbox2" data-effect="fade">
+                        <div class="fancy-background"></div>
+                        <img class='thumbnail' src="{{ video.video_3_image.url }}" alt="">
+                        <div class="white-border">
+                            <div class="white-wrapper">
+                                <div class="play-button">
+                                    <div class="inner-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                             viewBox="0 0 16 18"
+                                             fill="none">
+                                            <path d="M14.75 7.70096C15.75 8.27831 15.75 9.72169 14.75 10.299L2.75 17.2272C1.75 17.8046 0.500001 17.0829 0.500001 15.9282L0.500002 2.0718C0.500002 0.917097 1.75 0.195408 2.75 0.772759L14.75 7.70096Z"
+                                                  fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subvideo-logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                        </div>
+                        <div id="main-video-details" class="vertical-line">
+                            <p>AIM Travel</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="subvideo sub4">
+                    <a href="{{ video.video_4 }}" data-glightbox class="glightbox2" data-effect="fade">
+                        <div class="fancy-background"></div>
+                        <img class='thumbnail' src="{{ video.video_4_image.url }}" alt="">
+                        <div class="white-border">
+                            <div class="white-wrapper">
+                                <div class="play-button">
+                                    <div class="inner-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                             viewBox="0 0 16 18"
+                                             fill="none">
+                                            <path d="M14.75 7.70096C15.75 8.27831 15.75 9.72169 14.75 10.299L2.75 17.2272C1.75 17.8046 0.500001 17.0829 0.500001 15.9282L0.500002 2.0718C0.500002 0.917097 1.75 0.195408 2.75 0.772759L14.75 7.70096Z"
+                                                  fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subvideo-logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                        </div>
+                        <div id="main-video-details" class="vertical-line">
+                            <p>AIM Travel</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="subvideo sub5">
+                    <a href="{{ video.video_5 }}" data-glightbox class="glightbox2" data-effect="fade">
+                        <div class="fancy-background"></div>
+                        <img class='thumbnail' src="{{ video.video_5_image.url }}" alt="">
+                        <div class="white-border">
+                            <div class="white-wrapper">
+                                <div class="play-button">
+                                    <div class="inner-circle">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="18"
+                                             viewBox="0 0 16 18"
+                                             fill="none">
+                                            <path d="M14.75 7.70096C15.75 8.27831 15.75 9.72169 14.75 10.299L2.75 17.2272C1.75 17.8046 0.500001 17.0829 0.500001 15.9282L0.500002 2.0718C0.500002 0.917097 1.75 0.195408 2.75 0.772759L14.75 7.70096Z"
+                                                  fill="white"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="subvideo-logo">
+                            <img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="logo">
+                        </div>
+                        <div id="main-video-details" class="vertical-line">
+                            <p>AIM Travel</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="slider-btn" id="video-more-btn">
+                <a href="{{ video.button_link }}"
+                   target="_blank">
+                    <script>
+                        function gtag_report_conversion(url) {
+                            var callback = function () {
+                                if (typeof (url) != 'undefined') {
+                                    window.location = url;
+                                }
+                            };
+                            gtag('event', 'conversion', {
+                                'send_to': 'AW-825631983/ogJ3CLaC--gYEO_J2IkD',
+                                'event_callback': callback
+                            });
+                            return false;
+                        }
+                    </script>
+                    <script type="text/javascript">
+                        $('#$addToCartButton').click(function () {
+                            fbq('track', 'Subscribe');
+                        });
+                    </script>
+                    {{ video.button_text }}</a>
+            </div>
+        </div>
+    </section>
+    <img class="main-flag2" src="{% static 'img/USA Flag.png' %}" alt="">
+    <section id="news-section">
+        <div id="news-heading">
+            <p id="heading-news">Новини</p>
+        </div>
+        <div id="news">
+            <div id="last-news">
+                <div id="last-news-img">
+                    <img src="{{ very_last_news.news_image.url }}" alt="last news picture">
+                    <div class="white-border"></div>
+                </div>
+                <div id="last-news-text">
+                    <p class="news-date last">{{ very_last_news.date }}</p>
+                    <h2 id="last-news-header">{{ very_last_news.news_title }}</h2>
+                    <p id="last-news-main-content">{{ very_last_news.news_content|safe }}
+                    </p>
+                </div>
+            </div>
+            <div id="last-4-news">
+                {% for news in last_4_news %}
+                    <a href="{% url 'news' %}">
+                        <div id=" last-4-1" class="news-content">
+                            <div id="last-4-1-img" class="last-img">
+                                <img src="{{ news.news_image.url }}" alt="">
+                                <div class="white-border"></div>
+                            </div>
+                            <div id="last-4-1-text" class="last-4-text">
+                                <p class="news-date">{{ news.date }}</p>
+                                <h3>{{ news.news_title }}</h3>
+                                <p class="underline">Прочети Статия</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div id="news-button">
+            <div class="slider-btn" id="news-more-btn">
+                <a href="{% url 'news' %}">ОЩЕ НОВИНИ</a>
+            </div>
+        </div>
+    </section>
+    <section id="pricing-section">
+        <div id="pricing-text">
+            <h4>{{ main_pricing.title1 }}</h4>
+            <h1>{{ main_pricing.title2 }}</h1>
+            <h4>{{ main_pricing.title3 }}</h4>
+            <p>{{ main_pricing.content1 }}</p>
+        </div>
+        <div id="pricing-button">
+            <div id="pricing-btn" class="pricing-btn">
+                <a href="{% url 'wat usa' %}#price-section">{{ main_pricing.button_text}}</a>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg width="24px" height="24px" viewBox="0 0 24 24"
+                     stroke-width="1.5" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
+                    <path
+                            d="M9.171 14.828l5.657-5.656m0 0h-4.95m4.95 0v4.95M21 3.6v16.8a.6.6 0 01-.6.6H3.6a.6.6 0 01-.6-.6V3.6a.6.6 0 01.6-.6h16.8a.6.6 0 01.6.6z"
+                            stroke="#ffffff " stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    </path>
+                </svg>
+            </div>
+        </div>
+    </section>
+    <section id="story-section">
+        <div id="story-heading">
+            <p id="heading-story">Истории На Студенти</p>
+        </div>
+        <div id="story">
+            {% if main_feedback %}
+                {% for feedback in main_feedback %}
+                    <div id="story-1" class="story-container">
+                        <div class="story-img">
+                            <img src="{{ feedback.feedback_1_image.url }}" alt="pic1">
+                            <div class="white-border"></div>
+                        </div>
+                        <div class="story-text">
+                            <h3>{{ feedback.feedback_1_title }}</h3>
+                            <p>{{ feedback.feedback_1_content|safe }}</p>
+                            <a href="{% url 'story' %}">Прочети Статия</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+
+                <p> Към момнета няма добавени истории.</p>
+            {% endif %}
+        </div>
+        <div id="story-button" class="slider-btn">
+            <a href="{% url 'story' %}">ВИЖ ОЩЕ ИСТОРИИ</a>
+        </div>
+    </section>
+    <section id="service-section">
+        <div id="service-container" class="normal-service">
+            <div class="row">
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/money_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title1 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content1 }}</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/tasks_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title2 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content2 }}</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/paying_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title3 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content3 }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/progress_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title4 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content4 }}</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/communication_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title5 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content5 }}</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <div class="icon">
+                        <img src="../static/img/people_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title6 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content6 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="service-container" class="resp-service">
+            <div class="row">
+                <div class="service" id="service1">
+                    <div class="icon">
+                        <img src="../static/img/money_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title1 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content1 }}</p>
+                    </div>
+                </div>
+                <div class="service" id="service2">
+                    <div class="icon">
+                        <img src="../static/img/tasks_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title2 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content2 }}</p>
+                    </div>
+                </div>
+                <div class="service" id="service3">
+                    <div class="icon">
+                        <img src="../static/img/paying_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title3 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content3 }}</p>
+                    </div>
+                </div>
+                <div class="service" id="service4">
+                    <div class="icon">
+                        <img src="../static/img/progress_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title4 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content4 }}</p>
+                    </div>
+                </div>
+                <div class="service" id="service5">
+                    <div class="icon">
+                        <img src="../static/img/communication_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title5 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content5 }}</p>
+                    </div>
+                </div>
+                <div class="service" id="service6">
+                    <div class="icon">
+                        <img src="../static/img/people_icon.png" alt="">
+                    </div>
+                    <div class="service-header">
+                        <h1>{{ main_services.title6 }}</h1>
+                    </div>
+                    <div class="service-description">
+                        <p>{{ main_services.content6 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% include 'footer.html' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dropdown.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_dynamic_refresh_index.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_slider.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_navbar_resp.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_video.js' %}"></script>
+<script type="text/javascript" src="{% static 'javascript/js_service_resp.js' %}"></script>
+</body>
+
+</html>

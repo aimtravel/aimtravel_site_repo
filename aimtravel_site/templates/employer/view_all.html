@@ -1,0 +1,36 @@
+{% extends 'base3.html' %}
+{% block content %}
+
+<br><br><br>
+    <h1 align="center">РАБОТОДАТЕЛИ</h1>
+    <br><br><br>
+
+    <div class="row"> {% for company in page_obj %}
+
+        <div class="col-md-3">
+            <img src="{{ company.employer_photo }}" alt="" style="max-height: 150px">
+            <h4 style="color: whitesmoke">{{ company.employer_name }}</h4>
+            <h5 style="color: whitesmoke">{{ company.employer_city }}, {{ company.employer_state }}</h5>
+
+            <a href="{% url 'employer details' company.pk %}">
+                <button class="btn btn-primary btn-lg">Детайли</button>
+            </a>
+        </div>
+
+
+    {% endfor %}
+    </div>
+<br><br><br>
+    <div class="row" align="center">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+
+{% endblock %}

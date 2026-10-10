@@ -9,7 +9,7 @@
 
         <div class="row">
             <form method="post" action="{% url 'edit employer' pk=edit_employer.pk %}"
-                  style="{% static 'style.css' %}">
+                  style="{% static 'style.css' %}?v=20260928mobile20">
                 {{ form.as_p }}
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary btn-lg">Запази информацията</button>

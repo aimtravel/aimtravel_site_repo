@@ -1,4 +1,509 @@
+<style>
+/* AIM GLOBAL CONSISTENT NAV - 20260929 */
+@media (min-width: 901px) {
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #top-header-section {
+    display: none !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #header-nav {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 10020 !important;
+    width: 100% !important;
+    height: 84px !important;
+    min-height: 84px !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(183, 25, 32, .72) !important;
+    background: rgba(4, 12, 20, .88) !important;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .16) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal.sticky {
+    width: 100% !important;
+    height: 84px !important;
+    min-height: 84px !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container.sticky-left {
+    position: relative !important;
+    left: 0 !important;
+    right: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: clamp(9px, 1.05vw, 18px) !important;
+    width: min(calc(100% - 28px), 1440px) !important;
+    height: 84px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container > li {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-self: center !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: 84px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container > li:first-child {
+    display: none !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container > li:nth-child(4) {
+    order: -1 !important;
+    margin-right: auto !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal #logo {
+    position: static !important;
+    display: block !important;
+    width: 64px !important;
+    height: 64px !important;
+    margin: 0 !important;
+    transform: none !important;
+    object-fit: contain;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal a.link-a,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal a.target-element {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 44px !important;
+    margin: 0 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    letter-spacing: .03em !important;
+    white-space: nowrap;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .nav-button {
+    display: flex !important;
+    align-items: center !important;
+    width: auto !important;
+    min-width: 0 !important;
+    height: 84px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .nav-button-a {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    min-width: 188px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    margin: 0 !important;
+    padding: 0 12px !important;
+    border-radius: 7px !important;
+    background: #b71920 !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tools {
+    position: relative;
+    z-index: 6;
+    display: flex !important;
+    align-items: center;
+    gap: 5px;
+    flex: 0 0 auto !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool {
+    position: relative;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool summary {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .04);
+    color: #fff;
+    cursor: pointer;
+    list-style: none;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool summary::-webkit-details-marker {
+    display: none;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool summary:hover,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool[open] summary {
+    border-color: #c80816;
+    background: #c80816;
+    transform: translateY(-1px);
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool summary svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-tool:first-child summary svg path {
+    fill: currentColor;
+    stroke: none;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-popover {
+    position: absolute;
+    top: calc(100% + 13px);
+    right: 0;
+    display: grid;
+    min-width: 218px;
+    padding: 13px 15px;
+    gap: 5px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    border-radius: 12px;
+    background: rgba(8, 15, 26, .98);
+    box-shadow: 0 14px 38px rgba(0, 0, 0, .38);
+    color: #fff;
+    text-align: left;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-popover::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    right: 12px;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid rgba(255, 255, 255, .14);
+    border-left: 1px solid rgba(255, 255, 255, .14);
+    background: #080f1a;
+    transform: rotate(45deg);
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-popover span {
+    color: rgba(255, 255, 255, .62);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-popover a {
+    color: #fff !important;
+    font-size: 13px !important;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-popover--social {
+    min-width: 150px;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-register {
+    display: flex !important;
+    flex: 0 0 auto !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-register a {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 40px !important;
+    min-height: 40px !important;
+    padding: 0 16px !important;
+    border: 1px solid rgba(255, 255, 255, .68) !important;
+    border-radius: 7px !important;
+    background: rgba(8, 15, 26, .58) !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    font-size: 11px !important;
+    font-weight: 800;
+    line-height: 1 !important;
+    letter-spacing: .05em;
+    white-space: nowrap;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-register a:hover {
+    border-color: #d5091a !important;
+    background: #d5091a !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown {
+    position: relative;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown > .tooltip {
+    position: absolute;
+    top: calc(100% - 8px);
+    left: 50%;
+    z-index: 1000;
+    display: flex;
+    visibility: hidden;
+    width: 268px;
+    min-width: 268px;
+    padding: 10px;
+    gap: 3px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 14px;
+    background: rgba(7, 14, 24, .98);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, .38);
+    opacity: 0;
+    overflow: visible;
+    pointer-events: none;
+    transform: translate(-50%, 8px);
+    transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown:hover > .tooltip,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown:focus-within > .tooltip {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown > .tooltip > a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 38px;
+    height: 38px;
+    padding: 0 13px;
+    margin: 0;
+    border-radius: 9px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 12px;
+    line-height: 1.25;
+    letter-spacing: .04em;
+    text-align: left;
+    white-space: normal;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown > .tooltip > a:hover,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal .dropdown > .tooltip > a:focus-visible {
+    padding-left: 17px;
+    background: #d5091a;
+    color: #fff;
+    outline: none;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1180px) {
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal > .header-nav-links-container {
+    gap: 8px !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal a.link-a,
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal a.target-element {
+    font-size: 11px !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-normal #contacts {
+    display: none !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) .offers-nav-register a {
+    padding: 0 12px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #top-header-section {
+    display: none !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #header-nav {
+    position: fixed !important;
+    inset: 0 0 auto 0 !important;
+    z-index: 9996 !important;
+    width: 100% !important;
+    height: 72px !important;
+    min-height: 72px !important;
+    padding: 0 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, .12) !important;
+    background: rgba(6, 14, 24, .94) !important;
+    box-shadow: 0 8px 26px rgba(0, 0, 0, .18) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 72px !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive > .header-nav-links-container {
+    position: static !important;
+    width: 100% !important;
+    height: 72px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive > .header-nav-links-container > li:first-child {
+    position: absolute !important;
+    top: 10px !important;
+    left: 16px !important;
+    display: flex !important;
+    align-items: center;
+    width: 228px !important;
+    height: 52px !important;
+    gap: 10px;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive > .header-nav-links-container > li:first-child::after {
+    content: "AIM Travel\A WORK AND TRAVEL USA";
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: .02em;
+    text-align: left;
+    white-space: pre;
+    pointer-events: none;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive #logo {
+    width: 50px !important;
+    height: 50px !important;
+    flex: 0 0 50px;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive .hamburger-button {
+    position: fixed !important;
+    top: 12px !important;
+    right: 16px !important;
+    left: auto !important;
+    z-index: 9999 !important;
+    display: grid !important;
+    place-items: center;
+    width: 48px !important;
+    height: 48px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .07) !important;
+    background-image: none !important;
+    box-sizing: border-box;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive .hamburger-button::before {
+    content: '';
+    display: block;
+    width: 23px;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 -7px 0 #fff, 0 7px 0 #fff;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #navbar-responsive #ham-but-content {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: auto !important;
+    left: 0 !important;
+    z-index: 9997 !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    margin: 0 !important;
+    padding: 86px 18px 28px !important;
+    overflow-y: auto !important;
+    box-sizing: border-box;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #ham-but-content > .wat-registration-mobile {
+    order: 6;
+    width: 100% !important;
+    margin: 8px 0 0 !important;
+    list-style: none !important;
+    background: transparent !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #ham-but-content > .wat-registration-mobile > a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 54px;
+    margin: 0 !important;
+    padding: 12px 18px !important;
+    border: 1px solid rgba(255, 255, 255, .58) !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    box-sizing: border-box;
+    color: #fff !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #ham-but-content > .nav-button {
+    order: 7;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #ham-but-content > .nav-button > div {
+    width: 100% !important;
+  }
+
+  :is(#offers-header, #wat-header, #online-services-header, #offer-details-header, header:not([id])) #ham-but-content > .nav-button .nav-button-a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 100% !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 100% !important;
+    min-height: 54px;
+    margin: 0 !important;
+    padding: 12px 18px !important;
+    border: 1px solid rgba(255, 255, 255, .45) !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 900px) {
+  #navbar-responsive > .header-nav-links-container > li:first-child { display: flex !important; align-items: center !important; flex: 0 0 auto !important; min-width: 58px !important; overflow: visible !important; }
+  #navbar-responsive > .header-nav-links-container > li:first-child > a { display: flex !important; align-items: center !important; justify-content: center !important; width: 58px !important; min-width: 58px !important; max-width: 58px !important; height: 58px !important; flex: 0 0 58px !important; padding: 0 !important; overflow: visible !important; }
+  #navbar-responsive #logo { display: block !important; width: 58px !important; min-width: 58px !important; max-width: 58px !important; height: 58px !important; min-height: 58px !important; max-height: 58px !important; object-fit: contain !important; aspect-ratio: 1 / 1; flex: 0 0 58px !important; }
+}
+</style>
 {% load static %}
+<style>
+#top-header-left-p3.wat-registration-link{display:inline-flex;align-items:center;min-height:32px;padding:5px 12px;border-radius:999px;background:#b50912;color:#fff!important;font-weight:700;text-decoration:none;white-space:nowrap}
+#top-header-left-p3.wat-registration-link:hover{background:#93070e}
+#ham-but-content .wat-registration-mobile a{display:block;margin:10px 16px;padding:14px 16px;border-radius:10px;background:#b50912;color:#fff;text-align:center;font-weight:700;text-decoration:none}
+</style>
 
 <section id="top-header-section">
     <div id="top-header">
@@ -19,8 +524,7 @@
             <div class="vl">
                 <hr>
             </div>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeqelCnUhkOrWtr7UJtpcKxIuBBfNsaRg4_JytT9lJGKqXt8Q/viewform"
-               id="top-header-left-p3" target="_blank">Абонирай се</a>
+            <a href="{% url 'wat 2027 registration' %}" id="top-header-left-p3" class="wat-registration-link">Регистрирай се</a>
         </div>
         <div id="top-header-right">
             <p id="top-header-right-p1">Последвай ни в:</p>
@@ -153,6 +657,20 @@
             <li class="dropdown link-a">
                 <a class="link-a" id="contacts" href="{% url 'contacts' %}">Контакти</a>
             </li>
+                <li class="offers-nav-tools" aria-label="Бързи контакти">
+                    <details class="offers-nav-tool">
+                        <summary aria-label="Покажи телефона" title="Телефон"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 2.8l3 3-1.9 2.6a16 16 0 007.9 7.9l2.6-1.9 3 3-1.8 3c-.5.8-1.4 1.2-2.3 1C9 20 4 15 2.6 6.9c-.2-.9.2-1.8 1-2.3z"/></svg></summary>
+                        <div class="offers-nav-popover"><span>Обади ни се</span><a href="tel:+359889966583">+359 88 99 66 583</a></div>
+                    </details>
+                    <details class="offers-nav-tool">
+                        <summary aria-label="Покажи имейла" title="Имейл"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 6l9 7 9-7"/></svg></summary>
+                        <div class="offers-nav-popover"><span>Пиши ни</span><a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a></div>
+                    </details>
+                    <details class="offers-nav-tool offers-nav-social">
+                        <summary aria-label="Покажи социалните мрежи" title="Социални мрежи"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8.2 10.9l7.5-3.8M8.2 13.1l7.5 3.8"/></svg></summary>
+                        <div class="offers-nav-popover offers-nav-popover--social"><span>Последвай ни</span><a href="https://www.instagram.com/aimtravel_usa/" target="_blank" rel="noopener">Instagram</a><a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@aimtravel9347" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@aim_travelusa" target="_blank" rel="noopener">TikTok</a></div>
+                    </details>
+                </li>
             <li>
                 <div class="nav-button">
                     <a class="nav-button-a" href="https://calendly.com/aimtravelusa/consultation" target="_blank">
@@ -170,14 +688,15 @@
                                 return false;
                             } </script>
                         <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'SubmitApplication');
+                            document.currentScript.parentElement.addEventListener('click', function () {
+                                if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
                             });
                         </script>
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                 </div>
             </li>
-        </ul>
+                        <li class="offers-nav-register"><a href="/wat-2027/registracia/">РЕГИСТРИРАЙ СЕ</a></li>
+</ul>
     </nav>
     <nav id="navbar-responsive" class="responsive-left">
         <ul id="" class="header-nav-links-container">
@@ -299,6 +818,9 @@
                     </div>
                 </a>
             </li>
+            <li class="wat-registration-mobile">
+                <a href="{% url 'wat 2027 registration' %}">Регистрирай се</a>
+            </li>
             <li>
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
@@ -339,8 +861,8 @@
                                 return false;
                             } </script>
                         <script type="text/javascript">
-                            $('#$addToCartButton').click(function () {
-                                fbq('track', 'SubmitApplication');
+                            document.currentScript.parentElement.addEventListener('click', function () {
+                                if (typeof fbq === 'function') fbq('track', 'SubmitApplication');
                             });
                         </script>
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
@@ -349,3 +871,76 @@
         </ul>
     </nav>
 </section>
+
+
+
+
+
+<script>
+/* AIM GLOBAL MOBILE MENU FALLBACK - 20260929 */
+(function () {
+  function initAimMobileMenu() {
+    document.querySelectorAll('#navbar-responsive').forEach(function (nav) {
+      var button = nav.querySelector('.hamburger-button');
+      var menu = nav.querySelector('#ham-but-content');
+
+      if (!button || !menu) return;
+
+      // Replace the legacy button node so page-specific broken/duplicate
+      // listeners cannot immediately undo the menu state.
+      var cleanButton = button.cloneNode(true);
+      button.replaceWith(cleanButton);
+      button = cleanButton;
+
+      button.dataset.aimMenuReady = '1';
+      button.setAttribute('role', 'button');
+      button.setAttribute('tabindex', '0');
+      button.setAttribute('aria-label', 'Отвори менюто');
+      button.setAttribute('aria-expanded', 'false');
+
+      function closeMenu() {
+        menu.style.display = 'none';
+        button.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      function toggleMenu(event) {
+        if (event) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+        }
+
+        var isOpen = window.getComputedStyle(menu).display !== 'none';
+        if (isOpen) {
+          closeMenu();
+        } else {
+          menu.style.display = 'flex';
+          button.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      nav.addEventListener('click', function (event) {
+        if (button.contains(event.target)) toggleMenu(event);
+      }, true);
+      button.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') toggleMenu(event);
+      }, true);
+
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeMenu();
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAimMobileMenu);
+  } else {
+    initAimMobileMenu();
+  }
+})();
+</script>

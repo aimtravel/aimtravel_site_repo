@@ -1,0 +1,1 @@
+from aimtravel_site.wsgi import application
