@@ -4,3 +4,8 @@ wat_credentials.py
 .env
 __pycache__/
 *.pyc
+
+# --- Frontend build output ---
+# Built by CI (ci.yml) and uploaded by the deploy; never committed.
+static/dist/
+frontend/node_modules/
