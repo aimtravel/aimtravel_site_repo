@@ -111,11 +111,15 @@ existing=(); for p in $CODE_DIRS $ROOT_FILES; do [ -e "$APP/$p" ] && existing+=(
 if ! tar -czf "$BK/code.tar.gz" -C "$APP" --exclude='__pycache__' --exclude='*.pyc' ${existing[@]+"${existing[@]}"}; then
   status failed_backup "code backup failed — nothing was changed"; exit 1
 fi
-( umask 077; cd "$APP" && "$PY" -c "
+# Option-file values are double-quoted (an unquoted '#' or ';' starts a comment)
+# with backslash and double quote escaped.
+( umask 077; cd "$APP" && "$PY" - > "$BK/.my.cnf" <<'PY'
 import credentials as c
-print('[client]'); print('user=' + c.DB_USER); print('password=' + c.DB_PASSWORD)
-print('host=' + getattr(c, 'DB_HOST', 'localhost')); print('port=' + str(getattr(c, 'DB_PORT', '3306')))
-" > "$BK/.my.cnf" )
+def opt(v): return '"' + str(v).replace('\\', '\\\\').replace('"', '\\"') + '"'
+print('[client]'); print('user=' + opt(c.DB_USER)); print('password=' + opt(c.DB_PASSWORD))
+print('host=' + opt(getattr(c, 'DB_HOST', 'localhost'))); print('port=' + str(getattr(c, 'DB_PORT', '3306')))
+PY
+)
 DB_NAME=$(cd "$APP" && "$PY" -c "import credentials as c; print(c.DB_NAME)")
 if ! mysqldump --defaults-extra-file="$BK/.my.cnf" --single-transaction --quick --no-tablespaces "$DB_NAME" | gzip > "$BK/db.sql.gz" \
    || [ ! -s "$BK/db.sql.gz" ]; then
