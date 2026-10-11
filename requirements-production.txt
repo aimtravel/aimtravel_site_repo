@@ -1,0 +1,35 @@
+# Exact package versions installed on production (pip freeze, 2026-10-07).
+# django-model-utils 4.3.1 imports pkg_resources, removed in setuptools 81.
+setuptools<81
+asgiref==3.5.2
+babel==2.16.0
+chardet==5.2.0
+Django==4.1.3
+django-autoslug==1.9.9
+django-ckeditor-5==0.2.18
+django-crispy-forms==1.14.0
+django-filter==22.1
+django-model-utils==4.3.1
+django-private-storage==3.1.1
+django-social-share==2.3.0
+docxcompose==1.4.0
+docxtpl==0.18.0
+gnu==0.0.1
+gulp==0.1.0
+Jinja2==3.1.4
+lxml==5.3.0
+MarkupSafe==2.1.5
+mysqlclient==2.2.0
+Pillow==9.5.0
+PyMySQL==1.1.0
+pypdf==5.0.1
+python-decouple==3.8
+python-docx==1.1.2
+python-gettext==4.1
+reportlab==4.2.4
+six==1.16.0
+sqlparse==0.4.3
+typing_extensions==4.12.2
+tzdata==2022.7
+wkhtmltopdf==0.2
+xlwt==1.3.0
