@@ -1,0 +1,81 @@
+# Checks for every pull request to main; also called by deploy-production.yml
+# so nothing is deployed unless these pass.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Django check + UI smoke tests
+    runs-on: ubuntu-24.04
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ci-only-root
+        ports: ["3306:3306"]
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pci-only-root"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-production.txt
+
+      - name: Install system libraries for mysqlclient
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends default-libmysqlclient-dev pkg-config
+
+      - name: Install production's exact packages
+        run: pip install -r requirements-production.txt
+
+      - name: Write CI-only credentials.py
+        # Throwaway values for the CI database; production's live in a
+        # server-only credentials.py that is never committed.
+        run: |
+          cat > credentials.py <<EOF
+          SECRET_KEY = "ci-only-not-secret"
+          DB_NAME = "aimtravel_ci"
+          DB_USER = "root"
+          DB_PASSWORD = "ci-only-root"
+          DB_HOST = "127.0.0.1"
+          EMAIL_HOST_USER = ""
+          EMAILPASSWORD = ""
+          EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+          STATICFILES_DIRS = ["$GITHUB_WORKSPACE/static"]
+          STATIC_ROOT = "$RUNNER_TEMP/staticroot"
+          MEDIA_ROOT = "$RUNNER_TEMP/media"
+          EOF
+
+      - name: manage.py check
+        run: python manage.py check
+
+      - name: UI smoke tests
+        run: python manage.py test tests --noinput
+
+  ruff:
+    name: Ruff (changed Python files)
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Ruff on the Python files this PR changes
+        # Only errors that break code (syntax errors, undefined names, etc.),
+        # so older files with style issues do not block unrelated changes.
+        run: |
+          git diff --name-only --diff-filter=ACMR "origin/${{ github.base_ref }}...HEAD" -- '*.py' > changed.txt
+          if [ ! -s changed.txt ]; then echo "No Python files changed."; exit 0; fi
+          cat changed.txt
+          pip install -q ruff==0.6.9
+          tr '\n' '\0' < changed.txt | xargs -0 ruff check --select E9,F63,F7,F82 --output-format=github

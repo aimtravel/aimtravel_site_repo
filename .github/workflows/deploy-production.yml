@@ -1,0 +1,182 @@
+# Deploys main to https://aimtravel.bg on every merge (push to main).
+#   1. CI (ci.yml) must pass.
+#   2. cPanel pulls main into /home/aimtrave/repositories/aimtravel-production
+#      (VersionControl/update) and runs .cpanel.yml (VersionControlDeployment/create),
+#      which runs deploy/production_deploy.sh: backup → sync → migrate →
+#      collectstatic → restart, restoring the previous code by itself on failure.
+#   3. This job reads the result the script wrote (~/deploy-state/last-deploy.txt),
+#      then checks the public pages on the live site.
+#   4. If the live check fails, it asks the server to restore the code backup taken
+#      by this deploy (~/deploy-state/ROLLBACK) and fails the run.
+#
+# Required repo secrets: CPANEL_HOST, CPANEL_USER, CPANEL_TOKEN
+name: Deploy to production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+      CPANEL_USER: ${{ secrets.CPANEL_USER }}
+      CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+      REPO_ROOT: /home/aimtrave/repositories/aimtravel-production
+      BRANCH: main
+      STATE_DIR: /home/aimtrave/deploy-state
+      SITE: https://aimtravel.bg
+      EXPECTED_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # to tell whether the server's commit includes this one
+
+      - name: Deploy via cPanel and check the live site
+        shell: bash
+        run: |
+          set +e   # every step below handles its own failure
+          set -uo pipefail
+          S=$GITHUB_STEP_SUMMARY
+          clean()   { tr '\r\n|' '  /' <<<"$1" | head -c 400; }
+          pass()    { echo "PASS  $1: $2"; echo "| $1 | ✅ | $(clean "$2") |" >> $S; }
+          fail()    { echo "FAIL  $1: $2"; echo "| $1 | ❌ | $(clean "$2") |" >> $S; }
+          verdict() { echo >> $S; echo "**$1**" >> $S; }
+          abort()   { fail "$1" "$2"; verdict "NOT DEPLOYED — failed at: $1"; exit 1; }
+
+          CPANEL_HOST=$(tr -d '[:space:]' <<<"$CPANEL_HOST")
+          CPANEL_USER=$(tr -d '[:space:]' <<<"$CPANEL_USER")
+          CPANEL_TOKEN=$(tr -d '[:space:]' <<<"$CPANEL_TOKEN")
+
+          api() {  # api <Module/function> [--data-urlencode key=value ...]
+            local fn=$1; shift
+            curl -sS --max-time 60 -G -H "Authorization: cpanel $CPANEL_USER:$CPANEL_TOKEN" \
+              "https://$CPANEL_HOST:2083/execute/$fn" "$@"
+          }
+          api_ok()  { jq -e '.status == 1' <<<"$1" >/dev/null 2>&1; }
+          api_err() { jq -r '(.errors // []) | join("; ")' <<<"$1" 2>/dev/null || head -c 200 <<<"$1"; }
+          repo_field() { jq -r --arg r "$REPO_ROOT" ".data[]? | select(.repository_root == \$r) | $2 // empty" <<<"$1" 2>/dev/null; }
+          read_file() {  # read_file <dir> <file>
+            api Fileman/get_file_content --data-urlencode "dir=$1" --data-urlencode "file=$2" \
+              | jq -r '.data.content // empty' 2>/dev/null
+          }
+          marker() { grep -m1 "^$1=" <<<"$MARKER" | cut -d= -f2-; }
+
+          run_deployment() {  # → sets CP_STATE (cPanel's view) and MARKER (the script's result)
+            local c id t i log
+            c=$(api VersionControlDeployment/create --data-urlencode "repository_root=$REPO_ROOT")
+            api_ok "$c" || { CP_STATE="not started: $(api_err "$c")"; MARKER=""; return 1; }
+            id=$(jq -r '.data.deploy_id' <<<"$c"); log=$(jq -r '.data.log_path // empty' <<<"$c")
+            CP_STATE=timeout
+            for i in $(seq 1 120); do   # up to 10 minutes
+              t=$(api VersionControlDeployment/retrieve | jq -c --arg id "$id" '.data[]? | select((.deploy_id|tostring) == $id) | .timestamps' 2>/dev/null)
+              if   jq -e '.succeeded' <<<"$t" >/dev/null 2>&1; then CP_STATE=succeeded; break
+              elif jq -e '.failed'    <<<"$t" >/dev/null 2>&1; then CP_STATE=failed;    break
+              elif jq -e '.canceled'  <<<"$t" >/dev/null 2>&1; then CP_STATE=canceled;  break
+              fi
+              sleep 5
+            done
+            if [ -n "$log" ]; then
+              echo "::group::cPanel deploy log (deploy_id $id)"; read_file "$(dirname "$log")" "$(basename "$log")"; echo "::endgroup::"
+            fi
+            MARKER=$(read_file "$STATE_DIR" last-deploy.txt)
+          }
+
+          # Public pages that must answer 200 with an "AIM Travel" <title>,
+          # then pages where only the status is checked.
+          PAGES="/ /post/news/ /post/story/ /taxes/ /user_auth/ /user_auth/register/ /user_auth/password_reset/ /contacts/ /wat_usa/ /onlineservices/ /internship/ /h2b/ /rabotnioferti/ /wat-2027/registracia/ /rabotnioferti/lyubimi/ /under-construction/"
+          STATUS_ONLY="/admin/login/ /static/style.css"
+          smoke() {  # → SMOKE_FAILED (space-separated), retries while Passenger restarts
+            local p code body ok i
+            SMOKE_FAILED=""
+            for p in $PAGES $STATUS_ONLY; do
+              ok=0
+              for i in 1 2 3; do
+                body=$(curl -s --max-time 30 -w '\n%{http_code}' "$SITE$p")
+                code=$(tail -n1 <<<"$body")
+                if [ "$code" = 200 ]; then
+                  case " $STATUS_ONLY " in *" $p "*) ok=1 ;; *) grep -qiE '<title>[^<]*AIM Travel' <<<"$body" && ok=1 ;; esac
+                fi
+                [ $ok = 1 ] && break
+                sleep 10
+              done
+              [ $ok = 1 ] || SMOKE_FAILED="$SMOKE_FAILED $p($code)"
+            done
+          }
+
+          echo "## Production deploy of \`${EXPECTED_SHA:0:7}\`" >> $S
+          echo "| Step | | Detail |" >> $S
+          echo "|---|---|---|" >> $S
+
+          # 1. The production repo is registered in cPanel → Git Version Control.
+          R=$(api VersionControl/retrieve)
+          api_ok "$R" || abort "1. cPanel repo" "API error: $(api_err "$R")"
+          [ -n "$(repo_field "$R" .repository_root)" ] \
+            || abort "1. cPanel repo" "$REPO_ROOT not found. Paths cPanel reports (non-Latin letters as \\uXXXX): $(jq -a -r '[.data[]?.repository_root] | join(" ; ")' <<<"$R")"
+          pass "1. cPanel repo" "$(repo_field "$R" .branch) @ $(repo_field "$R" .last_update.identifier | cut -c1-7)"
+
+          # 2. Pull main (VersionControl/update only pulls when branch is given).
+          U=$(api VersionControl/update --data-urlencode "repository_root=$REPO_ROOT" --data-urlencode "branch=$BRANCH")
+          api_ok "$U" || abort "2. Pull $BRANCH" "$(api_err "$U")"
+          for i in $(seq 1 12); do
+            R=$(api VersionControl/retrieve); HEAD=$(repo_field "$R" .last_update.identifier)
+            [ "$HEAD" = "$EXPECTED_SHA" ] && break
+            git merge-base --is-ancestor "$EXPECTED_SHA" "$HEAD" 2>/dev/null && break
+            sleep 5
+          done
+          if [ "$HEAD" = "$EXPECTED_SHA" ]; then
+            pass "2. Pull $BRANCH" "server is on ${HEAD:0:7}"
+          elif git merge-base --is-ancestor "$EXPECTED_SHA" "$HEAD" 2>/dev/null; then
+            pass "2. Pull $BRANCH" "server is on newer ${HEAD:0:7}, which includes ${EXPECTED_SHA:0:7}"
+          else
+            abort "2. Pull $BRANCH" "server HEAD=${HEAD:-none}, expected $EXPECTED_SHA"
+          fi
+          [ "$(repo_field "$R" .deployable)" = 1 ] \
+            || abort "3. Deployable" "cPanel says not deployable — needs a committed .cpanel.yml and a clean working tree"
+
+          # 3. Deploy (runs deploy/production_deploy.sh on the server).
+          run_deployment
+          STATE=$(marker state); DETAIL=$(marker detail); BACKUP=$(marker backup)
+          if [ "$(marker sha)" != "$HEAD" ] || [ "$STATE" != ok ]; then
+            abort "3. Deploy on server" "cPanel: $CP_STATE; script: ${STATE:-no result} — ${DETAIL:-see the cPanel deploy log above}"
+          fi
+          pass "3. Deploy on server" "backup, sync, migrate, collectstatic, restart — ok"
+
+          # 4. The live site answers on every public page.
+          smoke
+          if [ -z "$SMOKE_FAILED" ]; then
+            pass "4. Live site check" "$(wc -w <<<"$PAGES $STATUS_ONLY" | tr -d ' ') pages OK on $SITE"
+            verdict "DEPLOYED ${HEAD:0:7} to $SITE"
+            exit 0
+          fi
+          fail "4. Live site check" "failing:$SMOKE_FAILED"
+
+          # 5. Roll back: restore the code backup this deploy took, then check again.
+          W=$(api Fileman/save_file_content --data-urlencode "dir=$STATE_DIR" --data-urlencode "file=ROLLBACK" --data-urlencode "content=$BACKUP")
+          api_ok "$W" || abort "5. Rollback" "could not request rollback: $(api_err "$W"). Previous code is in $BACKUP — restore manually."
+          run_deployment
+          if [ "$(marker state)" != rolled_back ]; then
+            abort "5. Rollback" "rollback did not complete: $(marker state) — $(marker detail). Backup: $BACKUP"
+          fi
+          smoke
+          if [ -z "$SMOKE_FAILED" ]; then
+            fail "5. Rollback" "previous code restored and the live site is OK again. Database was not rolled back (backup: $BACKUP/db.sql.gz)."
+          else
+            fail "5. Rollback" "previous code restored but pages still failing:$SMOKE_FAILED"
+          fi
+          verdict "ROLLED BACK — ${HEAD:0:7} broke the live site and was undone"
+          exit 1

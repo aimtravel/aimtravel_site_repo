@@ -1,0 +1,8 @@
+---
+# Production deploy (https://aimtravel.bg). cPanel runs this when the
+# "Deploy to production" GitHub workflow calls VersionControlDeployment/create
+# for /home/aimtrave/repositories/aimtravel-production. The script refuses to
+# run from any other cPanel repo (e.g. test clones of this repository).
+deployment:
+  tasks:
+    - /bin/bash /home/aimtrave/repositories/aimtravel-production/deploy/production_deploy.sh
