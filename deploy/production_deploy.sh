@@ -3,9 +3,12 @@
 # when the "Deploy to production" GitHub workflow calls
 # VersionControlDeployment/create for the cPanel repo below.
 #
-#   1. preflight   credentials.py present; refuse to run from any other repo
+#   1. preflight   credentials.py present; refuse to run from any other repo;
+#                  if the commit has frontend/, its build (uploaded by the workflow
+#                  as ~/deploy-state/frontend-<sha>.tar.gz + .sha256) must be intact
 #   2. backup      code + database into ~/deploy-backups/<time>-<sha> (last 5 kept)
-#   3. sync        aimtravel_site/, templates/, static/ and root files into the app
+#   3. sync        aimtravel_site/, templates/, static/ and root files into the app,
+#                  then the frontend build into static/dist
 #   4. packages    pip install, only when requirements-production.txt changed
 #   5. django      migrate, collectstatic (into public_html/static), check
 #   6. restart     touch tmp/restart.txt (Passenger)
@@ -45,6 +48,7 @@ status() {  # status <state> [detail]
     "$SHA" "$1" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$BK" "${2:-}" > "$STATE/last-deploy.txt"
 }
 restart_app() { mkdir -p "$APP/tmp" && touch "$APP/tmp/restart.txt"; }
+sha256() { if command -v sha256sum >/dev/null; then sha256sum "$1"; else shasum -a 256 "$1"; fi | cut -d' ' -f1; }
 
 sync_tree() {  # sync_tree <source root>  — mirror the code dirs + root files into $APP
   local src=$1 d f extra
@@ -57,6 +61,16 @@ sync_tree() {  # sync_tree <source root>  — mirror the code dirs + root files 
     [ -f "$src/$f" ] && { cp "$src/$f" "$APP/$f" && chmod 644 "$APP/$f" || return 1; }
   done
   return 0
+}
+
+install_frontend() {  # install_frontend <build tar.gz>  — mirror it into static/dist
+  local tmp rc
+  tmp=$(mktemp -d "$BACKUPS/.frontend-XXXXXX") || return 1
+  tar -xzf "$1" -C "$tmp" && [ -s "$tmp/manifest.json" ] \
+    && mkdir -p "$APP/static/dist" && rsync -rlt --delete "$tmp/" "$APP/static/dist/"
+  rc=$?
+  rm -rf "$tmp"
+  return $rc
 }
 
 restore_code() {  # restore_code <backup dir>
@@ -103,6 +117,15 @@ if ! ( cd "$APP" && "$PY" -c "import credentials as c; [c.SECRET_KEY, c.DB_NAME,
   log "credentials.py missing or incomplete — aborting before any change"; exit 1
 fi
 
+FE=""
+if [ -f "$REPO/frontend/package.json" ]; then
+  FE="$STATE/frontend-$SHA.tar.gz"
+  if [ ! -f "$FE" ] || [ "$(sha256 "$FE")" != "$(cut -d' ' -f1 "$FE.sha256" 2>/dev/null)" ]; then
+    status failed_preflight "frontend build $(basename "$FE") missing or damaged — nothing was changed"
+    log "frontend build for $SHA missing or damaged — aborting before any change"; exit 1
+  fi
+fi
+
 # ---------------------------------------------------------------- 2. backup
 BK="$BACKUPS/$(date -u +%Y%m%d-%H%M%S)-${SHA:0:7}"
 mkdir -p "$BK" && chmod 700 "$BK" || { status failed_backup "cannot create $BK"; exit 1; }
@@ -133,9 +156,12 @@ ls -1d "$BACKUPS"/*/ 2>/dev/null | sort | awk -v k="$KEEP_BACKUPS" '{a[NR]=$0} E
 # ---------------------------------------------------------------- 3. sync
 status in_progress "syncing code"
 sync_tree "$REPO" || fail "code sync"
+if [ -n "$FE" ]; then
+  status in_progress "installing frontend build"
+  install_frontend "$FE" || fail "frontend install"
+fi
 
 # ---------------------------------------------------------------- 4. packages
-sha256() { if command -v sha256sum >/dev/null; then sha256sum "$1"; else shasum -a 256 "$1"; fi | cut -d' ' -f1; }
 REQ_HASH=$([ -f "$APP/requirements-production.txt" ] && sha256 "$APP/requirements-production.txt")
 if [ -n "$REQ_HASH" ] && [ "$REQ_HASH" != "$(cat "$STATE/requirements.sha256" 2>/dev/null)" ]; then
   log "requirements-production.txt changed — pip install"
@@ -153,4 +179,5 @@ status in_progress "migrate"
 # ---------------------------------------------------------------- 6. restart
 restart_app || fail "restart"
 status ok "deployed"
+find "$STATE" -maxdepth 1 -name 'frontend-*.tar.gz*' ! -name "frontend-$SHA.tar.gz*" -delete
 log "deploy ok: $SHA"

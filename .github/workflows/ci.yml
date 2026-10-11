@@ -62,6 +62,52 @@ jobs:
       - name: UI smoke tests
         run: python manage.py test tests --noinput
 
+  frontend:
+    name: Frontend build
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Look for the React frontend
+        id: fe
+        run: |
+          if [ -f frontend/package.json ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No frontend/package.json in this commit — nothing to build."
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.fe.outputs.present == 'true'
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install packages (package-lock.json)
+        if: steps.fe.outputs.present == 'true'
+        working-directory: frontend
+        run: npm ci
+
+      - name: Type-check and build
+        # Vite writes into static/dist (manifest.json + hashed assets), which the
+        # server cannot build itself: it has no Node.js.
+        if: steps.fe.outputs.present == 'true'
+        working-directory: frontend
+        run: |
+          npm run build
+          test -s ../static/dist/manifest.json || { echo "::error::build produced no static/dist/manifest.json"; exit 1; }
+
+      - name: Keep the build for the production deploy
+        if: steps.fe.outputs.present == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: static/dist/
+          if-no-files-found: error
+          retention-days: 7
+
   ruff:
     name: Ruff (changed Python files)
     if: github.event_name == 'pull_request'

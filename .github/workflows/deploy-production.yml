@@ -1,12 +1,17 @@
 # Deploys main to https://aimtravel.bg on every merge (push to main).
-#   1. CI (ci.yml) must pass.
-#   2. cPanel pulls main into /home/aimtrave/repositories/aimtravel-production
+#   1. CI (ci.yml) must pass; it also builds the React frontend (frontend/ →
+#      static/dist), because the server has no Node.js.
+#   2. That build is uploaded to ~/deploy-state/frontend-<sha>.tar.gz (+ .sha256);
+#      the deploy script verifies it and installs it into static/dist.
+#   3. cPanel pulls main into /home/aimtrave/repositories/aimtravel-production
 #      (VersionControl/update) and runs .cpanel.yml (VersionControlDeployment/create),
 #      which runs deploy/production_deploy.sh: backup → sync → migrate →
 #      collectstatic → restart, restoring the previous code by itself on failure.
-#   3. This job reads the result the script wrote (~/deploy-state/last-deploy.txt),
+#      If main has already moved past this commit, this run deploys nothing:
+#      the newer commit's own run deploys it (with its own frontend build).
+#   4. This job reads the result the script wrote (~/deploy-state/last-deploy.txt),
 #      then checks the public pages on the live site.
-#   4. If the live check fails, it asks the server to restore the code backup taken
+#   5. If the live check fails, it asks the server to restore the code backup taken
 #      by this deploy (~/deploy-state/ROLLBACK) and fails the run.
 #
 # Required repo secrets: CPANEL_HOST, CPANEL_USER, CPANEL_TOKEN
@@ -46,6 +51,13 @@ jobs:
         with:
           fetch-depth: 0   # to tell whether the server's commit includes this one
 
+      - name: Get the frontend build from CI
+        if: hashFiles('frontend/package.json') != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: frontend-dist
+
       - name: Deploy via cPanel and check the live site
         shell: bash
         run: |
@@ -75,6 +87,12 @@ jobs:
               | jq -r '.data.content // empty' 2>/dev/null
           }
           marker() { grep -m1 "^$1=" <<<"$MARKER" | cut -d= -f2-; }
+          upload() {  # upload <dir> <local file>...  (multipart POST, overwrites)
+            local dir=$1 i=0 f args=(); shift
+            for f in "$@"; do i=$((i + 1)); args+=(-F "file-$i=@$f"); done
+            curl -sS --max-time 120 -H "Authorization: cpanel $CPANEL_USER:$CPANEL_TOKEN" \
+              -F "dir=$dir" -F "overwrite=1" "${args[@]}" "https://$CPANEL_HOST:2083/execute/Fileman/upload_files"
+          }
 
           run_deployment() {  # → sets CP_STATE (cPanel's view) and MARKER (the script's result)
             local c id t i log
@@ -129,9 +147,24 @@ jobs:
             || abort "1. cPanel repo" "$REPO_ROOT not found. Paths cPanel reports (non-Latin letters as \\uXXXX): $(jq -a -r '[.data[]?.repository_root] | join(" ; ")' <<<"$R")"
           pass "1. cPanel repo" "$(repo_field "$R" .branch) @ $(repo_field "$R" .last_update.identifier | cut -c1-7)"
 
-          # 2. Pull main (VersionControl/update only pulls when branch is given).
+          # 2. Upload this commit's frontend build; the deploy script refuses to run
+          #    without it (checksum verified) whenever the commit has frontend/.
+          if [ -f frontend/package.json ]; then
+            FE=frontend-$EXPECTED_SHA.tar.gz
+            [ -s frontend-dist/manifest.json ] || abort "2. Frontend build" "no build from CI (frontend-dist artifact is missing manifest.json)"
+            { tar -czf "$RUNNER_TEMP/$FE" -C frontend-dist . && (cd "$RUNNER_TEMP" && sha256sum "$FE" > "$FE.sha256"); } \
+              || abort "2. Frontend build" "could not pack the build"
+            W=$(upload "$STATE_DIR" "$RUNNER_TEMP/$FE" "$RUNNER_TEMP/$FE.sha256")
+            jq -e '.status == 1 and (.data.failed // 0) == 0' <<<"$W" >/dev/null 2>&1 \
+              || abort "2. Frontend build" "upload to $STATE_DIR failed: $(api_err "$W")"
+            pass "2. Frontend build" "$(find frontend-dist -type f | wc -l | tr -d ' ') files uploaded as $FE"
+          else
+            pass "2. Frontend build" "no frontend/ in this commit — nothing to build"
+          fi
+
+          # 3. Pull main (VersionControl/update only pulls when branch is given).
           U=$(api VersionControl/update --data-urlencode "repository_root=$REPO_ROOT" --data-urlencode "branch=$BRANCH")
-          api_ok "$U" || abort "2. Pull $BRANCH" "$(api_err "$U")"
+          api_ok "$U" || abort "3. Pull $BRANCH" "$(api_err "$U")"
           for i in $(seq 1 12); do
             R=$(api VersionControl/retrieve); HEAD=$(repo_field "$R" .last_update.identifier)
             [ "$HEAD" = "$EXPECTED_SHA" ] && break
@@ -139,44 +172,46 @@ jobs:
             sleep 5
           done
           if [ "$HEAD" = "$EXPECTED_SHA" ]; then
-            pass "2. Pull $BRANCH" "server is on ${HEAD:0:7}"
+            pass "3. Pull $BRANCH" "server is on ${HEAD:0:7}"
           elif git merge-base --is-ancestor "$EXPECTED_SHA" "$HEAD" 2>/dev/null; then
-            pass "2. Pull $BRANCH" "server is on newer ${HEAD:0:7}, which includes ${EXPECTED_SHA:0:7}"
+            pass "3. Pull $BRANCH" "$BRANCH has moved on to ${HEAD:0:7}, which includes ${EXPECTED_SHA:0:7}"
+            verdict "NOTHING DEPLOYED by this run — the run for ${HEAD:0:7} deploys it (with its own tests and frontend build)"
+            exit 0
           else
-            abort "2. Pull $BRANCH" "server HEAD=${HEAD:-none}, expected $EXPECTED_SHA"
+            abort "3. Pull $BRANCH" "server HEAD=${HEAD:-none}, expected $EXPECTED_SHA"
           fi
           [ "$(repo_field "$R" .deployable)" = 1 ] \
-            || abort "3. Deployable" "cPanel says not deployable — needs a committed .cpanel.yml and a clean working tree"
+            || abort "4. Deployable" "cPanel says not deployable — needs a committed .cpanel.yml and a clean working tree"
 
-          # 3. Deploy (runs deploy/production_deploy.sh on the server).
+          # 4. Deploy (runs deploy/production_deploy.sh on the server).
           run_deployment
           STATE=$(marker state); DETAIL=$(marker detail); BACKUP=$(marker backup)
           if [ "$(marker sha)" != "$HEAD" ] || [ "$STATE" != ok ]; then
-            abort "3. Deploy on server" "cPanel: $CP_STATE; script: ${STATE:-no result} — ${DETAIL:-see the cPanel deploy log above}"
+            abort "4. Deploy on server" "cPanel: $CP_STATE; script: ${STATE:-no result} — ${DETAIL:-see the cPanel deploy log above}"
           fi
-          pass "3. Deploy on server" "backup, sync, migrate, collectstatic, restart — ok"
+          pass "4. Deploy on server" "backup, sync$([ -f frontend/package.json ] && echo ", frontend build"), migrate, collectstatic, restart — ok"
 
-          # 4. The live site answers on every public page.
+          # 5. The live site answers on every public page.
           smoke
           if [ -z "$SMOKE_FAILED" ]; then
-            pass "4. Live site check" "$(wc -w <<<"$PAGES $STATUS_ONLY" | tr -d ' ') pages OK on $SITE"
+            pass "5. Live site check" "$(wc -w <<<"$PAGES $STATUS_ONLY" | tr -d ' ') pages OK on $SITE"
             verdict "DEPLOYED ${HEAD:0:7} to $SITE"
             exit 0
           fi
-          fail "4. Live site check" "failing:$SMOKE_FAILED"
+          fail "5. Live site check" "failing:$SMOKE_FAILED"
 
-          # 5. Roll back: restore the code backup this deploy took, then check again.
+          # 6. Roll back: restore the code backup this deploy took, then check again.
           W=$(api Fileman/save_file_content --data-urlencode "dir=$STATE_DIR" --data-urlencode "file=ROLLBACK" --data-urlencode "content=$BACKUP")
-          api_ok "$W" || abort "5. Rollback" "could not request rollback: $(api_err "$W"). Previous code is in $BACKUP — restore manually."
+          api_ok "$W" || abort "6. Rollback" "could not request rollback: $(api_err "$W"). Previous code is in $BACKUP — restore manually."
           run_deployment
           if [ "$(marker state)" != rolled_back ]; then
-            abort "5. Rollback" "rollback did not complete: $(marker state) — $(marker detail). Backup: $BACKUP"
+            abort "6. Rollback" "rollback did not complete: $(marker state) — $(marker detail). Backup: $BACKUP"
           fi
           smoke
           if [ -z "$SMOKE_FAILED" ]; then
-            fail "5. Rollback" "previous code restored and the live site is OK again. Database was not rolled back (backup: $BACKUP/db.sql.gz)."
+            fail "6. Rollback" "previous code restored and the live site is OK again. Database was not rolled back (backup: $BACKUP/db.sql.gz)."
           else
-            fail "5. Rollback" "previous code restored but pages still failing:$SMOKE_FAILED"
+            fail "6. Rollback" "previous code restored but pages still failing:$SMOKE_FAILED"
           fi
           verdict "ROLLED BACK — ${HEAD:0:7} broke the live site and was undone"
           exit 1
