@@ -54,6 +54,9 @@ jobs:
           STATICFILES_DIRS = ["$GITHUB_WORKSPACE/static"]
           STATIC_ROOT = "$RUNNER_TEMP/staticroot"
           MEDIA_ROOT = "$RUNNER_TEMP/media"
+          APPLY_PRIVATE_ROOT = "$RUNNER_TEMP/private"
+          # The React bundle is built by the "Frontend build" job, not here.
+          VITE_DEV_MODE = True
           EOF
 
       - name: manage.py check

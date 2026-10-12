@@ -1,0 +1,114 @@
+{
+  "brand": {
+    "name": "AIM Travel USA",
+    "tagline": "Work Hard, Travel Far",
+    "programName": "Work and Travel USA"
+  },
+  "nav": {
+    "home": "Начало",
+    "watUsa": "Бригада САЩ",
+    "onlineServices": "Онлайн услуги",
+    "otherServices": "Други услуги",
+    "jobOffers": "Работни оферти",
+    "contacts": "Контакти",
+    "blog": "Блог",
+    "about": "За нас",
+    "profile": "Профил",
+    "studentPortal": "Студентски портал"
+  },
+  "navGroups": {
+    "watUsa": {
+      "program": "Бригадата",
+      "requirements": "Изисквания",
+      "price": "Цената",
+      "howToApply": "Как да се запишеш?"
+    },
+    "online": {
+      "freeConsultation": "Безплатна консултация",
+      "registration": "Регистрация за бригада"
+    },
+    "other": {
+      "campInternship": "Лагер / Стаж САЩ",
+      "h2b": "Работа за нестуденти (H2B виза)",
+      "flights": "Самолетни билети",
+      "taxes": "Данъци в САЩ"
+    }
+  },
+  "cta": {
+    "apply": "Запиши се",
+    "freeConsultation": "Безплатна консултация",
+    "learnMore": "Научи повече",
+    "saveOffer": "Запази оферта",
+    "fillForm": "Попълни формуляр",
+    "readArticle": "Прочети статия",
+    "browseOffers": "Разгледай офертите",
+    "subscribe": "Абонирай се",
+    "choose": "Избери"
+  },
+  "actions": {
+    "next": "Напред",
+    "back": "Назад",
+    "submit": "Изпрати заявката",
+    "cancel": "Откажи",
+    "save": "Запази",
+    "upload": "Качи",
+    "uploadNow": "Качи сега",
+    "join": "Присъедини се",
+    "close": "Затвори",
+    "seeAll": "Виж всички"
+  },
+  "status": {
+    "verified": "Проверено",
+    "uploaded": "Качено",
+    "missing": "Липсва",
+    "pending": "Предстои",
+    "confirmed": "Потвърдено",
+    "paid": "Платено",
+    "awaitingEmployer": "Чака работодателя",
+    "later": "По-късно",
+    "verifiedEmployer": "Проверен работодател"
+  },
+  "contact": {
+    "sofia": {
+      "label": "София",
+      "address": "Студентски град, ул. Йордан Йосифов №2 (до Bamboo и Joy Station)",
+      "phone": "+359 88 99 66 583",
+      "email": "studentski@aimtravel.bg"
+    },
+    "varna": {
+      "label": "Варна",
+      "address": "бул. Цар Освободител №19",
+      "phone": "+359 878 63 00 72",
+      "email": "varna@aimtravel.bg"
+    },
+    "followUs": "Последвай ни в:",
+    "callUs": "Обади ни се",
+    "emailUs": "Пиши ни e-mail",
+    "socialMedia": "Социалните медии",
+    "heading": "Как да се свържете с нас?",
+    "body": "За да се свържете с нас, трябва само да ни се обадите. Ако пък телефонните разговори ви се струват ретро, пишете ни e-mail или се свържете с нас през социалните медии. И разбира се, винаги може да ни посетите на място в нашите офиси. Очакваме ви!"
+  },
+  "footer": {
+    "quickLinks": "Бързи връзки",
+    "watSection": "Бригада в САЩ",
+    "onlineServices": "Онлайн услуги",
+    "otherServices": "Други услуги",
+    "copyright": "© AIM Travel USA {{year}}. Всички права запазени."
+  },
+  "a11y": {
+    "openMenu": "Отвори менюто",
+    "closeMenu": "Затвори менюто",
+    "playVideo": "Пусни видеото",
+    "openChat": "Отвори чата с асистента",
+    "closeChat": "Затвори чата"
+  },
+  "errors": {
+    "required": "Това поле е задължително.",
+    "invalidEmail": "Въведи валиден имейл адрес.",
+    "invalidPhone": "Въведи валиден телефонен номер.",
+    "fileTooLarge": "Файлът е по-голям от {{maxMb}} MB. Качи по-малък файл.",
+    "unsupportedFormat": "Форматът не се поддържа. Приемаме PDF, JPG и PNG.",
+    "networkError": "Връзката прекъсна. Провери интернета си и опитай пак.",
+    "generic": "Нещо се обърка. Опитай отново след минута."
+  }
+}

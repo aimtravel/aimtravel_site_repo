@@ -96,6 +96,7 @@ PUBLIC_PAGES = [
     "wat 2027 registration",
     "favorite offers",
     "under-construction",
+    "apply-zapisvane",
 ]
 
 

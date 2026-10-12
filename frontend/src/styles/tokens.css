@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --------------------------------------------------------------------------
+   Бранд палитрата на AIM Travel, извлечена от aimtravel.bg.
+   Записана е в HSL без функцията hsl(), защото shadcn/ui композира
+   стойностите като hsl(var(--token) / <alpha>).
+
+   Тъмната тема НЕ е огледало на светлата: #A31D1A върху тъмен фон пада
+   под 4.5:1, затова в dark режим основният цвят светва до #D9483F.
+   -------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 26% 15%;          /* #1C2430 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 26% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 26% 15%;
+
+    --primary: 1 72% 37%;               /* #A31D1A */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 68% 22%;           /* #12395F */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;               /* #F4F5F7 */
+    --muted-foreground: 214 11% 40%;    /* #55606E */
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 215 26% 15%;
+
+    --destructive: 1 72% 37%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 152 61% 30%;             /* #1E7A4C */
+    --warning: 36 79% 40%;              /* #B77315 */
+
+    --border: 214 20% 90%;              /* #E2E6EB */
+    --input: 214 20% 90%;
+    --ring: 210 51% 35%;                /* #2C5B87 — фокус пръстенът е тъмносин,
+                                           за да не се бърка с грешка */
+    --radius: 12px;
+  }
+
+  .dark {
+    --background: 210 68% 8%;           /* #071726 */
+    --foreground: 210 20% 92%;
+
+    --card: 210 68% 12%;
+    --card-foreground: 210 20% 92%;
+    --popover: 210 68% 12%;
+    --popover-foreground: 210 20% 92%;
+
+    --primary: 3 66% 56%;               /* #D9483F — #A31D1A не стига контраст */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 51% 35%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 16%;
+    --muted-foreground: 210 14% 70%;
+
+    --accent: 210 40% 16%;
+    --accent-foreground: 210 20% 92%;
+
+    --destructive: 3 66% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 30% 22%;
+    --input: 210 30% 22%;
+    --ring: 3 66% 56%;
+  }
+
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; font-feature-settings: "cv02", "cv03"; }
+
+  h1, h2, h3, h4 { @apply font-display text-secondary; }
+}
+
+/* Кирилицата трябва да е в subset-а, иначе Montserrat пада към system-ui
+   само за българските глифи и заглавията изглеждат смесени. */
+@layer base {
+  /* Зареждането на шрифтовете е в Django base template-а:
+     <link href="…family=Montserrat:wght@600;700;800&family=Manrope:wght@400;500;600;700
+           &family=JetBrains+Mono:wght@400;500;700&display=swap
+           &subset=cyrillic,cyrillic-ext,latin"> */
+}
