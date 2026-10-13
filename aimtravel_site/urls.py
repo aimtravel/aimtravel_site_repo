@@ -21,6 +21,7 @@ from django.conf.urls import handler404, handler500
 from django.contrib.sitemaps import views as sitemaps_views
 
 from aimtravel_site import settings
+from aimtravel_site.apply.pages import zapisvane as apply_zapisvane
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,8 @@ urlpatterns = [
     path('user_profile/', include('aimtravel_site.user_profile.urls')),
     path('post/', include('aimtravel_site.posting.urls')),
     path('taxes/', include('aimtravel_site.taxes.urls')),
+    path('zapisvane-za-brigada/', apply_zapisvane, name='apply-zapisvane'),
+    path('api/v1/', include('aimtravel_site.apply.urls')),
     path('password_reset/done/',
          auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_done.html'),
          name='password_reset_done'),
