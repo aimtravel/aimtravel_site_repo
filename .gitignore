@@ -1,11 +1,62 @@
-# Server-only secrets — never commit (see aimtravel_site/settings.py).
+# NOTE: ignoring only affects untracked files. Paths below that are already
+# tracked on main (venv/, .idea/, media/, private_media/, staticfiles/, *.pyc,
+# .DS_Store, the .rar) stay tracked until removed with `git rm --cached`.
+
+# --- Secrets — never commit (see aimtravel_site/settings.py) ---
+# The GitHub repo is PUBLIC.
 credentials.py
 wat_credentials.py
 .env
-__pycache__/
-*.pyc
+.env.*
+!.env.example
+.my.cnf
 
-# --- Frontend build output ---
+# --- Python ---
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+env/
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# --- Django runtime data ---
+# Uploaded files live on the server; the deploy never touches them.
+# private_media/ holds customer documents and contracts (personal data).
+private_media/
+media/
+staticfiles/
+*.sqlite3
+*.log
+
+# --- Frontend ---
 # Built by CI (ci.yml) and uploaded by the deploy; never committed.
 static/dist/
 frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+npm-debug.log*
+
+# --- Claude Code ---
+# .claude/settings.json and .claude/skills/ are shared with the team;
+# personal overrides are not.
+.claude/settings.local.json
+CLAUDE.local.md
+
+# --- Editors / OS ---
+.idea/
+.vscode/
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db
+desktop.ini
+
+# --- Archives / backups ---
+*.rar
+*.bak
