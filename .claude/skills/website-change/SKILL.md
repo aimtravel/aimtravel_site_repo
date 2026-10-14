@@ -55,7 +55,15 @@ Fixed facts:
    `<slug>` = 2-5 lowercase English words with hyphens, ASCII only
    (e.g. `fix/contacts-phone-number`). Make sure it does not exist:
    `git ls-remote --heads origin <branch>` and `git branch --list <branch>`.
-4. `git switch --no-track -c <branch> origin/main`
+4. **Ask the person to confirm the branch name before creating it.** Show the
+   proposed name, explain in one plain sentence what a branch is (a separate copy
+   of the site's code where the change is prepared; the live site is not touched
+   until the merge), and ask: "Да създам ли клон `<branch>`?" Wait for a clear yes.
+   If they want another name, apply the rules from point 3 to it (convert to
+   lowercase ASCII with hyphens, add the `fix/` or `feature/` prefix, check that it
+   does not exist), show the final name and ask again. Never create the branch
+   without this confirmation.
+5. `git switch --no-track -c <branch> origin/main`
    (works even when this session runs in a worktree where `main` cannot be checked out).
 
 ## Step 2 - Make the change
