@@ -1,6 +1,6 @@
 ---
 name: website-change
-description: Guides a non-technical team member through changing the aimtravel.bg website end to end - new branch from main, the change itself, commit + push with a generated message, a pull request, and the merge that deploys to production. Use when someone asks to change, fix or add something on the website (texts, pages, images, prices, styles - "промени на сайта", "смени текста", "добави снимка"), or to continue such a change ("продължи", "провери PR-а", "merge").
+description: Guides a non-technical team member through changing the aimtravel.bg website end to end - new branch from main, the change itself, commit + push with a generated message, a pull request, and the merge that deploys to production. Use when someone asks to change, fix or add something on the website (texts, pages, images, prices, styles - "промени на сайта", "смени текста", "добави снимка"), to publish changes the person already made in the files (e.g. with Claude Cowork - "публикувай промените ми", "направи PR"), or to continue such a change ("продължи", "провери PR-а", "merge").
 ---
 
 # Website change (for non-technical team members)
@@ -14,6 +14,10 @@ Fixed facts:
 
 - Repository: `aimtravel/aimtravel_site_repo` (public), remote `origin` over SSH.
 - No reviewer is requested. Stoyan Stoyanov is the person to ask for help.
+- This skill runs in the **Code** tab of the Claude desktop app. Claude **Cowork**
+  does not load this repository's skills and cannot push to GitHub (isolated
+  environment, no SSH key), so a person may make the edits in Cowork (with the
+  repository folder connected) and then run this skill in the Code tab to publish them.
 - **Merging into `main` deploys to https://aimtravel.bg immediately.** There is no staging.
 - `main` is protected: PR only; required checks **Django check + UI smoke tests**,
   **Frontend build**, **Ruff (changed Python files)**; the branch must be up to date
@@ -35,11 +39,22 @@ Fixed facts:
    - On a branch other than `main` with work already pushed, look for its PR:
      `curl -s "$API/pulls?head=aimtravel:<branch>&state=all"`.
      Open PR -> continue at **Step 5**; merged PR -> **Step 7** (clean-up), then
-     ask what the new change is.
-   - Uncommitted changes the person did not make in this conversation: do **not**
-     discard, stash or commit them. Show the list, explain, and ask Stoyan's help if
-     the person does not recognise them. (Modified `*.pyc` files only: they come from
-     running Python - `git restore -- '*.pyc'` is safe.)
+     ask what the new change is. If there are uncommitted changes, handle them
+     first (next point).
+   - Uncommitted changes made before this conversation (often the person edited
+     files themselves, e.g. with Claude Cowork or an editor): show
+     `git status --short` and `git diff --stat`, explain in plain words what changed
+     in each file (old -> new text; new files `??` too), and ask:
+     "Това ли са вашите промени, които искате да публикувате на сайта?"
+     - **Yes** -> these are the change ("pre-made change"). Files the person does not
+       recognise or that are on the forbidden list (Step 2) are left out: never
+       stage them, never discard them, just say they stay out. If the current
+       branch has an open PR, ask whether the change is a fix for that PR (-> commit
+       on it, Step 3) or a new change (-> Step 1). Otherwise go to Step 1 (skip Step 7
+       clean-up for now; do it after this change is merged).
+     - **No / not sure** -> do **not** discard, stash or commit anything; ask Stoyan.
+     - Modified `*.pyc` files only: they come from running Python -
+       `git restore -- '*.pyc'` is safe.
 3. Check GitHub access: `GIT_TERMINAL_PROMPT=0 git ls-remote --exit-code origin main`.
    If it fails (Permission denied, Host key verification failed, passphrase prompt),
    stop: the person must finish the SSH part of the setup guide
@@ -50,6 +65,7 @@ Fixed facts:
 
 1. Ask what should change, if not already clear. Ask for the exact page (URL on
    aimtravel.bg) and the exact new text/image. Clarify before editing.
+   Pre-made change: only ask which page it is for (for the PR description).
 2. `git fetch origin --prune`
 3. Branch name: `fix/<slug>` for corrections, `feature/<slug>` for new things;
    `<slug>` = 2-5 lowercase English words with hyphens, ASCII only
@@ -65,8 +81,17 @@ Fixed facts:
    without this confirmation.
 5. `git switch --no-track -c <branch> origin/main`
    (works even when this session runs in a worktree where `main` cannot be checked out).
+   Uncommitted changes move to the new branch with it. If git refuses
+   ("Your local changes ... would be overwritten"): the same files also changed on
+   GitHub. Then `git stash push -u -m "website-change <branch>"`, the `git switch`
+   above, and `git stash pop`. If `pop` reports conflicts, stop and ask Stoyan (the
+   changes are still safe in the stash, `git stash list`).
 
 ## Step 2 - Make the change
+
+Pre-made change: do not redo it. Review it against the rules below (forbidden
+files, legacy folders, risky areas), mention anything suspicious (typos, broken
+HTML, Latin letters in Cyrillic words) and change it only after the person agrees.
 
 - Find where the page lives: live templates are in top-level `templates/`
   (not `aimtravel_site/templates/`), styles/images/scripts in `static/`, the
