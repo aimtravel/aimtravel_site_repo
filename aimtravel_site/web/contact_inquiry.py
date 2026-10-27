@@ -5,6 +5,7 @@ import logging
 import os
 from pathlib import Path
 import secrets
+import subprocess
 import time
 
 from django.conf import settings
@@ -22,6 +23,30 @@ from django.views.decorators.http import require_GET, require_POST
 SALT = 'aim-contact-captcha-v1'
 ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
 logger = logging.getLogger(__name__)
+
+
+def _deliver(mail):
+    """Use authenticated SMTP, or the hosting account's local mail transport.
+
+    SuperHosting supports /usr/sbin/sendmail for Python. This only applies when
+    no SMTP password is configured; SMTP failures never trigger a second send.
+    """
+    if (settings.EMAIL_BACKEND == 'django.core.mail.backends.smtp.EmailBackend'
+            and not getattr(settings, 'EMAIL_HOST_PASSWORD', '')):
+        sender = 'studentski@aimtravel.bg'
+        mail.from_email = sender
+        validate_email(sender)
+        if sender.rsplit('@', 1)[-1].lower() != 'aimtravel.bg':
+            raise ValueError('Contact sender must belong to aimtravel.bg')
+        result = subprocess.run(
+            ['/usr/sbin/sendmail', '-oi', '-f', sender, 'studentski@aimtravel.bg'],
+            input=mail.message().as_bytes(), stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=20, check=False,
+        )
+        if result.returncode:
+            raise RuntimeError('Local mail transport rejected message')
+        return 1
+    return mail.send(fail_silently=False)
 
 
 def _digest(value):
@@ -140,10 +165,11 @@ def contact_inquiry(request):
             from_email=getattr(settings, 'EMAIL_HOST_USER', '') or settings.DEFAULT_FROM_EMAIL,
             to=['studentski@aimtravel.bg'], reply_to=[email] if email else [],
         )
-        if mail.send(fail_silently=False) != 1:
+        if _deliver(mail) != 1:
             raise RuntimeError('No message accepted')
-    except Exception:
-        logger.error('Contact inquiry mail delivery failed')
+    except Exception as exc:
+        logger.error('Contact inquiry delivery failed: %s (SMTP code %s)',
+                     type(exc).__name__, getattr(exc, 'smtp_code', 'n/a'))
         return error('Не успяхме да изпратим съобщението. Опитай отново или ни пиши във Viber.', 503)
     return JsonResponse({'message': 'Благодарим ти! Получихме съобщението и ще ти се обадим на посочения телефон.'})
 
