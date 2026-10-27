@@ -18,3 +18,11 @@ Run `python manage.py test tests.test_public_application_form` for isolated form
 CV, CSRF and mocked webhook tests. The full CI suite remains required before merge.
 An end-to-end live submission creates a real Sheet entry/CV and may trigger the
 existing Apps Script emails; use an agreed test identity for that check.
+
+The form requires a real JPEG/PNG/WEBP photo on both client and server. The
+existing site logo is used in the header. Django throttles repeat submissions by
+email rather than shared office/Wi-Fi IP, and allows 60 seconds for the webhook.
+The existing Apps Script receiver deployment was updated to version 8: its script
+lock waits up to 30 seconds and spreadsheet writes are flushed before email and
+before releasing the lock. A busy response keeps the form retryable with the same
+submission ID. No destinations, recipients or access permissions were changed.

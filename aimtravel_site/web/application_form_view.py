@@ -137,7 +137,8 @@ def _build_resume(values, experiences, photo_data, gender, nationality):
             if label == "BUSINESS SECTOR":
                 _replace_paragraph(cell.paragraphs[0], "CITY / COUNTRY")
 
-    photo_bytes = None
+    if not photo_data:
+        raise ValueError("A photo is required")
     if photo_data:
         try:
             photo_bytes = base64.b64decode(photo_data, validate=True)
@@ -145,6 +146,14 @@ def _build_resume(values, experiences, photo_data, gender, nationality):
             raise ValueError("Invalid photo data")
         if not photo_bytes or len(photo_bytes) > MAX_PHOTO_BYTES:
             raise ValueError("Photo is too large")
+        from PIL import Image, UnidentifiedImageError
+        try:
+            with Image.open(io.BytesIO(photo_bytes)) as image:
+                if image.format not in {"JPEG", "PNG", "WEBP"}:
+                    raise ValueError("Unsupported photo format")
+                image.verify()
+        except (UnidentifiedImageError, OSError, Image.DecompressionBombError) as exc:
+            raise ValueError("Invalid photo") from exc
         photo_cell = document.tables[0].rows[0].cells[2]
         photo_cell.text = ""
         photo_cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
@@ -237,6 +246,8 @@ def application_form_submit(request):
         if any(not value.isascii() for entry in experiences for value in entry.values()):
             raise ValueError("Latin characters only")
         photo_data = str(body.get("photo", "") or "")
+        if not photo_data:
+            return JsonResponse({"ok": False, "error": "Please add a photo for your CV."}, status=400)
         if len(photo_data) > (MAX_PHOTO_BYTES * 4 // 3 + 16):
             raise ValueError("Photo is too large")
         resume_bytes = _build_resume(values, experiences, photo_data, gender, nationality)
@@ -248,17 +259,16 @@ def application_form_submit(request):
     if not APPLICATION_FORM_WEBHOOK_URL or not APPLICATION_FORM_WEBHOOK_SECRET:
         return JsonResponse({"ok": False, "error": "The form is temporarily unavailable. Please try again later."}, status=503)
 
-    # Short per-IP limit at Django plus email-based limit in Apps Script. A failed
-    # delivery must remain retryable with the same submission ID.
-    remote_ip = request.META.get("REMOTE_ADDR", "unknown")
-    ip_digest = hashlib.sha256(remote_ip.encode("utf-8", "ignore")).hexdigest()[:32]
-    ip_cache_key = "application_form_ip_" + ip_digest
+    # Different applicants can share an office/Wi-Fi IP. Only throttle repeat
+    # delivery for this email; retain the same submission ID on failed retries.
+    email_digest = hashlib.sha256(email.encode("utf-8")).hexdigest()
+    email_cache_key = "application_form_email_" + email_digest
     submission_cache_key = "application_form_submission_" + submission_id
     submission_status = cache.get(submission_cache_key)
     if submission_status == "done":
         return JsonResponse({"ok": True})
-    if cache.get(ip_cache_key):
-        return JsonResponse({"ok": False, "error": "Too many requests were sent from this connection. Please wait a moment."}, status=429)
+    if cache.get(email_cache_key):
+        return JsonResponse({"ok": False, "error": "An application with this email was recently submitted. Please wait a moment."}, status=429)
     if submission_status == "in_progress":
         return JsonResponse({"ok": False, "error": "This application is already being submitted. Please wait a moment."}, status=409)
     if not cache.add(submission_cache_key, "in_progress", timeout=90):
@@ -290,7 +300,7 @@ def application_form_submit(request):
     )
 
     try:
-        with urllib.request.urlopen(outbound, timeout=15) as response:
+        with urllib.request.urlopen(outbound, timeout=60) as response:
             result = json.loads(response.read(4096).decode("utf-8"))
     except (urllib.error.URLError, TimeoutError, UnicodeDecodeError, json.JSONDecodeError):
         cache.delete(submission_cache_key)
@@ -298,8 +308,12 @@ def application_form_submit(request):
 
     if not isinstance(result, dict) or result.get("ok") is not True:
         cache.delete(submission_cache_key)
+        if isinstance(result, dict) and result.get("error") == "busy":
+            return JsonResponse({"ok": False, "error": "Other applications are being saved. Please wait a moment and submit again. Your answers are still here."}, status=503)
+        if isinstance(result, dict) and result.get("error") == "rate_limited":
+            return JsonResponse({"ok": False, "error": "rate_limited"}, status=429)
         return JsonResponse({"ok": False, "error": "We could not submit your application. Please try again shortly."}, status=502)
 
-    cache.set(ip_cache_key, "1", timeout=60)
+    cache.set(email_cache_key, "1", timeout=60)
     cache.set(submission_cache_key, "done", timeout=86400)
     return JsonResponse({"ok": True})
