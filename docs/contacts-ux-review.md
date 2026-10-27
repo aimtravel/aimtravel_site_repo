@@ -12,7 +12,7 @@ The visual hierarchy follows the supplied Orange contact-page reference while
 using AIM branding, existing maps and the site's Sofia Sans typeface.
 
 Sofia: 088 996 6583 and 088 478 3801; studentski@aimtravel.bg and
-Sofia@aimtravel.bg; 8 office consultants.
+sofia@aimtravel.bg; 8 office consultants.
 Varna: 0878 630 072; varna@aimtravel.bg; 3 office consultants.
 
 A separate Instagram strip links to the actual aimtravel_usa and aimtravel_varna
@@ -56,4 +56,13 @@ outside the isolated preview's scope.
 Only the contact template changed in this visual refactor. It was uploaded to
 the testpetar app and that app was restarted. Production was not deployed.
 The previous template is backed up in backup/contacts-before-office-refactor.html.
+
+## Direct-contact refinement
+
+The page now opens with three prominent actions: Viber, free consultation and
+phone call. The mobile action bar contains the same three destinations. Online
+services use the same neutral navigation color as the other sections, and the
+online panel has a neutral border. Sofia email is lowercase in both label and
+mailto destination. The backend and form submission behavior were not changed.
+Live staging verification checked all three destinations and no desktop overflow.
 
