@@ -113,6 +113,47 @@
     #aim-contacts { padding-bottom:78px; }
   }
   @media(prefers-reduced-motion:reduce) { #aim-contacts * { scroll-behavior:auto!important; transition:none!important; } }
+
+  #aim-contacts .ac-brand { width:230px; height:auto; display:block; margin-bottom:30px; }
+  #aim-contacts .ac-hero-ctas { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+  #aim-contacts .ac-online { background:#edf2f5; padding:44px 0; border-bottom:1px solid var(--line); }
+  #aim-contacts .ac-online-grid { display:grid; grid-template-columns:1.5fr 1fr; align-items:center; gap:70px; }
+  #aim-contacts .ac-online p:not(.ac-kicker) { margin:16px 0; color:var(--muted); }
+  #aim-contacts .ac-team-online { display:flex; gap:22px; align-items:center; padding:26px; background:#fff; border-radius:18px; }
+  #aim-contacts .ac-team-online > strong { font-size:76px; line-height:1; color:var(--red); }
+  #aim-contacts .ac-team-online h3 { font-size:20px; }
+  #aim-contacts .ac-office-grid { grid-template-columns:1fr; }
+  #aim-contacts .ac-office { display:grid; grid-template-columns:1fr 1fr; }
+  #aim-contacts .ac-map { height:100%; min-height:390px; border:0; }
+  #aim-contacts .ac-office-content { padding:34px; }
+  #aim-contacts .ac-office-emails { display:flex; flex-wrap:wrap; gap:9px; margin-top:12px; }
+  #aim-contacts .ac-office-emails a { overflow-wrap:anywhere; }
+  #aim-contacts .ac-office-team { display:flex; gap:16px; align-items:center; border-top:1px solid var(--line); margin-top:24px; padding-top:22px; }
+  #aim-contacts .ac-team-count { width:58px; height:58px; flex:none; display:grid; place-items:center; border-radius:50%; background:#fff0f0; color:var(--red); font-size:28px; font-weight:800; }
+  #aim-contacts .ac-office-team strong { display:block; font-size:15px; }
+  #aim-contacts .ac-office-team a { margin-top:5px; font-size:14px; }
+  #aim-contacts .ac-captcha { margin-top:22px; }
+  #aim-contacts .ac-captcha-picture { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px; }
+  #aim-contacts .ac-captcha-picture img { background:white; border:1px solid var(--line); border-radius:8px; max-width:100%; object-fit:contain; }
+  #aim-contacts #ac-code { max-width:240px; letter-spacing:.2em; }
+  #aim-contacts #ac-captcha-help { color:var(--muted); font-size:12px; margin-top:8px; }
+  #aim-contacts .ac-trap { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+  #aim-contacts #ac-form-status { margin-top:15px; font-size:14px; }
+  @media(max-width:680px) {
+    #aim-contacts .ac-brand { width:205px; margin-bottom:25px; }
+    #aim-contacts .ac-online-grid, #aim-contacts .ac-office { grid-template-columns:1fr; gap:0; }
+    #aim-contacts .ac-online-grid { gap:25px; }
+    #aim-contacts .ac-map { height:245px; min-height:0; }
+    #aim-contacts .ac-office-content { padding:24px; }
+    #aim-contacts .ac-hero-ctas .ac-button { width:100%; }
+  }
+
+  #footer-nav-container, #footer-link-container { width:min(1180px,calc(100% - 48px)); max-width:100%; }
+  #footer-nav-container { flex-wrap:wrap; gap:24px 0; }
+  #footer-nav-container #logo-container { width:100%; align-items:center; }
+  #footer-nav-container .nav-container { flex:1 1 180px; width:auto; padding:0 16px; box-sizing:border-box; }
+  #footer-link-container { flex-wrap:wrap; gap:20px; }
+  @media(min-width:801px) and (max-width:1100px) { #offer-details-header .header-nav-links-container { left:0; gap:18px; width:100%; } }
 </style>
 <div id="aim-contacts" lang="bg">
   <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
@@ -127,16 +168,16 @@
   <section class="ac-hero" aria-labelledby="ac-title">
     <div class="ac-wrap ac-hero-grid">
       <div>
-        <p class="ac-kicker">Контакти · AIM Travel</p>
-        <h1 id="ac-title">Въпрос за бригадата?<br><span>Насреща сме.</span></h1>
-        <p class="ac-intro">За работата, документите или първото ти лято в САЩ — избери най-удобния начин да се свържеш с нас.</p>
-        <div class="ac-hero-footer">
+        <img class="ac-brand" src="{% static 'img/Ready-stock/Logo/AIM_logo-colored.png' %}" alt="AIM Travel USA" width="345" height="150">
+        <h1 id="ac-title">Твоята бригада<br><span>започва онлайн.</span></h1>
+        <p class="ac-intro">Не си в София или Варна? Дори да си извън България, можем да подготвим бригадата ти заедно. Работим предимно онлайн: от безплатната консултация и записването до подписването на договора.</p>
+        <div class="ac-hero-ctas"><a class="ac-button ac-primary" href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener noreferrer">Безплатна консултация</a><a class="ac-button" href="#ac-inquiry">Пиши ни и ще ти се обадим</a></div><div class="ac-hero-footer">
           <a class="ac-text-link" href="#ac-offices">Намери ни в Google Maps <span aria-hidden="true">↗</span></a>
           <span class="ac-locations-note"><svg aria-hidden="true"><use href="#ac-pin"/></svg> София и Варна</span>
         </div>
       </div>
       <div class="ac-contact-panel">
-        <div class="ac-panel-top"><p>Да се чуем. Или да си пишем.</p><img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="AIM Travel"></div>
+        <div class="ac-panel-top"><p>Свържи се с нас</p><img src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="AIM Travel"></div>
         <a class="ac-channel ac-viber" href="viber://chat?number=%2B359889966583"><span class="ac-channel-icon"><svg aria-hidden="true"><use href="#ac-chat"/></svg></span><span class="ac-channel-copy"><strong>Пиши ни във Viber</strong><small>+359 88 99 66 583</small></span><span class="ac-arrow" aria-hidden="true">↗</span></a>
         <a class="ac-channel" href="https://ig.me/m/aimtravel_usa" target="_blank" rel="noopener noreferrer"><span class="ac-channel-icon"><svg aria-hidden="true"><use href="#ac-instagram"/></svg></span><span class="ac-channel-copy"><strong>Пиши ни в Instagram</strong><small>@aimtravel_usa</small></span><span class="ac-arrow" aria-hidden="true">↗</span></a>
         <a class="ac-channel" href="tel:+359889966583"><span class="ac-channel-icon"><svg aria-hidden="true"><use href="#ac-phone"/></svg></span><span class="ac-channel-copy"><strong>Предпочиташ разговор?</strong><small>+359 88 99 66 583</small></span><span class="ac-arrow" aria-hidden="true">↗</span></a>
@@ -145,27 +186,28 @@
     </div>
   </section>
 
+  <section class="ac-online"><div class="ac-wrap ac-online-grid"><div><p class="ac-kicker">Онлайн, където и да си</p><h2>Не е нужно да идваш до офис.</h2><p>Запазваш час за разговор, записваш се и подписваш договора онлайн. Автоматизирали сме стъпките, за да не губиш време в пътуване и чакане. А когато имаш въпрос, говориш с човек от нашия екип.</p><a class="ac-text-link" href="https://aimtravel.bg/zapisvane-za-brigada/">Запиши се онлайн ↗</a></div><div class="ac-team-online"><strong>3</strong><div><h3>онлайн консултанти</h3><p>За въпросите ти, независимо в кой град или държава си.</p></div></div></div></section>
   <section class="ac-section" id="ac-offices" aria-labelledby="ac-offices-title">
     <div class="ac-wrap">
-      <div class="ac-section-head"><div><p class="ac-kicker">Ела да се запознаем</p><h2 id="ac-offices-title">Два града. Един AIM екип.</h2></div><p>Предпочиташ среща на място? Намери удобния офис и отвори упътване директно в Google Maps.</p></div>
+      <div class="ac-section-head"><div><p class="ac-kicker">Ела да се запознаем</p><h2 id="ac-offices-title">Ще ни намериш и в офиса.</h2></div><p>Ако предпочиташ да се видим на живо, екипите ни в София и Варна са насреща.</p></div>
       <div class="ac-office-grid">
-        <article class="ac-office">
+        <article class="ac-office"><iframe class="ac-map" title="AIM Travel, офис София, Студентски град" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3549760231135!2d23.344753582692363!3d42.65383249706103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424acd6e7ab%3A0x98b22b079ac66bde!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1696253779862!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           <div class="ac-office-content">
             <div class="ac-office-title"><span class="ac-office-icon"><svg aria-hidden="true"><use href="#ac-pin"/></svg></span><div><h3>София</h3><small>Студентски град</small></div></div>
             <p class="ac-address">ул. „Йордан Йосифов“ №2<span>До автобусната спирка на Joy Station</span></p>
             <a class="ac-office-phone" href="tel:+359889966583"><svg aria-hidden="true"><use href="#ac-phone"/></svg>+359 88 99 66 583</a>
-            <div class="ac-office-actions"><a class="ac-button ac-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%99%D0%BE%D1%80%D0%B4%D0%B0%D0%BD%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%202%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Упътване до офиса</a><a class="ac-text-link" href="tel:+359884783801">Втори телефон ↗</a></div>
+            <div class="ac-office-actions"><a class="ac-button ac-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%99%D0%BE%D1%80%D0%B4%D0%B0%D0%BD%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%202%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps</a><a class="ac-text-link" href="tel:+359884783801">Втори телефон ↗</a></div><div class="ac-office-emails"><a class="ac-button" href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a><a class="ac-button" href="mailto:Sofia@aimtravel.bg">Sofia@aimtravel.bg</a></div><div class="ac-office-team"><div class="ac-team-count">8</div><div><strong>консултанти в офиса</strong><a class="ac-text-link" href="https://www.instagram.com/aimtravel_usa/" target="_blank" rel="noopener noreferrer">@aimtravel_usa ↗</a></div></div>
           </div>
-          <iframe class="ac-map" title="AIM Travel — офис София, Студентски град" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3549760231135!2d23.344753582692363!3d42.65383249706103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424acd6e7ab%3A0x98b22b079ac66bde!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1696253779862!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          
         </article>
-        <article class="ac-office">
+        <article class="ac-office"><iframe class="ac-map" title="AIM Travel, офис Варна" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.6714587237082!2d27.922399472511646!3d43.208369529611154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a455a885ff9139%3A0xb0b18f3c8941b1ce!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1725950753388!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           <div class="ac-office-content">
             <div class="ac-office-title"><span class="ac-office-icon"><svg aria-hidden="true"><use href="#ac-pin"/></svg></span><div><h3>Варна</h3><small>Център</small></div></div>
             <p class="ac-address">бул. „Цар Освободител“ №19<span>Намери точната локация на картата</span></p>
             <a class="ac-office-phone" href="tel:+359878630072"><svg aria-hidden="true"><use href="#ac-phone"/></svg>+359 878 630 072</a>
-            <div class="ac-office-actions"><a class="ac-button ac-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%A6%D0%B0%D1%80%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%2019%2C%20%D0%92%D0%B0%D1%80%D0%BD%D0%B0" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Упътване до офиса</a><a class="ac-text-link" href="mailto:studentski@aimtravel.bg">Пиши ни ↗</a></div>
+            <div class="ac-office-actions"><a class="ac-button ac-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%A6%D0%B0%D1%80%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%2019%2C%20%D0%92%D0%B0%D1%80%D0%BD%D0%B0" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps</a></div><div class="ac-office-emails"><a class="ac-button" href="mailto:varna@aimtravel.bg">varna@aimtravel.bg</a></div><div class="ac-office-team"><div class="ac-team-count">3</div><div><strong>консултанти в офиса</strong><a class="ac-text-link" href="https://www.instagram.com/aimtravel_varna/" target="_blank" rel="noopener noreferrer">@aimtravel_varna ↗</a></div></div>
           </div>
-          <iframe class="ac-map" title="AIM Travel — офис Варна" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.6714587237082!2d27.922399472511646!3d43.208369529611154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a455a885ff9139%3A0xb0b18f3c8941b1ce!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1725950753388!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          
         </article>
       </div>
       <p class="ac-app-note">Viber и Instagram чатът се отварят в съответното приложение. На компютър можеш да използваш и Instagram профила или имейла ни.</p>
@@ -175,22 +217,22 @@
   <section class="ac-section ac-form-section" id="ac-inquiry" aria-labelledby="ac-inquiry-title">
     <div class="ac-wrap ac-form-grid">
       <div>
-        <p class="ac-kicker">Нека започнем от твоя въпрос</p>
-        <h2 id="ac-inquiry-title">Предпочиташ<br>да оставиш съобщение?</h2>
-        <p class="ac-form-description">Кажи ни какво те интересува. Остави и телефон, ако искаш да обсъдим въпросите ти в разговор.</p>
+        <p class="ac-kicker">Остави ни телефон</p>
+        <h2 id="ac-inquiry-title">Пиши ни и<br>ще ти се обадим.</h2>
+        <p class="ac-form-description">Кажи ни какво те интересува и остави телефон за връзка. Ще обсъдим възможностите за твоята бригада, без да е нужно да идваш до офис.</p>
         <a class="ac-email" href="mailto:studentski@aimtravel.bg"><svg aria-hidden="true"><use href="#ac-mail"/></svg>studentski@aimtravel.bg</a>
         <div class="ac-consultation"><p>Имаш повече въпроси за Work & Travel?</p><a class="ac-text-link" href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener noreferrer">Запази безплатна консултация ↗</a></div>
       </div>
-      <form class="ac-form" action="/submit-form/" method="post" id="ac-contact-form">
+      <form class="ac-form" action="/contact-inquiry/" method="post" id="ac-contact-form">
         {% csrf_token %}
         <input type="hidden" name="university" value="">
         <div class="ac-fields">
           <div class="ac-field"><label for="ac-name">Име и фамилия</label><input id="ac-name" name="name" autocomplete="name" placeholder="Как се казваш?" maxlength="120" required></div>
-          <div class="ac-field"><label for="ac-phone">Телефон <span>(по желание)</span></label><input id="ac-phone" name="phone-field" type="tel" autocomplete="tel" placeholder="088 123 4567" maxlength="30"></div>
-          <div class="ac-field ac-full"><label for="ac-email">Имейл</label><input id="ac-email" name="email-field" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254" required></div>
+          <div class="ac-field"><label for="ac-phone">Телефон</label><input id="ac-phone" name="phone-field" type="tel" autocomplete="tel" placeholder="088 123 4567" maxlength="30" required></div>
+          <div class="ac-field ac-full"><label for="ac-email">Имейл <span>(по желание)</span></label><input id="ac-email" name="email-field" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254"></div>
           <div class="ac-field ac-full"><label for="ac-message">С какво можем да помогнем?</label><textarea id="ac-message" name="message" placeholder="Например: Интересувам се от бригада за лято 2027…" maxlength="5000" required></textarea></div>
         </div>
-        <div class="ac-form-bottom"><p>Ще използваме данните ти, за да отговорим на запитването.</p><button class="ac-button ac-primary" type="submit">Изпрати запитване <span aria-hidden="true">↗</span></button></div>
+        <div class="ac-captcha"><label for="ac-code">Въведи символите от картинката</label><div class="ac-captcha-picture"><img id="ac-captcha-image" alt="Проверка срещу автоматични съобщения" width="240" height="76"><button class="ac-button" type="button" id="ac-captcha-refresh">Нова картинка</button></div><input id="ac-code" name="captcha_answer" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="6" required aria-describedby="ac-captcha-help"><p id="ac-captcha-help">Ако не виждаш символите, зареди нова картинка. Можеш да се свържеш с нас и по телефон или Viber.</p><input type="hidden" name="captcha_token" id="ac-captcha-token"></div><div class="ac-trap" aria-hidden="true"><label for="ac-website">Website</label><input id="ac-website" name="website" tabindex="-1" autocomplete="off"></div><p id="ac-form-status" role="status" aria-live="polite"></p><noscript>За изпращането е нужен JavaScript. Можеш да ни пишеш по имейл или във Viber.</noscript><div class="ac-form-bottom"><p>Ще използваме данните ти, за да отговорим на запитването.</p><button class="ac-button ac-primary" type="submit">Пиши ни и ще ти се обадим <span aria-hidden="true">↗</span></button></div>
       </form>
     </div>
   </section>
@@ -201,4 +243,43 @@
     <a href="tel:+359889966583"><svg aria-hidden="true"><use href="#ac-phone"/></svg>Обади се</a>
   </nav>
 </div>
+<script>
+(() => {
+  const form = document.getElementById('ac-contact-form');
+  const status = document.getElementById('ac-form-status');
+  const submit = form.querySelector('[type="submit"]');
+  const refresh = document.getElementById('ac-captcha-refresh');
+  const token = document.getElementById('ac-captcha-token');
+  const answer = document.getElementById('ac-code');
+  let busy = false;
+  async function challenge() {
+    token.value = ''; answer.value = ''; submit.disabled = true; refresh.disabled = true;
+    try {
+      const response = await fetch('/contact-inquiry/captcha/', {credentials:'same-origin', cache:'no-store'});
+      const data = await response.json();
+      if (!response.ok) throw new Error('captcha');
+      document.getElementById('ac-captcha-image').src = data.image;
+      token.value = data.token;
+      if (!busy) submit.disabled = false;
+    } catch (_) { status.textContent = 'Не успяхме да заредим проверката. Натисни „Нова картинка“ или ни пиши във Viber.'; }
+    finally { refresh.disabled = false; }
+  }
+  refresh.addEventListener('click', challenge);
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (busy || !form.reportValidity() || !token.value) return;
+    const payload = new FormData(form);
+    busy = true; submit.disabled = true; status.textContent = 'Изпращаме съобщението…';
+    try {
+      const response = await fetch(form.action, {method:'POST', body:payload, credentials:'same-origin', headers:{'Accept':'application/json'}});
+      const data = await response.json();
+      status.textContent = data.message || 'Възникна грешка. Опитай отново или ни пиши във Viber.';
+      if (response.ok) form.reset();
+    } catch (_) { status.textContent = 'Няма потвърждение за изпращането. Провери връзката си или ни пиши във Viber.'; }
+    finally { busy = false; await challenge(); }
+  });
+  challenge();
+})();
+</script>
 {% endblock %}
+
