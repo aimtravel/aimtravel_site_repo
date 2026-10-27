@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -37,8 +38,7 @@
     }
     .brand { display: flex; align-items: center; gap: 12px; color: white; text-decoration: none; }
     .brand-mark {
-      width: 42px; height: 42px; border: 2px solid white; border-radius: 50%;
-      display: grid; place-items: center; font-size: 13px; font-weight: 800; letter-spacing: -1px;
+      width: 52px; height: 52px; object-fit: contain; flex: 0 0 52px;
     }
     .brand-name { font-size: 17px; font-weight: 800; letter-spacing: .06em; }
     .header-note { color: #d4dce2; font-size: 13px; }
@@ -86,7 +86,10 @@
       border: 1px solid var(--line); border-radius: 11px; background: var(--field); color: #344653; font-size: 14px;
     }
     .choice input { width: 16px; min-height: 16px; margin: 0; accent-color: var(--red); }
-    .photo-upload { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px; border: 1px dashed #b9c7d1; border-radius: 12px; background: #fbfcfd; }
+    .photo-upload { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px; border: 1px dashed #b9c7d1; border-radius: 12px; background: #fbfcfd; }
+    .photo-upload:focus-within { outline: 2px solid #8297a8; outline-offset: 2px; }
+    .photo-input { position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; opacity: 0; }
+    .photo-error { margin: 7px 0 0; color: #a30f18; font-size: 13px; }
     .photo-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 1px solid #c8d3da; border-radius: 10px; background: white; color: #243747; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
     .photo-button:hover { border-color: var(--navy); color: var(--navy); }
     .photo-hint { margin: 0; color: var(--muted); font-size: 12px; }
@@ -143,7 +146,7 @@
 <body>
   <header class="site-header">
     <a class="brand" href="/" aria-label="AIM Travel">
-      <span class="brand-mark" aria-hidden="true">AIM</span>
+      <img class="brand-mark" src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="" aria-hidden="true">
       <span class="brand-name">AIM TRAVEL</span>
     </a>
     <span class="header-note">Work and Travel USA application</span>
@@ -173,7 +176,7 @@
           <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com" required></div>
           <div class="field"><label for="instagram">Instagram profile</label><input id="instagram" placeholder="@username or profile link"></div>
           <div class="field full"><label for="teams">Microsoft Teams</label><input id="teams" placeholder="Email or Teams name"><p class="helper">We will use Teams for your job interview.</p></div>
-          <div class="field full"><span class="group-label">Photo for your CV</span><div class="photo-upload"><label for="profile-photo" class="photo-button">＋ Add a photo</label><input id="profile-photo" type="file" accept="image/jpeg,image/png,image/webp" hidden><p class="photo-hint">Your photo will be added to your CV and sent to the AIM Travel team.</p><div class="photo-preview" id="photo-preview"><img id="photo-preview-image" alt="Preview of selected photo"><span class="photo-preview-name" id="photo-preview-name"></span></div></div></div>
+          <div class="field full"><span class="group-label">Photo for your CV (required)</span><div class="photo-upload"><label for="profile-photo" class="photo-button">＋ Add a photo</label><input id="profile-photo" class="photo-input" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photo-hint photo-error" required><p class="photo-hint" id="photo-hint">A photo is required. It will be added to your CV and sent to the AIM Travel team.</p><div class="photo-preview" id="photo-preview"><img id="photo-preview-image" alt="Preview of selected photo"><span class="photo-preview-name" id="photo-preview-name"></span></div></div><p class="photo-error" id="photo-error" role="alert"></p></div>
         </div>
       </section>
 
@@ -301,6 +304,7 @@
     });
     const successPanel = document.querySelector('#success-panel');
     const photoInput = document.querySelector('#profile-photo');
+    const photoError = document.querySelector('#photo-error');
     const photoPreview = document.querySelector('#photo-preview');
     const photoPreviewImage = document.querySelector('#photo-preview-image');
     const photoPreviewName = document.querySelector('#photo-preview-name');
@@ -338,6 +342,9 @@
     });
     photoInput.addEventListener('change', () => {
       const file = photoInput.files && photoInput.files[0];
+      photoError.textContent = '';
+      photoInput.removeAttribute('aria-invalid');
+      photoInput.setCustomValidity('');
       if (!file) return;
       if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
       photoPreviewUrl = URL.createObjectURL(file);
@@ -348,6 +355,13 @@
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (submissionInProgress) return;
+      if (!photoInput.files || !photoInput.files.length) {
+        photoError.textContent = 'Please add a photo for your CV before submitting.';
+        photoInput.setAttribute('aria-invalid', 'true');
+        photoInput.focus({ preventScroll: true });
+        photoInput.closest('.field').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
       for (const field of form.querySelectorAll(latinFieldSelector)) {
         field.setCustomValidity(/[^\x00-\x7F]/.test(field.value) ? 'Please use English and Latin characters only.' : '');
       }
@@ -378,6 +392,7 @@
         const result = await response.json();
         if (!response.ok || !result.ok) {
           if (result.error === 'rate_limited') throw new Error('An application with this email was recently submitted. Please try again in a few minutes.');
+          if (response.status === 409 || response.status === 429 || response.status === 503) throw new Error(result.error || 'The service is busy. Please wait a moment, then submit again. Your answers are still here.');
           throw new Error('We could not submit your application. Please try again shortly.');
         }
         form.hidden = true;
@@ -418,7 +433,7 @@
     }
     async function photoForCv() {
       const file = photoInput.files && photoInput.files[0];
-      if (!file) return '';
+      if (!file) throw new Error('Please add a photo for your CV before submitting.');
       if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Please choose a JPG, PNG or WEBP image.');
       if (file.size > 12 * 1024 * 1024) throw new Error('The photo is too large. Please choose a file under 12 MB.');
       const image = await new Promise((resolve, reject) => {
