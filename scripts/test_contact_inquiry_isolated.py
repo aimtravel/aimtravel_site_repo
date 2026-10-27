@@ -21,7 +21,7 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 from django.urls import path
 urlpatterns = [path('captcha/', module.contact_captcha), path('submit/', module.contact_inquiry)]
-from django.test import Client
+from django.test import Client, override_settings
 from django.core import mail, signing
 
 
@@ -92,6 +92,25 @@ class ContactTests(unittest.TestCase):
         self.assertEqual(self.post(first).status_code,200)
         self.assertEqual(self.post(second,client=other).status_code,200)
         self.assertEqual(len(mail.outbox),2)
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend', EMAIL_HOST_PASSWORD='')
+    def test_local_transport_when_smtp_password_missing(self):
+        from types import SimpleNamespace
+        email=module.EmailMessage('Test','Body','placeholder@example.com',['studentski@aimtravel.bg'])
+        with patch.object(module.subprocess,'run',return_value=SimpleNamespace(returncode=0)) as run:
+            self.assertEqual(module._deliver(email),1)
+            self.assertEqual(email.from_email,'studentski@aimtravel.bg')
+            self.assertEqual(run.call_args.args[0],['/usr/sbin/sendmail','-oi','-f','studentski@aimtravel.bg','studentski@aimtravel.bg'])
+            self.assertNotIn('shell',run.call_args.kwargs)
+        with patch.object(module.subprocess,'run',return_value=SimpleNamespace(returncode=1)):
+            with self.assertRaises(RuntimeError): module._deliver(email)
+
+    @override_settings(EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend', EMAIL_HOST_PASSWORD='test-fixture-only')
+    def test_configured_smtp_failure_is_not_sent_twice(self):
+        email=module.EmailMessage('Test','Body','website@example.com',['studentski@aimtravel.bg'])
+        with patch.object(email,'send',side_effect=OSError), patch.object(module.subprocess,'run') as run:
+            with self.assertRaises(OSError): module._deliver(email)
+            run.assert_not_called()
 
 
 if __name__=='__main__':
