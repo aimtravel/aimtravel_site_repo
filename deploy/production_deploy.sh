@@ -34,11 +34,12 @@ CODE_DIRS="aimtravel_site templates static"
 ROOT_FILES="manage.py passenger_wsgi.py requirements.txt requirements-production.txt Robots.txt"
 # Never shipped and never deleted on the server: secrets, caches, uploads, archives.
 EXCLUDES=(--exclude='__pycache__/' --exclude='*.pyc' --exclude='.idea/' --exclude='media/'
-          --exclude='private_media/' --exclude='*credentials*.py' --exclude='.env*'
+          --exclude='private_media/' --exclude='*credentials*.py' --exclude='*secrets*.py' --exclude='.env*'
           --exclude='settings?*.py' --exclude='*.zip' --exclude='*.rar' --exclude='*.log'
           --exclude='*.sqlite3' --exclude='~$*')
 # aimtravel_site/ may also hold documents that were never exported to git.
-APP_DOC_EXCLUDES=(--exclude='*.pdf' --exclude='*.doc' --exclude='*.docx' --exclude='*.xls'
+APP_DOC_EXCLUDES=(--include='/assets/AIM_Travel_USA_Modern_Resume_Template.docx'
+                  --exclude='*.pdf' --exclude='*.doc' --exclude='*.docx' --exclude='*.xls'
                   --exclude='*.xlsx' --exclude='*.csv')
 
 log() { echo "[$(date -u +%H:%M:%S)] $*"; }
@@ -118,6 +119,23 @@ if ! ( cd "$APP" && "$PY" -c "import credentials as c; [c.SECRET_KEY, c.DB_NAME,
 fi
 
 FE=""
+if [ -f "$REPO/aimtravel_site/web/application_form_view.py" ]; then
+  if ! ( cd "$APP" && "$PY" - <<'PY'
+from urllib.parse import urlparse
+import application_form_secrets as config
+endpoint = urlparse(config.APPLICATION_FORM_WEBHOOK_URL)
+assert endpoint.scheme == "https" and endpoint.hostname == "script.google.com"
+assert config.APPLICATION_FORM_WEBHOOK_SECRET
+from docx import Document
+PY
+  ) >/dev/null 2>&1; then
+    status failed_preflight "application form webhook configuration or python-docx missing — nothing was changed"
+    log "application_form_secrets.py must be installed in the application root before deployment"; exit 1
+  fi
+  [ -s "$REPO/aimtravel_site/assets/AIM_Travel_USA_Modern_Resume_Template.docx" ] || {
+    status failed_preflight "application form CV template missing — nothing was changed"; exit 1;
+  }
+fi
 if [ -f "$REPO/frontend/package.json" ]; then
   FE="$STATE/frontend-$SHA.tar.gz"
   if [ ! -f "$FE" ] || [ "$(sha256 "$FE")" != "$(cut -d' ' -f1 "$FE.sha256" 2>/dev/null)" ]; then

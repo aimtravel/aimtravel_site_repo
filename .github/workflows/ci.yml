@@ -62,6 +62,9 @@ jobs:
       - name: manage.py check
         run: python manage.py check
 
+      - name: Validate production deploy script
+        run: bash -n deploy/production_deploy.sh
+
       - name: UI smoke tests
         run: python manage.py test tests --noinput
 

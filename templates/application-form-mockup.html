@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Application Form — AIM Travel</title>
+  <style>
+    :root {
+      --navy: #101923;
+      --navy-2: #182532;
+      --red: #b5121b;
+      --ink: #1d2a37;
+      --muted: #687887;
+      --line: #dce4e9;
+      --paper: #fff;
+      --bg: #f3f6f8;
+      --field: #f8fafb;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 16px/1.5 Inter, "Segoe UI", Arial, sans-serif;
+    }
+    .site-header {
+      min-height: 70px;
+      padding: 12px clamp(20px, 5vw, 76px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+      background: linear-gradient(110deg, #080d13, var(--navy-2));
+      border-bottom: 3px solid var(--red);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; color: white; text-decoration: none; }
+    .brand-mark {
+      width: 42px; height: 42px; border: 2px solid white; border-radius: 50%;
+      display: grid; place-items: center; font-size: 13px; font-weight: 800; letter-spacing: -1px;
+    }
+    .brand-name { font-size: 17px; font-weight: 800; letter-spacing: .06em; }
+    .header-note { color: #d4dce2; font-size: 13px; }
+    .page-wrap { width: min(1040px, calc(100% - 32px)); margin: 38px auto 56px; }
+    .intro { max-width: 760px; margin: 0 auto 26px; text-align: center; }
+    .eyebrow { margin: 0 0 8px; color: var(--red); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0; color: var(--navy); font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -.035em; }
+    .intro p { margin: 14px auto 0; max-width: 650px; color: var(--muted); font-size: 16px; }
+    .mock-warning {
+      display: flex; gap: 11px; align-items: flex-start; margin: 0 auto 18px; padding: 13px 16px;
+      border: 1px solid #ead8ab; border-radius: 12px; background: #fff9e9; color: #66501b; font-size: 13px;
+    }
+    .mock-warning strong { color: #51400f; }
+    .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .form-message { min-height: 20px; color: #a30f18; font-size: 13px; }
+    .consent { display: flex; align-items: flex-start; gap: 10px; }
+    .consent input { flex: 0 0 18px; width: 18px; min-height: 18px; margin: 2px 0 0; accent-color: var(--red); }
+    form { display: grid; gap: 16px; }
+    .section {
+      padding: clamp(18px, 3vw, 28px); background: var(--paper); border: 1px solid #e6ecef;
+      border-radius: 18px; box-shadow: 0 10px 32px rgba(18, 35, 48, .045);
+    }
+    .section-heading { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
+    .section-number {
+      flex: 0 0 36px; height: 36px; border-radius: 11px; display: grid; place-items: center;
+      color: white; background: var(--navy); font-size: 14px; font-weight: 800;
+    }
+    h2 { margin: 0; color: var(--navy); font-size: 19px; line-height: 1.25; }
+    .section-heading p { margin: 3px 0 0; color: var(--muted); font-size: 13px; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+    label, .group-label { display: block; margin: 0 0 7px; color: #243747; font-size: 13px; font-weight: 700; }
+    input, select, textarea {
+      width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 11px;
+      background: var(--field); color: var(--ink); font: inherit; outline: none; transition: border-color .15s, box-shadow .15s;
+    }
+    .phone-input-group { display: grid; grid-template-columns: minmax(112px, 34%) minmax(0, 1fr); gap: 8px; }
+    textarea { min-height: 112px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: #8297a8; box-shadow: 0 0 0 3px rgba(54, 91, 118, .1); background: white; }
+    input::placeholder, textarea::placeholder { color: #96a2ab; }
+    .choice-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .choice {
+      display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 13px;
+      border: 1px solid var(--line); border-radius: 11px; background: var(--field); color: #344653; font-size: 14px;
+    }
+    .choice input { width: 16px; min-height: 16px; margin: 0; accent-color: var(--red); }
+    .photo-upload { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 14px; border: 1px dashed #b9c7d1; border-radius: 12px; background: #fbfcfd; }
+    .photo-button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px; border: 1px solid #c8d3da; border-radius: 10px; background: white; color: #243747; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .photo-button:hover { border-color: var(--navy); color: var(--navy); }
+    .photo-hint { margin: 0; color: var(--muted); font-size: 12px; }
+    .photo-preview { display: none; align-items: center; gap: 12px; width: 100%; }
+    .photo-preview.visible { display: flex; }
+    .photo-preview img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 1px 6px rgba(18, 35, 48, .18); }
+    .photo-preview-name { overflow-wrap: anywhere; color: var(--muted); font-size: 12px; }
+    .helper { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .experience-item + .experience-item { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .experience-title { margin: 0 0 12px; color: var(--navy); font-size: 15px; }
+    .add-experience { margin-top: 14px; padding: 10px 13px; border: 1px solid #c8d3da; border-radius: 10px; background: white; color: #344653; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .add-experience:hover { border-color: var(--navy); color: var(--navy); }
+    .privacy-note { padding: 15px 17px; border-left: 3px solid #96a8b6; border-radius: 0 10px 10px 0; background: #f5f8fa; color: #536574; font-size: 13px; }
+    .submit-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 0 2px; }
+    .submit-row p { max-width: 570px; margin: 0; color: var(--muted); font-size: 12px; }
+    .submit {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 52px; padding: 0 24px;
+      border: 0; border-radius: 12px; background: var(--red); color: white; font-size: 13px; font-weight: 800;
+      letter-spacing: .08em; cursor: pointer; box-shadow: 0 8px 18px rgba(181, 18, 27, .2);
+    }
+    .submit:hover { background: #960d15; }
+    .submit:disabled { opacity: .65; cursor: wait; }
+    .success-panel { padding: clamp(26px, 5vw, 52px); text-align: center; background: white; border: 1px solid #e6ecef; border-radius: 20px; box-shadow: 0 12px 36px rgba(18, 35, 48, .07); }
+    .success-icon { width: 54px; height: 54px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 50%; color: white; background: #20845a; font-size: 28px; font-weight: 700; }
+    .success-panel h2 { font-size: clamp(24px, 4vw, 34px); }
+    .success-panel > p:not(.eyebrow):not(.mock-confirmation) { max-width: 560px; margin: 12px auto 20px; color: var(--muted); }
+    .instagram-button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 50px; padding: 0 22px; border-radius: 11px; background: linear-gradient(110deg, #a11d50, #c13584, #e45c41); color: white; text-decoration: none; font-size: 12px; font-weight: 800; letter-spacing: .07em; }
+    .mock-confirmation { margin: 20px 0 0; color: #856b2f; font-size: 12px; }
+    .site-footer {
+      min-height: 75px; padding: 18px clamp(20px, 5vw, 76px); display: flex; align-items: center;
+      justify-content: space-between; gap: 16px; color: #c5ced5; background: #0b1118; font-size: 12px;
+    }
+    .footer-hidden-link { color: #aeb9c2; text-decoration: none; border-bottom: 1px solid #64717b; padding-bottom: 2px; }
+    .footer-hidden-link:hover { color: white; border-color: white; }
+    @media (max-width: 640px) {
+      .site-header { min-height: 62px; padding-inline: 16px; }
+      .brand-name { font-size: 14px; }
+      .header-note { display: none; }
+      .page-wrap { width: min(100% - 22px, 560px); margin: 24px auto 36px; }
+      .intro { margin-bottom: 19px; }
+      .intro p { font-size: 14px; }
+      .section { padding: 17px 15px; border-radius: 15px; }
+      .section-heading { align-items: flex-start; margin-bottom: 16px; }
+      .section-heading p { font-size: 12px; }
+      .fields { grid-template-columns: 1fr; gap: 13px; }
+      .field.full { grid-column: auto; }
+      input, select { min-height: 46px; }
+      .submit-row { align-items: stretch; flex-direction: column; }
+      .submit { width: 100%; }
+      .site-footer { align-items: flex-start; flex-direction: column; padding: 18px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="AIM Travel">
+      <span class="brand-mark" aria-hidden="true">AIM</span>
+      <span class="brand-name">AIM TRAVEL</span>
+    </a>
+    <span class="header-note">Work and Travel USA application</span>
+  </header>
+
+  <main id="application-form-main" class="page-wrap">
+    <div class="intro">
+      <p class="eyebrow">Work and Travel USA</p>
+      <h1>Application Form</h1>
+      <p>Complete this form so we can prepare your application and contact you. Please use English and Latin letters only.</p>
+    </div>
+
+    <form id="application-form" method="post" novalidate>
+      {% csrf_token %}
+      <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+      <section class="section">
+        <div class="section-heading"><span class="section-number">01</span><div><h2>Personal details</h2><p>Basic information and contact details</p></div></div>
+        <div class="fields">
+          <div class="field full"><label for="full-name">Full name (as shown on your passport)</label><input id="full-name" autocomplete="name" placeholder="e.g. Ivan Petrov Ivanov" required></div>
+          <div class="field"><label for="gender">Gender</label><select id="gender"><option value="">Select gender</option><option>Female</option><option>Male</option><option>Other</option><option>Prefer not to say</option></select></div>
+          <div class="field"><label for="nationality">Nationality</label><select id="nationality"><option value="">Select nationality</option></select></div>
+          <div class="field"><label for="birth-date">Date of birth</label><input id="birth-date" type="date"></div>
+          <div class="field"><label for="birth-city">City of birth</label><input id="birth-city" autocomplete="off"></div>
+          <div class="field full"><label for="address">Permanent address (as shown on your ID)</label><input id="address" autocomplete="street-address" placeholder="City, street, number"></div>
+          <div class="field"><label for="family-status">Marital status</label><select id="family-status"><option value="">Select</option><option value="Married">Married</option><option value="Unmarried">Unmarried</option></select></div>
+          <div class="field"><label for="phone">Phone number</label><div class="phone-input-group"><select id="phone-code" aria-label="Phone country code"><option value="+359" selected>BG +359</option><option value="+1">US/CA +1</option><option value="+44">UK +44</option><option value="+49">DE +49</option><option value="+30">GR +30</option><option value="+40">RO +40</option><option value="+381">RS +381</option><option value="+90">TR +90</option><option value="+380">UA +380</option><option value="+33">FR +33</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+43">AT +43</option><option value="+36">HU +36</option><option value="+48">PL +48</option></select><input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="88 123 4567" pattern="[0-9 ()-]{6,20}"></div><p class="helper">Bulgaria (+359) is selected by default. Enter the number without the country code.</p></div>
+          <div class="field"><label for="email">Email address</label><input id="email" type="email" autocomplete="email" placeholder="name@example.com" required></div>
+          <div class="field"><label for="instagram">Instagram profile</label><input id="instagram" placeholder="@username or profile link"></div>
+          <div class="field full"><label for="teams">Microsoft Teams</label><input id="teams" placeholder="Email or Teams name"><p class="helper">We will use Teams for your job interview.</p></div>
+          <div class="field full"><span class="group-label">Photo for your CV</span><div class="photo-upload"><label for="profile-photo" class="photo-button">＋ Add a photo</label><input id="profile-photo" type="file" accept="image/jpeg,image/png,image/webp" hidden><p class="photo-hint">Your photo will be added to your CV and sent to the AIM Travel team.</p><div class="photo-preview" id="photo-preview"><img id="photo-preview-image" alt="Preview of selected photo"><span class="photo-preview-name" id="photo-preview-name"></span></div></div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading"><span class="section-number">02</span><div><h2>Emergency contact</h2><p>Someone we can contact if needed</p></div></div>
+        <div class="fields">
+          <div class="field"><label for="emergency-name">Full name</label><input id="emergency-name"></div>
+          <div class="field"><label for="emergency-relation">Relationship to you</label><select id="emergency-relation"><option value="">Select relationship</option><option>Mother</option><option>Father</option><option>Brother</option><option>Sister</option><option>Friend</option><option>Other</option></select></div>
+          <div class="field"><label for="emergency-phone">Phone number</label><div class="phone-input-group"><select id="emergency-phone-code" aria-label="Emergency contact phone country code"><option value="+359" selected>BG +359</option><option value="+1">US/CA +1</option><option value="+44">UK +44</option><option value="+49">DE +49</option><option value="+30">GR +30</option><option value="+40">RO +40</option><option value="+381">RS +381</option><option value="+90">TR +90</option><option value="+380">UA +380</option><option value="+33">FR +33</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+43">AT +43</option><option value="+36">HU +36</option><option value="+48">PL +48</option></select><input id="emergency-phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="88 123 4567" pattern="[0-9 ()-]{6,20}"></div></div>
+          <div class="field"><label for="emergency-email">Email address</label><input id="emergency-email" type="email"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading"><span class="section-number">03</span><div><h2>Education</h2><p>University and current studies</p></div></div>
+        <div class="fields">
+          <div class="field"><label for="university">University</label><input id="university"></div>
+          <div class="field"><label for="major">Major / field of study</label><input id="major"></div>
+          <div class="field"><label for="course">Year of study</label><select id="course"><option value="">Select year</option><option>1st year</option><option>2nd year</option><option>3rd year</option><option>4th year</option><option>Master's degree</option><option>Other</option></select></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading"><span class="section-number">04</span><div><h2>Work and travel experience</h2><p>Previous U.S. travel and work experience</p></div></div>
+        <div class="fields">
+          <div class="field full"><span class="group-label">Have you been to the U.S. for Work and Travel or another reason?</span><div class="choice-row"><label class="choice"><input type="radio" name="usa" value="yes"> Yes</label><label class="choice"><input type="radio" name="usa" value="no"> No</label></div></div>
+          <div class="field"><label for="visa-type">If yes, visa type</label><select id="visa-type"><option value="">Select visa type</option><option value="J1">J1</option><option value="B1/B2">B1/B2</option><option value="H2B">H2B</option><option value="Other">Other</option></select></div>
+          <div class="field"><label for="visa-year">Year of travel</label><input id="visa-year" inputmode="numeric" placeholder="e.g. 2025"></div>
+          <div class="field full"><span class="group-label">Do you have any work or internship experience?</span><div class="choice-row"><label class="choice"><input type="radio" name="experience" value="yes"> Yes</label><label class="choice"><input type="radio" name="experience" value="no"> No</label></div></div>
+          <div class="field full">
+            <div id="experience-list">
+              <div class="experience-item">
+                <div class="fields">
+                  <div class="field"><label>Position</label><input placeholder="e.g. Server"></div>
+                  <div class="field"><label>Employer / workplace</label><input placeholder="e.g. restaurant name"></div>
+                  <div class="field"><label>Country</label><input list="experience-countries" placeholder="e.g. United States"></div>
+                  <div class="field"><label>City</label><input placeholder="e.g. Boston"></div>
+                  <div class="field"><label>Start month</label><input type="month" aria-label="Start month"></div>
+                  <div class="field"><label>End month</label><input type="month" aria-label="End month"></div>
+                  <div class="field full"><label>Main duties</label><textarea rows="2" placeholder="In one sentence, describe what you did in this job."></textarea></div>
+                </div>
+                <p class="helper">You do not need to enter the company's official legal name; the workplace name (for example, a restaurant) is enough. Informal work is fine too; it does not have to have been under a formal contract. This helps us prepare your CV and discuss your experience in the job interview.</p>
+              </div>
+            </div>
+            <datalist id="experience-countries"><option value="Bulgaria"><option value="United States"><option value="United Kingdom"><option value="Germany"><option value="Spain"><option value="Italy"><option value="France"><option value="Netherlands"><option value="Greece"><option value="Romania"><option value="Canada"><option value="Other"></datalist>
+            <button class="add-experience" type="button" id="add-experience">＋ Add another job</button>
+          </div>
+          <div class="field"><label for="start-date">Earliest date you can start work in the U.S.</label><input id="start-date" type="date"></div>
+          <div class="field"><label for="end-date">Latest date you can work in the U.S.</label><input id="end-date" type="date"></div>
+          <div class="field full"><span class="group-label">Do you have relatives in the U.S.?</span><div class="choice-row"><label class="choice"><input type="radio" name="relatives" value="yes"> Yes</label><label class="choice"><input type="radio" name="relatives" value="no"> No</label></div></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading"><span class="section-number">05</span><div><h2>About you</h2><p>Languages, strengths and interests</p></div></div>
+        <div class="fields">
+          <div class="field"><label for="english">English proficiency</label><select id="english"><option value="">Select level</option><option>Beginner</option><option>Intermediate</option><option>Good</option><option>Very good</option><option>Fluent</option></select></div>
+          <div class="field"><label for="other-languages">Other languages</label><input id="other-languages" placeholder="Language and level"></div>
+          <div class="field full"><span class="group-label">Personal strengths</span><div class="choice-row checks">
+            <label class="choice"><input type="checkbox" name="qualities" value="Responsible"> Responsible</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Communicative"> Communicative</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Adaptable"> Adaptable</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Organized"> Organized</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Initiative-taking"> Initiative-taking</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Friendly"> Friendly</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Hard-working"> Hard-working</label>
+            <label class="choice"><input type="checkbox" name="qualities" value="Team player"> Team player</label>
+          </div><label for="qualities-other" style="margin-top:12px">Other strength</label><input id="qualities-other" placeholder="Add another strength"></div>
+          <div class="field full"><span class="group-label">Favorite hobbies</span><div class="choice-row checks">
+            <label class="choice"><input type="checkbox" name="hobbies" value="Sports"> Sports</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Travel"> Travel</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Music"> Music</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Cooking"> Cooking</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Reading"> Reading</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Dancing"> Dancing</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Photography"> Photography</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Volunteering"> Volunteering</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Movies and TV"> Movies and TV</label>
+            <label class="choice"><input type="checkbox" name="hobbies" value="Technology"> Technology</label>
+          </div><label for="hobbies-other" style="margin-top:12px">Other hobby</label><input id="hobbies-other" placeholder="Add another hobby"></div>
+        </div>
+      </section>
+
+      <div class="privacy-note">AIM Travel will use your information to process your Work and Travel USA application. Read our <a href="/privacy/" target="_blank" rel="noopener">Privacy Policy</a>.</div>
+      <label class="consent"><input type="checkbox" id="privacy-consent" required><span>I agree that AIM Travel may process the information I provide for my Work and Travel USA application.</span></label>
+      <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+      <div class="submit-row"><p>The AIM Travel team will review your application and contact you.</p><button class="submit" type="submit">SUBMIT APPLICATION <span aria-hidden="true">→</span></button></div>
+    </form>
+
+    <section class="success-panel" id="success-panel" hidden aria-live="polite">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <p class="eyebrow">Thank you</p>
+      <h2 tabindex="-1">Your application has been submitted</h2>
+      <p>Follow us on Instagram from your phone. If you have the app, the link will open our profile there.</p>
+      <a class="instagram-button" href="https://www.instagram.com/aimtravel_usa?srtk=MWx0ZnVnaDZ4bHNiZw%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener noreferrer">FOLLOW US ON INSTAGRAM <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© AIM Travel USA · Work Hard Travel Far</span>
+    <a class="footer-hidden-link" href="/application-form/">Application Form</a>
+  </footer>
+  <script>
+    const form = document.querySelector('form');
+    const nationalitySelect = document.querySelector('#nationality');
+    const priorityCountries = ['BG', 'TR', 'RS', 'MK', 'UA', 'KZ'];
+    const countryCodes = 'AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'.split(' ');
+    const countryNames = new Intl.DisplayNames(['en'], { type: 'region' });
+    const customCountryNames = { MK: 'North Macedonia', TR: 'Turkey' };
+    const orderedCountryCodes = priorityCountries.concat(
+      countryCodes.filter(code => !priorityCountries.includes(code)).sort((a, b) => countryNames.of(a).localeCompare(countryNames.of(b), 'en'))
+    );
+    orderedCountryCodes.forEach(code => {
+      const name = (customCountryNames[code] || countryNames.of(code))
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/&/g, 'and')
+        .replace(/[^A-Za-z .'-]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const option = document.createElement('option');
+      option.value = name;
+      option.textContent = name;
+      nationalitySelect.append(option);
+    });
+    const successPanel = document.querySelector('#success-panel');
+    const photoInput = document.querySelector('#profile-photo');
+    const photoPreview = document.querySelector('#photo-preview');
+    const photoPreviewImage = document.querySelector('#photo-preview-image');
+    const photoPreviewName = document.querySelector('#photo-preview-name');
+    let photoPreviewUrl;
+    let activeSubmissionId = '';
+    let submissionInProgress = false;
+    window.addEventListener('beforeunload', (event) => {
+      if (!submissionInProgress) return;
+      event.preventDefault();
+      event.returnValue = '';
+    });
+    const latinFieldSelector = 'input:not([type]), input[type="text"], input[type="email"], textarea';
+    function latinField(event) {
+      const field = event.target.closest(latinFieldSelector);
+      if (!field) return;
+      const text = event.type === 'paste' ? event.clipboardData?.getData('text') || '' : event.type === 'keydown' ? event.key || '' : event.data || '';
+      if (/[^\x00-\x7F]/.test(text)) {
+        event.preventDefault();
+        field.setCustomValidity('Please use English and Latin characters only.');
+        field.reportValidity();
+      }
+    }
+    form.addEventListener('beforeinput', latinField);
+    form.addEventListener('keydown', latinField);
+    form.addEventListener('paste', latinField);
+    form.addEventListener('input', (event) => {
+      if (!event.target.matches(latinFieldSelector)) return;
+      if (/[^\x00-\x7F]/.test(event.target.value)) {
+        event.target.value = event.target.value.replace(/[^\x00-\x7F]/g, '');
+        event.target.setCustomValidity('Please use English and Latin characters only.');
+        event.target.reportValidity();
+        return;
+      }
+      event.target.setCustomValidity('');
+    });
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return;
+      if (photoPreviewUrl) URL.revokeObjectURL(photoPreviewUrl);
+      photoPreviewUrl = URL.createObjectURL(file);
+      photoPreviewImage.src = photoPreviewUrl;
+      photoPreviewName.textContent = file.name;
+      photoPreview.classList.add('visible');
+    });
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submissionInProgress) return;
+      for (const field of form.querySelectorAll(latinFieldSelector)) {
+        field.setCustomValidity(/[^\x00-\x7F]/.test(field.value) ? 'Please use English and Latin characters only.' : '');
+      }
+      if (!form.reportValidity()) return;
+      const button = form.querySelector('.submit');
+      const message = document.querySelector('#form-message');
+      const originalButtonMarkup = button.innerHTML;
+      submissionInProgress = true;
+      button.disabled = true;
+      button.textContent = 'SUBMITTING…';
+      form.setAttribute('aria-busy', 'true');
+      form.querySelectorAll('input, select, textarea, button').forEach(control => { control.disabled = true; });
+      message.textContent = 'Preparing your application. Please keep this page open and do not press the button again.';
+      if (!activeSubmissionId) activeSubmissionId = newSubmissionId();
+      const values = [
+        value('full-name'), value('birth-date'), value('birth-city'), value('address'), value('family-status'), phoneValue('phone'), value('email'), value('instagram'), value('teams'),
+        value('emergency-name'), value('emergency-relation'), phoneValue('emergency-phone'), value('emergency-email'), value('university'), value('major'), value('course'),
+        checked('usa'), value('visa-type'), value('visa-year'), checked('experience'), experiences(), value('start-date'), value('end-date'), checked('relatives'),
+        value('english'), value('other-languages'), checkedList('qualities'), value('qualities-other'), checkedList('hobbies'), value('hobbies-other'), ''
+      ];
+      try {
+        message.textContent = 'Generating your CV and saving your application…';
+        const response = await fetch('/application-form/submit/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
+          body: JSON.stringify({ website: value('website'), consent: document.querySelector('#privacy-consent').checked, submissionId: activeSubmissionId, values, gender: value('gender'), nationality: value('nationality'), experiences: experienceItems(), photo: await photoForCv() })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          if (result.error === 'rate_limited') throw new Error('An application with this email was recently submitted. Please try again in a few minutes.');
+          throw new Error('We could not submit your application. Please try again shortly.');
+        }
+        form.hidden = true;
+        document.querySelector('.intro').hidden = true;
+        successPanel.hidden = false;
+        activeSubmissionId = '';
+        const successHeading = successPanel.querySelector('h2');
+        requestAnimationFrame(() => {
+          successPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          successHeading?.focus({ preventScroll: true });
+        });
+      } catch (error) {
+        message.textContent = error.message || 'Something went wrong. Please try again shortly.';
+        form.querySelectorAll('input, select, textarea, button').forEach(control => { control.disabled = false; });
+        button.innerHTML = originalButtonMarkup;
+        form.removeAttribute('aria-busy');
+        submissionInProgress = false;
+      }
+    });
+    function value(id) { return document.getElementById(id)?.value?.trim() || ''; }
+    function phoneValue(id) {
+      const digits = value(id).replace(/\D/g, '');
+      const code = value(id + '-code');
+      const nationalNumber = code === '+359' ? digits.replace(/^0/, '') : digits;
+      return nationalNumber ? `${code}${nationalNumber}` : '';
+    }
+    function newSubmissionId() { return self.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`; }
+    function checked(name) { return form.querySelector(`input[name="${name}"]:checked`)?.value || ''; }
+    function checkedList(name) { return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value).join(', '); }
+    function experiences() {
+      return experienceItems().map(item => `Position: ${item.position}; employer: ${item.employer}; city: ${item.city}; country: ${item.country}; start date: ${item.start_date}; end date: ${item.end_date}; duties: ${item.description}`).join('\n');
+    }
+    function experienceItems() {
+      return Array.from(document.querySelectorAll('.experience-item')).map(item => {
+        const fields = Array.from(item.querySelectorAll('input, textarea')).map(el => el.value.trim());
+        return { position: fields[0] || '', employer: fields[1] || '', country: fields[2] || '', city: fields[3] || '', start_date: fields[4] || '', end_date: fields[5] || '', description: fields[6] || '' };
+      }).filter(item => Object.values(item).some(Boolean));
+    }
+    async function photoForCv() {
+      const file = photoInput.files && photoInput.files[0];
+      if (!file) return '';
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) throw new Error('Please choose a JPG, PNG or WEBP image.');
+      if (file.size > 12 * 1024 * 1024) throw new Error('The photo is too large. Please choose a file under 12 MB.');
+      const image = await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error('We could not open the selected photo.'));
+        img.src = URL.createObjectURL(file);
+      });
+      const scale = Math.min(1, 1200 / Math.max(image.naturalWidth, image.naturalHeight));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.round(image.naturalWidth * scale));
+      canvas.height = Math.max(1, Math.round(image.naturalHeight * scale));
+      canvas.getContext('2d').drawImage(image, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.82));
+      if (!blob || blob.size > 3 * 1024 * 1024) throw new Error('We could not compress the photo enough. Please choose a smaller file.');
+      return await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
+        reader.onerror = () => reject(new Error('We could not read the selected photo.'));
+        reader.readAsDataURL(blob);
+      });
+    }
+    const addExperienceButton = document.querySelector('#add-experience');
+    addExperienceButton.addEventListener('click', () => {
+      if (document.querySelectorAll('.experience-item').length >= 2) return;
+      const clone = document.querySelector('.experience-item').cloneNode(true);
+      clone.querySelectorAll('input, textarea').forEach((field) => { field.value = ''; });
+      const title = document.createElement('h3');
+      title.className = 'experience-title';
+      title.textContent = 'Another job';
+      clone.prepend(title);
+      document.querySelector('#experience-list').append(clone);
+      if (document.querySelectorAll('.experience-item').length >= 2) addExperienceButton.disabled = true;
+    });
+  </script>
+</body>
+</html>
