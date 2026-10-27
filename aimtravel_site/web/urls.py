@@ -5,7 +5,11 @@ from aimtravel_site.web.favorites import favorites_page, remove_favorite, favori
 from aimtravel_site.web.wat_registration import wat_2027_registration
 from aimtravel_site.web.application_form_view import application_form_page, application_form_submit
 
+from aimtravel_site.web.contact_inquiry import contact_captcha, contact_inquiry
+
 urlpatterns = (
+    path('contact-inquiry/captcha/', contact_captcha, name='contact captcha'),
+    path('contact-inquiry/', contact_inquiry, name='contact inquiry'),
     path('application-form/', application_form_page, name='application form'),
     path('application-form/submit/', application_form_submit, name='application form submit'),
     path('wat-2027/registracia/', wat_2027_registration, name='wat 2027 registration'),
