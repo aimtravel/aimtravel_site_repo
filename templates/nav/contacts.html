@@ -192,6 +192,21 @@
  #aim-contacts .ac-quick-icon{width:35px;height:35px}
  #aim-contacts .ac-mobile-bar a{font-size:13px}
 }
+
+#aim-contacts .ac-office-instagram{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);min-height:64px}
+#aim-contacts .ac-office-instagram>svg{width:26px;height:26px;color:#9d286a}
+#aim-contacts .ac-office-instagram small{display:block;font-size:12px;color:var(--muted);line-height:1.4}
+#aim-contacts .ac-office-instagram strong{display:block;font-size:16px;font-weight:600;margin-top:3px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#c5b6c1}
+#aim-contacts .ac-office-instagram .ac-follow-arrow{margin-left:auto;color:var(--muted)}
+#aim-contacts .ac-office-instagram:hover strong{color:#9d286a}
+#aim-contacts .ac-social-caption{font-size:14px;color:var(--muted);margin-top:5px}
+#aim-contacts .ac-general-socials{display:flex;flex-wrap:wrap;gap:14px}
+#aim-contacts .ac-general-socials a{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 15px;border:1px solid var(--line);border-radius:5px;background:white}
+#aim-contacts .ac-general-socials a:hover{border-color:#8e9aa1}
+#aim-contacts .ac-general-socials strong{display:block;font-size:16px;font-weight:650}
+#aim-contacts .ac-general-socials small{display:block;font-size:13px;color:var(--muted)}
+#aim-contacts .ac-general-socials a[href*="facebook"]>svg{color:#1877f2}
+@media(max-width:760px){#aim-contacts .ac-general-socials{margin-top:18px;gap:10px}#aim-contacts .ac-general-socials a{flex:1 1 170px}}
 </style>
 <div id="aim-contacts" lang="bg">
 <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
@@ -224,7 +239,7 @@
             <div><dt>Имейл</dt><dd class="ac-emails"><a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a><a href="mailto:sofia@aimtravel.bg">sofia@aimtravel.bg</a></dd></div>
           </dl>
           <a class="ac-map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%99%D0%BE%D1%80%D0%B4%D0%B0%D0%BD%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%202%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps <span aria-hidden="true">↗</span></a>
-          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>8 консултанти</strong><span>в офиса в София</span></p></div>
+          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>8 консултанти</strong><span>в офиса в София</span></p></div><a class="ac-office-instagram" href="https://www.instagram.com/aimtravel_usa/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-instagram"/></svg><span><small>Последвай офиса в Instagram</small><strong>@aimtravel_usa</strong></span><span class="ac-follow-arrow" aria-hidden="true">↗</span></a>
         </div>
       </article>
       <article class="ac-office" id="ac-varna" aria-labelledby="ac-varna-title">
@@ -237,12 +252,15 @@
             <div><dt>Имейл</dt><dd class="ac-emails"><a href="mailto:varna@aimtravel.bg">varna@aimtravel.bg</a></dd></div>
           </dl>
           <a class="ac-map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%A6%D0%B0%D1%80%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%2019%2C%20%D0%92%D0%B0%D1%80%D0%BD%D0%B0" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps <span aria-hidden="true">↗</span></a>
-          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>3 консултанти</strong><span>в офиса във Варна</span></p></div>
+          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>3 консултанти</strong><span>в офиса във Варна</span></p></div><a class="ac-office-instagram" href="https://www.instagram.com/aimtravel_varna/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-instagram"/></svg><span><small>Последвай офиса в Instagram</small><strong>@aimtravel_varna</strong></span><span class="ac-follow-arrow" aria-hidden="true">↗</span></a>
         </div>
       </article></div></section>
-<section class="ac-social" aria-label="Instagram профили"><div class="ac-wrap ac-social-inner">
-  <p class="ac-social-intro"><svg aria-hidden="true"><use href="#ac-instagram"/></svg>Последвай ни в Instagram</p>
-  <div class="ac-social-links"><a href="https://www.instagram.com/aimtravel_usa/" target="_blank" rel="noopener noreferrer"><span>София</span><strong>@aimtravel_usa ↗</strong></a><a href="https://www.instagram.com/aimtravel_varna/" target="_blank" rel="noopener noreferrer"><span>Варна</span><strong>@aimtravel_varna ↗</strong></a></div>
+<section class="ac-social" aria-label="Социални мрежи на AIM Travel"><div class="ac-wrap ac-social-inner">
+  <div><p class="ac-social-intro">Още от AIM Travel</p><p class="ac-social-caption">Последвай общите ни профили във Facebook и TikTok.</p></div>
+  <div class="ac-general-socials">
+    <a href="https://www.tiktok.com/@aimtravel_usa" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3h3c.3 2.3 1.7 3.7 4 4v3a9 9 0 0 1-4-1.2V16a6 6 0 1 1-7-5.9v3.1A3 3 0 1 0 14 16V3Z"/></svg><span><strong>TikTok</strong><small>@aimtravel_usa</small></span><span aria-hidden="true">↗</span></a>
+    <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 21v-8h3l.5-4H14V7c0-1.1.3-2 2-2h2V1.5c-.6-.1-1.9-.2-3-.2-3 0-5 1.8-5 5.1V9H7v4h3v8"/></svg><span><strong>Facebook</strong><small>AIM Travel</small></span><span aria-hidden="true">↗</span></a>
+  </div>
 </div></section>
 
 <section class="ac-online" id="ac-online" aria-labelledby="ac-online-title"><div class="ac-wrap ac-online-inner">
