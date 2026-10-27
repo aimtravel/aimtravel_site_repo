@@ -56,3 +56,39 @@ are at least 44px high. The site's existing mobile header was retained.
 No test inquiry/email was sent. Viber and Instagram app behavior needs a device
 with the respective app and account. Office hours and response-time promises are
 not added because they were not supplied.
+
+
+## Revision requested on 27 October
+
+The hero now shows the full AIM logo and explains online consultation,
+registration and contract signing, including for people outside Bulgaria.
+The office cards use a map/details layout, the supplied office email addresses,
+Instagram accounts and consultant counts (Sofia 8, Varna 3). The online team
+is shown separately with 3 consultants. No staff identities or response times
+have been invented. Market leadership is expressed through concrete online
+services rather than an unverified comparison with every other agency.
+
+The new callback form posts to `/contact-inquiry/`. Phone is required and email
+is optional. Its image CAPTCHA is verified server-side, expires after 5 minutes,
+is bound to the CSRF cookie and allows one attempt. Exclusive nonce marker files
+under the staging app's `tmp/contact-captcha-used` directory prevent replay
+across Passenger workers. No visitor name or contact data is stored there.
+Wrong or expired codes refresh without clearing the visitor's form. This is a
+self-hosted visual challenge, not a third-party CAPTCHA service, and is not a
+guarantee against all automated abuse. Phone and Viber remain alternatives for
+visitors who cannot use the image challenge.
+
+Deployment now includes the new web/contact_inquiry.py module and two added
+routes in the existing staging web/urls.py, in addition to the template. The
+staging URL file was downloaded and backed up before the minimal edit; other
+staging routes were preserved. GitHub's version retains its own route names.
+Production is unchanged. The legacy submit-form endpoint remains for the
+separate job-offers form and is not part of this change.
+
+Six isolated tests passed using Django's in-memory email backend: correct code,
+wrong/missing/replayed/expired/tampered/cross-cookie code, CSRF, honeypot,
+invalid email, mail failure and independent visitors. Live staging was checked
+for successful logo/CAPTCHA loading, enabled form controls, office contacts and
+absence of desktop horizontal overflow. No real inquiry/email was sent, so SMTP
+delivery has not been tested end to end in this revision.
+
