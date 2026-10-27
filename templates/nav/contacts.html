@@ -1,307 +1,332 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
+<style>
 
-    <main>
-
-
-        <section id="contacts-header-section">
-            <div id="contacts-section-header">
-                <h2>Как да се свържете с нас?</h2>
-                <p>За да се свържете с нас, трябва само да ни се обадите. Ако пък телефонните разговори ви се
-                    струват ретро, пишете ни e-mail или пък се свържете с нас през социалните медии. И
-                    разбира се винаги може да ни посетите на място в нашите офиси. Очакваме ви!</p>
-            </div>
-        </section>
-        <section id="contacts-section" class="red-background">
-            <div id="contacts-section-inner-container" class="inner-container">
-
-                <div id="contacts-container">
-                    <div class="price-container">
-                        <div class="price-container-text">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="58px" height="58px" stroke-width="1" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" color="#000000">
-                                <path d="M20 11a8 8 0 10-16 0" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                                <path d="M2 15.438v-1.876a2 2 0 011.515-1.94l1.74-.436a.6.6 0 01.745.582v5.463a.6.6 0 01-.746.583l-1.74-.435A2 2 0 012 15.439zM22 15.438v-1.876a2 2 0 00-1.515-1.94l-1.74-.436a.6.6 0 00-.745.582v5.463a.6.6 0 00.745.583l1.74-.435A2 2 0 0022 15.439zM20 18v.5a2 2 0 01-2 2h-3.5"
-                                      stroke="#FFFFFF" stroke-width="1"></path>
-                                <path d="M13.5 22h-3a1.5 1.5 0 010-3h3a1.5 1.5 0 010 3z" stroke="#FFFFFF"
-                                      stroke-width="1"></path>
-                            </svg>
-                            <p>ОБАДИ НИ СЕ</p>
-                        </div>
-                        <div class="option-list">
-                            <div id="phone-container">
-                                <div id="phone-btn" class="contact-detail">
-                                    <a href="tel:+359889966583">+359 88 99 66 583</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="price-container">
-                        <div class="price-container-text">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="58px" height="58px" viewBox="0 0 24 24" stroke-width="1" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-                                <path d="M9 9l4.5 3L18 9M3 13.5h2M1 10.5h4" stroke="#ffffff" stroke-width="1"
-                                      stroke-linecap="round" stroke-linejoin="round"></path>
-                                <path d="M5 7.5V7a2 2 0 012-2h13a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2v-.5"
-                                      stroke="#ffffff" stroke-width="1" stroke-linecap="round"></path>
-                            </svg>
-                            <p>ПИШИ НИ E-MAIL</p>
-                        </div>
-                        <div class="option-list">
-                            <div id="phone-container">
-                                <div id="phone-btn" class="contact-detail">
-                                    <a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="price-container">
-                        <div class="price-container-text">
-                            <?xml version="1.0" encoding="UTF-8"?>
-                            <svg width="58px" height="58px" stroke-width="1" viewBox="0 0 24 24" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg" color="#ffffff">
-                                <path d="M16.472 20H4.1a.6.6 0 01-.6-.6V9.6a.6.6 0 01.6-.6h2.768a2 2 0 001.715-.971l2.71-4.517a1.631 1.631 0 012.961 1.308l-1.022 3.408a.6.6 0 00.574.772h4.575a2 2 0 011.93 2.526l-1.91 7A2 2 0 0116.473 20z"
-                                      stroke="#ffffff" stroke-width="1" stroke-linecap="round"></path>
-                                <path d="M7 20V9" stroke="#ffffff" stroke-width="1" stroke-linecap="round"
-                                      stroke-linejoin="round"></path>
-                            </svg>
-                            <p>СОЦИАЛНИТЕ МЕДИИ</p>
-                        </div>
-                        <div class="option-list">
-                            <div id="phone-container">
-                                <div id="insta-link">
-                                    <a href="https://www.instagram.com/aimtravel_usa/" target="_blank">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg width="24px" height="24px" stroke-width="1.5"
-                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                             color="#000000">
-                                            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF"
-                                                  stroke-width="1.5"
-                                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
-                                                  stroke="#FFFFFF" stroke-width="1.5"></path>
-                                            <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5"
-                                                  stroke-linecap="round"
-                                                  stroke-linejoin="round"></path>
-                                        </svg>
-                                    </a>
-
-                                </div>
-
-                                <div id="fb-link">
-                                    <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg width="24px" height="24px" stroke-width="1.5"
-                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                             color="#000000">
-                                            <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
-                                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                                  stroke-linejoin="round">
-                                            </path>
-                                        </svg>
-                                    </a>
-
-                                </div>
-
-                                <div id="youtube-link">
-                                    <a href="https://www.youtube.com/@aimtravel9347" target="_blank">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg width="24px" height="24px" stroke-width="1.5"
-                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                             color="#000000">
-                                            <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF"
-                                                  stroke-width="1.5"
-                                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                                            <path
-                                                    d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
-                                                    stroke="#FFFFFF" stroke-width="1.5"></path>
-                                        </svg>
-                                    </a>
-
-                                </div>
-
-                                <div class="tiktok-link">
-                                    <a href="https://www.tiktok.com/@aim_travelusa" target="_blank">
-                                        <?xml version="1.0" encoding="UTF-8"?>
-                                        <svg width="24px" height="24px" stroke-width="1.5"
-                                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                             color="#000000">
-                                            <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
-                                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                                  stroke-linejoin="round">
-                                            </path>
-                                            <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF"
-                                                  stroke-width="1.5"
-                                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacts-offices-section">
-            <div id="contacts-header-section" class="centered">
-                <h2>Офиси</h2>
-            </div>
-            <div id="contacts-office-container">
-                <div class="office-container" id="vc-sofia">
-                    <div id="office-container-logo">
-                        <img src="{% static 'img/Ready-stock/Logo/AIM_logo-colored.png' %}" alt="">
-                    </div>
-                    <hr class="hr">
-                    <div id="office-container-text">
-                        <h4>WORK & TRAVEL AGENCY</h4>
-                        <p>София, Студентски Град</p>
-                        <p>ул. Йордан Йосифов №2 (до авт.спирка на Joy Station)</p>
-                        <div id="phone-div">
-                            <a href="tel:0889966583">+359 889 966 583</a>
-                            <div class="vl">
-                                <hr>
-                            </div>
-                            <a href="tel:0884783801">+359 884 783 801</a>
-                        </div>
-                        <div id="mail-div">
-                            <a href="https://www.aimtravel.bg">www.aimtravel.bg</a>
-                            <div class="vl">
-                                <hr>
-                            </div>
-                            <a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a>
-                        </div>
-                    </div>
-                </div>
-                <div id="location-container" class="responsive-map map-sofia">
-                    <div class="location-div">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3549760231135!2d23.344753582692363!3d42.65383249706103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424acd6e7ab%3A0x98b22b079ac66bde!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1696253779862!5m2!1sen!2sbg"
-                                width="280" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-                <div class="office-container" id="vs-varna">
-                    <div id="office-container-logo">
-                        <img src="{% static 'img/Ready-stock/Logo/AIM_logo-colored.png' %}" alt="">
-                    </div>
-                    <hr class="hr">
-                    <div id="office-container-text">
-                        <h4>WORK & TRAVEL AGENCY</h4>
-                        <p>Варна, бул. Цар Освободител №19</p>
-                        <div id="phone-div">
-                            <a href="tel:0878630072">+359 878 630 072</a>
-                        </div>
-                        <div id="mail-div">
-                            <a href="https://www.aimtravel.bg">www.aimtravel.bg</a>
-                            <div class="vl">
-                                <hr>
-                            </div>
-                            <a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a>
-                        </div>
-
-                    </div>
-                </div>
-                <div id="location-container" class="responsive-map map-varna">
-                    <div class="location-div">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.6714587237082!2d27.922399472511646!3d43.208369529611154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a455a885ff9139%3A0xb0b18f3c8941b1ce!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1725950753388!5m2!1sen!2sbg"
-                                width="280" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="contacts-location-section">
-            <div id="location-container">
-                <div class="row">
-                    <div class="location-div">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3549630957173!2d23.34386741199999!3d42.65383277104689!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424acd6e7ab%3A0x98b22b079ac66bde!2zQUlNIFRyYXZlbCAtINCh0YLRg9C00LXQvdGC0YHQutC4INCR0YDQuNCz0LDQtNC4INCyINCh0JDQqQ!5e0!3m2!1sen!2sbg!4v1694206140076!5m2!1sen!2sbg"
-                                width="450" height="330" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                    <div class="location-div">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.6714587237082!2d27.922399472511646!3d43.208369529611154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a455a885ff9139%3A0xb0b18f3c8941b1ce!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1725950753388!5m2!1sen!2sbg"
-                                width="450" height="330" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contacts-query-form">
-            <div id="contacts-query-form-container">
-
-                <!-- Vector image START -->
-                <div id="contacts-query-form-image">
-                    <img src="{% static 'img/Ready-stock/wat-usa-financial.png' %}" alt="">
-                </div>
-                <!-- Vector image END -->
-
-                <!-- Contact form START -->
-                <section id="contact-form">
-                    <div class="text-area">
-                        <h1><b>Изпратете Запитване</b></h1>
-                        <p>Поставяйки <span>персоналното отношение</span> на първо място, ние от AIM travel ще ви
-                            консултираме
-                            възможно най-добре
-                            за работната оферта и ще ви помогнем да намерите най-добрата за вас.</p>
-                    </div>
-
-                    <form action="/submit-form/" method="POST">
-                        {% csrf_token %}
-                        <div class="query-form">
-                            <div class="name-part line">
-                                <div class="sub-line">
-                                    <label for="name">Име и Фамилия</label>
-                                    <input type="text" name="name" id="name" class="form-field-semi">
-                                </div>
-                                <div class="sub-line">
-                                    <label for="university">Университет</label>
-                                    <input type="text" name="university" id="university" class="form-field-semi">
-                                </div>
-                            </div>
-                            <div class="contact-part line">
-                                <div class="sub-line">
-                                    <label for="email-field">Email</label>
-                                    <input type="email" name="email-field" id="email-field" class="form-field-semi">
-                                </div>
-                                <div class="sub-line">
-                                    <label for="phone-field">Телефон</label>
-                                    <input type="text" name="phone-field" id="phone-field" class="form-field-semi">
-                                </div>
-                            </div>
-                            <div class="message-part line">
-                                <div class="sub-line">
-                                    <label for="message">Съобщение</label>
-                                    <input type="text" name="message" id="message" class="form-field-text">
-                                </div>
-                            </div>
-                            <div class="button-part line">
-
-                                <button type='submit' class="query-btn slider-btn">ИЗПРАТИ</button>
-
-                            </div>
-                        </div>
-                    </form>
+@font-face{font-family:AIM Contact;src:url("{% static 'fonts/Sofia-sans/SofiaSans-VariableFont_wght.ttf' %}") format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+#offer-details-header .background,#offer-details-page-flag1{display:none!important}
+#offer-details-header{height:84px!important;width:100%!important;max-width:100%;box-sizing:border-box;margin-inline:0!important;left:0!important}
+#horizontal-line{box-sizing:border-box;max-width:100%}
+#aim-contacts{--ink:#172b38;--red:#ae1520;--muted:#58616b;--line:#deded8;--paper:#f4f3ef;background:var(--paper);color:var(--ink);font-family:'AIM Contact',Arial,sans-serif;line-height:1.55}
+#aim-contacts *,#aim-contacts *::before,#aim-contacts *::after{box-sizing:border-box}
+#aim-contacts h1,#aim-contacts h2,#aim-contacts h3,#aim-contacts p,#aim-contacts dl,#aim-contacts dd{margin:0}
+#aim-contacts h1,#aim-contacts h2,#aim-contacts h3{font-family:inherit;color:var(--ink);letter-spacing:-.025em;line-height:1.12}
+#aim-contacts a{color:inherit;text-decoration:none}#aim-contacts nav a{font-family:inherit;letter-spacing:normal;text-transform:none;line-height:1.4}
+#aim-contacts button,#aim-contacts input,#aim-contacts textarea{font:inherit}
+#aim-contacts a:focus-visible,#aim-contacts button:focus-visible,#aim-contacts input:focus-visible,#aim-contacts textarea:focus-visible{outline:3px solid #356da1;outline-offset:4px}
+#aim-contacts svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#aim-contacts .ac-wrap{width:min(1220px,calc(100% - 80px));margin-inline:auto}
+#aim-contacts .ac-page-head{height:auto;display:block;position:relative;background:#fff;border-bottom:1px solid var(--line);padding:42px 0 0}
+#aim-contacts .ac-heading-row{display:flex;align-items:center;justify-content:space-between;gap:36px;padding-bottom:30px}
+#aim-contacts h1{font-size:clamp(36px,4vw,54px);font-weight:700}
+#aim-contacts .ac-lead{margin-top:13px;max-width:620px;color:var(--muted);font-size:18px}
+#aim-contacts .ac-header-action{flex:none;text-align:right}
+#aim-contacts .ac-header-action p{font-size:14px;color:var(--muted);margin-bottom:9px}
+#aim-contacts .ac-button{display:inline-flex;gap:10px;justify-content:center;align-items:center;min-height:48px;padding:11px 20px;border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--ink);font-size:16px;font-weight:650;cursor:pointer;line-height:1.35}
+#aim-contacts .ac-button:hover{background:#f1f0eb;border-color:#9a9f9f}
+#aim-contacts .ac-button.ac-primary{background:var(--red);border-color:var(--red);color:white}
+#aim-contacts .ac-button.ac-primary:hover{background:#90111a;border-color:#90111a}
+#aim-contacts .ac-jump-nav{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
+#aim-contacts .ac-jump-nav a{display:inline-flex;align-items:center;min-height:51px;padding:9px 0;border-bottom:2px solid transparent;font-size:16px;font-weight:650}
+#aim-contacts .ac-jump-nav a:hover{border-color:var(--red);color:var(--red)}
+#aim-contacts .ac-jump-nav .ac-jump-online{color:var(--ink)}
+#aim-contacts .ac-offices{padding:36px 0 0}
+#aim-contacts .ac-office{display:grid;grid-template-columns:1fr 1.08fr;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:28px;box-shadow:0 2px 5px #192d3805}
+#aim-contacts .ac-office-map{min-width:0;background:#e5e8e4}
+#aim-contacts .ac-map{display:block;width:100%;height:100%;min-height:440px;border:0}
+#aim-contacts .ac-office-details{padding:30px 34px 24px;min-width:0}
+#aim-contacts .ac-office-heading{display:flex;justify-content:space-between;align-items:start;margin-bottom:23px;gap:20px}
+#aim-contacts .ac-overline{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:9px}
+#aim-contacts .ac-office h2{font-size:38px;font-weight:720}
+#aim-contacts .ac-office-number{font-size:14px;color:#858a8c;font-weight:500;padding-top:6px}
+#aim-contacts .ac-contact-details>div{display:grid;grid-template-columns:70px 1fr;gap:14px;align-items:start;margin-top:16px}
+#aim-contacts dt{padding-top:4px;font-size:12px;font-weight:650;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+#aim-contacts dd{font-size:17px;min-width:0}
+#aim-contacts dd small{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+#aim-contacts .ac-phones{display:flex;flex-wrap:wrap;gap:9px}
+#aim-contacts .ac-phone-link{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 12px;background:var(--red);border:1px solid var(--red);border-radius:4px;color:white;font-size:16px;font-weight:650;white-space:nowrap}
+#aim-contacts .ac-phone-link+ .ac-phone-link{background:white;color:var(--ink);border-color:#cacdcd}
+#aim-contacts .ac-phone-link:hover{filter:brightness(.94)}
+#aim-contacts .ac-phone-link svg{width:17px;height:17px}
+#aim-contacts .ac-emails{display:flex;flex-wrap:wrap;column-gap:20px;row-gap:4px}
+#aim-contacts .ac-emails a{display:inline-flex;align-items:center;min-height:34px;text-decoration:underline;text-decoration-color:#b8bdbc;text-underline-offset:5px;overflow-wrap:anywhere;max-width:100%}
+#aim-contacts .ac-emails a:hover{color:var(--red)}
+#aim-contacts .ac-map-link{display:inline-flex;gap:9px;align-items:center;margin:20px 0 0 84px;min-height:44px;font-size:15px;font-weight:650;border-bottom:1px solid #bfc5c7}
+#aim-contacts .ac-map-link svg{width:18px;height:18px}
+#aim-contacts .ac-office-team{margin-top:23px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;gap:13px}
+#aim-contacts .ac-office-team svg{color:var(--red);width:27px;height:27px}
+#aim-contacts .ac-office-team p{font-size:15px;display:flex;gap:6px;flex-wrap:wrap}
+#aim-contacts .ac-office-team strong{font-weight:650}
+#aim-contacts .ac-office-team span{color:var(--muted)}
+#aim-contacts .ac-social{padding:5px 0 42px}
+#aim-contacts .ac-social-inner{display:flex;justify-content:space-between;gap:25px;align-items:center;border-bottom:1px solid var(--line);padding:0 0 28px}
+#aim-contacts .ac-social-intro{display:flex;align-items:center;gap:12px;font-size:16px;font-weight:650}
+#aim-contacts .ac-social-links{display:flex;gap:30px;flex-wrap:wrap}
+#aim-contacts .ac-social-links a{display:block;padding:4px 0;min-height:48px}
+#aim-contacts .ac-social-links span{display:block;font-size:12px;color:var(--muted);margin-bottom:1px}
+#aim-contacts .ac-social-links strong{font-size:17px;font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#b8bdbc}
+#aim-contacts .ac-online{padding:0 0 48px}
+#aim-contacts .ac-online-inner{display:grid;grid-template-columns:1fr 1.08fr;border-top:1px solid #cad4d7;background:#e9eeef}
+#aim-contacts .ac-online-copy{padding:35px 36px}
+#aim-contacts .ac-online h2{font-size:34px;font-weight:700;max-width:430px}
+#aim-contacts .ac-online-copy>p:not(.ac-overline){font-size:17px;color:var(--muted);margin:17px 0 22px;max-width:480px}
+#aim-contacts .ac-online-links{display:flex;flex-wrap:wrap;gap:12px}
+#aim-contacts .ac-online-links .ac-button{font-size:15px;padding-inline:16px}
+#aim-contacts .ac-online-team{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:14px;margin-top:22px}
+#aim-contacts .ac-online-services{padding:24px 36px;list-style:none;margin:0;border-left:1px solid #ced8dc}
+#aim-contacts .ac-online-services li{display:flex;gap:18px;padding:17px 0;border-bottom:1px solid #ced8dc}
+#aim-contacts .ac-online-services li:last-child{border:0}
+#aim-contacts .ac-step{color:var(--red);font-weight:650;font-size:13px;padding-top:2px}
+#aim-contacts .ac-online-services h3{font-size:19px;font-weight:650;margin-bottom:5px}
+#aim-contacts .ac-online-services p{font-size:15px;color:var(--muted)}
+#aim-contacts .ac-form-section{background:#fff;padding:54px 0 64px;border-top:1px solid var(--line)}
+#aim-contacts .ac-form-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start}
+#aim-contacts .ac-form-section h2{font-size:38px;font-weight:700}
+#aim-contacts .ac-form-description{font-size:18px;line-height:1.6;max-width:370px;color:var(--muted);margin-top:17px}
+#aim-contacts .ac-direct{display:flex;flex-direction:column;align-items:start;gap:16px;margin-top:30px}
+#aim-contacts .ac-direct a{display:inline-flex;align-items:center;gap:10px;min-height:44px;font-size:17px}
+#aim-contacts .ac-direct a:hover{text-decoration:underline;text-underline-offset:5px}
+#aim-contacts .ac-direct .ac-viber{color:#6246bb;font-weight:650}
+#aim-contacts .ac-form{min-width:0}
+#aim-contacts .ac-fields{display:grid;grid-template-columns:1fr 1fr;gap:19px 20px}
+#aim-contacts .ac-full{grid-column:1/-1}
+#aim-contacts label{display:block;font-size:15px;font-weight:600;margin-bottom:7px}
+#aim-contacts label span{font-weight:400;color:var(--muted)}
+#aim-contacts input,#aim-contacts textarea{display:block;width:100%;min-height:48px;padding:11px 13px;border:1px solid #bfc7cc;border-radius:4px;background:white;color:var(--ink);font-size:16px;box-shadow:none}
+#aim-contacts input:focus,#aim-contacts textarea:focus{border-color:#356da1}
+#aim-contacts input::placeholder,#aim-contacts textarea::placeholder{color:#68757e;opacity:1}
+#aim-contacts textarea{min-height:110px;resize:vertical}
+#aim-contacts .ac-captcha{margin-top:23px}
+#aim-contacts .ac-captcha-picture{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+#aim-contacts .ac-captcha-picture img{max-width:100%;object-fit:contain;border:1px solid var(--line);border-radius:4px;background:#f3f6fa}
+#aim-contacts .ac-captcha-picture button{font-size:14px;padding:8px 12px}
+#aim-contacts #ac-code{max-width:240px;letter-spacing:.15em}
+#aim-contacts #ac-captcha-help{max-width:470px;font-size:13px;line-height:1.5;color:var(--muted);margin-top:8px}
+#aim-contacts .ac-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+#aim-contacts #ac-form-status{font-size:16px;margin-top:14px}
+#aim-contacts .ac-form-bottom{margin-top:20px;display:flex;flex-direction:column-reverse;align-items:start;gap:13px}
+#aim-contacts .ac-form-bottom p{font-size:13px;color:var(--muted);max-width:420px}
+#aim-contacts button:disabled{opacity:.55;cursor:wait}
+#aim-contacts [id^="ac-"]{scroll-margin-top:110px}
+#aim-contacts .ac-mobile-bar{display:none}
+#footer-nav-container,#footer-link-container{width:min(1180px,calc(100% - 48px));max-width:100%}
+#footer-nav-container{flex-wrap:wrap;gap:24px 0}
+#footer-nav-container #logo-container{width:100%;align-items:center}
+#footer-nav-container .nav-container{flex:1 1 180px;width:auto;padding:0 16px;box-sizing:border-box}
+#footer-link-container{flex-wrap:wrap;gap:20px}
+@media(min-width:801px) and (max-width:1100px){#offer-details-header .header-nav-links-container{left:0;gap:18px;width:100%}}
+@media(max-width:1050px){
+ #aim-contacts .ac-wrap{width:calc(100% - 48px)}
+ #aim-contacts .ac-office{grid-template-columns:.9fr 1.1fr}
+ #aim-contacts .ac-office-details{padding:26px}
+ #aim-contacts .ac-contact-details>div{grid-template-columns:1fr;gap:7px;margin-top:14px}
+ #aim-contacts .ac-map-link{margin-left:0;margin-top:14px}
+ #aim-contacts .ac-office-team{margin-top:17px;padding-top:15px}
+ #aim-contacts .ac-form-grid{gap:35px}
+ #aim-contacts .ac-online-copy,#aim-contacts .ac-online-services{padding:28px}
+}
+@media(max-width:760px){
+ #offer-details-header{height:72px!important}
+ #aim-contacts .ac-wrap{width:calc(100% - 32px)}
+ #aim-contacts .ac-page-head{padding-top:28px}
+ #aim-contacts .ac-heading-row{display:block;padding-bottom:18px}
+ #aim-contacts .ac-lead{font-size:17px;max-width:500px}
+ #aim-contacts .ac-header-action{text-align:left;margin-top:19px}
+ #aim-contacts .ac-header-action p{display:none}
+ #aim-contacts .ac-jump-nav{gap:0 16px}
+ #aim-contacts .ac-jump-nav a{font-size:15px;min-height:49px}
+ #aim-contacts .ac-offices{padding-top:23px}
+ #aim-contacts .ac-office{grid-template-columns:1fr;margin-bottom:22px}
+ #aim-contacts .ac-office-map{order:2}
+ #aim-contacts .ac-map{height:240px;min-height:0}
+ #aim-contacts .ac-office-details{padding:24px}
+ #aim-contacts .ac-office-heading{margin-bottom:18px}
+ #aim-contacts .ac-office h2{font-size:34px}
+ #aim-contacts .ac-contact-details>div{grid-template-columns:1fr}
+ #aim-contacts .ac-office-team{padding-top:16px;margin-top:20px}
+ #aim-contacts .ac-social{padding:3px 0 30px}
+ #aim-contacts .ac-social-inner{display:block;padding-bottom:24px}
+ #aim-contacts .ac-social-links{gap:12px 25px;margin-top:14px}
+ #aim-contacts .ac-online{padding-bottom:30px}
+ #aim-contacts .ac-online-inner,#aim-contacts .ac-form-grid{grid-template-columns:1fr}
+ #aim-contacts .ac-online-copy{padding:26px 24px}
+ #aim-contacts .ac-online h2{font-size:30px}
+ #aim-contacts .ac-online-services{padding:0 24px 16px;border-left:0;border-top:1px solid #ced8dc}
+ #aim-contacts .ac-online-services li{padding:19px 0}
+ #aim-contacts .ac-form-section{padding:35px 0 100px}
+ #aim-contacts .ac-form-section h2{font-size:32px}
+ #aim-contacts .ac-form-grid{gap:30px}
+ #aim-contacts .ac-form-description{max-width:none;font-size:17px}
+ #aim-contacts .ac-direct{gap:8px;margin-top:16px}
+ #aim-contacts .ac-fields{grid-template-columns:1fr;gap:17px}
+ #aim-contacts .ac-form-bottom .ac-button{width:100%}
+ #aim-contacts .ac-mobile-bar{position:fixed;bottom:0;left:0;right:0;z-index:1000;display:grid;grid-template-columns:1fr 1fr 1fr;background:#fff;border-top:1px solid #d1d6d7;padding:6px 8px max(6px,env(safe-area-inset-bottom));box-shadow:0 -3px 12px #172b3808}
+ #aim-contacts .ac-mobile-bar a{display:flex;align-items:center;justify-content:center;gap:7px;font-size:14px;min-height:46px;font-weight:600}
+ #aim-contacts .ac-mobile-bar a+a{border-left:1px solid var(--line)}
+ #aim-contacts .ac-mobile-bar svg{width:18px;height:18px}
+ #aim-contacts .ac-mobile-bar a:first-child{color:#6246bb}
+ #aim-contacts [id^="ac-"]{scroll-margin-top:95px}
+}
+@media(prefers-reduced-motion:reduce){#aim-contacts *{scroll-behavior:auto!important;transition:none!important}}
 
 
-                </section>
-                <!-- Contact form END -->
+#aim-contacts .ac-heading-row{padding-bottom:20px}
+#aim-contacts .ac-quick-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px;max-width:1080px}
+#aim-contacts .ac-quick-link{display:flex;align-items:center;gap:13px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;min-height:76px;background:white}
+#aim-contacts .ac-quick-link:hover{border-color:#8e9aa1;background:#fafaf8}
+#aim-contacts .ac-quick-icon{width:40px;height:40px;display:grid;place-items:center;flex:none;color:var(--ink);background:#edf1f2;border-radius:5px}
+#aim-contacts .ac-quick-link strong{display:block;font-size:17px;font-weight:650;line-height:1.3}
+#aim-contacts .ac-quick-link small{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+#aim-contacts .ac-quick-viber{border-color:#d8cfed;background:#faf8ff}
+#aim-contacts .ac-quick-viber .ac-quick-icon{background:#ede7fa;color:#6445bb}
+#aim-contacts .ac-quick-consult{border-color:var(--red);background:var(--red);color:#fff}
+#aim-contacts .ac-quick-consult:hover{background:#90111a;border-color:#90111a}
+#aim-contacts .ac-quick-consult .ac-quick-icon{background:#ffffff16;color:white}
+#aim-contacts .ac-quick-consult small{color:#fff}
+#aim-contacts .ac-online .ac-overline{color:var(--muted)}
+@media(max-width:760px){
+ #aim-contacts .ac-quick-actions{grid-template-columns:1fr;gap:8px;margin-bottom:12px}
+ #aim-contacts .ac-quick-link{min-height:60px;padding:9px 12px;gap:12px}
+ #aim-contacts .ac-quick-link strong{font-size:16px}
+ #aim-contacts .ac-quick-link small{font-size:13px;margin-top:1px}
+ #aim-contacts .ac-quick-icon{width:35px;height:35px}
+ #aim-contacts .ac-mobile-bar a{font-size:13px}
+}
 
-            </div>
-        </section>
-        <!-- =======================
-        Contact form and vector END -->
+#aim-contacts .ac-office-instagram{display:flex;align-items:center;gap:12px;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);min-height:64px}
+#aim-contacts .ac-office-instagram>svg{width:26px;height:26px;color:#9d286a}
+#aim-contacts .ac-office-instagram small{display:block;font-size:12px;color:var(--muted);line-height:1.4}
+#aim-contacts .ac-office-instagram strong{display:block;font-size:16px;font-weight:600;margin-top:3px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#c5b6c1}
+#aim-contacts .ac-office-instagram .ac-follow-arrow{margin-left:auto;color:var(--muted)}
+#aim-contacts .ac-office-instagram:hover strong{color:#9d286a}
+#aim-contacts .ac-social-caption{font-size:14px;color:var(--muted);margin-top:5px}
+#aim-contacts .ac-general-socials{display:flex;flex-wrap:wrap;gap:14px}
+#aim-contacts .ac-general-socials a{display:flex;align-items:center;gap:12px;min-height:64px;padding:10px 15px;border:1px solid var(--line);border-radius:5px;background:white}
+#aim-contacts .ac-general-socials a:hover{border-color:#8e9aa1}
+#aim-contacts .ac-general-socials strong{display:block;font-size:16px;font-weight:650}
+#aim-contacts .ac-general-socials small{display:block;font-size:13px;color:var(--muted)}
+#aim-contacts .ac-general-socials a[href*="facebook"]>svg{color:#1877f2}
+@media(max-width:760px){#aim-contacts .ac-general-socials{margin-top:18px;gap:10px}#aim-contacts .ac-general-socials a{flex:1 1 170px}}
+</style>
+<div id="aim-contacts" lang="bg">
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
+    <symbol id="ac-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 5.2 2 2 0 0 1 5.1 3h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.7l-1.3 1.3a16 16 0 0 0 4.6 4.6l1.3-1.3a2 2 0 0 1 1.7-.6l3 .5a2 2 0 0 1 1.7 2Z"/></symbol>
+    <symbol id="ac-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H6l-4 3V11.5A8.5 8.5 0 0 1 10.5 3h2a8.5 8.5 0 0 1 8.5 8.5Z"/><path d="M8 8.5c.8 3 2.5 4.7 5.5 5.5l1-1.5 2 1-1 2c-5.5 0-9-3.5-9-9l2-1 1 2Z"/></symbol>
+    <symbol id="ac-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="ac-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+    <symbol id="ac-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></symbol>
+    <symbol id="ac-route" viewBox="0 0 24 24"><path d="m21 3-7 18-4-8-8-4L21 3Z"/><path d="m10 13 5-5"/></symbol>
+  <symbol id="ac-team" viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M16 4a3 3 0 0 1 0 6M21 21v-3a6 6 0 0 0-4-5"/></symbol></defs></svg>
+<header class="ac-page-head"><div class="ac-wrap">
+  <div class="ac-heading-row"><div><h1>Контакти</h1><p class="ac-lead">Ела в офиса в София или Варна. Можем да се срещнем и онлайн.</p></div>
+    
+  </div>
+  <div class="ac-quick-actions" aria-label="Свържи се с нас">
+    <a class="ac-quick-link ac-quick-viber" href="viber://chat?number=%2B359889966583"><span class="ac-quick-icon"><svg aria-hidden="true"><use href="#ac-chat"/></svg></span><span><strong>Пиши ни във Viber</strong><small>088 996 6583</small></span></a>
+    <a class="ac-quick-link ac-quick-consult" href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener noreferrer"><span class="ac-quick-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 11h18m-13 5 2 2 4-4"/></svg></span><span><strong>Безплатна консултация</strong><small>Избери удобен час</small></span></a>
+    <a class="ac-quick-link" href="tel:+359889966583"><span class="ac-quick-icon"><svg aria-hidden="true"><use href="#ac-phone"/></svg></span><span><strong>Обади ни се</strong><small>088 996 6583</small></span></a>
+  </div>
+  <nav class="ac-jump-nav" aria-label="Офиси и връзка"><a href="#ac-sofia">София</a><a href="#ac-varna">Варна</a><a class="ac-jump-online" href="#ac-online">Онлайн услуги</a><a href="#ac-inquiry">Пиши ни</a></nav>
+</div></header>
+<section class="ac-offices" aria-label="Офиси на AIM Travel"><div class="ac-wrap">
+      <article class="ac-office" id="ac-sofia" aria-labelledby="ac-sofia-title">
+        <div class="ac-office-map"><iframe class="ac-map" title="AIM Travel, офис София, Студентски град" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2934.3549760231135!2d23.344753582692363!3d42.65383249706103!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa8424acd6e7ab%3A0x98b22b079ac66bde!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1696253779862!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+        <div class="ac-office-details">
+          <div class="ac-office-heading"><div><p class="ac-overline">Студентски град</p><h2 id="ac-sofia-title">София</h2></div><span class="ac-office-number" aria-hidden="true">01</span></div>
+          <dl class="ac-contact-details">
+            <div><dt>Адрес</dt><dd>ул. „Йордан Йосифов“ №2<small>До автобусната спирка на Joy Station</small></dd></div>
+            <div><dt>Телефони</dt><dd class="ac-phones"><a class="ac-phone-link" href="tel:+359889966583"><svg aria-hidden="true"><use href="#ac-phone"/></svg>088 996 6583</a><a class="ac-phone-link" href="tel:+359884783801"><svg aria-hidden="true"><use href="#ac-phone"/></svg>088 478 3801</a></dd></div>
+            <div><dt>Имейл</dt><dd class="ac-emails"><a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a><a href="mailto:sofia@aimtravel.bg">sofia@aimtravel.bg</a></dd></div>
+          </dl>
+          <a class="ac-map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%99%D0%BE%D1%80%D0%B4%D0%B0%D0%BD%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%202%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps <span aria-hidden="true">↗</span></a>
+          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>8 консултанти</strong><span>в офиса в София</span></p></div><a class="ac-office-instagram" href="https://www.instagram.com/aimtravel_usa/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-instagram"/></svg><span><small>Последвай офиса в Instagram</small><strong>@aimtravel_usa</strong></span><span class="ac-follow-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+      <article class="ac-office" id="ac-varna" aria-labelledby="ac-varna-title">
+        <div class="ac-office-map"><iframe class="ac-map" title="AIM Travel, офис Варна" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d305.6714587237082!2d27.922399472511646!3d43.208369529611154!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a455a885ff9139%3A0xb0b18f3c8941b1ce!2zQUlNIFRyYXZlbCBVU0EgLSDQodGC0YPQtNC10L3RgtGB0LrQuCDQkdGA0LjQs9Cw0LTQuCDQsiDQodCQ0Kk!5e0!3m2!1sen!2sbg!4v1725950753388!5m2!1sen!2sbg" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+        <div class="ac-office-details">
+          <div class="ac-office-heading"><div><p class="ac-overline">Център</p><h2 id="ac-varna-title">Варна</h2></div><span class="ac-office-number" aria-hidden="true">02</span></div>
+          <dl class="ac-contact-details">
+            <div><dt>Адрес</dt><dd>бул. „Цар Освободител“ №19</dd></div>
+            <div><dt>Телефон</dt><dd class="ac-phones"><a class="ac-phone-link" href="tel:+359878630072"><svg aria-hidden="true"><use href="#ac-phone"/></svg>0878 630 072</a></dd></div>
+            <div><dt>Имейл</dt><dd class="ac-emails"><a href="mailto:varna@aimtravel.bg">varna@aimtravel.bg</a></dd></div>
+          </dl>
+          <a class="ac-map-link" href="https://www.google.com/maps/dir/?api=1&amp;destination=AIM%20Travel%20USA%2C%20%D0%A6%D0%B0%D1%80%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%2019%2C%20%D0%92%D0%B0%D1%80%D0%BD%D0%B0" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-route"/></svg>Виж в Google Maps <span aria-hidden="true">↗</span></a>
+          <div class="ac-office-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><p><strong>3 консултанти</strong><span>в офиса във Варна</span></p></div><a class="ac-office-instagram" href="https://www.instagram.com/aimtravel_varna/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#ac-instagram"/></svg><span><small>Последвай офиса в Instagram</small><strong>@aimtravel_varna</strong></span><span class="ac-follow-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </article></div></section>
+<section class="ac-social" aria-label="Социални мрежи на AIM Travel"><div class="ac-wrap ac-social-inner">
+  <div><p class="ac-social-intro">Още от AIM Travel</p><p class="ac-social-caption">Последвай общите ни профили във Facebook и TikTok.</p></div>
+  <div class="ac-general-socials">
+    <a href="https://www.tiktok.com/@aimtravel_usa" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 3h3c.3 2.3 1.7 3.7 4 4v3a9 9 0 0 1-4-1.2V16a6 6 0 1 1-7-5.9v3.1A3 3 0 1 0 14 16V3Z"/></svg><span><strong>TikTok</strong><small>@aimtravel_usa</small></span><span aria-hidden="true">↗</span></a>
+    <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14 21v-8h3l.5-4H14V7c0-1.1.3-2 2-2h2V1.5c-.6-.1-1.9-.2-3-.2-3 0-5 1.8-5 5.1V9H7v4h3v8"/></svg><span><strong>Facebook</strong><small>AIM Travel</small></span><span aria-hidden="true">↗</span></a>
+  </div>
+</div></section>
 
+<section class="ac-online" id="ac-online" aria-labelledby="ac-online-title"><div class="ac-wrap ac-online-inner">
+  <div class="ac-online-copy"><p class="ac-overline">И онлайн, където и да си</p><h2 id="ac-online-title">Записване и договори<br>онлайн.</h2>
+    <p>Не си в София или Варна, а може би си извън България? Можеш да минеш през консултацията, записването и договора онлайн, с помощта на нашия екип.</p>
+    <div class="ac-online-links"><a class="ac-button ac-primary" href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener noreferrer">Безплатна консултация</a><a class="ac-button" href="https://aimtravel.bg/zapisvane-za-brigada/">Запиши се онлайн</a></div>
+    <div class="ac-online-team"><svg aria-hidden="true"><use href="#ac-team"/></svg><span>3 консултанти за онлайн обслужване</span></div>
+  </div>
+  <ol class="ac-online-services"><li><span class="ac-step" aria-hidden="true">01</span><div><h3>Безплатна онлайн консултация</h3><p>Избери удобен час и обсъди въпросите си с консултант.</p></div></li><li><span class="ac-step" aria-hidden="true">02</span><div><h3>Онлайн записване</h3><p>Попълни данните си през сайта, когато ти е удобно.</p></div></li><li><span class="ac-step" aria-hidden="true">03</span><div><h3>Договори онлайн</h3><p>Подготвяме документите и подписваш от разстояние.</p></div></li></ol>
+</div></section>
 
-    </main>
-    <!-- **************** MAIN CONTENT END **************** -->
+<section class="ac-form-section" id="ac-inquiry" aria-labelledby="ac-inquiry-title"><div class="ac-wrap ac-form-grid">
+  <div><p class="ac-overline">Обратно обаждане</p><h2 id="ac-inquiry-title">Да ти се обадим?</h2><p class="ac-form-description">Остави ни телефон и напиши какво те интересува. Ще се свържем с теб, за да обсъдим въпросите ти.</p>
+    <div class="ac-direct"><a class="ac-viber" href="viber://chat?number=%2B359889966583"><svg aria-hidden="true"><use href="#ac-chat"/></svg>Пиши ни във Viber</a><a href="tel:+359889966583"><svg aria-hidden="true"><use href="#ac-phone"/></svg>088 996 6583</a><a href="mailto:studentski@aimtravel.bg"><svg aria-hidden="true"><use href="#ac-mail"/></svg>studentski@aimtravel.bg</a></div>
+  </div><form class="ac-form" action="/contact-inquiry/" method="post" id="ac-contact-form">
+        {% csrf_token %}
+        <input type="hidden" name="university" value="">
+        <div class="ac-fields">
+          <div class="ac-field"><label for="ac-name">Име и фамилия</label><input id="ac-name" name="name" autocomplete="name" placeholder="Как се казваш?" maxlength="120" required></div>
+          <div class="ac-field"><label for="ac-phone">Телефон</label><input id="ac-phone" name="phone-field" type="tel" autocomplete="tel" placeholder="088 123 4567" maxlength="30" required></div>
+          <div class="ac-field ac-full"><label for="ac-email">Имейл <span>(по желание)</span></label><input id="ac-email" name="email-field" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254"></div>
+          <div class="ac-field ac-full"><label for="ac-message">С какво можем да помогнем?</label><textarea id="ac-message" name="message" placeholder="Например: Интересувам се от бригада за лято 2027…" maxlength="5000" required></textarea></div>
+        </div>
+        <div class="ac-captcha"><label for="ac-code">Въведи символите от картинката</label><div class="ac-captcha-picture"><img id="ac-captcha-image" alt="Проверка срещу автоматични съобщения" width="240" height="76"><button class="ac-button" type="button" id="ac-captcha-refresh">Нова картинка</button></div><input id="ac-code" name="captcha_answer" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="6" required aria-describedby="ac-captcha-help"><p id="ac-captcha-help">Ако не виждаш символите, зареди нова картинка. Можеш да се свържеш с нас и по телефон или Viber.</p><input type="hidden" name="captcha_token" id="ac-captcha-token"></div><div class="ac-trap" aria-hidden="true"><label for="ac-website">Website</label><input id="ac-website" name="website" tabindex="-1" autocomplete="off"></div><p id="ac-form-status" role="status" aria-live="polite"></p><noscript>За изпращането е нужен JavaScript. Можеш да ни пишеш по имейл или във Viber.</noscript><div class="ac-form-bottom"><p>Ще използваме данните ти, за да отговорим на запитването.</p><button class="ac-button ac-primary" type="submit">Пиши ни и ще ти се обадим <span aria-hidden="true">↗</span></button></div>
+      </form>
+</div></section>
+<nav class="ac-mobile-bar" aria-label="Бърза връзка"><a href="viber://chat?number=%2B359889966583"><svg aria-hidden="true"><use href="#ac-chat"/></svg>Viber</a><a href="https://calendly.com/aimtravelusa/consultation" target="_blank" rel="noopener noreferrer" aria-label="Безплатна консултация">Консултация</a><a href="tel:+359889966583"><svg aria-hidden="true"><use href="#ac-phone"/></svg>Обади се</a></nav>
+
+</div>
+<script>
+(() => {
+  const form = document.getElementById('ac-contact-form');
+  const status = document.getElementById('ac-form-status');
+  const submit = form.querySelector('[type="submit"]');
+  const refresh = document.getElementById('ac-captcha-refresh');
+  const token = document.getElementById('ac-captcha-token');
+  const answer = document.getElementById('ac-code');
+  let busy = false;
+  async function challenge() {
+    token.value = ''; answer.value = ''; submit.disabled = true; refresh.disabled = true;
+    try {
+      const response = await fetch('/contact-inquiry/captcha/', {credentials:'same-origin', cache:'no-store'});
+      const data = await response.json();
+      if (!response.ok) throw new Error('captcha');
+      document.getElementById('ac-captcha-image').src = data.image;
+      token.value = data.token;
+      if (!busy) submit.disabled = false;
+    } catch (_) { status.textContent = 'Не успяхме да заредим проверката. Натисни „Нова картинка“ или ни пиши във Viber.'; }
+    finally { refresh.disabled = false; }
+  }
+  refresh.addEventListener('click', challenge);
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (busy || !form.reportValidity() || !token.value) return;
+    const payload = new FormData(form);
+    busy = true; submit.disabled = true; status.textContent = 'Изпращаме съобщението…';
+    try {
+      const response = await fetch(form.action, {method:'POST', body:payload, credentials:'same-origin', headers:{'Accept':'application/json'}});
+      const data = await response.json();
+      status.textContent = data.message || 'Възникна грешка. Опитай отново или ни пиши във Viber.';
+      if (response.ok) form.reset();
+    } catch (_) { status.textContent = 'Няма потвърждение за изпращането. Провери връзката си или ни пиши във Viber.'; }
+    finally { busy = false; await challenge(); }
+  });
+  challenge();
+})();
+</script>
 {% endblock %}
+
