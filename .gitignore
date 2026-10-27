@@ -6,6 +6,7 @@
 # The GitHub repo is PUBLIC.
 credentials.py
 wat_credentials.py
+application_form_secrets.py
 .env
 .env.*
 !.env.example

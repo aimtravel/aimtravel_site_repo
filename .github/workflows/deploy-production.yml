@@ -116,7 +116,7 @@ jobs:
 
           # Public pages that must answer 200 with an "AIM Travel" <title>,
           # then pages where only the status is checked.
-          PAGES="/ /post/news/ /post/story/ /taxes/ /user_auth/ /user_auth/register/ /user_auth/password_reset/ /contacts/ /wat_usa/ /onlineservices/ /internship/ /h2b/ /rabotnioferti/ /wat-2027/registracia/ /rabotnioferti/lyubimi/ /under-construction/ /zapisvane-za-brigada/"
+          PAGES="/ /post/news/ /post/story/ /taxes/ /user_auth/ /user_auth/register/ /user_auth/password_reset/ /contacts/ /wat_usa/ /onlineservices/ /internship/ /h2b/ /rabotnioferti/ /wat-2027/registracia/ /rabotnioferti/lyubimi/ /under-construction/ /zapisvane-za-brigada/ /application-form/"
           STATUS_ONLY="/admin/login/ /static/style.css"
           smoke() {  # → SMOKE_FAILED (space-separated), retries while Passenger restarts
             local p code body ok i
