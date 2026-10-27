@@ -15,8 +15,10 @@ Sofia: 088 996 6583 and 088 478 3801; studentski@aimtravel.bg and
 sofia@aimtravel.bg; 8 office consultants.
 Varna: 0878 630 072; varna@aimtravel.bg; 3 office consultants.
 
-A separate Instagram strip links to the actual aimtravel_usa and aimtravel_varna
-profiles for following. It is distinct from consultant information.
+Each office has its own Instagram follow link with the Instagram icon, separated
+from consultant information by spacing and a divider. Shared Facebook and TikTok
+profiles appear in a separate general social section. The user confirmed the
+TikTok destination as https://www.tiktok.com/@aimtravel_usa.
 No duplicate hero logo, invented staff profiles or unsupported office hours.
 
 Online consultation, registration and contracts remain prominent in their own
