@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Controller, FormProvider, useForm, useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useErrorMessage } from "@/i18n/errors";
@@ -15,7 +15,6 @@ import {
   ApiValidationError,
   type ApplyConfig,
   type ContractResult,
-  type PriceQuote,
 } from "../api/api";
 import { apiFieldToFormField, toApiPayload } from "../api/payload";
 import { applicationSchema, STEP_FIELDS, type ApplicationInput } from "../helpers/applySchema";
@@ -25,7 +24,6 @@ import { ContractIssued } from "./ContractIssued";
 
 import { Turnstile } from "./Turnstile";
 
-const PriceContext = createContext<{quote: (PriceQuote & {option: string}) | null; setQuote: (q: (PriceQuote & {option: string}) | null) => void}>({quote: null, setQuote: () => {}});
 
 const DRAFT_KEY = "aim.apply.draftId";
 const TIMEOUT_SAVE_DRAFT = 1200;
@@ -36,7 +34,6 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
   const { t } = useTranslation("apply");
   const genericError = useErrorMessage("apply");
   const [step, setStep] = useState(0);
-  const [quote, setQuote] = useState<(PriceQuote & {option: string}) | null>(null);
   const [result, setResult] = useState<ContractResult | null>(null);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -63,7 +60,7 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
 
       programOption: "full_arranged",
       saveExchange: false,
-      discountCode: "",
+      feeAdjustmentEur: "",
       season: config.season,
 
       acceptsTerms: false as never,
@@ -92,10 +89,6 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
   }, [form, saveDraft]);
 
   const next = async () => {
-    const values = form.getValues();
-    if (step === 1 && values.discountCode.trim() && (quote?.discount_code !== values.discountCode.trim().toUpperCase() || quote?.option !== values.programOption)) {
-      form.setError("discountCode", {message: "Натисни Приложи, за да проверим кода."}); return;
-    }
     const ok = await form.trigger(STEP_FIELDS[step] as never, { shouldFocus: true });
     if (ok) {
       setStep((s) => Math.min(2, s + 1));
@@ -160,7 +153,6 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
   if (result) return <ContractIssued result={result} values={form.getValues()} />;
 
   return (
-    <PriceContext.Provider value={{quote, setQuote}}>
     <FormProvider {...form}>
       <Card className="relative overflow-visible rounded-[18px] shadow-lg">
         {/* Loading overlay while the browser waits for the server to render the
@@ -245,7 +237,6 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
         </form>
       </Card>
     </FormProvider>
-    </PriceContext.Provider>
   );
 }
 
@@ -444,24 +435,15 @@ function PersonalStep() {
 }
 
 function PriceSummary() {
-  const { watch, clearErrors } = useFormContext<ApplicationInput>();
-  const option = watch("programOption"), protection = watch("saveExchange"), code = watch("discountCode");
-  const {quote, setQuote} = useContext(PriceContext);
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
-  const matches = quote?.option === option && quote?.discount_code === code.trim().toUpperCase();
-  const price = matches ? quote!.price_eur : (option === "full_arranged" ? 1699 : 1499);
-  const applyCode = async () => {
-    setBusy(true); setError("");
-    try { const q = await api.quote(option, protection, code); setQuote({...q,option}); clearErrors("discountCode"); }
-    catch(e) { setQuote(null); setError(e instanceof ApiValidationError ? e.first("discount_code") || "Провери кода." : "Не успяхме да проверим кода. Изчакай минута и опитай отново."); }
-    finally { setBusy(false); }
-  };
+  const { watch } = useFormContext<ApplicationInput>();
+  const option = watch("programOption"), protection = watch("saveExchange"), value = watch("feeAdjustmentEur");
+  const amount = Number(value || 0);
+  const valid = /^\d*$/.test(value.trim()) && amount >= 0 && amount <= 690 && amount % 10 === 0;
+  const adjustment = valid ? amount : 0;
+  const price = (option === "full_arranged" ? 1699 : 1499) - adjustment;
   return <div aria-live="polite" className="border-t pt-4 text-sm">
-    {code.trim() && !matches && <Button type="button" variant="outline" onClick={applyCode} disabled={busy} className="mb-3">{busy ? "Проверяваме…" : "Приложи кода"}</Button>}
-    {error && <p role="alert" className="text-destructive">{error}</p>}
-    <p>Цена на програмата: <strong>{price} евро</strong>{matches && quote!.discount_eur > 0 && ` (отстъпка ${quote!.discount_eur} евро)`}</p>
-    {code.trim() && !matches && <p>Кодът още не е приложен.</p>}
+    <p>Цена на програмата: <strong>{price} евро</strong></p>
+    {adjustment > 0 && <p>Корекция на програмната такса: −{adjustment} евро</p>}
     {protection && <p>Save Exchange: 249 евро допълнително</p>}
     <p className="mt-2">Първа вноска: <strong>{protection ? 481 : 232} евро</strong></p>
     <p className="text-muted-foreground">200 евро депозит + 32 евро SEVIS{protection ? " + 249 евро Save Exchange" : ""}.</p>
@@ -476,9 +458,9 @@ function ProgramStep() {
       <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="full_arranged" {...register("programOption")} /><span><b>Full Arranged · 1699 евро</b><br />Избираш работна оферта с наше съдействие.</span></label>
       <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="self_arranged" {...register("programOption")} /><span><b>Self Arranged · 1499 евро</b><br />Кандидатстваш с работодател, който си намерил сам.</span></label>
     </fieldset>
-    <label className="flex gap-3 rounded-lg border p-4"><input type="checkbox" {...register("saveExchange")} className="mt-1 h-5 w-5" /><span><b>Добави Save Exchange · 249 евро</b><br />Допълнителна защита по анекс към договора. Променя условията за възстановяване на суми при отказ според изключенията и сроковете в анекса.</span></label>
+    <label className="flex gap-3 rounded-lg border p-4"><input type="checkbox" {...register("saveExchange")} className="mt-1 h-5 w-5" /><span><b>Save Exchange · Застраховка на парите · 249 евро</b><br />Защита на внесените пари при отказ на виза или друга причина за отказ от участие от страна на студента. Възстановяването на сумите е съобразено с условията, сроковете и изключенията в анекса.</span></label>
     {protection && <p className="text-sm">Анексът ще бъде изготвен за крайната цена на избраната програма. Таксата се заплаща до 7 календарни дни от подписването му.</p>}
-    <TextField name="discountCode" label="Код за отстъпка" optional hint="Ако имаш код от AIM Travel, въведи го тук." />
+    <TextField name="feeAdjustmentEur" label="Корекция на програмната такса (евро)" optional inputMode="numeric" placeholder="0" hint="Попълни договорената с AIM Travel сума. Тя се приспада автоматично от цената в договора. Ако няма корекция, остави полето празно." />
     <PriceSummary />
   </div>;
 }
@@ -584,7 +566,7 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
         <dl className="m-0 grid grid-cols-[1fr_1.3fr]">
           <Row label="Програма" value={v.programOption === "full_arranged" ? "Full Arranged" : "Self Arranged"} />
           <Row label="Save Exchange" value={v.saveExchange ? "Да · 249 евро" : "Не"} />
-          <Row label="Код за отстъпка" value={v.discountCode} />
+          <Row label="Корекция на програмната такса" value={`${Number(v.feeAdjustmentEur || 0)} евро`} />
           <Row label="Сезон" value={v.season} />
         </dl>
       </section>

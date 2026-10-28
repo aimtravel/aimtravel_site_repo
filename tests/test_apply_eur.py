@@ -14,6 +14,22 @@ from .test_apply_form import ApplicationFormTest
 
 
 class EuroRegistrationTest(ApplicationFormTest):
+    def test_numeric_adjustment_updates_contract_and_annex(self):
+        response = self.submit(fee_adjustment_eur=80, save_exchange=True)
+        self.assertEqual(response.status_code, 201, response.content)
+        app = Application.objects.get()
+        self.assertEqual((app.price_eur, app.discount_eur, app.discount_code), (1619, 80, ''))
+        for name, content, mime in mail.outbox[0].attachments[:2]:
+            text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
+            self.assertIn('1619', text)
+        self.assertIn('481 евро', mail.outbox[0].body)
+
+    def test_numeric_adjustment_rejects_invalid_values(self):
+        for amount in [-10, 15, 700, 'AIM80']:
+            with self.subTest(amount=amount):
+                self.assertEqual(self.submit(fee_adjustment_eur=amount).status_code, 400)
+        self.assertFalse(Application.objects.exists())
+
     def test_full_discount_and_annex_have_same_amount(self):
         DiscountCode.objects.create(code='AIM80', amount_eur=80, max_uses=1)
         response = self.submit(discount_code='aim80', save_exchange=True)

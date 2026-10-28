@@ -185,8 +185,9 @@ class QuoteView(APIView):
             program_option = serializers.ChoiceField(choices=ProgramOption.choices)
             save_exchange = serializers.BooleanField()
             discount_code = serializers.CharField(max_length=32, required=False, default="", allow_blank=True)
+            fee_adjustment_eur = serializers.IntegerField(min_value=0, max_value=690, required=False, default=0)
         serializer = QuoteInput(data=request.data)
         serializer.is_valid(raise_exception=True)
         data = serializer.validated_data
-        result, _ = quote(data["program_option"], data["save_exchange"], data["discount_code"])
+        result, _ = quote(data["program_option"], data["save_exchange"], data["discount_code"], adjustment=data["fee_adjustment_eur"])
         return Response(result)

@@ -29,7 +29,7 @@ def _persist(validated: dict, consent: dict, idempotency_key: str | None) -> App
     from .pricing import quote
     from .models import Office
     office, season = Office.SOFIA, validated["season"]
-    prices, discount = quote(validated["program_option"], validated["save_exchange"], validated.get("discount_code", ""), lock=True)
+    prices, discount = quote(validated["program_option"], validated["save_exchange"], validated.get("discount_code", ""), lock=True, adjustment=validated.get("fee_adjustment_eur", 0))
     prices.pop("first_payment_eur")
     if discount:
         discount.used_count += 1
@@ -40,7 +40,7 @@ def _persist(validated: dict, consent: dict, idempotency_key: str | None) -> App
         idempotency_key=idempotency_key or None,
         contract_number=contract_number,
         **{k: v for k, v in validated.items()
-           if k not in {"turnstile_token", "accepts_terms", "declares_truth", "accepts_gdpr"}},
+           if k not in {"turnstile_token", "accepts_terms", "declares_truth", "accepts_gdpr", "fee_adjustment_eur"}},
         **consent,
     )
 

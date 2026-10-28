@@ -1,6 +1,8 @@
 # Registration 2027
 
-New registrations use EUR: Full Arranged 1699, Self Arranged 1499. Save Exchange is optional and costs 249. The first payment is 232 without protection or 481 with it. A discount reduces the contract total and final installment, not the initial payment or protection fee.
+New registrations use EUR: Full Arranged 1699, Self Arranged 1499. Save Exchange is optional and costs 249. The first payment is 232 without protection or 481 with it. A correction reduces the contract total and final installment, not the initial payment or protection fee.
+
+The public form uses the numeric field “Корекция на програмната такса (евро)” instead of a promotional code. Per the owner's explicit choice, every applicant may enter the amount. Amounts are whole multiples of 10 from 0 to 690; the server independently validates them and saves the resulting price. The existing code API remains available for compatibility, but a code and numeric correction cannot be combined.
 
 The admin's **Discount codes** section manages codes. For example, create AIM80 with amount 80, season 2027, a usage limit and expiry date to offer Full Arranged for 1619. The code name alone never determines its value. No active codes are seeded. Usage is reserved transactionally with the application; failed document generation retains that reservation for admin regeneration rather than creating a second application.
 

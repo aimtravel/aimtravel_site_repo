@@ -8,12 +8,16 @@ SEVIS = 32
 PROTECTION = 249
 
 
-def quote(option, protection=False, code="", *, lock=False):
+def quote(option, protection=False, code="", *, lock=False, adjustment=0):
     from .models import DiscountCode
 
     base = PRICES[option]
     discount = None
     normalized = code.strip().upper()
+    if isinstance(adjustment, bool) or not isinstance(adjustment, int) or not 0 <= adjustment <= 690 or adjustment % 10:
+        raise ValidationError({"fee_adjustment_eur": "Въведи сума от 0 до 690 евро, кратна на 10."})
+    if normalized and adjustment:
+        raise ValidationError({"fee_adjustment_eur": "Корекцията не може да се комбинира с код."})
     if normalized:
         query = DiscountCode.objects
         if lock:
@@ -26,7 +30,7 @@ def quote(option, protection=False, code="", *, lock=False):
                 or discount.used_count >= discount.max_uses
                 or discount.amount_eur > base - 800):
             raise ValidationError({"discount_code": "Невалиден, изтекъл или изчерпан код."})
-    amount = discount.amount_eur if discount else 0
+    amount = discount.amount_eur if discount else adjustment
     return {
         "base_price_eur": base,
         "discount_eur": amount,

@@ -42,6 +42,7 @@ class ApplicationCreateSerializer(serializers.Serializer):
     season = serializers.IntegerField()
     save_exchange = serializers.BooleanField()
     discount_code = serializers.CharField(max_length=32, required=False, allow_blank=True, default="")
+    fee_adjustment_eur = serializers.IntegerField(min_value=0, max_value=690, required=False, default=0)
 
     # --- декларации ---
     accepts_terms = serializers.BooleanField()
@@ -115,7 +116,7 @@ class ApplicationCreateSerializer(serializers.Serializer):
         if not template.exists():
             raise serializers.ValidationError({"program_option": "Договорът за тази опция още не е активиран. Свържи се с нас."})
         from .pricing import quote
-        quote(attrs["program_option"], attrs["save_exchange"], attrs.get("discount_code", ""))
+        quote(attrs["program_option"], attrs["save_exchange"], attrs.get("discount_code", ""), adjustment=attrs["fee_adjustment_eur"])
         return attrs
 
     # ------------------------------------------------------------------

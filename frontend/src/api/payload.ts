@@ -21,7 +21,7 @@ export function toApiPayload(
 
 
     save_exchange: values.saveExchange,
-    discount_code: values.discountCode,
+    fee_adjustment_eur: Number(values.feeAdjustmentEur || 0),
     program_option: values.programOption,
     season: Number(values.season),
 
@@ -51,7 +51,7 @@ export const FIELD_BY_API_NAME: Record<string, keyof ApplicationInput> = {
   id_card_number: "idCardNumber",
 
   save_exchange: "saveExchange",
-  discount_code: "discountCode",
+  fee_adjustment_eur: "feeAdjustmentEur",
   program_option: "programOption",
   season: "season",
 

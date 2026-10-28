@@ -70,7 +70,8 @@ export const step2Schema = z.object({
   programOption: z.enum(["full_arranged", "self_arranged"]),
   season: z.string().regex(/^\d{4}$/),
   saveExchange: z.boolean(),
-  discountCode: z.string().trim().max(32),
+  feeAdjustmentEur: z.string().trim().regex(/^\d*$/, "Въведи само сума в евро.")
+    .refine(v => Number(v || 0) <= 690 && Number(v || 0) % 10 === 0, "Въведи сума от 0 до 690 евро, кратна на 10."),
 });
 export const step3Schema = z.object({
   acceptsTerms: z.literal(true, {errorMap: () => ({message: "apply:errors.consent.terms"})}),
@@ -82,6 +83,6 @@ export type ApplicationInput = z.infer<typeof applicationSchema>;
 export const STEP_SCHEMAS = [step1Schema, step2Schema, step3Schema] as const;
 export const STEP_FIELDS: readonly (keyof ApplicationInput)[][] = [
   ["email", "firstName", "middleName", "lastName", "phone", "egn", "idCardNumber"],
-  ["programOption", "season", "saveExchange", "discountCode"],
+  ["programOption", "season", "saveExchange", "feeAdjustmentEur"],
   ["acceptsTerms", "declaresTruth", "acceptsGdpr"],
 ];
