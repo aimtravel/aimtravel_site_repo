@@ -14,6 +14,8 @@ from pathlib import Path
 from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.middleware.csrf import get_token
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_GET, require_POST
 
@@ -184,8 +186,15 @@ def _experience_items(raw_items):
 
 
 @require_GET
+@never_cache
 def application_form_page(request):
     return render(request, "application-form-mockup.html")
+
+
+@require_GET
+@never_cache
+def application_form_session(request):
+    return JsonResponse({"csrfToken": get_token(request)})
 
 
 @require_POST
@@ -217,7 +226,11 @@ def application_form_submit(request):
         return JsonResponse({"ok": False, "error": "Please check your answers and try again."}, status=400)
 
     values = []
-    for item in raw_values:
+    field_ids = ['full-name', 'birth-date', 'birth-city', 'address', 'family-status', 'phone', 'email', 'instagram', 'teams',
+                 'emergency-name', 'emergency-relation', 'emergency-phone', 'emergency-email', 'university', 'major', 'course',
+                 None, 'visa-type', 'visa-year', None, None, 'start-date', 'end-date', None, 'english', 'other-languages',
+                 None, 'qualities-other', None, 'hobbies-other', None]
+    for index, item in enumerate(raw_values):
         if item is None:
             value = ""
         elif isinstance(item, (str, int, float, bool)):
@@ -225,14 +238,21 @@ def application_form_submit(request):
         else:
             return JsonResponse({"ok": False, "error": "Please check your answers and try again."}, status=400)
         if len(value) > FIELD_LIMIT:
-            return JsonResponse({"ok": False, "error": "One of the fields is too long."}, status=400)
+            return JsonResponse({"ok": False, "error": "One of the fields is too long.",
+                                 "fields": {field_ids[index]: "Please shorten this answer."} if field_ids[index] else {}}, status=400)
         if not value.isascii():
-            return JsonResponse({"ok": False, "error": "Please use English and Latin characters only."}, status=400)
+            return JsonResponse({"ok": False, "error": "Please use English and Latin characters only.",
+                                 "fields": {field_ids[index]: "Please use English and Latin characters only."} if field_ids[index] else {}}, status=400)
         values.append(value)
 
     full_name, email = values[0], values[6].lower()
     if not full_name or not email or not EMAIL_RE.match(email):
-        return JsonResponse({"ok": False, "error": "Enter your full name and a valid email address."}, status=400)
+        fields = {}
+        if not full_name:
+            fields['full-name'] = 'Please enter your full name.'
+        if not email or not EMAIL_RE.match(email):
+            fields['email'] = 'Please enter a valid email address.'
+        return JsonResponse({"ok": False, "error": "Enter your full name and a valid email address.", "fields": fields}, status=400)
     values[0] = full_name
     values[6] = email
 
@@ -247,7 +267,8 @@ def application_form_submit(request):
             raise ValueError("Latin characters only")
         photo_data = str(body.get("photo", "") or "")
         if not photo_data:
-            return JsonResponse({"ok": False, "error": "Please add a photo for your CV."}, status=400)
+            return JsonResponse({"ok": False, "error": "Please add a photo for your CV.",
+                                 "fields": {"profile-photo": "Please add a photo for your CV."}}, status=400)
         if len(photo_data) > (MAX_PHOTO_BYTES * 4 // 3 + 16):
             raise ValueError("Photo is too large")
         resume_bytes = _build_resume(values, experiences, photo_data, gender, nationality)

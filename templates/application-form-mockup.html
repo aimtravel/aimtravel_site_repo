@@ -279,6 +279,7 @@
     <span>© AIM Travel USA · Work Hard Travel Far</span>
     <a class="footer-hidden-link" href="/application-form/">Application Form</a>
   </footer>
+  <script src="{% static 'js/application-form-transport.js' %}?v=20261028-1"></script>
   <script>
     const form = document.querySelector('form');
     const nationalitySelect = document.querySelector('#nationality');
@@ -317,6 +318,25 @@
       event.returnValue = '';
     });
     const latinFieldSelector = 'input:not([type]), input[type="text"], input[type="email"], textarea';
+    function fieldError(field, text) {
+      if (!field) return;
+      field.setAttribute('aria-invalid', 'true');
+      field.style.borderColor = '#a30f18';
+      const id = (field.id || 'field') + '-validation-error';
+      let hint = document.getElementById(id);
+      if (!hint) {
+        hint = document.createElement('p'); hint.id = id; hint.className = 'photo-error';
+        hint.setAttribute('role', 'alert'); field.closest('.field')?.append(hint);
+        field.setAttribute('aria-describedby', [field.getAttribute('aria-describedby'), id].filter(Boolean).join(' '));
+      }
+      hint.textContent = text;
+    }
+    form.addEventListener('input', (event) => {
+      const field = event.target;
+      field.removeAttribute('aria-invalid'); field.style.borderColor = '';
+      const hint = document.getElementById((field.id || 'field') + '-validation-error');
+      if (hint) hint.textContent = '';
+    });
     function latinField(event) {
       const field = event.target.closest(latinFieldSelector);
       if (!field) return;
@@ -365,7 +385,13 @@
       for (const field of form.querySelectorAll(latinFieldSelector)) {
         field.setCustomValidity(/[^\x00-\x7F]/.test(field.value) ? 'Please use English and Latin characters only.' : '');
       }
-      if (!form.reportValidity()) return;
+      const invalid = Array.from(form.querySelectorAll('input,select,textarea')).filter(field => !field.checkValidity());
+      if (invalid.length) {
+        invalid.forEach(field => fieldError(field, field.validationMessage || 'Please check this field.'));
+        document.querySelector('#form-message').textContent = 'Please check the highlighted fields above.';
+        invalid[0].focus(); invalid[0].closest('.field')?.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+      }
       const button = form.querySelector('.submit');
       const message = document.querySelector('#form-message');
       const originalButtonMarkup = button.innerHTML;
@@ -383,18 +409,21 @@
         value('english'), value('other-languages'), checkedList('qualities'), value('qualities-other'), checkedList('hobbies'), value('hobbies-other'), ''
       ];
       try {
+        let photo;
+        try { photo = await photoForCv(); } catch (photoFailure) {
+          fieldError(photoInput, photoFailure.message || 'Please choose another JPG or PNG photo.');
+          photoInput.closest('.field').scrollIntoView({behavior:'smooth',block:'center'});
+          throw new Error('We could not prepare the selected photo. Please choose another JPG or PNG photo. Your answers are still here.');
+        }
         message.textContent = 'Generating your CV and saving your application…';
+        const freshCsrfToken = await AIMApplicationTransport.csrfToken(fetch);
         const response = await fetch('/application-form/submit/', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value },
-          body: JSON.stringify({ website: value('website'), consent: document.querySelector('#privacy-consent').checked, submissionId: activeSubmissionId, values, gender: value('gender'), nationality: value('nationality'), experiences: experienceItems(), photo: await photoForCv() })
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json', 'X-CSRFToken': freshCsrfToken },
+          body: JSON.stringify({ website: value('website'), consent: document.querySelector('#privacy-consent').checked, submissionId: activeSubmissionId, values, gender: value('gender'), nationality: value('nationality'), experiences: experienceItems(), photo })
         });
-        const result = await response.json();
-        if (!response.ok || !result.ok) {
-          if (result.error === 'rate_limited') throw new Error('An application with this email was recently submitted. Please try again in a few minutes.');
-          if (response.status === 409 || response.status === 429 || response.status === 503) throw new Error(result.error || 'The service is busy. Please wait a moment, then submit again. Your answers are still here.');
-          throw new Error('We could not submit your application. Please try again shortly.');
-        }
+        await AIMApplicationTransport.readResponse(response);
         form.hidden = true;
         document.querySelector('.intro').hidden = true;
         successPanel.hidden = false;
@@ -405,7 +434,11 @@
           successHeading?.focus({ preventScroll: true });
         });
       } catch (error) {
-        message.textContent = error.message || 'Something went wrong. Please try again shortly.';
+        const fields = Object.entries(error.fields || {});
+        fields.forEach(([id, text]) => fieldError(document.getElementById(id), text));
+        if (fields.length) document.getElementById(fields[0][0])?.closest('.field')?.scrollIntoView({behavior:'smooth',block:'center'});
+        const detail = error instanceof TypeError ? 'The connection was interrupted. Please check your internet connection and try again. Your answers are still here.' : error.message;
+        message.textContent = (detail || 'Something went wrong. Please try again shortly.') + ' Reference: ' + activeSubmissionId;
         form.querySelectorAll('input, select, textarea, button').forEach(control => { control.disabled = false; });
         button.innerHTML = originalButtonMarkup;
         form.removeAttribute('aria-busy');
