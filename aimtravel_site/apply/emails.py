@@ -46,7 +46,7 @@ def build_context(application: Application) -> dict:
     return {
         "first_name": application.first_name.capitalize(),
         "full_name": application.full_name_latin,
-        "contract_number": application.contract_number,
+        "contract_number": application.contract_date if application.currency == "EUR" else application.contract_number,
         "program_option": OPTION_LABEL[ProgramOption(application.program_option)],
         "season": application.season,
         "office_city": application.office_city,
@@ -135,13 +135,14 @@ def send_contract_issued_email(application, document):
     from .bank_details import bank_pdf, BANK_IBAN, BANK_NAME, BANK_BENEFICIARY
     context = {
         "first_name": application.first_name.capitalize(),
-        "contract_number": application.contract_number,
+        "contract_number": application.contract_date if application.currency == "EUR" else application.contract_number,
         "season": application.season,
         "program_option": OPTION_LABEL[ProgramOption(application.program_option)],
         "price_eur": application.price_eur,
         "save_exchange": application.save_exchange,
         "protection_fee_eur": application.protection_fee_eur,
         "first_payment_eur": DEPOSIT + SEVIS + application.protection_fee_eur,
+        "passport_valid_until": application.passport_valid_until,
         "bank_iban": BANK_IBAN, "bank_name": BANK_NAME, "bank_beneficiary": BANK_BENEFICIARY,
         "total_eur": application.price_eur + application.protection_fee_eur,
     }
@@ -149,18 +150,18 @@ def send_contract_issued_email(application, document):
         context["program_option"] = "Premium Full Arranged"
     destination = "studentski@aimtravel.bg"
     message = EmailMultiAlternatives(
-        subject=f"Договор {application.contract_number} | Work and Travel {application.season}",
+        subject=f"{application.contract_reference} | Work and Travel {application.season}",
         body=render_to_string("email/contract_issued_eur.txt", context),
         from_email=destination, to=[application.email],
         bcc=list(dict.fromkeys([destination, *settings.AIM_CONTRACT_EMAIL_BCC])),
         reply_to=[destination], headers={"X-AIM-Contract": application.contract_number},
     )
     message.attach_alternative(render_to_string("email/contract_issued_eur.html", context), "text/html")
-    files = [(document.pdf, f"Dogovor_{application.contract_number}.pdf")]
+    files = [(document.pdf, f"Dogovor_{application.contract_date}.pdf")]
     if application.save_exchange:
         if not document.annex_pdf:
             raise RuntimeError("Selected protection requires annex PDF")
-        files.append((document.annex_pdf, f"Annex_{application.contract_number}.pdf"))
+        files.append((document.annex_pdf, f"Annex_{application.contract_date}.pdf"))
     for field, name in files:
         with field.open("rb") as source:
             data = source.read()
@@ -198,7 +199,7 @@ def send_staff_registration_notification(application, document):
         context = {
             "full_name": application.full_name_latin,
             "email": application.email, "phone": application.phone,
-            "contract_number": application.contract_number,
+            "contract_number": application.contract_date if application.currency == "EUR" else application.contract_number,
             "season": application.season,
             "program_option": "Premium Full Arranged" if application.program_option == ProgramOption.FULL_ARRANGED else "Self Arranged",
             "save_exchange": application.save_exchange,
@@ -208,7 +209,7 @@ def send_staff_registration_notification(application, document):
             "admin_url": f"{settings.SITE_URL.rstrip('/')}/admin/apply/application/{application.pk}/change/",
         }
         message = EmailMultiAlternatives(
-            subject=f"Нов записан участник онлайн | {application.contract_number}",
+            subject=f"Нов записан участник онлайн | {application.contract_reference}",
             body=render_to_string("email/registration_staff.txt", context),
             from_email="studentski@aimtravel.bg", to=["studentski@aimtravel.bg"],
             reply_to=[application.email],

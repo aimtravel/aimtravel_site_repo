@@ -19,7 +19,7 @@ def registration_values(application):
         timezone.localtime(application.created_at, ZoneInfo("Europe/Sofia")).strftime("%d.%m.%Y %H:%M"),
         application.full_name_latin, application.email, application.phone,
         "Premium Full Arranged" if application.program_option == ProgramOption.FULL_ARRANGED else "Self Arranged",
-        application.contract_number, application.season, application.base_price_eur,
+        application.contract_reference, application.season, application.base_price_eur,
         application.discount_eur, application.price_eur,
         "Да" if application.save_exchange else "Не", application.protection_fee_eur,
         232 + application.protection_fee_eur,

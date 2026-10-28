@@ -141,7 +141,7 @@ class ContractDownloadView(APIView):
         return FileResponse(
             attachment.open("rb"),
             as_attachment=True,
-            filename=f"{prefix}_{application.contract_number}{extension}",
+            filename=f"{prefix}_{application.contract_date if application.currency == 'EUR' else application.contract_number}{extension}",
         )
 
 

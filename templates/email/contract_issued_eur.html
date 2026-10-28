@@ -11,7 +11,7 @@
 <p style="margin:0;font-size:16px;line-height:1.65;color:#e1eaf0;">Здравей, {{ first_name }}! Прилагаме договора ти за {{ program_option }}{% if save_exchange %} и анекса Save Exchange{% endif %}. Прегледай ги спокойно, преди да ги подпишеш.</p>
 </td></tr>
 <tr><td style="padding:26px 28px 0;">
-<p style="margin:0 0 6px;font-size:12px;color:#667b8a;">НОМЕР НА ДОГОВОРА</p><p style="margin:0 0 18px;font-size:20px;font-weight:bold;overflow-wrap:anywhere;">{{ contract_number }}</p>
+<p style="margin:0 0 6px;font-size:12px;color:#667b8a;">ДОГОВОР ОТ</p><p style="margin:0 0 18px;font-size:20px;font-weight:bold;overflow-wrap:anywhere;">{{ contract_number }}</p>
 <p style="margin:0;padding:16px;background:#f0f6f8;border-radius:10px;font-size:14px;line-height:1.8;">Програмна такса: {{ price_eur }} евро{% if save_exchange %}<br>Save Exchange: {{ protection_fee_eur }} евро{% endif %}<br><strong style="font-size:23px;">Общо: {{ total_eur }} евро</strong></p>
 </td></tr>
 <tr><td style="padding:24px 28px 0;">
@@ -40,7 +40,7 @@
 <tr><td style="padding:26px 28px 28px;">
 <h3 style="margin:0 0 8px;font-size:16px;">4. Изпрати необходимите документи до 7 дни</h3>
 <p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#526b7c;">В срок до 7 дни от подписването на договора ни изпрати:</p>
-<ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.9;color:#526b7c;"><li>Снимка на паспорт с валидност поне до края на 2027 г.</li><li>Уверение от университета, че си редовен студент.</li><li>2 снимки 5×5 см и електронен вариант от фотостудиото.</li></ul>
+<ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.9;color:#526b7c;"><li>Снимка на паспорт с валидност поне до {{ passport_valid_until }} г. (поне 6 месеца след приключването на програмата на 30 октомври {{ season }} г.)</li><li>Уверение от университета, че си редовен студент.</li><li>2 снимки 5×5 см и електронен вариант от фотостудиото.</li></ul>
 </td></tr>
 <tr><td style="padding:26px 28px;background:#f6f8fa;border-top:1px solid #e4eaef;">
 <h2 style="margin:0 0 8px;font-size:20px;">Насреща сме</h2><p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#526b7c;">Имаш въпрос? Пиши ни по удобния за теб начин.</p>

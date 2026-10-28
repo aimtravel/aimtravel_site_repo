@@ -14,6 +14,37 @@ from .test_apply_form import ApplicationFormTest
 
 
 class EuroRegistrationTest(ApplicationFormTest):
+    def test_identity_card_accepts_latin_and_cyrillic_letters(self):
+        from aimtravel_site.apply.serializers import ApplicationCreateSerializer
+        from .test_apply_form import applicant
+        for number in ["AB1234567", "АБ1234567", "123456789"]:
+            serializer = ApplicationCreateSerializer(data=applicant(id_card_number=number))
+            self.assertTrue(serializer.is_valid(), serializer.errors)
+            self.assertEqual(serializer.validated_data["id_card_number"], number)
+        for number in ["AB123456", "AB12345678", "AB12345!7"]:
+            serializer = ApplicationCreateSerializer(data=applicant(id_card_number=number))
+            self.assertFalse(serializer.is_valid())
+            self.assertIn("id_card_number", serializer.errors)
+
+    def test_passport_deadline_follows_program_season(self):
+        self.assertEqual(Application(season=2027).passport_valid_until, "30.04.2028")
+        self.assertEqual(Application(season=2028).passport_valid_until, "30.04.2029")
+
+    def test_dated_contract_and_annex_use_same_sofia_date(self):
+        from datetime import datetime, timezone as dt_timezone
+        app = Application(currency="EUR", created_at=datetime(2026, 10, 28, 22, 30, tzinfo=dt_timezone.utc))
+        self.assertEqual(app.contract_date, "29.10.2026")
+        self.submit(save_exchange=True, id_card_number="АБ1234567")
+        app = Application.objects.get()
+        self.assertIn(app.contract_reference, mail.outbox[0].subject)
+        self.assertIn("30.04.2028", mail.outbox[0].body)
+        for name, content, mime in mail.outbox[0].attachments[:2]:
+            text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
+            self.assertIn(f"Договор от {app.contract_date} г.", text)
+            self.assertNotIn(app.contract_number, text)
+            self.assertIn("АБ1234567", text)
+            self.assertIn(app.contract_date, name)
+
     def test_staff_notification_and_retry_are_independent(self):
         from aimtravel_site.apply.tasks import send_contract_email_task
         self.submit(save_exchange=True)
