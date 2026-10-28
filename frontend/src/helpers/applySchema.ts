@@ -5,6 +5,7 @@ import { z } from "zod";
    Огледален на api/schemas.py (Pydantic) — при промяна се пипат двата.
    --------------------------------------------------------------- */
 
+const LATIN_NAME = /^[A-Za-z][A-Za-z'\\-]{1,29}$/;
 const EGN_WEIGHTS = [2, 4, 8, 5, 10, 9, 7, 3, 6];
 
 /** Контролна цифра на ЕГН по БДС. */
@@ -55,34 +56,92 @@ export function upcomingSeason(today = new Date()): string {
   return String(today.getMonth() >= 5 ? year + 1 : year);
 }
 
-const cyrillic = (field: string) => z.string().trim().min(2, `apply:errors.${field}.short`)
-  .max(30).regex(/^[А-Яа-яЍѝ]+(?:[ -][А-Яа-яЍѝ]+)*$/, `apply:errors.${field}.cyrillic`);
+const latin = (field: string) =>
+  z
+    .string()
+    .trim()
+    .min(2, `apply:errors.${field}.short`)
+    .regex(LATIN_NAME, `apply:errors.${field}.latin`);
 
+/* ---------- Стъпка 1 ---------- */
 export const step1Schema = z.object({
   email: z.string().trim().toLowerCase().email("apply:errors.email.invalid"),
-  firstName: cyrillic("firstName"), middleName: cyrillic("middleName"), lastName: cyrillic("lastName"),
-  phone: z.string().trim().transform(v => v.replace(/[^\d+]/g, ""))
-    .refine(v => /^\+359[789]\d{8}$/.test(v), "apply:errors.phone.invalid"),
-  egn: z.string().trim().refine(isValidEgn, "apply:errors.egn.checksum"),
-  idCardNumber: z.string().trim().regex(/^\d{9}$/, "apply:errors.idCard.invalid"),
+  firstName: latin("firstName"),
+  middleName: latin("middleName"),
+  lastName: latin("lastName"),
+  phone: z
+    .string()
+    .trim()
+    .transform((v) => v.replace(/[^\d+]/g, ""))
+    /* „+359" е фиксиран префикс във формата; след него точно 9 цифри,
+       водещата ∈ {7,8,9} (мобилните оператори в BG). */
+    .refine((v) => /^\+359[789]\d{8}$/.test(v), "apply:errors.phone.invalid"),
+  dateOfBirth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "apply:errors.dateOfBirth.required"),
+  /* ЕГН е незадължително. Ако бъде подадено, минава checksum. */
+  egn: z
+    .string()
+    .trim()
+    .refine((v) => v === "" || isValidEgn(v), "apply:errors.egn.checksum"),
+  idCardNumber: z
+    .string()
+    .trim()
+    .regex(/^\d{9}$/, "apply:errors.idCard.invalid"),
+  placeOfBirth: z.string().trim().min(2, "apply:errors.placeOfBirth.short"),
 });
+
+/* ---------- Стъпка 2 ---------- */
 export const step2Schema = z.object({
-  programOption: z.enum(["full_arranged", "self_arranged"]),
-  season: z.string().regex(/^\d{4}$/),
-  saveExchange: z.boolean(),
-  feeAdjustmentEur: z.string().trim().regex(/^\d*$/, "Въведи само сума в евро.")
-    .refine(v => Number(v || 0) <= 690 && Number(v || 0) % 10 === 0, "Въведи сума от 0 до 690 евро, кратна на 10."),
+  university: z.string().trim().min(3, "apply:errors.university.required"),
+  major: z.string().trim().min(2, "apply:errors.major.required"),
+  yearOfStudy: z.enum(["1", "2", "3", "4", "master"], {
+    errorMap: () => ({ message: "apply:errors.yearOfStudy.required" }),
+  }),
 });
+
+/* ---------- Стъпка 3 ---------- */
 export const step3Schema = z.object({
-  acceptsTerms: z.literal(true, {errorMap: () => ({message: "apply:errors.consent.terms"})}),
-  declaresTruth: z.literal(true, {errorMap: () => ({message: "apply:errors.consent.truth"})}),
-  acceptsGdpr: z.literal(true, {errorMap: () => ({message: "apply:errors.consent.gdpr"})}),
+  programOption: z.enum(["full_arranged", "self_arranged"]),
+  /* Не е избор на потребителя — попълва се от upcomingSeason() и се
+     преизчислява на сървъра. Тук е само за да пътува през формата. */
+  season: z.string().regex(/^\d{4}$/),
+  office: z.enum(["varna", "sofia"]),
 });
-export const applicationSchema = step1Schema.merge(step2Schema).merge(step3Schema);
+
+/* ---------- Стъпка 4 — декларациите от договора ---------- */
+export const step4Schema = z.object({
+  acceptsTerms: z.literal(true, { errorMap: () => ({ message: "apply:errors.consent.terms" }) }),
+  declaresTruth: z.literal(true, { errorMap: () => ({ message: "apply:errors.consent.truth" }) }),
+  acceptsGdpr: z.literal(true, { errorMap: () => ({ message: "apply:errors.consent.gdpr" }) }),
+});
+
+export const applicationSchema = step1Schema
+  .merge(step2Schema)
+  .merge(step3Schema)
+  .merge(step4Schema)
+  /* Ако ЕГН е подадено, то и датата на раждане трябва да си съвпадат —
+     иначе договорът излиза с едни данни, а DS-2019 с други. Празно ЕГН
+     не прави cross-check. */
+  .refine((d) => !d.egn || dobFromEgn(d.egn) === d.dateOfBirth, {
+    message: "apply:errors.egn.dobMismatch",
+    path: ["egn"],
+  });
+
 export type ApplicationInput = z.infer<typeof applicationSchema>;
-export const STEP_SCHEMAS = [step1Schema, step2Schema, step3Schema] as const;
+
+export const STEP_SCHEMAS = [step1Schema, step2Schema, step3Schema, step4Schema] as const;
 export const STEP_FIELDS: readonly (keyof ApplicationInput)[][] = [
-  ["email", "firstName", "middleName", "lastName", "phone", "egn", "idCardNumber"],
-  ["programOption", "season", "saveExchange", "feeAdjustmentEur"],
+  [
+    "email",
+    "firstName",
+    "middleName",
+    "lastName",
+    "phone",
+    "dateOfBirth",
+    "egn",
+    "idCardNumber",
+    "placeOfBirth",
+  ],
+  ["university", "major", "yearOfStudy"],
+  ["programOption", "season", "office"],
   ["acceptsTerms", "declaresTruth", "acceptsGdpr"],
 ];

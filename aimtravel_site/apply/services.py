@@ -10,8 +10,7 @@ from __future__ import annotations
 import logging
 
 from django.core.files import File
-from django.db import transaction, IntegrityError
-from rest_framework.exceptions import ValidationError
+from django.db import transaction
 
 from .contracts import render_contract
 from .models import Application, ApplicationStatus, ContractCounter, ContractDocument
@@ -26,21 +25,13 @@ class ContractGenerationError(Exception):
 
 @transaction.atomic
 def _persist(validated: dict, consent: dict, idempotency_key: str | None) -> Application:
-    from .pricing import quote
-    from .models import Office
-    office, season = Office.SOFIA, validated["season"]
-    prices, discount = quote(validated["program_option"], validated["save_exchange"], validated.get("discount_code", ""), lock=True, adjustment=validated.get("fee_adjustment_eur", 0))
-    prices.pop("first_payment_eur")
-    if discount:
-        discount.used_count += 1
-        discount.save(update_fields=["used_count"])
-    validated = {**validated, **prices, "office": office, "currency": "EUR"}
+    office, season = validated["office"], validated["season"]
     contract_number = ContractCounter.reserve(office, season)
     return Application.objects.create(
         idempotency_key=idempotency_key or None,
         contract_number=contract_number,
         **{k: v for k, v in validated.items()
-           if k not in {"turnstile_token", "accepts_terms", "declares_truth", "accepts_gdpr", "fee_adjustment_eur"}},
+           if k not in {"turnstile_token", "accepts_terms", "declares_truth", "accepts_gdpr"}},
         **consent,
     )
 
@@ -50,19 +41,9 @@ def create_application(validated: dict, consent: dict,
     if idempotency_key:
         existing = Application.objects.filter(idempotency_key=idempotency_key).first()
         if existing:
-            if existing.status == ApplicationStatus.CONTRACT_FAILED or not hasattr(existing, 'contract_document'):
-                raise ContractGenerationError(existing.contract_number)
             return existing          # двойно кликване не издава втори договор
 
-    try:
-        application = _persist(validated, consent, idempotency_key)
-    except IntegrityError:
-        application = Application.objects.filter(idempotency_key=idempotency_key).first() if idempotency_key else None
-        if application is None:
-            raise
-        if not hasattr(application, 'contract_document'):
-            raise ContractGenerationError(application.contract_number)
-        return application
+    application = _persist(validated, consent, idempotency_key)
 
     try:
         rendered = render_contract(application)
@@ -80,10 +61,6 @@ def create_application(validated: dict, consent: dict,
             pdf=File(pdf, name=rendered.pdf_path.name),
             docx=File(docx, name=rendered.docx_path.name),
         )
-
-    if rendered.annex_path:
-        with open(rendered.annex_path, "rb") as annex:
-            document.annex_pdf.save(rendered.annex_path.name, File(annex), save=True)
 
     # Имейлът тръгва през опашка, не в HTTP заявката: SMTP-то може да е бавно
     # или временно недостъпно, а договорът вече е издаден и номерът е зает.

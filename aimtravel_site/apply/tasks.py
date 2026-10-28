@@ -62,6 +62,10 @@ def send_contract_email_task(application_id: int, document_id: int) -> bool:
             send_staff_registration_notification(application, document)
         except Exception:
             log.exception("apply.tasks: Staff registration notification failed for %s", application.contract_number)
+        from .sheets_sync import sync_registration
+        # Read fresh email timestamps after both independent delivery attempts.
+        application.refresh_from_db()
+        sync_registration(application)
     return applicant_sent
 
 

@@ -35,10 +35,9 @@ class RenderedContract:
     number: str
     docx_path: Path
     pdf_path: Path
-    annex_path: Path | None = None
 
 
-def _legacy_context(application: Application, today: date | None = None) -> dict:
+def build_context(application: Application, today: date | None = None) -> dict:
     """Стойностите за merge полетата в темплейта."""
     today = today or date.today()
     return {
@@ -62,7 +61,7 @@ def _legacy_context(application: Application, today: date | None = None) -> dict
     }
 
 
-def _render_legacy_contract(application: Application) -> RenderedContract:
+def render_contract(application: Application) -> RenderedContract:
     template = Path(settings.AIM_CONTRACT_TEMPLATES) / f"contract_{application.season}.docx"
     if not template.exists():
         raise FileNotFoundError(
@@ -74,7 +73,7 @@ def _render_legacy_contract(application: Application) -> RenderedContract:
     docx_path = out_dir / f"Dogovor_{application.contract_number}.docx"
 
     document = DocxTemplate(template)
-    document.render(_legacy_context(application), autoescape=True)
+    document.render(build_context(application))
     document.save(docx_path)
 
     # LibreOffice headless. Договорът тръгва като PDF, за да не може да бъде
@@ -100,76 +99,3 @@ def _render_legacy_contract(application: Application) -> RenderedContract:
     if not pdf_path.exists():
         raise RuntimeError(f"LibreOffice не произведе PDF за {application.contract_number}")
     return RenderedContract(application.contract_number, docx_path, pdf_path)
-
-
-_ONES = ["нула", "едно", "две", "три", "четири", "пет", "шест", "седем", "осем", "девет"]
-_TEENS = ["десет", "единадесет", "дванадесет", "тринадесет", "четиринадесет", "петнадесет", "шестнадесет", "седемнадесет", "осемнадесет", "деветнадесет"]
-_TENS = ["", "", "двадесет", "тридесет", "четиридесет", "петдесет", "шестдесет", "седемдесет", "осемдесет", "деветдесет"]
-_HUNDREDS = ["", "сто", "двеста", "триста", "четиристотин", "петстотин", "шестстотин", "седемстотин", "осемстотин", "деветстотин"]
-
-
-def amount_words(value):
-    value = int(value)
-    if not 0 <= value < 2000:
-        raise ValueError("Unsupported contract amount")
-    if value < 10:
-        return _ONES[value]
-    if value < 20:
-        return _TEENS[value - 10]
-    if value < 100:
-        tens, units = divmod(value, 10)
-        return _TENS[tens] + (" и " + _ONES[units] if units else "")
-    if value < 1000:
-        hundreds, rest = divmod(value, 100)
-        return _HUNDREDS[hundreds] + ((" и " if rest < 20 or rest % 10 == 0 else " ") + amount_words(rest) if rest else "")
-    rest = value - 1000
-    return "хиляда" + ((" и " if rest < 100 or rest % 100 == 0 else " ") + amount_words(rest) if rest else "")
-
-
-def build_context(application, today=None):
-    if application.currency != "EUR":
-        return _legacy_context(application, today)
-    from zoneinfo import ZoneInfo
-    today = today or application.created_at.astimezone(ZoneInfo("Europe/Sofia")).date()
-    price = application.price_eur
-    return {
-        "contract_number": application.contract_number,
-        "today": today.strftime("%d.%m.%Y"),
-        "full_name": application.full_name_latin,
-        "egn": application.egn, "id_card_number": application.id_card_number,
-        "phone": application.phone, "email": application.email,
-        "program_option": OPTION_LABEL[ProgramOption(application.program_option)],
-        "season": application.season,
-        "documents_clause": 18 if application.program_option == "self_arranged" else 19,
-        "price_eur": price, "price_words": amount_words(price),
-        "balance_eur": price - 200, "balance_words": amount_words(price - 200),
-        "final_payment_eur": price - 800,
-        "final_payment_words": amount_words(price - 800),
-    }
-
-
-def _pdf(docx_path, directory):
-    from .document_pdf import render_pdf
-    return render_pdf(docx_path, docx_path.with_suffix(".pdf"))
-
-
-def render_contract(application):
-    if application.currency != "EUR":
-        return _render_legacy_contract(application)
-    folder = Path(settings.AIM_CONTRACT_TEMPLATES)
-    template = folder / f"contract_{application.season}_{application.program_option}.docx"
-    directory = Path(tempfile.mkdtemp(prefix="aim-contract-")).resolve()
-    context = build_context(application)
-    docx = directory / f"Dogovor_{application.contract_number}.docx"
-    document = DocxTemplate(template)
-    document.render(context, autoescape=True)
-    document.save(docx)
-    pdf = _pdf(docx, directory)
-    annex = None
-    if application.save_exchange:
-        annex_docx = directory / f"Annex_{application.contract_number}.docx"
-        document = DocxTemplate(folder / f"annex_{application.season}.docx")
-        document.render(context, autoescape=True)
-        document.save(annex_docx)
-        annex = _pdf(annex_docx, directory)
-    return RenderedContract(application.contract_number, docx, pdf, annex)
