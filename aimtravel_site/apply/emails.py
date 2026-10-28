@@ -132,7 +132,7 @@ def send_contract_issued_email(application, document):
     if application.currency != "EUR":
         return _send_legacy_email(application, document)
     from .pricing import DEPOSIT, SEVIS
-    from .bank_details import bank_pdf
+    from .bank_details import bank_pdf, BANK_IBAN, BANK_NAME, BANK_BENEFICIARY
     context = {
         "first_name": application.first_name.capitalize(),
         "contract_number": application.contract_number,
@@ -142,7 +142,11 @@ def send_contract_issued_email(application, document):
         "save_exchange": application.save_exchange,
         "protection_fee_eur": application.protection_fee_eur,
         "first_payment_eur": DEPOSIT + SEVIS + application.protection_fee_eur,
+        "bank_iban": BANK_IBAN, "bank_name": BANK_NAME, "bank_beneficiary": BANK_BENEFICIARY,
+        "total_eur": application.price_eur + application.protection_fee_eur,
     }
+    if application.program_option == ProgramOption.FULL_ARRANGED:
+        context["program_option"] = "Premium Full Arranged"
     destination = "studentski@aimtravel.bg"
     message = EmailMultiAlternatives(
         subject=f"Договор {application.contract_number} | Work and Travel {application.season}",

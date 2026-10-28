@@ -1,1 +1,54 @@
-<!doctype html><html lang="bg"><body style="font-family:Arial,sans-serif;color:#183344;line-height:1.65;max-width:680px;margin:32px auto;padding:0 20px"><h1 style="font-size:24px">Твоите документи за Work and Travel</h1><div style="white-space:pre-line">{% include "email/contract_issued_eur.txt" %}</div><p><a href="https://aimtravel.bg/application-form/">Попълни Application Form</a></p><p><a href="https://www.instagram.com/aimtravel_usa/">Пиши ни в Instagram</a></p></body></html>
+<!doctype html>
+<html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Твоите документи от AIM Travel</title></head>
+<body style="margin:0;padding:0;background:#eef2f5;color:#173348;font-family:Arial,Helvetica,sans-serif;">
+<div style="display:none;max-height:0;overflow:hidden;">Договорът ти е готов. Виж документите, банковите данни и следващите стъпки.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#eef2f5;"><tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="640" cellpadding="0" cellspacing="0" style="width:100%;max-width:640px;background:#ffffff;border-radius:16px;overflow:hidden;">
+<tr><td style="padding:26px 28px;border-bottom:1px solid #e6ebef;"><img src="https://aimtravel.bg/static/img/Ready-stock/Logo/AIM_logo-colored.png" width="134" alt="AIM Travel" style="display:block;width:134px;max-width:100%;height:auto;border:0;"></td></tr>
+<tr><td style="padding:30px 28px;background:#0c3049;color:#ffffff;">
+<p style="margin:0 0 12px;font-size:12px;letter-spacing:2px;color:#b9cedc;">WORK AND TRAVEL USA · {{ season }}</p>
+<h1 style="margin:0 0 14px;font-size:28px;line-height:1.2;color:#ffffff;">Твоите документи са готови</h1>
+<p style="margin:0;font-size:16px;line-height:1.65;color:#e1eaf0;">Здравей, {{ first_name }}! Прилагаме договора ти за {{ program_option }}{% if save_exchange %} и анекса Save Exchange{% endif %}. Прегледай ги спокойно, преди да ги подпишеш.</p>
+</td></tr>
+<tr><td style="padding:26px 28px 0;">
+<p style="margin:0 0 6px;font-size:12px;color:#667b8a;">НОМЕР НА ДОГОВОРА</p><p style="margin:0 0 18px;font-size:20px;font-weight:bold;overflow-wrap:anywhere;">{{ contract_number }}</p>
+<p style="margin:0;padding:16px;background:#f0f6f8;border-radius:10px;font-size:14px;line-height:1.8;">Програмна такса: {{ price_eur }} евро{% if save_exchange %}<br>Save Exchange: {{ protection_fee_eur }} евро{% endif %}<br><strong style="font-size:23px;">Общо: {{ total_eur }} евро</strong></p>
+</td></tr>
+<tr><td style="padding:24px 28px 0;">
+<h2 style="margin:0 0 12px;font-size:20px;">Прикачени файлове</h2>
+<p style="margin:0;font-size:14px;line-height:1.9;overflow-wrap:anywhere;"><strong>Договор за участие</strong><br>Dogovor_{{ contract_number }}.pdf{% if save_exchange %}<br><br><strong>Анекс Save Exchange</strong><br>Annex_{{ contract_number }}.pdf{% endif %}<br><br><strong>Данни за банков превод</strong><br>AIM_Bank_Details.pdf</p>
+</td></tr>
+<tr><td style="padding:28px 28px 0;">
+<h2 style="margin:0 0 20px;font-size:22px;">Следващите ти стъпки</h2>
+<h3 style="margin:0 0 8px;font-size:16px;">1. Подпиши и върни документите</h3>
+<p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#526b7c;">Подпиши договора{% if save_exchange %} и анекса{% endif %} и ги върни сканирани в отговор на този имейл.</p>
+<h3 style="margin:0 0 8px;font-size:16px;">2. Попълни Application Form</h3>
+<p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#526b7c;">Формата се попълва онлайн. Отвори я от бутона:</p>
+<table role="presentation" cellpadding="0" cellspacing="0"><tr><td bgcolor="#ae1c25" style="border-radius:8px;"><a href="https://aimtravel.bg/application-form/" style="display:inline-block;padding:15px 22px;border:1px solid #ae1c25;border-radius:8px;color:#ffffff;font-size:15px;font-weight:bold;text-decoration:none;">Попълни Application Form</a></td></tr></table>
+</td></tr>
+<tr><td style="padding:26px 28px 0;">
+<h3 style="margin:0 0 12px;font-size:16px;">3. Направи първата вноска</h3>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f0f6f8;border-radius:10px;"><tr><td style="padding:20px;">
+<p style="margin:0 0 6px;font-size:28px;font-weight:bold;">{{ first_payment_eur }} евро</p>
+<p style="margin:0 0 14px;font-size:14px;line-height:1.7;">200 евро депозит + 32 евро SEVIS{% if save_exchange %}<br>+ {{ protection_fee_eur }} евро Save Exchange{% endif %}</p>
+<p style="margin:0 0 18px;font-size:14px;line-height:1.7;"><strong>До 5 работни дни</strong> от подписването на договора.</p>
+<p style="margin:0 0 5px;font-size:12px;color:#607584;">IBAN</p><p style="margin:0 0 14px;font-size:17px;font-weight:bold;overflow-wrap:anywhere;word-break:break-word;">{{ bank_iban }}</p>
+<p style="margin:0;font-size:13px;line-height:1.8;">Банка: {{ bank_name }}<br>Получател: {{ bank_beneficiary }}<br>Основание: <strong>{{ contract_number }}</strong></p>
+</td></tr></table>
+{% if save_exchange %}<p style="margin:12px 0 0;font-size:13px;line-height:1.7;color:#607584;">Съгласно анекса Save Exchange се заплаща до 7 календарни дни от подписването му. При неплащане в този срок анексът не влиза в сила.</p>{% endif %}
+</td></tr>
+<tr><td style="padding:26px 28px 28px;">
+<h3 style="margin:0 0 8px;font-size:16px;">4. Изпрати необходимите документи до 7 дни</h3>
+<p style="margin:0 0 12px;font-size:15px;line-height:1.7;color:#526b7c;">В срок до 7 дни от подписването на договора ни изпрати:</p>
+<ul style="margin:0;padding-left:20px;font-size:14px;line-height:1.9;color:#526b7c;"><li>Снимка на паспорт с валидност поне до края на 2027 г.</li><li>Уверение от университета, че си редовен студент.</li><li>2 снимки 5×5 см и електронен вариант от фотостудиото.</li></ul>
+</td></tr>
+<tr><td style="padding:26px 28px;background:#f6f8fa;border-top:1px solid #e4eaef;">
+<h2 style="margin:0 0 8px;font-size:20px;">Насреща сме</h2><p style="margin:0 0 18px;font-size:14px;line-height:1.7;color:#526b7c;">Имаш въпрос? Пиши ни по удобния за теб начин.</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+<td width="33%" align="center" style="padding-right:4px;"><a href="viber://chat?number=%2B359889966583" style="display:block;padding:13px 3px;background:#665cac;border-radius:7px;color:#ffffff;font-size:13px;font-weight:bold;text-decoration:none;">Viber</a></td>
+<td width="34%" align="center" style="padding:0 4px;"><a href="https://www.instagram.com/aimtravel_usa/" style="display:block;padding:13px 3px;background:#a22c67;border-radius:7px;color:#ffffff;font-size:13px;font-weight:bold;text-decoration:none;">Instagram</a></td>
+<td width="33%" align="center" style="padding-left:4px;"><a href="https://www.facebook.com/profile.php?id=100072235954652" style="display:block;padding:13px 3px;background:#1864bd;border-radius:7px;color:#ffffff;font-size:13px;font-weight:bold;text-decoration:none;">Facebook</a></td>
+</tr></table>
+<p style="margin:17px 0 0;font-size:13px;line-height:1.8;color:#607584;"><a href="tel:+359889966583" style="color:#173348;text-decoration:none;">+359 88 99 66 583</a><br><a href="mailto:studentski@aimtravel.bg" style="color:#173348;">studentski@aimtravel.bg</a></p>
+</td></tr></table><p style="margin:20px 0 4px;font-size:12px;color:#738594;">AIM Travel · Work and Travel USA</p>
+</td></tr></table></body></html>

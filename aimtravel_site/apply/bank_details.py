@@ -7,6 +7,9 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
+BANK_IBAN = 'BG60UNCR70001523205219'
+BANK_NAME = 'УниКредит Булбанк АД'
+BANK_BENEFICIARY = 'АГЕНЦИЯ ЗА МЕЖДУНАРОДНА МОБИЛНОСТ ООД'
 
 def bank_pdf(application):
     font = Path(settings.BASE_DIR) / 'static/fonts/Jost/fontrepo/Jost-Regular.ttf'
@@ -18,9 +21,9 @@ def bank_pdf(application):
     page.drawString(50, 775, 'Данни за банков превод')
     page.setFont('AIMBank', 12)
     lines = [
-        'Получател: АГЕНЦИЯ ЗА МЕЖДУНАРОДНА МОБИЛНОСТ ООД',
-        'Банка: УниКредит Булбанк АД',
-        'IBAN: BG60UNCR70001523205219',
+        f'Получател: {BANK_BENEFICIARY}',
+        f'Банка: {BANK_NAME}',
+        f'IBAN: {BANK_IBAN}',
         'Валута: EUR',
         f'Основание: {application.contract_number}',
         '',

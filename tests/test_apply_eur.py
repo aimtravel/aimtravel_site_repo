@@ -23,6 +23,14 @@ class EuroRegistrationTest(ApplicationFormTest):
             text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
             self.assertIn('1619', text)
         self.assertIn('481 евро', mail.outbox[0].body)
+        html = mail.outbox[0].alternatives[0][0]
+        for value in ['BG60UNCR70001523205219', 'до 7 дни',
+                      'href="https://aimtravel.bg/application-form/"',
+                      'viber://chat?number=%2B359889966583',
+                      'https://www.instagram.com/aimtravel_usa/',
+                      'https://www.facebook.com/profile.php?id=100072235954652',
+                      'Общо: 1868 евро']:
+            self.assertIn(value, html)
 
     def test_numeric_adjustment_rejects_invalid_values(self):
         for amount in [-10, 15, 700, 'AIM80']:

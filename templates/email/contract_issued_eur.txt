@@ -2,6 +2,8 @@
 
 Прилагаме твоя договор № {{ contract_number }} за {{ program_option }}, сезон {{ season }}.
 Цена на програмата: {{ price_eur }} евро.
+{% if save_exchange %}Save Exchange: {{ protection_fee_eur }} евро допълнително.
+{% endif %}Общо: {{ total_eur }} евро.
 
 ПРИКАЧЕНИ ФАЙЛОВЕ
 1. Dogovor_{{ contract_number }}.pdf — прегледай го внимателно и го подпиши.
@@ -15,13 +17,21 @@
 ПЪРВА ВНОСКА
 До 5 работни дни от подписването на договора очакваме първа вноска:
 200 евро депозит + 32 евро SEVIS{% if save_exchange %} + {{ protection_fee_eur }} евро Save Exchange{% endif %} = {{ first_payment_eur }} евро.
+IBAN: {{ bank_iban }}
+Банка: {{ bank_name }}
+Получател: {{ bank_beneficiary }}
+Основание за превода: {{ contract_number }}
 {% if save_exchange %}Съгласно анекса Save Exchange трябва да се плати до 7 календарни дни от подписването му. При неплащане в този срок анексът не влиза в сила.
 {% endif %}
 НЕОБХОДИМИ ДОКУМЕНТИ
-При първа възможност ни изпрати:
+До 7 дни от подписването на договора ни изпрати:
 • Снимка на паспорта с валидност поне до края на 2027 г.
 • Уверение, че си редовен студент, издадено от университета.
 • 2 снимки 5×5 см и електронен вариант от фотостудиото.
 
-При въпроси ни пиши в Instagram: https://www.instagram.com/aimtravel_usa/
+ВРЪЗКА С НАС
+Viber: viber://chat?number=%2B359889966583
+Телефон: +359 88 99 66 583
+Instagram: https://www.instagram.com/aimtravel_usa/
+Facebook: https://www.facebook.com/profile.php?id=100072235954652
 AIM Travel
