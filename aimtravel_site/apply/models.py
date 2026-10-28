@@ -172,6 +172,7 @@ class ContractDocument(models.Model):
     annex_pdf = models.FileField(upload_to="contracts/%Y/%m/", storage=contract_storage, blank=True)
     generated_at = models.DateTimeField(default=timezone.now)
     email_sent_at = models.DateTimeField(null=True, blank=True)
+    staff_notified_at = models.DateTimeField(null=True, blank=True)
 
     def signed_download_url(self, ttl_seconds: int = 3600) -> str:
         """Договорът съдържа ЕГН — линкът не бива да е публичен и вечен.

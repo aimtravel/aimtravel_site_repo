@@ -14,6 +14,44 @@ from .test_apply_form import ApplicationFormTest
 
 
 class EuroRegistrationTest(ApplicationFormTest):
+    def test_staff_notification_and_retry_are_independent(self):
+        from aimtravel_site.apply.tasks import send_contract_email_task
+        self.submit(save_exchange=True)
+        app = Application.objects.get()
+        notification = mail.outbox[1]
+        self.assertEqual(notification.to, ['studentski@aimtravel.bg'])
+        self.assertTrue(notification.subject.startswith('Нов записан участник онлайн'))
+        self.assertIn(app.full_name_latin, notification.body)
+        self.assertIn('481 евро', notification.body)
+        self.assertEqual(notification.reply_to, [app.email])
+        send_contract_email_task(app.pk, app.contract_document.pk)
+        self.assertEqual(len(mail.outbox), 2)
+
+    def test_staff_is_notified_if_applicant_delivery_fails(self):
+        from aimtravel_site.apply.emails import _deliver_email
+        def deliver(message):
+            if message.to == ['test.applicant@example.com']:
+                raise OSError('simulated applicant delivery failure')
+            return _deliver_email(message)
+        with patch('aimtravel_site.apply.emails._deliver_email', side_effect=deliver):
+            response = self.submit()
+        self.assertEqual(response.status_code, 201)
+        self.assertFalse(response.json()['email_sent'])
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['studentski@aimtravel.bg'])
+        self.assertIn('ВНИМАНИЕ', mail.outbox[0].body)
+
+    def test_staff_delivery_failure_does_not_resend_applicant(self):
+        from aimtravel_site.apply.tasks import send_contract_email_task
+        with patch('aimtravel_site.apply.emails.send_staff_registration_notification', side_effect=OSError):
+            response = self.submit()
+        app = Application.objects.get()
+        self.assertIsNotNone(app.contract_document.email_sent_at)
+        self.assertIsNone(app.contract_document.staff_notified_at)
+        send_contract_email_task(app.pk, app.contract_document.pk)
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIsNotNone(app.contract_document.__class__.objects.get(pk=app.contract_document.pk).staff_notified_at)
+
     def test_numeric_adjustment_updates_contract_and_annex(self):
         response = self.submit(fee_adjustment_eur=80, save_exchange=True)
         self.assertEqual(response.status_code, 201, response.content)

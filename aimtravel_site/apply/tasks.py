@@ -34,24 +34,35 @@ def send_contract_email_task(application_id: int, document_id: int) -> bool:
     turn the submission into an error. Returns whether the email went out;
     `email_sent_at` stays empty on failure so the agent can resend from admin.
     """
-    from .emails import EmailNotConfiguredError, send_contract_issued_email
+    from .emails import EmailNotConfiguredError, send_contract_issued_email, send_staff_registration_notification
     from .models import Application, ContractDocument
 
     try:
         application = Application.objects.get(pk=application_id)
         document = ContractDocument.objects.get(pk=document_id)
-        send_contract_issued_email(application, document)
-        log.info("apply.tasks: Contract email for %s sent", application.contract_number)
-        return True
     except Application.DoesNotExist:
         log.error("apply.tasks: Application %s not found", application_id)
+        return False
     except ContractDocument.DoesNotExist:
         log.error("apply.tasks: ContractDocument %s not found", document_id)
+        return False
+
+    applicant_sent = bool(document.email_sent_at)
+    try:
+        if not applicant_sent:
+            send_contract_issued_email(application, document)
+            applicant_sent = True
+            log.info("apply.tasks: Contract email for %s sent", application.contract_number)
     except EmailNotConfiguredError as e:
         log.error("apply.tasks: Contract email NOT sent: %s", e)
     except Exception:
         log.exception("apply.tasks: Failed to send contract email")
-    return False
+    if application.currency == "EUR":
+        try:
+            send_staff_registration_notification(application, document)
+        except Exception:
+            log.exception("apply.tasks: Staff registration notification failed for %s", application.contract_number)
+    return applicant_sent
 
 
 @_Task

@@ -97,7 +97,7 @@ class ApplicationFormTest(TestCase):
         self.assertTrue(str(stored).startswith(self.private_root), stored)
         self.assertEqual(list(Path(self.media_root).rglob("*")), [])
 
-        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 2)
         email = mail.outbox[0]
         self.assertEqual(email.to, ["test.applicant@example.com"])
         self.assertEqual(email.bcc, ["studentski@aimtravel.bg", "office-copy@example.com"])

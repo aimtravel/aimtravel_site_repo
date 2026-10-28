@@ -7,7 +7,7 @@ from .tasks import send_contract_email_task
 
 class ContractDocumentInline(admin.StackedInline):
     model = ContractDocument
-    readonly_fields = ("generated_at", "email_sent_at")
+    readonly_fields = ("generated_at", "email_sent_at", "staff_notified_at")
     extra = 0
 
 
@@ -19,7 +19,7 @@ class ApplicationAdmin(admin.ModelAdmin):
     search_fields = ("contract_number", "email", "first_name", "last_name", "phone")
     date_hierarchy = "created_at"
     inlines = [ContractDocumentInline]
-    actions = ["resend_email", "regenerate_contract"]
+    actions = ["resend_email", "regenerate_contract", "retry_staff_notification"]
 
     # ЕГН и лична карта се четат, но не се редактират от админа — договорът
     # вече е издаден с тях и промяна тук би го направила невалиден.
@@ -74,6 +74,19 @@ class ApplicationAdmin(admin.ModelAdmin):
                     document.annex_pdf.save(rendered.annex_path.name, File(annex), save=True)
             application.mark(ApplicationStatus.CONTRACT_ISSUED)
             self.message_user(request, f"{application.contract_number}: готов.")
+
+    @admin.action(description="Повтори неизпратеното служебно известие")
+    def retry_staff_notification(self, request, queryset):
+        from .emails import send_staff_registration_notification
+        for application in queryset.select_related("contract_document"):
+            document = getattr(application, "contract_document", None)
+            if application.currency != "EUR" or document is None or document.staff_notified_at:
+                continue
+            try:
+                send_staff_registration_notification(application, document)
+                self.message_user(request, f"{application.contract_number}: служебното известие е изпратено.")
+            except Exception:
+                self.message_user(request, f"{application.contract_number}: известието не е изпратено. Опитай по-късно.", level=messages.ERROR)
 
 
 @admin.register(ContractCounter)
