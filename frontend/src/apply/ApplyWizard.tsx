@@ -445,7 +445,6 @@ function PriceSummary() {
     <p>Цена на програмата: <strong>{price} евро</strong></p>
     {adjustment > 0 && <p>Корекция: −{adjustment} евро</p>}
     {protection && <p>Save Exchange: 249 евро допълнително</p>}
-    <p className="mt-3 text-lg font-bold text-navy-800">Общо: {price + (protection ? 249 : 0)} евро</p>
     <p className="mt-2">Първа вноска: <strong>{protection ? 481 : 232} евро</strong></p>
     <p className="text-muted-foreground">200 евро депозит + 32 евро SEVIS{protection ? " + 249 евро Save Exchange" : ""}.</p>
   </div>;
