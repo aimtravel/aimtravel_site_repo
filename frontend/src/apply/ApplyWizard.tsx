@@ -225,11 +225,12 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
                 </span>
               )}
               {step < 2 ? (
-                <Button type="button" onClick={next}>
+                <Button key="continue" type="button" onClick={(event) => { event.preventDefault(); void next(); }}>
                   {t("nav.next")}
                 </Button>
               ) : (
                 <Button
+                  key="submit"
                   type="submit"
                   disabled={
                     form.formState.isSubmitting ||
@@ -457,7 +458,7 @@ function PriceSummary() {
     finally { setBusy(false); }
   };
   return <div aria-live="polite" className="border-t pt-4 text-sm">
-    {code.trim() && <Button type="button" variant="outline" onClick={applyCode} disabled={busy} className="mb-3">{busy ? "Проверяваме…" : "Приложи кода"}</Button>}
+    {code.trim() && !matches && <Button type="button" variant="outline" onClick={applyCode} disabled={busy} className="mb-3">{busy ? "Проверяваме…" : "Приложи кода"}</Button>}
     {error && <p role="alert" className="text-destructive">{error}</p>}
     <p>Цена на програмата: <strong>{price} евро</strong>{matches && quote!.discount_eur > 0 && ` (отстъпка ${quote!.discount_eur} евро)`}</p>
     {code.trim() && !matches && <p>Кодът още не е приложен.</p>}
