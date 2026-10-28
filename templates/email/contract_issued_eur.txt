@@ -1,0 +1,38 @@
+Здравей, {{ first_name }},
+
+Прилагаме твоя договор № {{ contract_number }} за {{ program_option }}, сезон {{ season }}.
+Цена на програмата: {{ price_eur }} евро.
+{% if save_exchange %}Save Exchange: {{ protection_fee_eur }} евро допълнително.
+{% endif %}Общо: {{ total_eur }} евро.
+
+ПРИКАЧЕНИ ФАЙЛОВЕ
+1. Dogovor_{{ contract_number }}.pdf — прегледай го внимателно и го подпиши.
+{% if save_exchange %}2. Annex_{{ contract_number }}.pdf — анекс Save Exchange. Прегледай го и го подпиши.
+{% endif %}AIM_Bank_Details.pdf — данни за банковия превод.
+
+СЛЕДВАЩИ СТЪПКИ
+1. Подпиши договора{% if save_exchange %} и анекса{% endif %} и ги върни сканирани в отговор на този имейл.
+2. Попълни онлайн Application Form: https://aimtravel.bg/application-form/
+
+ПЪРВА ВНОСКА
+До 5 работни дни от подписването на договора очакваме първа вноска:
+200 евро депозит + 32 евро SEVIS{% if save_exchange %} + {{ protection_fee_eur }} евро Save Exchange{% endif %} = {{ first_payment_eur }} евро.
+IBAN: {{ bank_iban }}
+Банка: {{ bank_name }}
+Получател: {{ bank_beneficiary }}
+Основание за превода: три имена и ЕГН
+Сума: {{ first_payment_eur }} евро
+{% if save_exchange %}Съгласно анекса Save Exchange трябва да се плати до 7 календарни дни от подписването му. При неплащане в този срок анексът не влиза в сила.
+{% endif %}
+НЕОБХОДИМИ ДОКУМЕНТИ
+До 7 дни от подписването на договора ни изпрати:
+• Снимка на паспорта с валидност поне до края на 2027 г.
+• Уверение, че си редовен студент, издадено от университета.
+• 2 снимки 5×5 см и електронен вариант от фотостудиото.
+
+ВРЪЗКА С НАС
+Viber: viber://chat?number=%2B359889966583
+Телефон: +359 88 99 66 583
+Instagram: https://www.instagram.com/aimtravel_usa/
+Facebook: https://www.facebook.com/profile.php?id=100072235954652
+AIM Travel

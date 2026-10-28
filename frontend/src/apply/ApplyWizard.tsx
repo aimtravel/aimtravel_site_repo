@@ -3,7 +3,7 @@ import { Controller, FormProvider, useForm, useFormContext } from "react-hook-fo
 import { useTranslation } from "react-i18next";
 import { useErrorMessage } from "@/i18n/errors";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Loader2, Sun } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,15 +19,16 @@ import {
 import { apiFieldToFormField, toApiPayload } from "../api/payload";
 import { applicationSchema, STEP_FIELDS, type ApplicationInput } from "../helpers/applySchema";
 import { useDebouncedCallback } from "../hooks/hooks";
-import { AutocompleteField } from "./AutocompleteField";
+
 import { ContractIssued } from "./ContractIssued";
-import { DateOfBirthPicker } from "./DateOfBirthPicker";
+
 import { Turnstile } from "./Turnstile";
+
 
 const DRAFT_KEY = "aim.apply.draftId";
 const TIMEOUT_SAVE_DRAFT = 1200;
 
-const STEP_KEYS = ["personal", "education", "program", "contract"] as const;
+const STEP_KEYS = ["personal", "program", "contract"] as const;
 
 export function ApplyWizard({ config }: { config: ApplyConfig }) {
   const { t } = useTranslation("apply");
@@ -53,16 +54,15 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
       middleName: "",
       lastName: "",
       phone: "+359",
-      dateOfBirth: "",
+
       egn: "",
       idCardNumber: "",
-      placeOfBirth: "",
-      university: "",
-      major: "",
-      yearOfStudy: undefined as never,
+
       programOption: "full_arranged",
+      saveExchange: true,
+      feeAdjustmentEur: "",
       season: config.season,
-      office: "varna",
+
       acceptsTerms: false as never,
       declaresTruth: false as never,
       acceptsGdpr: false as never,
@@ -91,7 +91,7 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
   const next = async () => {
     const ok = await form.trigger(STEP_FIELDS[step] as never, { shouldFocus: true });
     if (ok) {
-      setStep((s) => Math.min(3, s + 1));
+      setStep((s) => Math.min(2, s + 1));
       window.scrollTo({ top: 180, behavior: "smooth" });
     }
   };
@@ -108,6 +108,8 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
           contractNumber: (raw as never as Record<string, string>).contract_number,
           contractPdfUrl: (raw as never as Record<string, string>).contract_pdf_url,
           emailSentTo: (raw as never as Record<string, string>).email_sent_to,
+          emailSent: (raw as unknown as {email_sent: boolean}).email_sent,
+          annexPdfUrl: (raw as unknown as {annex_pdf_url: string}).annex_pdf_url,
         });
       } catch (error) {
         if (error instanceof ApiValidationError) {
@@ -177,17 +179,16 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
             {t(`steps.${STEP_KEYS[step]}.title`)}
           </h2>
           <span className="font-mono text-xs tracking-wider text-muted-foreground">
-            {t("stepIndicator", { current: step + 1, total: 4 })}
+            {t("stepIndicator", { current: step + 1, total: 3 })}
           </span>
         </header>
 
         <form onSubmit={onSubmit} noValidate className="px-7 pb-2 pt-4">
           {step === 0 && <PersonalStep />}
-          {step === 1 && <EducationStep />}
-          {step === 2 && <ProgramStep />}
-          {step === 3 && <ContractStep onEdit={setStep} />}
+          {step === 1 && <ProgramStep />}
+          {step === 2 && <ContractStep onEdit={setStep} />}
 
-          {step === 3 && config.turnstileSiteKey && (
+          {step === 2 && config.turnstileSiteKey && (
             <div className="mt-4">
               <Turnstile
                 siteKey={config.turnstileSiteKey}
@@ -215,12 +216,13 @@ export function ApplyWizard({ config }: { config: ApplyConfig }) {
                   <Check className="h-3.5 w-3.5" /> {t("nav.draftSaved")}
                 </span>
               )}
-              {step < 3 ? (
-                <Button type="button" onClick={next}>
+              {step < 2 ? (
+                <Button key="continue" type="button" onClick={(event) => { event.preventDefault(); void next(); }}>
                   {t("nav.next")}
                 </Button>
               ) : (
                 <Button
+                  key="submit"
                   type="submit"
                   disabled={
                     form.formState.isSubmitting ||
@@ -249,7 +251,7 @@ function Stepper({ step, onJump }: { step: number; onJump: (i: number) => void }
         return (
           <li
             key={key}
-            className={cn("flex min-w-0 flex-col gap-2", i < 3 ? "flex-1" : "flex-none")}
+            className={cn("flex min-w-0 flex-col gap-2", i < 2 ? "flex-1" : "flex-none")}
           >
             <div className="flex h-[34px] items-center">
               <button
@@ -268,7 +270,7 @@ function Stepper({ step, onJump }: { step: number; onJump: (i: number) => void }
               >
                 {done ? <Check className="h-4 w-4" /> : i + 1}
               </button>
-              {i < 3 && <span className={cn("h-0.5 flex-1", done ? "bg-primary" : "bg-border")} />}
+              {i < 2 && <span className={cn("h-0.5 flex-1", done ? "bg-primary" : "bg-border")} />}
             </div>
             <div className="pr-3">
               <div
@@ -420,278 +422,49 @@ function PhoneField({ className }: { className?: string }) {
 
 function PersonalStep() {
   const { t } = useTranslation("apply");
-  const {
-    control,
-    watch,
-    formState: { errors },
-  } = useFormContext<ApplicationInput>();
-
-  return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-      <TextField
-        name="email"
-        label={t("fields.email")}
-        type="email"
-        inputMode="email"
-        placeholder="ivan.petrov@gmail.com"
-        hint={t("fields.emailHint")}
-        className="md:col-span-12"
-      />
-
-      <TextField
-        name="firstName"
-        label={t("fields.firstName")}
-        latin
-        placeholder="IVAN"
-        hint={t("fields.latinHint")}
-        className="md:col-span-4"
-      />
-      <TextField
-        name="middleName"
-        label={t("fields.middleName")}
-        latin
-        placeholder="PETROV"
-        className="md:col-span-4"
-      />
-      <TextField
-        name="lastName"
-        label={t("fields.lastName")}
-        latin
-        placeholder="DIMITROV"
-        className="md:col-span-4"
-      />
-
-      <PhoneField className="md:col-span-4" />
-
-      <div className="md:col-span-4">
-        <Controller
-          control={control}
-          name="dateOfBirth"
-          render={({ field }) => (
-            <DateOfBirthPicker
-              id="dateOfBirth"
-              label={t("fields.dateOfBirth")}
-              value={field.value}
-              onChange={field.onChange}
-              season={watch("season")}
-              error={errors.dateOfBirth?.message as string}
-            />
-          )}
-        />
-      </div>
-
-      <div className="md:col-span-4">
-        <Controller
-          control={control}
-          name="placeOfBirth"
-          render={({ field }) => (
-            <AutocompleteField
-              id="placeOfBirth"
-              kind="cities"
-              label={t("fields.placeOfBirth")}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              placeholder={t("autocomplete.startTyping")}
-              error={errors.placeOfBirth?.message as string}
-            />
-          )}
-        />
-      </div>
-
-      <TextField
-        name="egn"
-        label={t("fields.egn")}
-        inputMode="numeric"
-        placeholder="10 цифри"
-        hint={t("fields.egnHint")}
-        className="md:col-span-6"
-        optional
-      />
-      <TextField
-        name="idCardNumber"
-        label={t("fields.idCard")}
-        inputMode="numeric"
-        placeholder="9 цифри"
-        className="md:col-span-6"
-      />
-    </div>
-  );
+  return <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
+    <p className="md:col-span-12 text-sm">Попълни трите имена на кирилица, както са в личната карта.</p>
+    <TextField name="email" label={t("fields.email")} type="email" inputMode="email" hint={t("fields.emailHint")} className="md:col-span-12" />
+    <TextField name="firstName" label="Име" placeholder="Иван" className="md:col-span-4" />
+    <TextField name="middleName" label="Презиме" placeholder="Петров" className="md:col-span-4" />
+    <TextField name="lastName" label="Фамилия" placeholder="Димитров" className="md:col-span-4" />
+    <PhoneField className="md:col-span-12" />
+    <TextField name="egn" label="ЕГН" inputMode="numeric" placeholder="10 цифри" className="md:col-span-6" />
+    <TextField name="idCardNumber" label="Номер на лична карта" inputMode="numeric" placeholder="9 цифри" className="md:col-span-6" />
+  </div>;
 }
 
-function EducationStep() {
-  const { t } = useTranslation("apply");
-  const genericError = useErrorMessage("apply");
-  const {
-    control,
-    register,
-    formState: { errors },
-  } = useFormContext<ApplicationInput>();
-  return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-      <div className="md:col-span-12">
-        <Controller
-          control={control}
-          name="university"
-          render={({ field }) => (
-            <AutocompleteField
-              id="university"
-              kind="universities"
-              label={t("fields.university")}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              placeholder={t("autocomplete.startTypingUni")}
-              hint={t("fields.universityHint")}
-              error={errors.university?.message as string}
-            />
-          )}
-        />
-      </div>
-      <div className="md:col-span-8">
-        <Controller
-          control={control}
-          name="major"
-          render={({ field }) => (
-            <AutocompleteField
-              id="major"
-              kind="majors"
-              label={t("fields.major")}
-              value={field.value}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              placeholder={t("autocomplete.startTyping")}
-              error={errors.major?.message as string}
-            />
-          )}
-        />
-      </div>
-      <div className="flex flex-col gap-1.5 md:col-span-4">
-        <Label htmlFor="yearOfStudy" className="text-[13px] font-bold">
-          {t("fields.yearOfStudy")} <span className="text-primary">*</span>
-        </Label>
-        <select
-          id="yearOfStudy"
-          {...register("yearOfStudy")}
-          className="h-[42px] rounded-lg border-[1.5px] border-input bg-background px-3 text-[15px]"
-        >
-          <option value="">{t("fields.choose")}</option>
-          {(["1", "2", "3", "4", "master"] as const).map((y) => (
-            <option key={y} value={y}>
-              {t(`fields.yearOptions.${y}`)}
-            </option>
-          ))}
-        </select>
-        {errors.yearOfStudy && (
-          <p role="alert" className="text-xs font-semibold text-destructive">
-            {genericError(errors.yearOfStudy.message)}
-          </p>
-        )}
-      </div>
-    </div>
-  );
+function PriceSummary() {
+  const { watch } = useFormContext<ApplicationInput>();
+  const option = watch("programOption"), protection = watch("saveExchange"), value = watch("feeAdjustmentEur");
+  const amount = Number(value || 0);
+  const valid = /^\d*$/.test(value.trim()) && amount >= 0 && amount <= 690 && amount % 10 === 0;
+  const adjustment = valid ? amount : 0;
+  const price = (option === "full_arranged" ? 1699 : 1499) - adjustment;
+  return <div aria-live="polite" className="border-t pt-4 text-sm">
+    <p>Цена на програмата: <strong>{price} евро</strong></p>
+    {adjustment > 0 && <p>Корекция: −{adjustment} евро</p>}
+    {protection && <p>Save Exchange: 249 евро допълнително</p>}
+    <p className="mt-2">Първа вноска: <strong>{protection ? 481 : 232} евро</strong></p>
+    <p className="text-muted-foreground">200 евро депозит + 32 евро SEVIS{protection ? " + 249 евро Save Exchange" : ""}.</p>
+  </div>;
 }
 
 function ProgramStep() {
-  const { t } = useTranslation("apply");
-  const { watch, setValue } = useFormContext<ApplicationInput>();
-  const option = watch("programOption"),
-    office = watch("office"),
-    season = watch("season");
-
-  const Choice = ({
-    on,
-    onClick,
-    title,
-    desc,
-    price,
-  }: {
-    on: boolean;
-    onClick: () => void;
-    title: string;
-    desc: string;
-    price?: string;
-  }) => (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-pressed={on}
-      className={cn(
-        "flex items-start gap-3 rounded-xl border-[1.5px] bg-background p-4 text-left transition",
-        on ? "border-primary bg-primary/5" : "border-border hover:border-navy-500",
-      )}
-    >
-      <span
-        className={cn(
-          "mt-0.5 h-[19px] w-[19px] flex-none rounded-full border-2",
-          on ? "border-primary bg-primary shadow-[inset_0_0_0_3px_white]" : "border-border",
-        )}
-      />
-      <span className="min-w-0">
-        <span className="block text-sm font-bold">{title}</span>
-        <span className="block text-[12.5px] text-muted-foreground">{desc}</span>
-      </span>
-      {price && <span className="ml-auto font-mono text-sm font-bold text-primary">{price}</span>}
-    </button>
-  );
-
-  return (
-    <div className="flex flex-col gap-5">
-      <fieldset className="flex flex-col gap-2.5">
-        <legend className="mb-2 text-[13px] font-bold">
-          {t("fields.programOption")} <span className="text-primary">*</span>
-        </legend>
-        <Choice
-          on={option === "full_arranged"}
-          onClick={() => setValue("programOption", "full_arranged")}
-          title="FULL ARRANGED"
-          desc={t("program.fullDesc")}
-          price="$1750"
-        />
-        <Choice
-          on={option === "self_arranged"}
-          onClick={() => setValue("programOption", "self_arranged")}
-          title="SELF ARRANGED"
-          desc={t("program.selfDesc")}
-          price="$1250"
-        />
-        <p className="text-xs text-muted-foreground">{t("program.optionNote")}</p>
-      </fieldset>
-
-      <fieldset className="flex flex-col gap-2.5">
-        <legend className="mb-2 text-[13px] font-bold">
-          {t("fields.office")} <span className="text-primary">*</span>
-        </legend>
-        <Choice
-          on={office === "varna"}
-          onClick={() => setValue("office", "varna")}
-          title={t("offices.varna")}
-          desc={t("offices.varnaAddress")}
-        />
-        <Choice
-          on={office === "sofia"}
-          onClick={() => setValue("office", "sofia")}
-          title={t("offices.sofia")}
-          desc={t("offices.sofiaAddress")}
-        />
-      </fieldset>
-
-      {/* Сезонът НЕ се избира — записваме винаги за предстоящото лято. */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-[13px] font-bold">{t("fields.season")}</span>
-        <div className="flex items-center gap-2.5 rounded-xl border-[1.5px] bg-muted px-4 py-3">
-          <Sun className="h-4 w-4 text-navy-700" />
-          <b className="font-display text-[15px] uppercase tracking-wide text-navy-700">
-            {t("fields.seasonOption", { year: season })}
-          </b>
-          <span className="text-[12.5px] text-muted-foreground">{t("fields.seasonFixed")}</span>
-        </div>
-        <p className="text-xs text-muted-foreground">
-          {t("fields.seasonNextOpens", { next: Number(season) + 1, current: season })}
-        </p>
-      </div>
-    </div>
-  );
+  const { watch, register } = useFormContext<ApplicationInput>();
+  const protection = watch("saveExchange");
+  return <div className="grid gap-5">
+    <fieldset className="grid gap-3"><legend className="mb-3 font-bold">Избери програма</legend>
+      <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="full_arranged" {...register("programOption")} /><span><b>Premium Full Arranged · 1699 евро{protection && " + Save Exchange"}</b><br />Избираш работна оферта с наше съдействие.</span></label>
+      <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="self_arranged" {...register("programOption")} /><span><b>Self Arranged · 1499 евро{protection && " + Save Exchange"}</b><br />Кандидатстваш с работодател, който си намерил сам.</span></label>
+    </fieldset>
+    <section className="rounded-lg border bg-white p-4" aria-labelledby="save-exchange-title">
+      <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" {...register("saveExchange")} className="mt-1 h-5 w-5 shrink-0 accent-[#12364c]" /><span><b id="save-exchange-title" className="text-navy-800">Save Exchange · Защита на парите</b><span className="ml-1 text-sm text-muted-foreground">+249 евро</span><span className="mt-2 block text-sm leading-relaxed text-muted-foreground">За повече спокойствие при отказ на виза, здравословни причини, ангажименти към университета или други лични обстоятелства. Възстановяването на програмната такса е съгласно условията, сроковете и изключенията в анекса.</span></span></label>
+    </section>
+    {protection && <p className="text-sm">Анексът ще бъде изготвен за крайната цена на избраната програма. Таксата се заплаща до 7 календарни дни от подписването му.</p>}
+    <TextField name="feeAdjustmentEur" label="Корекция" optional inputMode="numeric" placeholder="0" hint="Попълва се от служител на AIM." />
+    <PriceSummary />
+  </div>;
 }
 
 function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
@@ -771,8 +544,6 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
           />
           <Row label={t("fields.email")} value={v.email} />
           <Row label={t("fields.phone")} value={v.phone} mono />
-          <Row label={t("fields.dateOfBirth")} value={v.dateOfBirth} mono />
-          <Row label={t("fields.placeOfBirth")} value={v.placeOfBirth} />
           {/* Маскираме — на екрана няма причина да стоят пълните идентификатори */}
           <Row label={t("fields.egn")} value={v.egn && `${v.egn.slice(0, 6)}••••`} mono />
           <Row
@@ -795,25 +566,14 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
           </button>
         </h4>
         <dl className="m-0 grid grid-cols-[1fr_1.3fr]">
-          <Row label={t("fields.university")} value={v.university} />
-          <Row label={t("fields.major")} value={v.major} />
-          <Row
-            label={t("fields.yearOfStudy")}
-            value={v.yearOfStudy && t(`fields.yearOptions.${v.yearOfStudy}`)}
-          />
-          <Row
-            label={t("fields.programOption")}
-            value={
-              v.programOption === "full_arranged"
-                ? "FULL ARRANGED · $1750"
-                : "SELF ARRANGED · $1250"
-            }
-          />
-          <Row label={t("fields.season")} value={t("fields.seasonOption", { year: v.season })} />
-          <Row label={t("fields.office")} value={t(`offices.${v.office}`)} />
+          <Row label="Програма" value={v.programOption === "full_arranged" ? "Premium Full Arranged" : "Self Arranged"} />
+          <Row label="Save Exchange" value={v.saveExchange ? "Да · 249 евро" : "Не"} />
+          <Row label="Корекция" value={`${Number(v.feeAdjustmentEur || 0)} евро`} />
+          <Row label="Сезон" value={v.season} />
         </dl>
       </section>
 
+      <PriceSummary />
       <fieldset className="flex flex-col gap-2.5">
         <legend className="mb-2 text-[13px] font-bold">
           {t("consent.legend")} <span className="text-primary">*</span>
@@ -838,7 +598,7 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
             >
               {t(`whatHappens.${k}`, {
                 email: v.email,
-                office: t(`offices.${v.office}`),
+
                 season: v.season,
               })}
             </li>

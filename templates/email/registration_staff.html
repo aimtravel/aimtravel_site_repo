@@ -1,0 +1,11 @@
+<!doctype html><html lang="bg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:24px 12px;background:#eef2f5;font-family:Arial,sans-serif;color:#173348;">
+<table role="presentation" cellpadding="0" cellspacing="0" width="600" style="width:100%;max-width:600px;margin:auto;background:white;border-radius:12px;">
+<tr><td style="padding:26px;background:#0c3049;color:white;"><h1 style="margin:0;font-size:23px;">Нов записан участник онлайн</h1><p style="margin:10px 0 0;">{{ contract_number }} · {{ season }}</p></td></tr>
+<tr><td style="padding:26px;line-height:1.8;"><h2 style="margin:0 0 12px;font-size:21px;">{{ full_name }}</h2>
+<p style="margin:0 0 18px;">Имейл: <a href="mailto:{{ email }}">{{ email }}</a><br>Телефон: <a href="tel:{{ phone }}">{{ phone }}</a></p>
+<p style="margin:0 0 18px;">Програма: <strong>{{ program_option }}</strong><br>Програмна такса: <strong>{{ price_eur }} евро</strong><br>Save Exchange: <strong>{% if save_exchange %}Да{% else %}Не{% endif %}</strong><br>Първа вноска: <strong>{{ first_payment_eur }} евро</strong></p>
+{% if student_email_sent %}<p style="padding:14px;background:#edf7f1;border-radius:8px;">Документите са изпратени на участника.</p>{% else %}<p style="padding:14px;background:#fff2dc;border-radius:8px;"><strong>Нужно е действие:</strong> документите са създадени, но имейлът до участника не е изпратен. Провери регистрацията и изпрати документите отново.</p>{% endif %}
+<p style="margin:24px 0;"><a href="{{ admin_url }}" style="display:inline-block;background:#ae1c25;padding:12px 18px;border-radius:7px;color:white;text-decoration:none;font-weight:bold;">Отвори регистрацията</a></p>
+<p style="margin:0;font-size:13px;color:#607584;">Отговорът на този имейл ще бъде адресиран до участника.</p>
+</td></tr></table></body></html>

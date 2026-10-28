@@ -5,6 +5,7 @@ from . import views
 app_name = "apply"
 
 urlpatterns = [
+    path("apply/quote", views.QuoteView.as_view(), name="quote"),
     path("applications", views.ApplicationCreateView.as_view(), name="application-create"),
     path("applications/draft", views.DraftView.as_view(), name="application-draft"),
     path("lookup/<str:kind>", views.LookupView.as_view(), name="lookup"),
