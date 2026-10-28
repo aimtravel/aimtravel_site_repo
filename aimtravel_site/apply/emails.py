@@ -72,7 +72,7 @@ def _name_slug(application: Application) -> str:
     return cleaned.upper() or "STUDENT"
 
 
-def send_contract_issued_email(application: Application, document: ContractDocument) -> None:
+def _send_legacy_email(application: Application, document: ContractDocument) -> None:
     _ensure_smtp_configured()
     context = build_context(application)
     agent_email = context["agent_email"]
@@ -124,5 +124,55 @@ def send_contract_issued_email(application: Application, document: ContractDocum
 
     message.send(fail_silently=False)
 
+    document.email_sent_at = timezone.now()
+    document.save(update_fields=["email_sent_at"])
+
+
+def send_contract_issued_email(application, document):
+    if application.currency != "EUR":
+        return _send_legacy_email(application, document)
+    from .pricing import DEPOSIT, SEVIS
+    from .bank_details import bank_pdf
+    context = {
+        "first_name": application.first_name.capitalize(),
+        "contract_number": application.contract_number,
+        "season": application.season,
+        "program_option": OPTION_LABEL[ProgramOption(application.program_option)],
+        "price_eur": application.price_eur,
+        "save_exchange": application.save_exchange,
+        "protection_fee_eur": application.protection_fee_eur,
+        "first_payment_eur": DEPOSIT + SEVIS + application.protection_fee_eur,
+    }
+    destination = "studentski@aimtravel.bg"
+    message = EmailMultiAlternatives(
+        subject=f"Договор {application.contract_number} | Work and Travel {application.season}",
+        body=render_to_string("email/contract_issued_eur.txt", context),
+        from_email=destination, to=[application.email],
+        bcc=list(dict.fromkeys([destination, *settings.AIM_CONTRACT_EMAIL_BCC])),
+        reply_to=[destination], headers={"X-AIM-Contract": application.contract_number},
+    )
+    message.attach_alternative(render_to_string("email/contract_issued_eur.html", context), "text/html")
+    files = [(document.pdf, f"Dogovor_{application.contract_number}.pdf")]
+    if application.save_exchange:
+        if not document.annex_pdf:
+            raise RuntimeError("Selected protection requires annex PDF")
+        files.append((document.annex_pdf, f"Annex_{application.contract_number}.pdf"))
+    for field, name in files:
+        with field.open("rb") as source:
+            data = source.read()
+        if data[:5] != b"%PDF-":
+            raise RuntimeError("Attachment is not a PDF")
+        message.attach(name, data, "application/pdf")
+    message.attach("AIM_Bank_Details.pdf", bank_pdf(application), "application/pdf")
+    if settings.EMAIL_BACKEND == SMTP_BACKEND and not settings.EMAIL_HOST_PASSWORD:
+        import subprocess
+        result = subprocess.run(
+            ["/usr/sbin/sendmail", "-oi", "-f", destination, "--", *message.recipients()],
+            input=message.message().as_bytes(), capture_output=True, timeout=30, check=False,
+        )
+        if result.returncode:
+            raise RuntimeError("Mail transport rejected message")
+    elif message.send(fail_silently=False) != 1:
+        raise RuntimeError("Mail transport did not accept message")
     document.email_sent_at = timezone.now()
     document.save(update_fields=["email_sent_at"])

@@ -10,11 +10,9 @@ from __future__ import annotations
 from django.utils import timezone
 from rest_framework import serializers
 
-from .models import Application, Office, ProgramOption, YearOfStudy
+from .models import Application, ProgramOption
 from .validators import (
-    dob_from_egn,
     egn_checksum_ok,
-    is_valid_latin_name,
     normalize_phone,
     upcoming_season,
 )
@@ -29,28 +27,21 @@ class ApplicationCreateSerializer(serializers.Serializer):
     middle_name = serializers.CharField(max_length=30, trim_whitespace=True)
     last_name = serializers.CharField(max_length=30, trim_whitespace=True)
     phone = serializers.CharField(max_length=24)
-    date_of_birth = serializers.DateField()
     # ЕГН е незадължително. Ако е дадено, чака се точно 10 цифри + checksum.
     egn = serializers.RegexField(
         r"^\d{10}$",
-        required=False,
-        allow_blank=True,
+        required=True,
+        allow_blank=False,
         error_messages={"invalid": "errors.egn.checksum"},
     )
     id_card_number = serializers.RegexField(
         r"^\d{9}$", error_messages={"invalid": "errors.idCard.invalid"}
     )
-    place_of_birth = serializers.CharField(max_length=80, min_length=2)
-
-    # --- образование ---
-    university = serializers.CharField(max_length=160, min_length=3)
-    major = serializers.CharField(max_length=120, min_length=2)
-    year_of_study = serializers.ChoiceField(choices=YearOfStudy.choices)
-
     # --- програма ---
     program_option = serializers.ChoiceField(choices=ProgramOption.choices)
     season = serializers.IntegerField()
-    office = serializers.ChoiceField(choices=Office.choices)
+    save_exchange = serializers.BooleanField()
+    discount_code = serializers.CharField(max_length=32, required=False, allow_blank=True, default="")
 
     # --- декларации ---
     accepts_terms = serializers.BooleanField()
@@ -62,19 +53,20 @@ class ApplicationCreateSerializer(serializers.Serializer):
 
     # ------------------------------------------------------------------
     def validate_first_name(self, v: str) -> str:
-        return self._latin(v, "firstName")
+        return self._cyrillic(v, "firstName")
 
     def validate_middle_name(self, v: str) -> str:
-        return self._latin(v, "middleName")
+        return self._cyrillic(v, "middleName")
 
     def validate_last_name(self, v: str) -> str:
-        return self._latin(v, "lastName")
+        return self._cyrillic(v, "lastName")
 
     @staticmethod
-    def _latin(value: str, field: str) -> str:
+    def _cyrillic(value: str, field: str) -> str:
         value = value.strip().upper()
-        if not is_valid_latin_name(value):
-            raise serializers.ValidationError(f"errors.{field}.latin")
+        import re
+        if not re.fullmatch(r"[А-Яа-яЍѝ]+(?:[ -][А-Яа-яЍѝ]+)*", value):
+            raise serializers.ValidationError(f"errors.{field}.cyrillic")
         return value
 
     def validate_phone(self, v: str) -> str:
@@ -117,15 +109,13 @@ class ApplicationCreateSerializer(serializers.Serializer):
 
     # ------------------------------------------------------------------
     def validate(self, attrs):
-        egn = attrs.get("egn", "")
-        dob = attrs["date_of_birth"]
-
-        # Cross-check ЕГН ↔ дата на раждане: пропускаме, ако ЕГН не е дадено
-        # (полето е незадължително). Ако е дадено, разминаване не се допуска —
-        # иначе договорът излиза с едни данни, а DS-2019 с други.
-        if egn and dob_from_egn(egn) != dob:
-            raise serializers.ValidationError({"egn": "errors.egn.dobMismatch"})
-
+        from pathlib import Path
+        from django.conf import settings
+        template = Path(settings.AIM_CONTRACT_TEMPLATES) / f"contract_{attrs['season']}_{attrs['program_option']}.docx"
+        if not template.exists():
+            raise serializers.ValidationError({"program_option": "Договорът за тази опция още не е активиран. Свържи се с нас."})
+        from .pricing import quote
+        quote(attrs["program_option"], attrs["save_exchange"], attrs.get("discount_code", ""))
         return attrs
 
     # ------------------------------------------------------------------
@@ -140,9 +130,20 @@ class ApplicationResultSerializer(serializers.Serializer):
     contract_number = serializers.CharField(read_only=True)
     contract_pdf_url = serializers.SerializerMethodField()
     email_sent_to = serializers.EmailField(source="email", read_only=True)
+    email_sent = serializers.SerializerMethodField()
+    annex_pdf_url = serializers.SerializerMethodField()
+
+    def get_email_sent(self, obj):
+        from .models import ContractDocument
+        return ContractDocument.objects.filter(application=obj, email_sent_at__isnull=False).exists()
+
+    def get_annex_pdf_url(self, obj):
+        document = getattr(obj, "contract_document", None)
+        return document.signed_download_url() + "?document=annex" if document and document.annex_pdf else None
 
     def get_contract_pdf_url(self, obj: Application) -> str:
-        return obj.contract_document.signed_download_url(ttl_seconds=3600)
+        document = getattr(obj, "contract_document", None)
+        return document.signed_download_url(ttl_seconds=3600) if document else ""
 
 
 class DraftSerializer(serializers.Serializer):

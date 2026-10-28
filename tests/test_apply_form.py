@@ -25,11 +25,12 @@ from aimtravel_site.apply.validators import upcoming_season
 def applicant(**overrides):
     values = {
         "email": "test.applicant@example.com",
-        "first_name": "IVAN",
-        "middle_name": "PETROV",
-        "last_name": "TESTOV",
+        "first_name": "ИВАН",
+        "middle_name": "ПЕТРОВ",
+        "last_name": "ТЕСТОВ",
         "phone": "+359 888 000 000",
-        "date_of_birth": "2005-06-14",
+        "egn": "0506140008",
+        "save_exchange": False,
         "id_card_number": "000000000",
         "place_of_birth": "Варна",
         "university": "Икономически университет — Варна",
@@ -93,12 +94,12 @@ class ApplicationFormTest(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         email = mail.outbox[0]
         self.assertEqual(email.to, ["test.applicant@example.com"])
-        self.assertEqual(email.bcc, [settings.AIM_OFFICE_AGENTS["varna"]["email"], "office-copy@example.com"])
+        self.assertEqual(email.bcc, ["studentski@aimtravel.bg", "office-copy@example.com"])
         self.assertIn(application.contract_number, email.subject)
         names = [name for name, _content, _mime in email.attachments]
         self.assertEqual(len(names), 2, names)
         self.assertTrue(names[0].startswith(f"Dogovor_{application.contract_number}"), names)
-        self.assertTrue(names[1].startswith("AIM_Travel_Application_Form_"), names)
+        self.assertEqual(names[1], "AIM_Bank_Details.pdf")
         self.assertIsNotNone(application.contract_document.email_sent_at)
 
         url = response.json()["contract_pdf_url"]

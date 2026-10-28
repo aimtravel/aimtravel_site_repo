@@ -22,7 +22,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
 
       <h2 className="font-display text-[26px] uppercase text-navy-700">{t("success.title")}</h2>
       <p className="mx-auto mt-3 max-w-[560px] text-[15px] font-semibold text-emerald-800">
-        {t("success.emailSent", { email: result.emailSentTo })}
+        {result.emailSent ? t("success.emailSent", { email: result.emailSentTo }) : "Документите са създадени, но имейлът не е изпратен. Изтегли ги оттук и се свържи с нас."}
       </p>
       <p className="mx-auto mt-2.5 max-w-[520px] text-muted-foreground">
         {t("success.body", { name: values.firstName })}
@@ -64,7 +64,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
             ))}
           </ol>
           <div className="flex flex-wrap gap-2 pt-1">
-            {[`Dogovor_${result.contractNumber}.pdf`, "AIM_Travel_Application_Form.pdf"].map(
+            {[`Dogovor_${result.contractNumber}.pdf`, ...(values.saveExchange ? [`Annex_${result.contractNumber}.pdf`] : []), "AIM_Bank_Details.pdf"].map(
               (f) => (
                 <span
                   key={f}
@@ -84,6 +84,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
             <Download className="mr-2 h-4 w-4" /> {t("success.download")}
           </a>
         </Button>
+        {result.annexPdfUrl && <Button asChild variant="outline"><a href={result.annexPdfUrl} download>Изтегли анекса (PDF)</a></Button>}
       </div>
     </Card>
   );

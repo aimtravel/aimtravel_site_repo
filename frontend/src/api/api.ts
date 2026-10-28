@@ -14,6 +14,8 @@ export interface ContractResult {
   contractNumber: string;
   contractPdfUrl: string;
   emailSentTo: string;
+  emailSent: boolean;
+  annexPdfUrl?: string;
 }
 
 export interface Suggestion {
@@ -98,7 +100,16 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 /* ------------------------------------------------------------------ */
 
+export interface PriceQuote {
+  base_price_eur: number; discount_eur: number; price_eur: number;
+  protection_fee_eur: number; first_payment_eur: number; discount_code: string;
+}
+
 export const api = {
+  quote: (programOption: string, saveExchange: boolean, discountCode: string) =>
+    request<PriceQuote>("/apply/quote", {method: "POST", body: JSON.stringify({
+      program_option: programOption, save_exchange: saveExchange, discount_code: discountCode,
+    })}),
   config: () => request<ApplyConfig>("/apply/config"),
 
   lookup: (kind: "universities" | "cities" | "majors", q: string, signal?: AbortSignal) =>
@@ -130,5 +141,7 @@ export function toContractResult(raw: Record<string, string>): ContractResult {
     contractNumber: raw.contract_number,
     contractPdfUrl: raw.contract_pdf_url,
     emailSentTo: raw.email_sent_to,
+    emailSent: (raw as unknown as {email_sent: boolean}).email_sent,
+    annexPdfUrl: raw.annex_pdf_url,
   };
 }
