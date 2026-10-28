@@ -133,11 +133,15 @@ class ContractDownloadView(APIView):
         # without LibreOffice the "pdf" field actually holds a .docx (see the
         # fallback in contracts.render_contract). Serving docx bytes as a
         # .pdf leaves the user with an unopenable file.
-        extension = PurePosixPath(document.pdf.name).suffix or ".pdf"
+        attachment = document.annex_pdf if request.query_params.get("document") == "annex" else document.pdf
+        if not attachment:
+            raise Http404
+        extension = PurePosixPath(attachment.name).suffix or ".pdf"
+        prefix = "Annex" if request.query_params.get("document") == "annex" else "Dogovor"
         return FileResponse(
-            document.pdf.open("rb"),
+            attachment.open("rb"),
             as_attachment=True,
-            filename=f"Dogovor_{application.contract_number}{extension}",
+            filename=f"{prefix}_{application.contract_number}{extension}",
         )
 
 
@@ -167,3 +171,23 @@ class ConfigView(APIView):
                 ],
             }
         )
+
+
+class QuoteView(APIView):
+    permission_classes = [AllowAny]
+    throttle_classes = [ApplyBurstThrottle]
+
+    def post(self, request):
+        from rest_framework import serializers
+        from .models import ProgramOption
+        from .pricing import quote
+        class QuoteInput(serializers.Serializer):
+            program_option = serializers.ChoiceField(choices=ProgramOption.choices)
+            save_exchange = serializers.BooleanField()
+            discount_code = serializers.CharField(max_length=32, required=False, default="", allow_blank=True)
+            fee_adjustment_eur = serializers.IntegerField(min_value=0, max_value=690, required=False, default=0)
+        serializer = QuoteInput(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+        result, _ = quote(data["program_option"], data["save_exchange"], data["discount_code"], adjustment=data["fee_adjustment_eur"])
+        return Response(result)

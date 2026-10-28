@@ -1,0 +1,142 @@
+from datetime import timedelta
+from io import BytesIO
+from unittest.mock import patch
+
+from django.core import mail
+from django.utils import timezone
+from pypdf import PdfReader
+from rest_framework.exceptions import ValidationError
+
+from aimtravel_site.apply.models import Application, DiscountCode
+from aimtravel_site.apply.pricing import quote
+from aimtravel_site.apply.contracts import amount_words
+from .test_apply_form import ApplicationFormTest
+
+
+class EuroRegistrationTest(ApplicationFormTest):
+    def test_staff_notification_and_retry_are_independent(self):
+        from aimtravel_site.apply.tasks import send_contract_email_task
+        self.submit(save_exchange=True)
+        app = Application.objects.get()
+        notification = mail.outbox[1]
+        self.assertEqual(notification.to, ['studentski@aimtravel.bg'])
+        self.assertTrue(notification.subject.startswith('Нов записан участник онлайн'))
+        self.assertIn(app.full_name_latin, notification.body)
+        self.assertIn('481 евро', notification.body)
+        self.assertEqual(notification.reply_to, [app.email])
+        send_contract_email_task(app.pk, app.contract_document.pk)
+        self.assertEqual(len(mail.outbox), 2)
+
+    def test_staff_is_notified_if_applicant_delivery_fails(self):
+        from aimtravel_site.apply.emails import _deliver_email
+        def deliver(message):
+            if message.to == ['test.applicant@example.com']:
+                raise OSError('simulated applicant delivery failure')
+            return _deliver_email(message)
+        with patch('aimtravel_site.apply.emails._deliver_email', side_effect=deliver):
+            response = self.submit()
+        self.assertEqual(response.status_code, 201)
+        self.assertFalse(response.json()['email_sent'])
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['studentski@aimtravel.bg'])
+        self.assertIn('ВНИМАНИЕ', mail.outbox[0].body)
+
+    def test_staff_delivery_failure_does_not_resend_applicant(self):
+        from aimtravel_site.apply.tasks import send_contract_email_task
+        with patch('aimtravel_site.apply.emails.send_staff_registration_notification', side_effect=OSError):
+            response = self.submit()
+        app = Application.objects.get()
+        self.assertIsNotNone(app.contract_document.email_sent_at)
+        self.assertIsNone(app.contract_document.staff_notified_at)
+        send_contract_email_task(app.pk, app.contract_document.pk)
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIsNotNone(app.contract_document.__class__.objects.get(pk=app.contract_document.pk).staff_notified_at)
+
+    def test_numeric_adjustment_updates_contract_and_annex(self):
+        response = self.submit(fee_adjustment_eur=80, save_exchange=True)
+        self.assertEqual(response.status_code, 201, response.content)
+        app = Application.objects.get()
+        self.assertEqual((app.price_eur, app.discount_eur, app.discount_code), (1619, 80, ''))
+        for name, content, mime in mail.outbox[0].attachments[:2]:
+            text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
+            self.assertIn('1619', text)
+        self.assertIn('481 евро', mail.outbox[0].body)
+        html = mail.outbox[0].alternatives[0][0]
+        for value in ['BG60UNCR70001523205219', 'до 7 дни',
+                      'href="https://aimtravel.bg/application-form/"',
+                      'viber://chat?number=%2B359889966583',
+                      'https://www.instagram.com/aimtravel_usa/',
+                      'https://www.facebook.com/profile.php?id=100072235954652',
+                      'Общо: 1868 евро']:
+            self.assertIn(value, html)
+
+    def test_numeric_adjustment_rejects_invalid_values(self):
+        for amount in [-10, 15, 700, 'AIM80']:
+            with self.subTest(amount=amount):
+                self.assertEqual(self.submit(fee_adjustment_eur=amount).status_code, 400)
+        self.assertFalse(Application.objects.exists())
+
+    def test_full_discount_and_annex_have_same_amount(self):
+        DiscountCode.objects.create(code='AIM80', amount_eur=80, max_uses=1)
+        response = self.submit(discount_code='aim80', save_exchange=True)
+        self.assertEqual(response.status_code, 201, response.content)
+        app = Application.objects.get()
+        self.assertEqual((app.base_price_eur, app.price_eur, app.discount_eur), (1699,1619,80))
+        self.assertEqual(DiscountCode.objects.get().used_count, 1)
+        self.assertEqual(len(mail.outbox[0].attachments), 3)
+        for name, content, mime in mail.outbox[0].attachments[:2]:
+            self.assertEqual(mime, 'application/pdf')
+            text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
+            self.assertIn('1619', text)
+            self.assertIn('хиляда шестстотин и деветнадесет', text)
+            self.assertNotIn('{{', text)
+        self.assertIn('481 евро', mail.outbox[0].body)
+        self.assertIn('7 календарни дни', mail.outbox[0].body)
+        self.assertTrue(response.json()['annex_pdf_url'])
+
+    def test_self_has_own_clauses_and_annex_reference(self):
+        response=self.submit(program_option='self_arranged', save_exchange=True)
+        self.assertEqual(response.status_code,201,response.content)
+        app=Application.objects.get()
+        self.assertEqual(app.price_eur,1499)
+        text=''.join(p.extract_text() for p in PdfReader(app.contract_document.annex_pdf.path).pages)
+        self.assertIn('чл. 18',text)
+        self.assertIn('1499',text)
+        self.assertIn('SELF ARRANGED',''.join(p.extract_text() for p in PdfReader(app.contract_document.pdf.path).pages))
+
+    def test_latin_names_rejected(self):
+        response=self.submit(first_name='IVAN')
+        self.assertEqual(response.status_code,400)
+        self.assertFalse(Application.objects.exists())
+
+    def test_invalid_discount_is_not_ignored(self):
+        response=self.submit(discount_code='AIM9999')
+        self.assertEqual(response.status_code,400)
+        self.assertFalse(Application.objects.exists())
+
+    def test_price_tampering_ignored(self):
+        response=self.submit(price_eur=1,discount_eur=1698)
+        self.assertEqual(response.status_code,201,response.content)
+        self.assertEqual(Application.objects.get().price_eur,1699)
+        self.assertIn('232 евро',mail.outbox[0].body)
+        self.assertEqual(len(mail.outbox[0].attachments),2)
+        self.assertIsNone(response.json()['annex_pdf_url'])
+
+    def test_expired_and_exhausted_codes(self):
+        code=DiscountCode.objects.create(code='AIM20',amount_eur=20,max_uses=1,
+                                          expires_at=timezone.now()-timedelta(seconds=1))
+        with self.assertRaises(ValidationError):quote('full_arranged',False,'AIM20')
+        code.expires_at=None;code.used_count=1;code.save()
+        with self.assertRaises(ValidationError):quote('self_arranged',True,'AIM20')
+
+    def test_email_failure_is_reported_honestly(self):
+        with patch('aimtravel_site.apply.emails.EmailMultiAlternatives.send',side_effect=OSError):
+            response=self.submit()
+        self.assertEqual(response.status_code,201,response.content)
+        self.assertFalse(response.json()['email_sent'])
+        self.assertIsNone(Application.objects.get().contract_document.email_sent_at)
+
+    def test_amount_words(self):
+        self.assertEqual(amount_words(1699),'хиляда шестстотин деветдесет и девет')
+        self.assertEqual(amount_words(1499),'хиляда четиристотин деветдесет и девет')
+        self.assertEqual(amount_words(819),'осемстотин и деветнадесет')

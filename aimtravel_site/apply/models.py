@@ -100,20 +100,29 @@ class Application(models.Model):
     middle_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     phone = models.CharField(max_length=16)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True, blank=True)
     egn = models.CharField(max_length=10, blank=True)
     id_card_number = models.CharField(max_length=9)
-    place_of_birth = models.CharField(max_length=80)
+    place_of_birth = models.CharField(max_length=80, blank=True)
 
     # --- образование ---
-    university = models.CharField(max_length=160)
-    major = models.CharField(max_length=120)
-    year_of_study = models.CharField(max_length=8, choices=YearOfStudy.choices)
+    university = models.CharField(max_length=160, blank=True)
+    major = models.CharField(max_length=120, blank=True)
+    year_of_study = models.CharField(max_length=8, choices=YearOfStudy.choices, blank=True)
 
     # --- програма ---
     program_option = models.CharField(max_length=16, choices=ProgramOption.choices)
     season = models.PositiveSmallIntegerField()
     office = models.CharField(max_length=8, choices=Office.choices)
+
+    # Snapshots preserve agreed prices even if a code is changed later.
+    currency = models.CharField(max_length=3, default="USD")
+    base_price_eur = models.PositiveIntegerField(null=True, blank=True)
+    discount_eur = models.PositiveIntegerField(default=0)
+    price_eur = models.PositiveIntegerField(null=True, blank=True)
+    discount_code = models.CharField(max_length=32, blank=True)
+    save_exchange = models.BooleanField(default=False)
+    protection_fee_eur = models.PositiveIntegerField(default=0)
 
     # --- декларации (доказателство за съгласие по ЗЗЛД и чл. 313 НК) ---
     accepted_terms_at = models.DateTimeField()
@@ -160,8 +169,10 @@ class ContractDocument(models.Model):
     pdf = models.FileField(upload_to="contracts/%Y/%m/", storage=contract_storage)
     docx = models.FileField(upload_to="contracts/%Y/%m/", storage=contract_storage,
                             null=True, blank=True)
+    annex_pdf = models.FileField(upload_to="contracts/%Y/%m/", storage=contract_storage, blank=True)
     generated_at = models.DateTimeField(default=timezone.now)
     email_sent_at = models.DateTimeField(null=True, blank=True)
+    staff_notified_at = models.DateTimeField(null=True, blank=True)
 
     def signed_download_url(self, ttl_seconds: int = 3600) -> str:
         """Договорът съдържа ЕГН — линкът не бива да е публичен и вечен.
@@ -188,3 +199,34 @@ class ApplicationDraft(models.Model):
 
     class Meta:
         indexes = [models.Index(fields=["updated_at"])]
+
+
+class DiscountCode(models.Model):
+    code = models.CharField(max_length=32, unique=True)
+    amount_eur = models.PositiveIntegerField()
+    season = models.PositiveSmallIntegerField(default=2027)
+    active = models.BooleanField(default=True)
+    starts_at = models.DateTimeField(null=True, blank=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    max_uses = models.PositiveIntegerField(default=1)
+    used_count = models.PositiveIntegerField(default=0, editable=False)
+
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        import re
+        self.code = self.code.strip().upper()
+        if not re.fullmatch(r"[A-Z0-9-]{3,32}", self.code):
+            raise ValidationError({"code": "Използвай латински букви, цифри или тире."})
+        if not 10 <= self.amount_eur <= 690 or self.amount_eur % 10:
+            raise ValidationError({"amount_eur": "Отстъпка от 10 до 690 евро, кратна на 10."})
+        if self.max_uses < 1 or self.max_uses < self.used_count:
+            raise ValidationError({"max_uses": "Лимитът трябва да покрива използваните кодове."})
+        if self.starts_at and self.expires_at and self.expires_at <= self.starts_at:
+            raise ValidationError({"expires_at": "Крайният срок трябва да е след началния."})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.code}: {self.amount_eur} EUR"

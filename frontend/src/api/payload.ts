@@ -15,18 +15,16 @@ export function toApiPayload(
     middle_name: values.middleName,
     last_name: values.lastName,
     phone: values.phone,
-    date_of_birth: values.dateOfBirth,
+
     egn: values.egn,
     id_card_number: values.idCardNumber,
-    place_of_birth: values.placeOfBirth,
 
-    university: values.university,
-    major: values.major,
-    year_of_study: values.yearOfStudy,
 
+    save_exchange: values.saveExchange,
+    fee_adjustment_eur: Number(values.feeAdjustmentEur || 0),
     program_option: values.programOption,
     season: Number(values.season),
-    office: values.office,
+
 
     accepts_terms: values.acceptsTerms,
     declares_truth: values.declaresTruth,
@@ -48,16 +46,15 @@ export const FIELD_BY_API_NAME: Record<string, keyof ApplicationInput> = {
   middle_name: "middleName",
   last_name: "lastName",
   phone: "phone",
-  date_of_birth: "dateOfBirth",
+
   egn: "egn",
   id_card_number: "idCardNumber",
-  place_of_birth: "placeOfBirth",
-  university: "university",
-  major: "major",
-  year_of_study: "yearOfStudy",
+
+  save_exchange: "saveExchange",
+  fee_adjustment_eur: "feeAdjustmentEur",
   program_option: "programOption",
   season: "season",
-  office: "office",
+
 };
 
 /** DRF връща грешките по API имена; формата ги знае по React имена. */

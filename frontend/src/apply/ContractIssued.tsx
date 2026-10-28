@@ -22,7 +22,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
 
       <h2 className="font-display text-[26px] uppercase text-navy-700">{t("success.title")}</h2>
       <p className="mx-auto mt-3 max-w-[560px] text-[15px] font-semibold text-emerald-800">
-        {t("success.emailSent", { email: result.emailSentTo })}
+        {result.emailSent ? t("success.emailSent", { email: result.emailSentTo }) : "Документите са създадени, но имейлът не е изпратен. Изтегли ги оттук и се свържи с нас."}
       </p>
       <p className="mx-auto mt-2.5 max-w-[520px] text-muted-foreground">
         {t("success.body", { name: values.firstName })}
@@ -54,17 +54,26 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
           <p>
             {t("email.concluded", {
               contractNumber: result.contractNumber,
-              option: values.programOption === "full_arranged" ? "FULL ARRANGED" : "SELF ARRANGED",
+              option: values.programOption === "full_arranged" ? "PREMIUM FULL ARRANGED" : "SELF ARRANGED",
             })}
           </p>
           <p className="font-bold text-foreground">{t("email.nextStepsTitle")}</p>
           <ol className="grid list-decimal gap-1.5 pl-5">
-            {(["sign", "photo", "forms", "deposit"] as const).map((k) => (
-              <li key={k}>{t(`email.steps.${k}`)}</li>
-            ))}
+            <li>{t("email.steps.sign")}</li>
+            <li className="py-2"><Button asChild><a href="https://aimtravel.bg/application-form/">{t("email.steps.forms")}</a></Button></li>
+            <li className="space-y-2"><p>{t("email.steps.deposit", {amount: values.saveExchange ? 481 : 232})}</p>
+              <div className="rounded-lg bg-slate-50 p-3 leading-relaxed text-navy-800">
+                <p>IBAN: <strong className="break-all">BG60UNCR70001523205219</strong></p>
+                <p>УниКредит Булбанк АД</p>
+                <p>Получател: АГЕНЦИЯ ЗА МЕЖДУНАРОДНА МОБИЛНОСТ ООД</p>
+                <p>Основание: три имена и ЕГН</p>
+                <p>Сума: <strong>{values.saveExchange ? 481 : 232} евро</strong></p>
+              </div>
+            </li>
+            <li>{t("email.steps.photo")}</li>
           </ol>
           <div className="flex flex-wrap gap-2 pt-1">
-            {[`Dogovor_${result.contractNumber}.pdf`, "AIM_Travel_Application_Form.pdf"].map(
+            {[`Dogovor_${result.contractNumber}.pdf`, ...(values.saveExchange ? [`Annex_${result.contractNumber}.pdf`] : []), "AIM_Bank_Details.pdf"].map(
               (f) => (
                 <span
                   key={f}
@@ -75,6 +84,13 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
               ),
             )}
           </div>
+          <div className="border-t pt-4"><p className="mb-3 font-bold text-navy-800">Насреща сме</p>
+            <div className="flex flex-wrap gap-2">
+              <Button asChild className="bg-[#665cac] text-white hover:bg-[#554b96]"><a href="viber://chat?number=%2B359889966583">Viber</a></Button>
+              <Button asChild className="bg-[#a22c67] text-white hover:bg-[#872456]"><a href="https://www.instagram.com/aimtravel_usa/">Instagram</a></Button>
+              <Button asChild className="bg-[#1864bd] text-white hover:bg-[#14539e]"><a href="https://www.facebook.com/profile.php?id=100072235954652">Facebook</a></Button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -84,6 +100,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
             <Download className="mr-2 h-4 w-4" /> {t("success.download")}
           </a>
         </Button>
+        {result.annexPdfUrl && <Button asChild variant="outline"><a href={result.annexPdfUrl} download>Изтегли анекса (PDF)</a></Button>}
       </div>
     </Card>
   );

@@ -1,13 +1,13 @@
 from django.contrib import admin, messages
 
-from .models import Application, ApplicationStatus, ContractCounter, ContractDocument
+from .models import Application, ApplicationStatus, ContractCounter, ContractDocument, DiscountCode
 from .services import ContractGenerationError
 from .tasks import send_contract_email_task
 
 
 class ContractDocumentInline(admin.StackedInline):
     model = ContractDocument
-    readonly_fields = ("generated_at", "email_sent_at")
+    readonly_fields = ("generated_at", "email_sent_at", "staff_notified_at")
     extra = 0
 
 
@@ -19,11 +19,13 @@ class ApplicationAdmin(admin.ModelAdmin):
     search_fields = ("contract_number", "email", "first_name", "last_name", "phone")
     date_hierarchy = "created_at"
     inlines = [ContractDocumentInline]
-    actions = ["resend_email", "regenerate_contract"]
+    actions = ["resend_email", "regenerate_contract", "retry_staff_notification"]
 
     # ЕГН и лична карта се четат, но не се редактират от админа — договорът
     # вече е издаден с тях и промяна тук би го направила невалиден.
     readonly_fields = ("public_id", "contract_number", "egn", "id_card_number",
+                       "currency", "base_price_eur", "discount_eur", "price_eur",
+                       "discount_code", "save_exchange", "protection_fee_eur",
                        "created_at", "consent_ip", "consent_user_agent",
                        "accepted_terms_at", "declared_truth_at", "accepted_gdpr_at")
 
@@ -67,8 +69,24 @@ class ApplicationAdmin(admin.ModelAdmin):
             document, _ = ContractDocument.objects.get_or_create(application=application)
             with open(rendered.pdf_path, "rb") as pdf:
                 document.pdf.save(rendered.pdf_path.name, File(pdf), save=True)
+            if rendered.annex_path:
+                with open(rendered.annex_path, "rb") as annex:
+                    document.annex_pdf.save(rendered.annex_path.name, File(annex), save=True)
             application.mark(ApplicationStatus.CONTRACT_ISSUED)
             self.message_user(request, f"{application.contract_number}: готов.")
+
+    @admin.action(description="Повтори неизпратеното служебно известие")
+    def retry_staff_notification(self, request, queryset):
+        from .emails import send_staff_registration_notification
+        for application in queryset.select_related("contract_document"):
+            document = getattr(application, "contract_document", None)
+            if application.currency != "EUR" or document is None or document.staff_notified_at:
+                continue
+            try:
+                send_staff_registration_notification(application, document)
+                self.message_user(request, f"{application.contract_number}: служебното известие е изпратено.")
+            except Exception:
+                self.message_user(request, f"{application.contract_number}: известието не е изпратено. Опитай по-късно.", level=messages.ERROR)
 
 
 @admin.register(ContractCounter)
@@ -79,3 +97,11 @@ class ContractCounterAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(DiscountCode)
+class DiscountCodeAdmin(admin.ModelAdmin):
+    list_display = ("code", "amount_eur", "season", "active", "used_count", "max_uses", "expires_at")
+    list_filter = ("season", "active")
+    search_fields = ("code",)
+    readonly_fields = ("used_count",)
