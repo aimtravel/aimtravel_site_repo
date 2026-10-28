@@ -2,10 +2,10 @@
 
 A made-up applicant submits through the JSON API; the real season contract
 template is filled in, the contract is stored outside the public MEDIA_ROOT,
-the email goes to the applicant with a hidden copy to their office, and the
+the email goes to the applicant with a hidden copy to the registration inbox, and the
 signed download link works while a forged one does not.
 
-LibreOffice is not needed: without it the contract is shipped as .docx.
+The 2027 agreement is rendered to a real PDF without LibreOffice.
 
 Run:  python manage.py test tests
 """
@@ -60,6 +60,12 @@ class ApplicationFormTest(TestCase):
             EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
             AIM_CONTRACT_EMAIL_BCC=["office-copy@example.com"],
             SITE_URL="https://aimtravel.bg",
+            # Each test gets a fresh visitor's throttle history. Production
+            # rate limits remain enabled and unchanged within each test.
+            CACHES={"default": {
+                "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+                "LOCATION": self.private_root,
+            }},
         )
         overrides.enable()
         self.addCleanup(overrides.disable)
