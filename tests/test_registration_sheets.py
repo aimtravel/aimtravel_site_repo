@@ -3,18 +3,20 @@ from io import BytesIO, StringIO
 from unittest.mock import patch
 
 from django.core.management import call_command
-from django.test import override_settings
+from django.test import TestCase, override_settings
 
 from aimtravel_site.apply.models import Application
 from aimtravel_site.apply.sheets_sync import registration_values, sync_registration
-from .test_apply_form import ApplicationFormTest
+from . import test_apply_form as form_tests
 
 
 @override_settings(ONLINE_REGISTRATION_WEBHOOK_URL="https://script.google.com/macros/s/test/exec",
                    ONLINE_REGISTRATION_WEBHOOK_SECRET="test-only-secret")
-class RegistrationSheetsTest(ApplicationFormTest):
+class RegistrationSheetsTest(TestCase):
+    submit = form_tests.ApplicationFormTest.submit
+
     def setUp(self):
-        super().setUp()
+        form_tests.ApplicationFormTest.setUp(self)
         self.auto_sync = patch("aimtravel_site.apply.sheets_sync.sync_registration", return_value=False)
         self.auto_sync.start()
         self.addCleanup(self.auto_sync.stop)
