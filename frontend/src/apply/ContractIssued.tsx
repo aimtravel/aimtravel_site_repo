@@ -66,7 +66,8 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
                 <p>IBAN: <strong className="break-all">BG60UNCR70001523205219</strong></p>
                 <p>УниКредит Булбанк АД</p>
                 <p>Получател: АГЕНЦИЯ ЗА МЕЖДУНАРОДНА МОБИЛНОСТ ООД</p>
-                <p>Основание: {result.contractNumber}</p>
+                <p>Основание: три имена и ЕГН</p>
+                <p>Сума: <strong>{values.saveExchange ? 481 : 232} евро</strong></p>
               </div>
             </li>
             <li>{t("email.steps.photo")}</li>

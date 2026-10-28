@@ -3,7 +3,7 @@ import { Controller, FormProvider, useForm, useFormContext } from "react-hook-fo
 import { useTranslation } from "react-i18next";
 import { useErrorMessage } from "@/i18n/errors";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, Loader2, ShieldCheck } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -459,13 +459,11 @@ function ProgramStep() {
       <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="full_arranged" {...register("programOption")} /><span><b>Premium Full Arranged · 1699 евро{protection && " + Save Exchange"}</b><br />Избираш работна оферта с наше съдействие.</span></label>
       <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="self_arranged" {...register("programOption")} /><span><b>Self Arranged · 1499 евро{protection && " + Save Exchange"}</b><br />Кандидатстваш с работодател, който си намерил сам.</span></label>
     </fieldset>
-    <section className={cn("rounded-2xl border-2 p-5", protection ? "border-navy-700 bg-slate-50" : "border-slate-200 bg-white")} aria-labelledby="save-exchange-title">
-      <div className="mb-4 flex items-center gap-3"><span className="rounded-xl bg-navy-800 p-2.5 text-white"><ShieldCheck className="h-6 w-6" aria-hidden="true" /></span><span className="text-xs font-bold uppercase tracking-wide text-navy-700">По желание · Препоръчваме</span></div>
-      <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" {...register("saveExchange")} className="mt-1 h-6 w-6 shrink-0 accent-[#12364c]" /><span><b id="save-exchange-title" className="text-lg text-navy-800">Save Exchange · Защита на парите</b><span className="mt-1 block font-semibold">249 евро допълнително</span><span className="mt-3 block text-sm leading-relaxed">Препоръчваме тази защита, ако се наложи да се откажеш от участие поради отказ на виза, здравословни причини, ангажименти към университета или друга лична причина. Възстановяването на внесената програмна такса се извършва в случаите, сроковете и при условията, описани в анекса.</span></span></label>
-      <p className="mt-4 text-xs leading-relaxed text-muted-foreground">Опцията е предварително избрана. Можеш да я махнеш, ако не желаеш Save Exchange. Има изключения съгласно анекса.</p>
+    <section className="rounded-lg border bg-white p-4" aria-labelledby="save-exchange-title">
+      <label className="flex cursor-pointer items-start gap-3"><input type="checkbox" {...register("saveExchange")} className="mt-1 h-5 w-5 shrink-0 accent-[#12364c]" /><span><b id="save-exchange-title" className="text-navy-800">Save Exchange · Защита на парите</b><span className="ml-1 text-sm text-muted-foreground">+249 евро</span><span className="mt-2 block text-sm leading-relaxed text-muted-foreground">За повече спокойствие при отказ на виза, здравословни причини, ангажименти към университета или други лични обстоятелства. Възстановяването на програмната такса е съгласно условията, сроковете и изключенията в анекса.</span></span></label>
     </section>
     {protection && <p className="text-sm">Анексът ще бъде изготвен за крайната цена на избраната програма. Таксата се заплаща до 7 календарни дни от подписването му.</p>}
-    <TextField name="feeAdjustmentEur" label="Корекция" optional inputMode="numeric" placeholder="0" />
+    <TextField name="feeAdjustmentEur" label="Корекция" optional inputMode="numeric" placeholder="0" hint="Попълва се от служител на AIM." />
     <PriceSummary />
   </div>;
 }

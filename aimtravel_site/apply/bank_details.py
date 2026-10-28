@@ -25,14 +25,14 @@ def bank_pdf(application):
         f'Банка: {BANK_NAME}',
         f'IBAN: {BANK_IBAN}',
         'Валута: EUR',
-        f'Основание: {application.contract_number}',
+        'Основание: три имена и ЕГН',
         '',
         'Депозит: 200 евро',
         'SEVIS: 32 евро',
     ]
     if application.save_exchange:
         lines.append(f'Save Exchange: {application.protection_fee_eur} евро')
-    lines += ['', f'Първа вноска: {232 + application.protection_fee_eur} евро',
+    lines += ['', f'Сума: {232 + application.protection_fee_eur} евро',
               'Срок: до 5 работни дни от подписване на договора.']
     if application.save_exchange:
         lines += ['Срок за Save Exchange съгласно анекса:',
