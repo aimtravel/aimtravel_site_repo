@@ -144,7 +144,6 @@ def send_contract_issued_email(application, document):
         "first_payment_eur": DEPOSIT + SEVIS + application.protection_fee_eur,
         "passport_valid_until": application.passport_valid_until,
         "bank_iban": BANK_IBAN, "bank_name": BANK_NAME, "bank_beneficiary": BANK_BENEFICIARY,
-        "total_eur": application.price_eur + application.protection_fee_eur,
     }
     if application.program_option == ProgramOption.FULL_ARRANGED:
         context["program_option"] = "Premium Full Arranged"

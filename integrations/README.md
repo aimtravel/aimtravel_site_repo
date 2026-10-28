@@ -6,8 +6,10 @@ ScriptLock, dispatch `body.action === 'online_registration'` to
 `upsertOnlineRegistration_(body)`. Preserve the original CV submission flow.
 Publish a new version of the existing deployment; do not change its URL or access.
 
-The dedicated “Записани онлайн” sheet uses columns A:T for the export and U for
-staff notes. UUID in T identifies the row. All writes run under the receiver's
+The dedicated “Записани онлайн” sheet uses columns A:S for the export and T for
+staff notes. UUID in S identifies the row. The receiver also accepts the previous
+layout with a base-fee column during rollout, without changing the server payload.
+All writes run under the receiver's
 ScriptLock, and repeat delivery updates the existing row. Staff notes are preserved.
 Amounts are numeric; untrusted text is escaped to prevent spreadsheet formulas.
 EGN, ID card numbers and signed document download links are not exported.

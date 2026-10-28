@@ -14,6 +14,36 @@ from .test_apply_form import ApplicationFormTest
 
 
 class EuroRegistrationTest(ApplicationFormTest):
+    def test_program_price_is_red_and_email_has_no_combined_total(self):
+        from io import BytesIO
+        from zipfile import ZipFile
+        from lxml import etree
+        self.submit(save_exchange=True, fee_adjustment_eur=80)
+        application = Application.objects.get()
+        with application.contract_document.docx.open('rb') as source:
+            with ZipFile(BytesIO(source.read())) as package:
+                xml = etree.fromstring(package.read('word/document.xml'))
+        ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+        red = xml.xpath('//w:r[w:rPr/w:color[@w:val="C00000"]]/w:t/text()', namespaces=ns)
+        self.assertIn('1619', red)
+        for name, content, mime in mail.outbox[0].attachments[:2]:
+            reader = PdfReader(BytesIO(content))
+            colored = []
+            def visit(text, cm, tm, font, size):
+                if '1619' in text:
+                    colored.append(text)
+            for page in reader.pages:
+                page.extract_text(visitor_text=visit)
+            self.assertTrue(colored, name)
+            # ReportLab emits the same explicit red RGB operator in both PDFs.
+            streams = b''.join(page.get_contents().get_data() for page in reader.pages)
+            self.assertIn(b'.752941 0 0 rg', streams)
+        for body in [mail.outbox[0].body, mail.outbox[0].alternatives[0][0]]:
+            self.assertNotIn('Общо:', body)
+            self.assertNotIn('1868', body)
+            self.assertIn('Цена на програмата: 1619', body)
+            self.assertIn('Застраховка Save Exchange: 249', body)
+
     def test_identity_card_accepts_latin_and_cyrillic_letters(self):
         from aimtravel_site.apply.serializers import ApplicationCreateSerializer
         from .test_apply_form import applicant
@@ -98,7 +128,7 @@ class EuroRegistrationTest(ApplicationFormTest):
                       'viber://chat?number=%2B359889966583',
                       'https://www.instagram.com/aimtravel_usa/',
                       'https://www.facebook.com/profile.php?id=100072235954652',
-                      'Общо: 1868 евро']:
+                      'Цена на програмата: 1619 евро', 'Застраховка Save Exchange: 249 евро']:
             self.assertIn(value, html)
 
     def test_numeric_adjustment_rejects_invalid_values(self):
