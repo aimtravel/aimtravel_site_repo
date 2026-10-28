@@ -430,7 +430,7 @@ function PersonalStep() {
     <TextField name="lastName" label="Фамилия" placeholder="Димитров" className="md:col-span-4" />
     <PhoneField className="md:col-span-12" />
     <TextField name="egn" label="ЕГН" inputMode="numeric" placeholder="10 цифри" className="md:col-span-6" />
-    <TextField name="idCardNumber" label="Номер на лична карта" inputMode="numeric" placeholder="9 цифри" className="md:col-span-6" />
+    <TextField name="idCardNumber" label="Номер на лична карта" inputMode="text" placeholder="9 букви и цифри" className="md:col-span-6" />
   </div>;
 }
 
@@ -588,7 +588,7 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
           {t("whatHappens.title")}
         </h3>
         <ol className="grid list-none gap-2 p-0 [counter-reset:n]">
-          {(["reserve", "email", "photo", "agent"] as const).map((k) => (
+          {(["reserve", "email", "photo", "agent", "passport"] as const).map((k) => (
             <li
               key={k}
               className="relative pl-8 text-[13.5px] [counter-increment:n]
@@ -600,6 +600,7 @@ function ContractStep({ onEdit }: { onEdit: (step: number) => void }) {
                 email: v.email,
 
                 season: v.season,
+                passportValidUntil: `30.04.${Number(v.season) + 1}`,
               })}
             </li>
           ))}

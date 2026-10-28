@@ -32,7 +32,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
         <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-coral">
           {t("success.contractLabel")}
         </span>
-        <strong className="font-mono text-[22px] tracking-wider">{result.contractNumber}</strong>
+        <strong className="font-mono text-[22px] tracking-wider">{result.contractNumber} г.</strong>
       </div>
       <p className="text-xs text-muted-foreground">{t("success.keepNumber")}</p>
 
@@ -70,7 +70,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
                 <p>Сума: <strong>{values.saveExchange ? 481 : 232} евро</strong></p>
               </div>
             </li>
-            <li>{t("email.steps.photo")}</li>
+            <li>{t("email.steps.photo", {passportValidUntil: `30.04.${Number(values.season) + 1}`, season: values.season})}</li>
           </ol>
           <div className="flex flex-wrap gap-2 pt-1">
             {[`Dogovor_${result.contractNumber}.pdf`, ...(values.saveExchange ? [`Annex_${result.contractNumber}.pdf`] : []), "AIM_Bank_Details.pdf"].map(

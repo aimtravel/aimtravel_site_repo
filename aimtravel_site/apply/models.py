@@ -153,6 +153,21 @@ class Application(models.Model):
         return f"{self.first_name} {self.middle_name} {self.last_name}"
 
     @property
+    def contract_date(self) -> str:
+        from zoneinfo import ZoneInfo
+        return self.created_at.astimezone(ZoneInfo("Europe/Sofia")).strftime("%d.%m.%Y")
+
+    @property
+    def contract_reference(self) -> str:
+        return f"Договор от {self.contract_date} г." if self.currency == "EUR" else self.contract_number
+
+    @property
+    def passport_valid_until(self) -> str:
+        # Six calendar months after 30 October: April has only 30 days.
+        from datetime import date
+        return date(self.season + 1, 4, 30).strftime("%d.%m.%Y")
+
+    @property
     def office_city(self) -> str:
         return OFFICE_CITY[Office(self.office)]
 

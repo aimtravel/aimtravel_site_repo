@@ -101,10 +101,10 @@ class ApplicationFormTest(TestCase):
         email = mail.outbox[0]
         self.assertEqual(email.to, ["test.applicant@example.com"])
         self.assertEqual(email.bcc, ["studentski@aimtravel.bg", "office-copy@example.com"])
-        self.assertIn(application.contract_number, email.subject)
+        self.assertIn(application.contract_reference, email.subject)
         names = [name for name, _content, _mime in email.attachments]
         self.assertEqual(len(names), 2, names)
-        self.assertTrue(names[0].startswith(f"Dogovor_{application.contract_number}"), names)
+        self.assertTrue(names[0].startswith(f"Dogovor_{application.contract_date}"), names)
         self.assertEqual(names[1], "AIM_Bank_Details.pdf")
         self.assertIsNotNone(application.contract_document.email_sent_at)
 

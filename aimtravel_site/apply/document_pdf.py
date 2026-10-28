@@ -103,7 +103,7 @@ def render_pdf(source, destination):
             table.setStyle(TableStyle([('LEFTPADDING',(0,0),(-1,-1),0),('VALIGN',(0,0),(-1,-1),'TOP')]))
             story.append(table)
             continue
-        style = title if (text.startswith('Договор №') or text == 'АНЕКС №1') else heading if (text.isupper() and len(text) < 100) else body
+        style = title if (text.startswith(('Договор №', 'Договор от')) or text == 'АНЕКС №1') else heading if (text.isupper() and len(text) < 100) else body
         story.append(Paragraph(''.join(pieces).strip(), style))
     if not story:
         raise ValueError('Empty agreement')

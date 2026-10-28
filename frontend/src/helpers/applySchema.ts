@@ -64,7 +64,7 @@ export const step1Schema = z.object({
   phone: z.string().trim().transform(v => v.replace(/[^\d+]/g, ""))
     .refine(v => /^\+359[789]\d{8}$/.test(v), "apply:errors.phone.invalid"),
   egn: z.string().trim().refine(isValidEgn, "apply:errors.egn.checksum"),
-  idCardNumber: z.string().trim().regex(/^\d{9}$/, "apply:errors.idCard.invalid"),
+  idCardNumber: z.string().trim().regex(/^[A-Za-zА-Яа-яЍѝ0-9]{9}$/, "apply:errors.idCard.invalid"),
 });
 export const step2Schema = z.object({
   programOption: z.enum(["full_arranged", "self_arranged"]),

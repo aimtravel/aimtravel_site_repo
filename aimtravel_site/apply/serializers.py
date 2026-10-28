@@ -35,7 +35,7 @@ class ApplicationCreateSerializer(serializers.Serializer):
         error_messages={"invalid": "errors.egn.checksum"},
     )
     id_card_number = serializers.RegexField(
-        r"^\d{9}$", error_messages={"invalid": "errors.idCard.invalid"}
+        r"^[A-Za-zА-Яа-яЍѝ0-9]{9}$", error_messages={"invalid": "errors.idCard.invalid"}
     )
     # --- програма ---
     program_option = serializers.ChoiceField(choices=ProgramOption.choices)
@@ -128,11 +128,14 @@ class ApplicationCreateSerializer(serializers.Serializer):
 
 class ApplicationResultSerializer(serializers.Serializer):
     application_id = serializers.UUIDField(source="public_id", read_only=True)
-    contract_number = serializers.CharField(read_only=True)
+    contract_number = serializers.SerializerMethodField()
     contract_pdf_url = serializers.SerializerMethodField()
     email_sent_to = serializers.EmailField(source="email", read_only=True)
     email_sent = serializers.SerializerMethodField()
     annex_pdf_url = serializers.SerializerMethodField()
+
+    def get_contract_number(self, obj):
+        return obj.contract_date if obj.currency == "EUR" else obj.contract_number
 
     def get_email_sent(self, obj):
         from .models import ContractDocument
