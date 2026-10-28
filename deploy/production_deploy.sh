@@ -144,6 +144,21 @@ if [ -f "$REPO/frontend/package.json" ]; then
   fi
 fi
 
+if [ -f "$REPO/aimtravel_site/apply/document_typography.py" ]; then
+  if ! ( cd "$APP" && "$PY" - <<'PY'
+from pathlib import Path
+import credentials
+from reportlab.pdfbase.ttfonts import TTFont
+folder = Path(getattr(credentials, 'AIM_PDF_FONT_DIR', Path.cwd().parent / 'private_fonts' / 'Arial'))
+for name in ['arial.ttf', 'arialbd.ttf', 'ariali.ttf', 'arialbi.ttf']:
+    TTFont('FontPreflight', str(folder / name))
+PY
+  ) >/dev/null 2>&1; then
+    status failed_preflight "original Arial contract fonts missing or invalid — nothing was changed"
+    exit 1
+  fi
+fi
+
 # ---------------------------------------------------------------- 2. backup
 BK="$BACKUPS/$(date -u +%Y%m%d-%H%M%S)-${SHA:0:7}"
 mkdir -p "$BK" && chmod 700 "$BK" || { status failed_backup "cannot create $BK"; exit 1; }

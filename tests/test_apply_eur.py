@@ -14,6 +14,20 @@ from .test_apply_form import ApplicationFormTest
 
 
 class EuroRegistrationTest(ApplicationFormTest):
+    def test_contract_keeps_original_typography_and_compact_page_count(self):
+        for option, expected_pages in [('full_arranged', 8), ('self_arranged', 7)]:
+            self.submit(program_option=option, save_exchange=True)
+            message = mail.outbox[-2]
+            contract = PdfReader(BytesIO(message.attachments[0][1]))
+            annex = PdfReader(BytesIO(message.attachments[1][1]))
+            self.assertEqual(len(contract.pages), expected_pages)
+            self.assertEqual(len(annex.pages), 2)
+            self.assertAlmostEqual(float(contract.pages[0].mediabox.width), 595.3, places=1)
+            font_names = [str(font.get_object().get('/BaseFont', '')) for page in contract.pages
+                          for font in page['/Resources']['/Font'].get_object().values()]
+            self.assertTrue(any('Arial' in name or 'LiberationSans' in name for name in font_names), font_names)
+            self.assertFalse(any('SofiaSans' in name for name in font_names))
+
     def test_program_price_is_red_and_email_has_no_combined_total(self):
         from io import BytesIO
         from zipfile import ZipFile
@@ -149,7 +163,7 @@ class EuroRegistrationTest(ApplicationFormTest):
             self.assertEqual(mime, 'application/pdf')
             text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
             self.assertIn('1619', text)
-            self.assertIn('хиляда шестстотин и деветнадесет', text)
+            self.assertIn('хиляда шестстотин и деветнадесет', ' '.join(text.split()))
             self.assertNotIn('{{', text)
         self.assertIn('481 евро', mail.outbox[0].body)
         self.assertIn('7 календарни дни', mail.outbox[0].body)
