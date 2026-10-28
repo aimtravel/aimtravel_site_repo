@@ -2,8 +2,8 @@
 
 Прилагаме твоя договор от {{ contract_number }} г. за {{ program_option }}, сезон {{ season }}.
 Цена на програмата: {{ price_eur }} евро.
-{% if save_exchange %}Save Exchange: {{ protection_fee_eur }} евро допълнително.
-{% endif %}Общо: {{ total_eur }} евро.
+{% if save_exchange %}Застраховка Save Exchange: {{ protection_fee_eur }} евро.
+{% endif %}
 
 ПРИКАЧЕНИ ФАЙЛОВЕ
 1. Dogovor_{{ contract_number }}.pdf — прегледай го внимателно и го подпиши.

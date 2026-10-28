@@ -69,6 +69,9 @@ def render_pdf(source, destination):
             bold = run.find('w:rPr/w:b', NS)
             if bold is not None and bold.get(W+'val', '1') not in {'0', 'false'}:
                 text = '<b>' + text + '</b>'
+            color = run.find('w:rPr/w:color', NS)
+            if color is not None and re.fullmatch(r'[0-9A-Fa-f]{6}', color.get(W+'val', '')):
+                text = '<font color="#' + color.get(W+'val') + '">' + text + '</font>'
             pieces.append(text)
         text = ''.join(plain).strip()
         if not text:

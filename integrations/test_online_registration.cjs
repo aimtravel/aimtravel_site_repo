@@ -13,7 +13,7 @@ const sheet = {
       setNumberFormat() { return this; },
       setValues(values) { rows[row-1] ||= []; for(let i=0;i<width;i++) rows[row-1][column-1+i] = values[0][i]; },
       createTextFinder(id) { return {matchEntireCell() { return this; }, findNext() {
-        const i = rows.findIndex((v, i) => i > 0 && v[19] === id);
+        const i = rows.findIndex((v, i) => i > 0 && v[column-1] === id);
         return i < 0 ? null : {getRow: () => i+1};
       }}; }
     };
@@ -33,4 +33,9 @@ const second='00000000-0000-4000-8000-000000000002';
 assert.equal(context.upsertOnlineRegistration_({registrationId:second,values:values.map((v,i)=>i===19?second:v)}).ok,true);
 assert.equal(rows.length,3); assert.equal(maxRows,102);
 assert.equal(context.upsertOnlineRegistration_({registrationId:id,values:values.map((v,i)=>i===9?'=1':v)}).ok,false);
+// Removing the base-fee column must preserve mapping, identifiers and staff notes.
+for (const row of rows) row.splice(7,1);
+assert.equal(context.upsertOnlineRegistration_({registrationId:id,values}).ok,true);
+assert.equal(rows.length,3); assert.equal(rows[1][8],1619);
+assert.equal(rows[1][18],id); assert.equal(rows[1][19],'Staff note');
 console.log('Apps Script: upsert, separate applicants, notes, formula escaping and amount validation passed.');

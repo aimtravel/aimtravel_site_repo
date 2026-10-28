@@ -163,6 +163,8 @@ def render_contract(application):
     docx = directory / f"Dogovor_{application.contract_number}.docx"
     document = DocxTemplate(template)
     document.render(context, autoescape=True)
+    from .price_highlight import highlight_program_price
+    highlight_program_price(document.docx, application.price_eur)
     document.save(docx)
     pdf = _pdf(docx, directory)
     annex = None
@@ -170,6 +172,7 @@ def render_contract(application):
         annex_docx = directory / f"Annex_{application.contract_number}.docx"
         document = DocxTemplate(folder / f"annex_{application.season}.docx")
         document.render(context, autoescape=True)
+        highlight_program_price(document.docx, application.price_eur)
         document.save(annex_docx)
         annex = _pdf(annex_docx, directory)
     return RenderedContract(application.contract_number, docx, pdf, annex)
