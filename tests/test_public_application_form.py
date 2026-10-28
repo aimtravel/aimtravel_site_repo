@@ -52,6 +52,28 @@ class PublicApplicationFormTest(SimpleTestCase):
         self.assertEqual(client.post("/application-form/submit/", self.payload(),
                                     content_type="application/json").status_code, 403)
 
+    def test_fresh_session_token_keeps_csrf_protection_enabled(self):
+        client = Client(enforce_csrf_checks=True)
+        response = client.get('/application-form/session/')
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('no-store', response['Cache-Control'])
+        token = response.json()['csrfToken']
+        self.assertEqual(len(token), 64)
+        self.assertEqual(client.post('/application-form/submit/', self.payload(), content_type='application/json').status_code, 403)
+        payload = self.payload()
+        payload['consent'] = False
+        accepted = client.post('/application-form/submit/', payload, content_type='application/json', HTTP_X_CSRFTOKEN=token)
+        self.assertEqual(accepted.status_code, 400)
+        self.assertIn('agree', accepted.json()['error'])
+
+    def test_validation_identifies_the_field_and_form_is_not_cached(self):
+        self.assertIn('no-store', self.client.get('/application-form/')['Cache-Control'])
+        payload = self.payload()
+        payload['values'][3] = 'София'
+        result = self.submit(payload)
+        self.assertEqual(result.status_code, 400)
+        self.assertIn('address', result.json()['fields'])
+
     def test_cv_is_generated_from_the_shipped_template(self):
         payload = self.payload()
         document = Document(io.BytesIO(form._build_resume(

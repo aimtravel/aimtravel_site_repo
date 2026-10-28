@@ -3,7 +3,7 @@ from django.urls import path, include
 from aimtravel_site.web.views import *
 from aimtravel_site.web.favorites import favorites_page, remove_favorite, favorite_inquiry, export_favorites
 from aimtravel_site.web.wat_registration import wat_2027_registration
-from aimtravel_site.web.application_form_view import application_form_page, application_form_submit
+from aimtravel_site.web.application_form_view import application_form_page, application_form_submit, application_form_session
 
 from aimtravel_site.web.contact_inquiry import contact_captcha, contact_inquiry
 
@@ -12,6 +12,7 @@ urlpatterns = (
     path('contact-inquiry/', contact_inquiry, name='contact inquiry'),
     path('application-form/', application_form_page, name='application form'),
     path('application-form/submit/', application_form_submit, name='application form submit'),
+    path('application-form/session/', application_form_session, name='application form session'),
     path('wat-2027/registracia/', wat_2027_registration, name='wat 2027 registration'),
     path('rabotnioferti/lyubimi/', favorites_page, name='favorite offers'),
     path('rabotnioferti/lyubimi/remove/', remove_favorite, name='remove favorite'),
