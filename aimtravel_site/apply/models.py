@@ -135,6 +135,8 @@ class Application(models.Model):
     status = models.CharField(max_length=24, choices=ApplicationStatus.choices,
                               default=ApplicationStatus.CONTRACT_ISSUED)
     created_at = models.DateTimeField(auto_now_add=True)
+    sheets_synced_at = models.DateTimeField(null=True, blank=True)
+    sheets_sync_error = models.CharField(max_length=200, blank=True)
 
     class Meta:
         indexes = [

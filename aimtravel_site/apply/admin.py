@@ -19,14 +19,14 @@ class ApplicationAdmin(admin.ModelAdmin):
     search_fields = ("contract_number", "email", "first_name", "last_name", "phone")
     date_hierarchy = "created_at"
     inlines = [ContractDocumentInline]
-    actions = ["resend_email", "regenerate_contract", "retry_staff_notification"]
+    actions = ["resend_email", "regenerate_contract", "retry_staff_notification", "sync_google_sheet"]
 
     # ЕГН и лична карта се четат, но не се редактират от админа — договорът
     # вече е издаден с тях и промяна тук би го направила невалиден.
     readonly_fields = ("public_id", "contract_number", "egn", "id_card_number",
                        "currency", "base_price_eur", "discount_eur", "price_eur",
                        "discount_code", "save_exchange", "protection_fee_eur",
-                       "created_at", "consent_ip", "consent_user_agent",
+                       "created_at", "sheets_synced_at", "sheets_sync_error", "consent_ip", "consent_user_agent",
                        "accepted_terms_at", "declared_truth_at", "accepted_gdpr_at")
 
     @admin.action(description="Изпрати имейла отново")
@@ -52,6 +52,13 @@ class ApplicationAdmin(admin.ModelAdmin):
                 f"Неуспешно изпращане за: {', '.join(failed)}. Виж лога на сървъра.",
                 level=messages.ERROR,
             )
+
+    @admin.action(description="Синхронизирай с „Записани онлайн“")
+    def sync_google_sheet(self, request, queryset):
+        from .sheets_sync import sync_registration
+        applications = list(queryset.filter(currency="EUR").select_related("contract_document"))
+        count = sum(bool(sync_registration(application)) for application in applications)
+        self.message_user(request, f"Синхронизирани {count} от {len(applications)} регистрации.")
 
     @admin.action(description="Генерирай договора отново")
     def regenerate_contract(self, request, queryset):

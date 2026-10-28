@@ -1,0 +1,37 @@
+
+// Online registration export. Called only after the existing secret check,
+// while doPost holds its existing ScriptLock. Column U belongs to AIM staff.
+function upsertOnlineRegistration_(body) {
+  const id = String(body.registrationId || '');
+  const values = body.values;
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id) ||
+      !Array.isArray(values) || values.length !== 20 || values[19] !== id) {
+    return json_({ok:false, error:'invalid_registration'});
+  }
+  const numeric = [6,7,8,9,11,12,13];
+  for (let i = 0; i < values.length; i++) {
+    if (numeric.indexOf(i) !== -1) {
+      if (!Number.isSafeInteger(values[i]) || values[i] < 0 || values[i] > 100000) return json_({ok:false, error:'invalid_amount'});
+    } else if (typeof values[i] !== 'string' || values[i].length > 1000) {
+      return json_({ok:false, error:'invalid_field'});
+    }
+  }
+  const sheet = SpreadsheetApp.openById('1-D3RRDoeixPiejumVTymNs9Xnplv4LPz6F3tNQwOehE').getSheetByName('Записани онлайн');
+  if (!sheet || sheet.getRange(1,20).getValue() !== 'ID регистрация') return json_({ok:false, error:'sheet_not_ready'});
+  const last = sheet.getLastRow();
+  const existing = last > 1 ? sheet.getRange(2,20,last-1,1).createTextFinder(id).matchEntireCell(true).findNext() : null;
+  const row = existing ? existing.getRow() : last + 1;
+  if (row > sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(),100);
+  const safe = values.map(function(value,i) {
+    if (numeric.indexOf(i) !== -1) return value;
+    return /^[=+@-]/.test(value) ? "'" + value : value;
+  });
+  const range = sheet.getRange(row,1,1,20);
+  range.setNumberFormat('@');
+  range.setValues([safe]);
+  sheet.getRange(row,7).setNumberFormat('0');
+  sheet.getRange(row,8,1,3).setNumberFormat('#,##0.00');
+  sheet.getRange(row,12,1,3).setNumberFormat('#,##0.00');
+  SpreadsheetApp.flush();
+  return json_({ok:true, registrationId:id});
+}
