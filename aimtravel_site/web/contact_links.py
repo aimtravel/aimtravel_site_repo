@@ -1,12 +1,12 @@
 """Public, fixed contact links; no participant data or redirects."""
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.views.decorators.http import require_safe
 
 
 @require_safe
 def viber_contact(request):
-    return render(request, 'viber_contact.html')
+    # Compatibility for emails already sent with the former HTTPS destination.
+    return HttpResponse(status=302, headers={'Location': 'viber://chat?number=%2B359889966583'})
 
 
 @require_safe
