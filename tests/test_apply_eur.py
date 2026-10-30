@@ -28,10 +28,9 @@ class EuroRegistrationTest(ApplicationFormTest):
             self.assertTrue(any('Arial' in name or 'LiberationSans' in name for name in font_names), font_names)
             self.assertFalse(any('SofiaSans' in name for name in font_names))
             for document in (contract, annex):
-                for page in document.pages:
+                for number, page in enumerate(document.pages, 1):
                     text = page.extract_text()
-                    self.assertIn('За ИЗПЪЛНИТЕЛЯ:', text)
-                    self.assertIn('ВЪЗЛОЖИТЕЛ:', text)
+                    self.assertEqual(text.splitlines()[4:6], ['Подпис ………………', str(number)])
             text = ' '.join(''.join(page.extract_text() for page in contract.pages).split())
             self.assertIn('в работни дни от 09:30 до 17:30 ч.', text)
             self.assertNotIn('24 часа в денонощието', text)
