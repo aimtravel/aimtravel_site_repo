@@ -137,7 +137,7 @@
                                     ОТСТЪПКА</p>
                             {% endif %}
                             <div class="slider-btn" id="slider-1-button">
-                                <a href="{{ second_slider.button_link }}"
+                                <a href="{% if 'запиши се' in second_slider.button_text|lower %}{% url 'apply-zapisvane' %}{% else %}{{ second_slider.button_link }}{% endif %}"
                                    target="_blank">
                                     <script>
                                         function gtag_report_conversion(url) {
@@ -161,7 +161,7 @@
                             <h1>{{ third_slider.main_title }}</h1>
                             <p>{{ third_slider.content1 }}</p>
                             <div class="slider-btn" id="slider-2-button">
-                                <a href="{{ third_slider.button_link }}">{{ third_slider.button_text }}</a>
+                                <a href="{% if 'запиши се' in third_slider.button_text|lower %}{% url 'apply-zapisvane' %}{% else %}{{ third_slider.button_link }}{% endif %}">{{ third_slider.button_text }}</a>
                             </div>
                         </div>
                         <div id="slider-3">
@@ -227,7 +227,7 @@
                 <p>{{ about.content1 }}</p>
                 <p>{{ about.content2 }}</p>
                 <div class="slider-btn resp">
-                    <a href="{{ about.button_link }}"
+                    <a href="{% if 'запиши се' in about.button_text|lower %}{% url 'apply-zapisvane' %}{% else %}{{ about.button_link }}{% endif %}"
                        target="_blank">
                         <script>
                             function gtag_report_conversion(url) {
@@ -270,7 +270,7 @@
                     <p>{{ cta.content1 }}</p>
                 </div>
                 <div class="slider-btn">
-                    <a href="{{ cta.button_link }}" target="_blank">
+                    <a href="{% if 'запиши се' in cta.button_text|lower %}{% url 'apply-zapisvane' %}{% else %}{{ cta.button_link }}{% endif %}" target="_blank">
                         <script>
                             function gtag_report_conversion(url) {
                                 var callback = function () {
@@ -574,7 +574,7 @@
                 </div>
             </div>
             <div class="slider-btn" id="video-more-btn">
-                <a href="{{ video.button_link }}"
+                <a href="{% if 'запиши се' in video.button_text|lower %}{% url 'apply-zapisvane' %}{% else %}{{ video.button_link }}{% endif %}"
                    target="_blank">
                     <script>
                         function gtag_report_conversion(url) {

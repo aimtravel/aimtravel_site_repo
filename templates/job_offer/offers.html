@@ -166,7 +166,7 @@ header#offers-header #header-nav.sticky{position:fixed;top:0}
                     <span class="offers-hero__status">Виждаш реалните наличности</span>
                 {% else %}
                     <a class="offers-hero__button offers-hero__button--ghost"
-                       href="https://docs.google.com/forms/d/e/1FAIpQLSfTrITzNwfLpNJoHx6gy6zZVOuPaW_CMZoHt08SfdxepdNzeQ/viewform"
+                       href="{% url 'apply-zapisvane' %}"
                        target="_blank" rel="noopener">Запиши се онлайн</a>
                 {% endif %}
             </div>
