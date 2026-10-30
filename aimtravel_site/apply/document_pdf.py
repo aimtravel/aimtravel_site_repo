@@ -153,7 +153,7 @@ def render_pdf(source, destination):
         story[signature_start:] = [KeepTogether(story[signature_start:])]
 
     header_lines = re.split(r'(?=Website:|Email:|Instagram:)', header_text)
-    footer_labels = ('За ИЗПЪЛНИТЕЛЯ: ………………', 'ВЪЗЛОЖИТЕЛ: ………………')
+    footer_labels = ('Подпис ………………',)
 
     def page_frame(canvas, doc):
         canvas.saveState()
@@ -167,8 +167,7 @@ def render_pdf(source, destination):
         for index, line in enumerate(header_lines):
             canvas.drawRightString(page_width-geometry['rightMargin'], page_height - 24 - index * 9.6, line)
         canvas.setFont('AIMOriginal', 8)
-        canvas.drawString(geometry['leftMargin'], 30, footer_labels[0])
-        canvas.drawRightString(page_width-geometry['rightMargin'], 30, footer_labels[1])
+        canvas.drawRightString(page_width-geometry['rightMargin'], 30, footer_labels[0])
         canvas.drawCentredString(page_width / 2, 30, str(doc.page))
         canvas.restoreState()
 

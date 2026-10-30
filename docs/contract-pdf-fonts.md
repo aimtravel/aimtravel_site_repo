@@ -13,8 +13,8 @@ can use its installed Arial family; Linux CI installs Liberation Sans as a
 metrically compatible substitute. Rendering fails if neither family is present.
 
 The renderer reserves at least 66 pt above the body and 60 pt below it for
-print-safe headers and a signature band. Both parties have a signature field
-on every contract and annex page, independent of the source footer. The
+print-safe headers and a signature band. A student-only field labelled
+“Подпис” appears on every contract and annex page, independent of the source footer. The
 generated PDF is checked against every source paragraph before delivery;
 verification failure stops generation without logging participant text.
 
