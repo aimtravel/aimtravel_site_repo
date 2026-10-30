@@ -15,7 +15,7 @@ from .test_apply_form import ApplicationFormTest
 
 class EuroRegistrationTest(ApplicationFormTest):
     def test_contract_keeps_original_typography_and_compact_page_count(self):
-        for option, expected_pages in [('full_arranged', 8), ('self_arranged', 7)]:
+        for option, expected_pages in [('full_arranged', 8), ('self_arranged', 8)]:
             self.submit(program_option=option, save_exchange=True)
             message = mail.outbox[-2]
             contract = PdfReader(BytesIO(message.attachments[0][1]))
@@ -27,6 +27,26 @@ class EuroRegistrationTest(ApplicationFormTest):
                           for font in page['/Resources']['/Font'].get_object().values()]
             self.assertTrue(any('Arial' in name or 'LiberationSans' in name for name in font_names), font_names)
             self.assertFalse(any('SofiaSans' in name for name in font_names))
+            for document in (contract, annex):
+                for page in document.pages:
+                    text = page.extract_text()
+                    self.assertIn('За ИЗПЪЛНИТЕЛЯ:', text)
+                    self.assertIn('ВЪЗЛОЖИТЕЛ:', text)
+            text = ' '.join(''.join(page.extract_text() for page in contract.pages).split())
+            self.assertIn('в работни дни от 09:30 до 17:30 ч.', text)
+            self.assertNotIn('24 часа в денонощието', text)
+            self.assertRegex(text, r'24[- ]часова телефонна линия за спешни случаи')
+
+    def test_pdf_content_verification_rejects_missing_contract_text(self):
+        from pypdf import PdfWriter
+        from aimtravel_site.apply.document_pdf import validate_pdf_text
+        document = BytesIO()
+        writer = PdfWriter()
+        writer.add_blank_page(width=595, height=842)
+        writer.write(document)
+        document.seek(0)
+        with self.assertRaisesRegex(ValueError, 'paragraph 1'):
+            validate_pdf_text(['Required contractual clause'], document)
 
     def test_program_price_is_red_and_email_has_no_combined_total(self):
         from io import BytesIO
