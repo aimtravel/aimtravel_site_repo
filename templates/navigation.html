@@ -524,7 +524,7 @@
             <div class="vl">
                 <hr>
             </div>
-            <a href="{% url 'wat 2027 registration' %}" id="top-header-left-p3" class="wat-registration-link">Регистрирай се</a>
+            <a href="{% url 'apply-zapisvane' %}" id="top-header-left-p3" class="wat-registration-link">Регистрирай се</a>
         </div>
         <div id="top-header-right">
             <p id="top-header-right-p1">Последвай ни в:</p>
@@ -634,7 +634,7 @@
                 <a class="target-element link-a" id="online-services" href="{% url 'online' %}">Онлайн услуги</a>
                 <div class="tooltip">
                     <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
-                    <a href="{% url 'online' %}#online-register-anchor">Запиши се</a>
+                    <a href="{% url 'apply-zapisvane' %}">Запиши се</a>
                 </div>
                 <span class="dropdown-icon"></span>
             </li>
@@ -695,7 +695,7 @@
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                 </div>
             </li>
-                        <li class="offers-nav-register"><a href="/wat-2027/registracia/">РЕГИСТРИРАЙ СЕ</a></li>
+                        <li class="offers-nav-register"><a href="/zapisvane-za-brigada/">РЕГИСТРИРАЙ СЕ</a></li>
 </ul>
     </nav>
     <nav id="navbar-responsive" class="responsive-left">
@@ -771,7 +771,7 @@
                 <div class="sub-element">
                     <a href="{% url 'online' %}">Онлайн услуги</a>
                     <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
-                    <a href="{% url 'online' %}#online-register-anchor">Запиши се</a>
+                    <a href="{% url 'apply-zapisvane' %}">Запиши се</a>
                 </div>
 
             </li>
@@ -819,7 +819,7 @@
                 </a>
             </li>
             <li class="wat-registration-mobile">
-                <a href="{% url 'wat 2027 registration' %}">Регистрирай се</a>
+                <a href="{% url 'apply-zapisvane' %}">Регистрирай се</a>
             </li>
             <li>
                 {% if user.is_authenticated %}
