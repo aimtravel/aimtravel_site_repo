@@ -9,8 +9,10 @@ from pathlib import Path
 import re
 from xml.sax.saxutils import escape
 from zipfile import ZipFile
+import unicodedata
 
 from lxml import etree
+from pypdf import PdfReader
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import BaseDocTemplate, PageTemplate, Frame, Paragraph, Table, TableStyle, PageBreak, Spacer, KeepTogether
@@ -18,6 +20,30 @@ from .document_typography import register_original_fonts, paragraph_style, run_s
 
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 W = '{' + NS['w'] + '}'
+
+
+def _compact_text(text):
+    return re.sub(r'\s+', '', unicodedata.normalize('NFKC', text)).replace('\u00ad', '')
+
+
+def validate_pdf_text(paragraphs, destination, page_labels=()):
+    """Fail before delivery if any source paragraph is missing from the PDF."""
+    reader = PdfReader(destination)
+    bodies = []
+    for number, page in enumerate(reader.pages, 1):
+        text = _compact_text(page.extract_text() or '')
+        if page_labels:
+            prefix = _compact_text(''.join(page_labels) + str(number))
+            if not text.startswith(prefix):
+                raise ValueError(f'PDF page furniture verification failed on page {number}')
+            text = text[len(prefix):]
+        bodies.append(text)
+    # Exclude repeated headers/footers between fragments of a split paragraph.
+    rendered = ''.join(bodies)
+    for index, text in enumerate(paragraphs, 1):
+        if _compact_text(text) not in rendered:
+            # Never include contract text or participant details in logs.
+            raise ValueError(f'PDF content verification failed at paragraph {index}')
 
 
 def render_pdf(source, destination):
@@ -35,12 +61,13 @@ def render_pdf(source, destination):
             raise ValueError('Different section geometry requires a reviewed PDF layout')
         # Word wraps around its floating header; reserve its occupied height here
         # so continuing paragraphs cannot collide with the logo/contact details.
-        geometry['topMargin'] = max(geometry['topMargin'], 50)
+        geometry['topMargin'] = max(geometry['topMargin'], 66)
+        # Reserve a print-safe signature band on every page, outside the frame.
+        geometry['bottomMargin'] = max(geometry['bottomMargin'], 60)
         page_width, page_height = geometry['pagesize']
         column_width = (page_width - geometry['leftMargin'] - geometry['rightMargin']) / 2
         logo = package.read('word/media/image1.jpeg') if 'word/media/image1.jpeg' in package.namelist() else None
         header_text = ''
-        signature_footer = False
         for name in package.namelist():
             if re.fullmatch(r'word/(header|footer)\d+\.xml', name):
                 part = etree.fromstring(package.read(name))
@@ -50,10 +77,10 @@ def render_pdf(source, destination):
                         raise ValueError('Different section headers require review')
                     header_text = text
                 if 'footer' in name and text:
-                    signature_footer = signature_footer or 'Подпис' in text
                     if not re.fullmatch(r'[\d\s/.…]+|[\d\s]*Подпис[\s.…]+|Страница \d+ от \d+', text):
                         raise ValueError('Footer text needs explicit rendering: ' + name)
     story = []
+    source_texts = []
     previous_signature_heading = False
     signature_zone = False
     signature_start = None
@@ -81,6 +108,7 @@ def render_pdf(source, destination):
                 text = '<font color="#' + color.get(W+'val') + '">' + text + '</font>'
             pieces.append('<font size="' + str(run_size(run, body.fontSize)) + '">' + text + '</font>')
         text = ''.join(plain).strip()
+        source_texts.append(text)
         if not text:
             story.append(Spacer(1, body.leading + body.spaceBefore + body.spaceAfter))
             continue
@@ -124,21 +152,24 @@ def render_pdf(source, destination):
     if signature_start is not None:
         story[signature_start:] = [KeepTogether(story[signature_start:])]
 
+    header_lines = re.split(r'(?=Website:|Email:|Instagram:)', header_text)
+    footer_labels = ('За ИЗПЪЛНИТЕЛЯ: ………………', 'ВЪЗЛОЖИТЕЛ: ………………')
+
     def page_frame(canvas, doc):
         canvas.saveState()
         if logo:
             image = ImageReader(BytesIO(logo))
             width, height = image.getSize()
             draw_height = min(35, 150 * height / width)
-            canvas.drawImage(image, geometry['leftMargin'], page_height - 49, width=draw_height * width / height,
+            canvas.drawImage(image, geometry['leftMargin'], page_height - 57, width=draw_height * width / height,
                              height=draw_height, mask='auto')
         canvas.setFont('AIMOriginal', 8)
-        for index, line in enumerate(re.split(r'(?=Website:|Email:|Instagram:)', header_text)):
-            canvas.drawRightString(page_width-geometry['rightMargin'], page_height - 18 - index * 9.6, line)
+        for index, line in enumerate(header_lines):
+            canvas.drawRightString(page_width-geometry['rightMargin'], page_height - 24 - index * 9.6, line)
         canvas.setFont('AIMOriginal', 8)
-        if signature_footer:
-            canvas.drawString(geometry['leftMargin'], 18, 'Подпис …………')
-        canvas.drawRightString(page_width-geometry['rightMargin'], 18, str(doc.page))
+        canvas.drawString(geometry['leftMargin'], 30, footer_labels[0])
+        canvas.drawRightString(page_width-geometry['rightMargin'], 30, footer_labels[1])
+        canvas.drawCentredString(page_width / 2, 30, str(doc.page))
         canvas.restoreState()
 
     document = BaseDocTemplate(str(destination), **geometry,
@@ -148,4 +179,5 @@ def render_pdf(source, destination):
                   leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
     document.addPageTemplates(PageTemplate(id='original', frames=[frame], onPage=page_frame))
     document.build(story)
+    validate_pdf_text(source_texts, destination, [*header_lines, *footer_labels])
     return Path(destination)

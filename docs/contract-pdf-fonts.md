@@ -12,6 +12,12 @@ An alternate directory can be set with `AIM_PDF_FONT_DIR`. Windows development
 can use its installed Arial family; Linux CI installs Liberation Sans as a
 metrically compatible substitute. Rendering fails if neither family is present.
 
-The reviewed standard examples produce 8 pages for Full Arranged, 7 for Self
+The renderer reserves at least 66 pt above the body and 60 pt below it for
+print-safe headers and a signature band. Both parties have a signature field
+on every contract and annex page, independent of the source footer. The
+generated PDF is checked against every source paragraph before delivery;
+verification failure stops generation without logging participant text.
+
+The reviewed standard examples produce 8 pages for Full Arranged, 8 for Self
 Arranged and 2 for the annex. Longer applicant details may affect pagination;
 content is never shortened to force a page count.
