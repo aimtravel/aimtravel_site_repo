@@ -31,7 +31,7 @@ IBAN: {{ bank_iban }}
 • 2 снимки 5×5 см и електронен вариант от фотостудиото.
 
 ВРЪЗКА С НАС
-Viber: viber://chat?number=%2B359889966583
+Viber: https://aimtravel.bg/viber/
 Телефон: +359 88 99 66 583
 Instagram: https://www.instagram.com/aimtravel_usa/
 Facebook: https://www.facebook.com/profile.php?id=100072235954652

@@ -1,0 +1,52 @@
+{% load static %}
+<!doctype html>
+<html lang="bg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Viber | AIM Travel</title>
+  <meta name="robots" content="noindex, follow">
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#f4f3ef;color:#172b38;font:17px/1.6 Arial,sans-serif}
+    main{max-width:560px;margin:40px auto;padding:32px;background:white;border:1px solid #deded8;border-radius:18px}
+    .logo{display:block;width:76px;height:76px;object-fit:contain;margin-bottom:24px}h1{font-size:30px;line-height:1.2;margin:0 0 12px}p{margin:12px 0}
+    .lead{color:#58616b}.button,button{display:block;width:100%;padding:14px 18px;border:1px solid #665cac;border-radius:9px;background:#665cac;color:white;font:700 16px/1.4 Arial,sans-serif;text-align:center;text-decoration:none;cursor:pointer}
+    .secondary{color:#51458c;background:white;margin-top:12px}.number{display:flex;gap:10px;margin:22px 0}
+    input{min-width:0;flex:1;width:100%;padding:12px;border:1px solid #b9bbc2;border-radius:8px;background:white;color:#172b38;font:700 19px Arial,sans-serif}
+    .number button{width:auto;font-size:14px;padding:10px}.fallback{border-top:1px solid #deded8;margin-top:26px;padding-top:20px;font-size:15px}
+    h2{font-size:18px;margin:0 0 8px}a{color:#51458c}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #356da1;outline-offset:4px}
+    #copy-status{font-size:14px;min-height:22px;margin-top:-12px}.back{display:inline-block;margin-top:22px;font-size:15px}
+    @media(max-width:600px){main{margin:16px;padding:24px}.number{flex-wrap:wrap}.number input{flex-basis:100%}.number button{width:100%}}
+  </style>
+</head>
+<body>
+<main>
+  <a href="/"><img class="logo" src="{% static 'img/Ready-stock/Logo/AIM_logo-ROUNDED.png' %}" alt="AIM Travel"></a>
+  <h1>Пиши ни във Viber</h1>
+  <p class="lead">За въпросите ти за бригадата, документите или записването.</p>
+  <div class="number"><input id="viber-number" aria-label="Viber номер на AIM Travel" value="+359889966583" readonly><button id="copy-number" type="button">Копирай номера</button></div>
+  <p id="copy-status" role="status" aria-live="polite"></p>
+  <a class="button" href="viber://chat?number=%2B359889966583">Отвори Viber</a>
+  <section class="fallback" aria-labelledby="viber-help">
+    <h2 id="viber-help">Ако чатът не се отвори</h2>
+    <p>Запази номера в телефона си, отвори Viber и избери AIM Travel от контактите.</p>
+    <a class="button secondary" href="/viber/contact.vcf">Запази AIM Travel в контактите</a>
+    <p>Можеш и да ни се обадиш на <a href="tel:+359889966583">+359 88 99 66 583</a>.</p>
+  </section>
+  <a class="back" href="/contacts/">Към всички контакти</a>
+</main>
+<script>
+document.getElementById('copy-number').addEventListener('click', async function () {
+  const number = document.getElementById('viber-number');
+  const status = document.getElementById('copy-status');
+  try {
+    await navigator.clipboard.writeText(number.value);
+    status.textContent = 'Номерът е копиран.';
+  } catch (_) {
+    number.focus(); number.select(); number.setSelectionRange(0, number.value.length);
+    status.textContent = 'Избери „Копирай“ за маркирания номер.';
+  }
+});
+</script>
+</body>
+</html>

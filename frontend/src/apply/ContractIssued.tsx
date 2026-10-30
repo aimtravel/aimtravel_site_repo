@@ -86,7 +86,7 @@ export function ContractIssued({ result, values }: ContractIssuedProps) {
           </div>
           <div className="border-t pt-4"><p className="mb-3 font-bold text-navy-800">Насреща сме</p>
             <div className="flex flex-wrap gap-2">
-              <Button asChild className="bg-[#665cac] text-white hover:bg-[#554b96]"><a href="viber://chat?number=%2B359889966583">Viber</a></Button>
+              <Button asChild className="bg-[#665cac] text-white hover:bg-[#554b96]"><a href="https://aimtravel.bg/viber/">Viber</a></Button>
               <Button asChild className="bg-[#a22c67] text-white hover:bg-[#872456]"><a href="https://www.instagram.com/aimtravel_usa/">Instagram</a></Button>
               <Button asChild className="bg-[#1864bd] text-white hover:bg-[#14539e]"><a href="https://www.facebook.com/profile.php?id=100072235954652">Facebook</a></Button>
             </div>
