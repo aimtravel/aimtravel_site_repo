@@ -152,7 +152,6 @@ def send_contract_issued_email(application, document):
         subject=f"{application.contract_reference} | Work and Travel {application.season}",
         body=render_to_string("email/contract_issued_eur.txt", context),
         from_email=destination, to=[application.email],
-        bcc=list(dict.fromkeys([destination, *settings.AIM_CONTRACT_EMAIL_BCC])),
         reply_to=[destination], headers={"X-AIM-Contract": application.contract_number},
     )
     message.attach_alternative(render_to_string("email/contract_issued_eur.html", context), "text/html")

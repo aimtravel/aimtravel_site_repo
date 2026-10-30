@@ -100,7 +100,8 @@ class ApplicationFormTest(TestCase):
         self.assertEqual(len(mail.outbox), 2)
         email = mail.outbox[0]
         self.assertEqual(email.to, ["test.applicant@example.com"])
-        self.assertEqual(email.bcc, ["studentski@aimtravel.bg", "office-copy@example.com"])
+        self.assertEqual(email.recipients(), ["test.applicant@example.com"])
+        self.assertEqual(email.bcc, [])
         self.assertIn(application.contract_reference, email.subject)
         names = [name for name, _content, _mime in email.attachments]
         self.assertEqual(len(names), 2, names)
