@@ -88,7 +88,6 @@ PUBLIC_PAGES = [
     "sign up",
     "password_reset",
     "contacts",
-    "viber contact",
     "wat usa",
     "online",
     "internship",
@@ -123,7 +122,10 @@ class PublicPagesRenderTest(SeededTestCase):
         self.assertIn(b'\r\nTEL;TYPE=CELL:+359889966583\r\n', response.content)
         self.assertTrue(response.content.endswith(b'END:VCARD\r\n'))
         self.assertEqual(self.client.head(reverse('viber contact card')).status_code, 200)
-        self.assertEqual(self.client.head(reverse('viber contact')).status_code, 200)
+        for method in (self.client.get, self.client.head):
+            response = method(reverse('viber contact'))
+            self.assertEqual(response.status_code, 302)
+            self.assertEqual(response['Location'], 'viber://chat?number=%2B359889966583')
 
     def test_public_pages_render(self):
         for name in PUBLIC_PAGES:
