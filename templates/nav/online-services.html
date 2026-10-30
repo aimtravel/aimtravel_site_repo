@@ -75,6 +75,7 @@
 #offer-details-header{height:84px!important;width:100%!important;max-width:100%;box-sizing:border-box;margin-inline:0!important;left:0!important}
 #aim-online-services{display:block;width:100%;max-width:none;padding:0;margin:0}
 #aim-online-services div{display:block}
+#aim-online-services .os-journey{display:block}
 #aim-online-services [id]{scroll-margin-top:110px}
 #aim-online-services h1,#aim-online-services h2,#aim-online-services h3{text-transform:none}
 #aim-online-services .os-button:disabled{opacity:.55;cursor:not-allowed}
@@ -255,7 +256,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 </head>
 
 <body id="offer-details-page">
-<header id="offer-details-header">{% include 'navigation.html' %}</header>
+<header id="offer-details-header">{% include 'navigation.html' with online_services_page=True %}</header>
 <main id="aim-online-services" aria-label="Онлайн услуги">
       <div class="os-wrap">
         <section class="os-hero" aria-labelledby="os-hero-title">

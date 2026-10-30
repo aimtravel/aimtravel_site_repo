@@ -524,7 +524,7 @@
             <div class="vl">
                 <hr>
             </div>
-            <a href="{% url 'apply-zapisvane' %}" id="top-header-left-p3" class="wat-registration-link">Регистрирай се</a>
+            <a href="{% url 'apply-zapisvane' %}" id="top-header-left-p3" class="wat-registration-link">{% if online_services_page %}Запиши се{% else %}Регистрирай се{% endif %}</a>
         </div>
         <div id="top-header-right">
             <p id="top-header-right-p1">Последвай ни в:</p>
@@ -695,7 +695,7 @@
                         БЕЗПЛАТНА КОНСУЛТАЦИЯ</a>
                 </div>
             </li>
-                        <li class="offers-nav-register"><a href="/zapisvane-za-brigada/">РЕГИСТРИРАЙ СЕ</a></li>
+                        <li class="offers-nav-register"><a href="/zapisvane-za-brigada/">{% if online_services_page %}ЗАПИШИ СЕ{% else %}РЕГИСТРИРАЙ СЕ{% endif %}</a></li>
 </ul>
     </nav>
     <nav id="navbar-responsive" class="responsive-left">
@@ -819,7 +819,7 @@
                 </a>
             </li>
             <li class="wat-registration-mobile">
-                <a href="{% url 'apply-zapisvane' %}">Регистрирай се</a>
+                <a href="{% url 'apply-zapisvane' %}">{% if online_services_page %}Запиши се{% else %}Регистрирай се{% endif %}</a>
             </li>
             <li>
                 {% if user.is_authenticated %}
