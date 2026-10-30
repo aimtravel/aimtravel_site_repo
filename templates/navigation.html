@@ -630,14 +630,7 @@
                 </div>
                 <span class="dropdown-icon"></span>
             </li>
-            <li class="dropdown link-a">
-                <a class="target-element link-a" id="online-services" href="{% url 'online' %}">Онлайн услуги</a>
-                <div class="tooltip">
-                    <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
-                    <a href="{% url 'apply-zapisvane' %}">Запиши се</a>
-                </div>
-                <span class="dropdown-icon"></span>
-            </li>
+            <li><a class="link-a" id="online-services" href="{% url 'online' %}">Онлайн услуги</a></li>
             <li><a href="{% url 'index' %}"><img id="logo"
                                                  src="{% static "img/Ready-stock/Logo/AIM_logo-ROUNDED.png" %}" alt=""></a>
             </li>
@@ -749,31 +742,11 @@
 
             </li>
             <li>
-                <div class="main-element" id="online-services">
+                <a id="online-services" href="{% url 'online' %}">
                     <div class="main-element-header">
                         <p>Онлайн услуги</p>
-                        <div class="arrow-down">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
-                                 fill="none">
-                                <path d="M10 15L20 25L30 15" stroke="#00355E" stroke-width="3" stroke-linecap="round"
-                                      stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-                        <div class="arrow-up">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 40 40"
-                                 fill="none">
-                                <path d="M10 25L20 15L30 25" stroke="#00355E" stroke-width="3" stroke-linecap="round"
-                                      stroke-linejoin="round"/>
-                            </svg>
-                        </div>
                     </div>
-                </div>
-                <div class="sub-element">
-                    <a href="{% url 'online' %}">Онлайн услуги</a>
-                    <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
-                    <a href="{% url 'apply-zapisvane' %}">Запиши се</a>
-                </div>
-
+                </a>
             </li>
             <li>
                 <div class="main-element" id="other-services">
