@@ -112,8 +112,14 @@ class EuroRegistrationTest(ApplicationFormTest):
         from aimtravel_site.apply.tasks import send_contract_email_task
         self.submit(save_exchange=True)
         app = Application.objects.get()
+        student_email = mail.outbox[0]
+        self.assertEqual(student_email.recipients(), [app.email])
+        self.assertEqual(student_email.cc, [])
+        self.assertEqual(student_email.bcc, [])
+        self.assertEqual(student_email.reply_to, ['studentski@aimtravel.bg'])
         notification = mail.outbox[1]
-        self.assertEqual(notification.to, ['studentski@aimtravel.bg'])
+        self.assertEqual(notification.recipients(), ['studentski@aimtravel.bg'])
+        self.assertEqual(notification.attachments, [])
         self.assertTrue(notification.subject.startswith('Нов записан участник онлайн'))
         self.assertIn(app.full_name_latin, notification.body)
         self.assertIn('481 евро', notification.body)
