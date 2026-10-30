@@ -1,15 +1,15 @@
 """Public, fixed contact links; no participant data or redirects."""
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_safe
 
 
-@require_GET
+@require_safe
 def viber_contact(request):
     return render(request, 'viber_contact.html')
 
 
-@require_GET
+@require_safe
 def viber_contact_card(request):
     card = '\r\n'.join([
         'BEGIN:VCARD', 'VERSION:3.0', 'N:Travel;AIM;;;', 'FN:AIM Travel',

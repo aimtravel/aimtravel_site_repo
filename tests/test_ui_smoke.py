@@ -122,6 +122,8 @@ class PublicPagesRenderTest(SeededTestCase):
         self.assertEqual(response['Content-Disposition'], 'attachment; filename="AIM-Travel.vcf"')
         self.assertIn(b'\r\nTEL;TYPE=CELL:+359889966583\r\n', response.content)
         self.assertTrue(response.content.endswith(b'END:VCARD\r\n'))
+        self.assertEqual(self.client.head(reverse('viber contact card')).status_code, 200)
+        self.assertEqual(self.client.head(reverse('viber contact')).status_code, 200)
 
     def test_public_pages_render(self):
         for name in PUBLIC_PAGES:
