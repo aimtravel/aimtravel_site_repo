@@ -158,7 +158,7 @@ class EuroRegistrationTest(ApplicationFormTest):
         html = mail.outbox[0].alternatives[0][0]
         for value in ['BG60UNCR70001523205219', 'до 7 дни',
                       'href="https://aimtravel.bg/application-form/"',
-                      'viber://chat?number=%2B359889966583',
+                      'https://aimtravel.bg/viber/',
                       'https://www.instagram.com/aimtravel_usa/',
                       'https://www.facebook.com/profile.php?id=100072235954652',
                       'Цена на програмата: 1619 евро', 'Застраховка Save Exchange: 249 евро']:

@@ -6,8 +6,11 @@ from aimtravel_site.web.wat_registration import wat_2027_registration
 from aimtravel_site.web.application_form_view import application_form_page, application_form_submit, application_form_session
 
 from aimtravel_site.web.contact_inquiry import contact_captcha, contact_inquiry
+from aimtravel_site.web.contact_links import viber_contact, viber_contact_card
 
 urlpatterns = (
+    path('viber/', viber_contact, name='viber contact'),
+    path('viber/contact.vcf', viber_contact_card, name='viber contact card'),
     path('contact-inquiry/captcha/', contact_captcha, name='contact captcha'),
     path('contact-inquiry/', contact_inquiry, name='contact inquiry'),
     path('application-form/', application_form_page, name='application form'),

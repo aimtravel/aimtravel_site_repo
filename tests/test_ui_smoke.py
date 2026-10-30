@@ -88,6 +88,7 @@ PUBLIC_PAGES = [
     "sign up",
     "password_reset",
     "contacts",
+    "viber contact",
     "wat usa",
     "online",
     "internship",
@@ -114,6 +115,14 @@ class SeededTestCase(TestCase):
 
 @override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
 class PublicPagesRenderTest(SeededTestCase):
+    def test_viber_contact_card_contains_the_agency_number(self):
+        response = self.client.get(reverse('viber contact card'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('text/vcard', response['Content-Type'])
+        self.assertEqual(response['Content-Disposition'], 'attachment; filename="AIM-Travel.vcf"')
+        self.assertIn(b'\r\nTEL;TYPE=CELL:+359889966583\r\n', response.content)
+        self.assertTrue(response.content.endswith(b'END:VCARD\r\n'))
+
     def test_public_pages_render(self):
         for name in PUBLIC_PAGES:
             with self.subTest(page=name):
