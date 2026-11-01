@@ -236,7 +236,7 @@
  #aim-online-services .os-last-call{display:block;padding:26px 0 34px}
  #aim-online-services .os-last-call .os-button{width:100%;margin-top:22px}
 }
-</style>
+#aim-online-services .os-guide-link{padding:32px 0;background:white;border-bottom:1px solid #dce3df}#aim-online-services .os-guide-link .os-wrap{display:flex;justify-content:space-between;gap:36px;align-items:center}#aim-online-services .os-guide-link h2{font-size:28px;margin:8px 0}#aim-online-services .os-guide-link p{max-width:720px;margin-bottom:0}#aim-online-services .os-guide-link a{flex-shrink:0}@media(max-width:800px){#aim-online-services .os-guide-link .os-wrap{display:block}#aim-online-services .os-guide-link a{margin-top:20px}} </style>
 <!-- Lucide icon license
 ISC License
 
@@ -292,7 +292,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
           </ul>
         </div>
       </div>
-      <section class="os-services" id="online-services-list" aria-labelledby="os-services-title">
+      <section class="os-guide-link" aria-label="Изисквания и кандидатстване"><div class="os-wrap"><div><span class="os-eyebrow">ПРЕДИ ДА ЗАПОЧНЕШ</span><h2>За първи път на бригада?</h2><p>Виж кой може да участва, какви документи трябват и как протича кандидатстването. След това избери онлайн услугата за твоята стъпка.</p></div><a class="os-button os-button-secondary" href="{% url 'application guide' %}#requirements">Изисквания и кандидатстване ↗</a></div></section><section class="os-services" id="online-services-list" aria-labelledby="os-services-title">
         <div class="os-wrap">
           <div class="os-section-head"><h2 id="os-services-title">Какво можеш да направиш онлайн</h2><p>Избери откъде да започнеш.</p></div>
           <div class="os-service-grid">
@@ -364,3 +364,4 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 <script src="{% static 'javascript/js_navbar_resp.js' %}?v=20260928mobile5"></script>
 </body>
 </html>
+
