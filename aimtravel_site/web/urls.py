@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.views.generic import TemplateView
 
 from aimtravel_site.web.views import *
 from aimtravel_site.web.favorites import favorites_page, remove_favorite, favorite_inquiry, export_favorites
@@ -9,6 +10,7 @@ from aimtravel_site.web.contact_inquiry import contact_captcha, contact_inquiry
 from aimtravel_site.web.contact_links import viber_contact, viber_contact_card
 
 urlpatterns = (
+    path('cenata/', TemplateView.as_view(template_name='nav/wat_usa/price.html'), name='program price'),
     path('viber/', viber_contact, name='viber contact'),
     path('viber/contact.vcf', viber_contact_card, name='viber contact card'),
     path('contact-inquiry/captcha/', contact_captcha, name='contact captcha'),
