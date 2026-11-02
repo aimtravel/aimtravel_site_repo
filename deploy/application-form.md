@@ -26,3 +26,25 @@ The existing Apps Script receiver deployment was updated to version 8: its scrip
 lock waits up to 30 seconds and spreadsheet writes are flushed before email and
 before releasing the lock. A busy response keeps the form retryable with the same
 submission ID. No destinations, recipients or access permissions were changed.
+
+## Receiver access recovery and diagnostics
+
+On 2026-11-02 the production receiver returned HTTP 403 before executing the
+submission handler. Reauthorizing its existing Google account and refreshing the
+same deployment to version 11 restored access. The URL, secret, recipients and
+Anyone/execute-as-owner settings were preserved. A fictional live application
+returned success and was found exactly once in both destination sheets.
+
+HTTP 401/403 from the receiver now reports a service failure with a support
+reference, rather than suggesting that a student's answers or photo are invalid.
+Failures and completed delivery are recorded by submission ID in the application
+logger and `APPLY_PRIVATE_ROOT/application-form-events.jsonl` (created mode 0600).
+The log contains only timestamp, reference, operational code and upstream HTTP
+status: no answers, contact details, photos, credentials or receiver URL. Normal
+private-media retention/rotation should include this diagnostic file. A logging
+failure never blocks delivery. Retries retain the original ID and existing
+receiver deduplication.
+
+Accepted JPEG/PNG/WebP photos are normalized to JPEG with camera orientation
+applied before Word embedding. A missing CV template is a server error, not a
+photo validation error. No student document is persisted by this conversion.
