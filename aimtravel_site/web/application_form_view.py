@@ -5,12 +5,16 @@ import base64
 import binascii
 import io
 import json
+import logging
+import os
 import re
+from datetime import datetime, timezone
 import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
 
+from django.conf import settings
 from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -35,6 +39,33 @@ FIELD_LIMIT = 5000
 MAX_REQUEST_BYTES = 6 * 1024 * 1024
 MAX_PHOTO_BYTES = 3 * 1024 * 1024
 RESUME_TEMPLATE = Path(__file__).resolve().parents[1] / "assets" / "AIM_Travel_USA_Modern_Resume_Template.docx"
+logger = logging.getLogger(__name__)
+
+
+def _record_event(reference, code, upstream_status=None):
+    """Record only operational metadata; never answers, images, URLs or secrets."""
+    event = {"time": datetime.now(timezone.utc).isoformat(),
+             "reference": reference, "code": code}
+    if upstream_status is not None:
+        event["upstream_status"] = upstream_status
+    logger.info("application_form %s", json.dumps(event))
+    private_root = getattr(settings, "APPLY_PRIVATE_ROOT", None)
+    if private_root:
+        try:
+            path = Path(private_root) / "application-form-events.jsonl"
+            path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            fd = os.open(str(path), os.O_WRONLY | os.O_CREAT | os.O_APPEND, 0o600)
+            with os.fdopen(fd, "a", encoding="utf-8") as stream:
+                stream.write(json.dumps(event) + "\n")
+        except OSError:
+            # Diagnostics must not prevent an application from being delivered.
+            logger.warning("application_form diagnostic_file_unavailable")
+
+
+def _service_failure(reference, code, message, status=503, upstream_status=None):
+    _record_event(reference, code, upstream_status)
+    return JsonResponse({"ok": False, "error": message, "code": code,
+                         "reference": reference}, status=status)
 
 
 def _format_date(value):
@@ -148,12 +179,20 @@ def _build_resume(values, experiences, photo_data, gender, nationality):
             raise ValueError("Invalid photo data")
         if not photo_bytes or len(photo_bytes) > MAX_PHOTO_BYTES:
             raise ValueError("Photo is too large")
-        from PIL import Image, UnidentifiedImageError
+        from PIL import Image, ImageOps, UnidentifiedImageError
         try:
             with Image.open(io.BytesIO(photo_bytes)) as image:
                 if image.format not in {"JPEG", "PNG", "WEBP"}:
                     raise ValueError("Unsupported photo format")
                 image.verify()
+            # python-docx cannot embed WebP. Normalize every accepted image and
+            # apply phone-camera orientation before embedding; discard EXIF data.
+            with Image.open(io.BytesIO(photo_bytes)) as image:
+                image = ImageOps.exif_transpose(image).convert("RGB")
+                image.thumbnail((1200, 1200))
+                normalized = io.BytesIO()
+                image.save(normalized, format="JPEG", quality=88)
+                photo_bytes = normalized.getvalue()
         except (UnidentifiedImageError, OSError, Image.DecompressionBombError) as exc:
             raise ValueError("Invalid photo") from exc
         photo_cell = document.tables[0].rows[0].cells[2]
@@ -272,13 +311,18 @@ def application_form_submit(request):
         if len(photo_data) > (MAX_PHOTO_BYTES * 4 // 3 + 16):
             raise ValueError("Photo is too large")
         resume_bytes = _build_resume(values, experiences, photo_data, gender, nationality)
-    except (ValueError, FileNotFoundError):
+    except ValueError:
         return JsonResponse({"ok": False, "error": "We could not prepare your CV. Check the photo and try again."}, status=400)
+    except FileNotFoundError:
+        return _service_failure(submission_id, "cv_template_unavailable",
+                                "The CV service is temporarily unavailable. Your answers are still here. Please contact AIM Travel with the reference below.")
     except Exception:
-        return JsonResponse({"ok": False, "error": "The CV service is temporarily unavailable. Please try again later."}, status=503)
+        return _service_failure(submission_id, "cv_generation_failed",
+                                "The CV service is temporarily unavailable. Your answers are still here. Please try again later.")
 
     if not APPLICATION_FORM_WEBHOOK_URL or not APPLICATION_FORM_WEBHOOK_SECRET:
-        return JsonResponse({"ok": False, "error": "The form is temporarily unavailable. Please try again later."}, status=503)
+        return _service_failure(submission_id, "delivery_configuration_unavailable",
+                                "The form is temporarily unavailable. Your answers are still here. Please contact AIM Travel with the reference below.")
 
     # Different applicants can share an office/Wi-Fi IP. Only throttle repeat
     # delivery for this email; retain the same submission ID on failed retries.
@@ -298,7 +342,8 @@ def application_form_submit(request):
     endpoint = urllib.parse.urlparse(APPLICATION_FORM_WEBHOOK_URL)
     if endpoint.scheme != "https" or endpoint.hostname != "script.google.com":
         cache.delete(submission_cache_key)
-        return JsonResponse({"ok": False, "error": "The form is temporarily unavailable. Please try again later."}, status=503)
+        return _service_failure(submission_id, "delivery_configuration_invalid",
+                                "The form is temporarily unavailable. Your answers are still here. Please contact AIM Travel with the reference below.")
 
     payload = json.dumps(
         {
@@ -323,18 +368,36 @@ def application_form_submit(request):
     try:
         with urllib.request.urlopen(outbound, timeout=60) as response:
             result = json.loads(response.read(4096).decode("utf-8"))
-    except (urllib.error.URLError, TimeoutError, UnicodeDecodeError, json.JSONDecodeError):
+    except urllib.error.HTTPError as exc:
         cache.delete(submission_cache_key)
-        return JsonResponse({"ok": False, "error": "We could not submit your application. Please try again shortly."}, status=502)
+        if exc.code in {401, 403}:
+            return _service_failure(submission_id, "delivery_access_denied",
+                                    "We cannot save applications at the moment. Your answers are still here. Please contact AIM Travel with the reference below.",
+                                    upstream_status=exc.code)
+        return _service_failure(submission_id, "delivery_http_error",
+                                "We could not confirm your application. Your answers are still here. Please wait a moment and submit again.",
+                                status=502, upstream_status=exc.code)
+    except (urllib.error.URLError, TimeoutError):
+        cache.delete(submission_cache_key)
+        return _service_failure(submission_id, "delivery_connection_failed",
+                                "We could not confirm your application. Your answers are still here. Please wait a moment and submit again.", status=502)
+    except (UnicodeDecodeError, json.JSONDecodeError):
+        cache.delete(submission_cache_key)
+        return _service_failure(submission_id, "delivery_invalid_response",
+                                "We could not confirm your application. Your answers are still here. Please wait a moment and submit again.", status=502)
 
     if not isinstance(result, dict) or result.get("ok") is not True:
         cache.delete(submission_cache_key)
         if isinstance(result, dict) and result.get("error") == "busy":
+            _record_event(submission_id, "delivery_busy")
             return JsonResponse({"ok": False, "error": "Other applications are being saved. Please wait a moment and submit again. Your answers are still here."}, status=503)
         if isinstance(result, dict) and result.get("error") == "rate_limited":
+            _record_event(submission_id, "delivery_rate_limited")
             return JsonResponse({"ok": False, "error": "rate_limited"}, status=429)
-        return JsonResponse({"ok": False, "error": "We could not submit your application. Please try again shortly."}, status=502)
+        return _service_failure(submission_id, "delivery_rejected",
+                                "We could not confirm your application. Your answers are still here. Please try again shortly or contact AIM Travel with the reference below.", status=502)
 
     cache.set(email_cache_key, "1", timeout=60)
     cache.set(submission_cache_key, "done", timeout=86400)
+    _record_event(submission_id, "delivered")
     return JsonResponse({"ok": True})
