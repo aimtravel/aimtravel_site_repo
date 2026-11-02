@@ -5,11 +5,15 @@ Uses fictional applicants and mocks delivery; never writes to the live Sheet.
 import base64
 import io
 import json
+import tempfile
+import urllib.error
+from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from unittest.mock import patch
 
 from django.core.cache import cache
+from django.conf import settings
 from django.test import Client, SimpleTestCase, override_settings
 from docx import Document
 from PIL import Image
@@ -182,3 +186,50 @@ class PublicApplicationFormTest(SimpleTestCase):
         self.assertEqual(self.submit(payload).status_code, 503)
         self.assertEqual(self.submit(payload).json(), {"ok": True})
         self.assertEqual(outbound.call_count, 2)
+
+    @patch.object(form, "APPLICATION_FORM_WEBHOOK_URL", "https://script.google.com/macros/s/test/exec")
+    @patch.object(form, "APPLICATION_FORM_WEBHOOK_SECRET", "test-only-secret")
+    @patch.object(form.urllib.request, "urlopen")
+    def test_access_denied_is_traceable_and_recovery_keeps_submission_id(self, outbound):
+        payload = self.payload()
+        outbound.side_effect = urllib.error.HTTPError(
+            "https://script.google.com/private", 403, "secret response", {}, None)
+        with tempfile.TemporaryDirectory(dir=settings.BASE_DIR) as directory:
+            with override_settings(APPLY_PRIVATE_ROOT=Path(directory)):
+                response = self.submit(payload)
+                self.assertEqual(response.status_code, 503)
+                self.assertEqual(response.json()["reference"], payload["submissionId"])
+                self.assertEqual(response.json()["code"], "delivery_access_denied")
+                self.assertIn("answers are still here", response.json()["error"])
+                event_text = (Path(directory) / "application-form-events.jsonl").read_text()
+                event = json.loads(event_text)
+                self.assertEqual(event["upstream_status"], 403)
+                self.assertEqual(event["reference"], payload["submissionId"])
+                for private in ("test-only-secret", payload["values"][0], payload["values"][6], "secret response", "https://"):
+                    self.assertNotIn(private, event_text)
+                outbound.side_effect = None
+                outbound.return_value.__enter__.return_value.read.return_value = b'{"ok":true}'
+                self.assertEqual(self.submit(payload).json(), {"ok": True})
+                self.assertEqual(self.submit(payload).json(), {"ok": True})
+                self.assertEqual(outbound.call_count, 2)
+
+    def test_webp_photo_is_embedded_as_jpeg(self):
+        payload = self.payload()
+        photo = io.BytesIO()
+        Image.new("RGB", (20, 30), "white").save(photo, format="WEBP")
+        document = Document(io.BytesIO(form._build_resume(
+            payload["values"], [], base64.b64encode(photo.getvalue()).decode(), "Female", "Bulgaria")))
+        photo_parts = [part for part in document.part.package.parts if part.content_type.startswith("image/")]
+        self.assertTrue(any(part.content_type == "image/jpeg" for part in photo_parts))
+        self.assertGreater(len(document.inline_shapes), 0)
+
+    @patch.object(form, "RESUME_TEMPLATE", Path("missing-template.docx"))
+    def test_missing_cv_template_is_a_service_failure_not_a_photo_error(self):
+        result = self.submit(self.payload())
+        self.assertEqual(result.status_code, 503)
+        self.assertEqual(result.json()["code"], "cv_template_unavailable")
+
+    @patch.object(form.os, "open", side_effect=PermissionError)
+    def test_unwritable_diagnostic_file_does_not_break_delivery(self, _open):
+        with override_settings(APPLY_PRIVATE_ROOT=settings.BASE_DIR):
+            form._record_event("test-submission-1234567890", "delivered")
