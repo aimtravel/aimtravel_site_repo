@@ -1,89 +1,14 @@
 {% load static %}
+<style>
+footer#aim-footer{background:#001b2b!important;background-image:none!important;color:#fff!important;display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding:64px 0 0!important;font-family:Arial,sans-serif;line-height:1.6;position:relative;box-sizing:border-box}#aim-footer *{box-sizing:border-box}#aim-footer .af-wrap{width:min(1320px,calc(100% - 96px));margin-inline:auto}#aim-footer a{color:#d4e1e8;text-decoration:none;font-size:13px;text-transform:none;letter-spacing:0;transition:color .15s}#aim-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:5px}#aim-footer a:focus-visible{outline:2px solid #fa858b;outline-offset:5px}#aim-footer .af-main{display:grid;grid-template-columns:1.15fr 1fr 1.1fr 1.15fr;gap:46px;padding-bottom:39px}#aim-footer .af-brand .af-home{display:inline-block}#aim-footer .af-brand img{width:220px;height:auto;max-width:100%;display:block;object-fit:contain}#aim-footer .af-brand p{color:#a6becb;margin:16px 0 0;font-size:12px;line-height:1.8}#aim-footer .af-brand .af-motto{font-size:20px;color:white;font-weight:700;line-height:1.3;margin-top:18px}#aim-footer h2{font-size:14px;line-height:1.4;color:#fff;margin:4px 0 22px;letter-spacing:.4px;font-weight:700;text-transform:none}#aim-footer .af-links>a{display:block;padding:6px 0;min-height:33px}#aim-footer .af-socials{display:flex;gap:9px;margin-top:23px;flex-wrap:wrap}#aim-footer .af-socials>a{width:39px;height:39px;border:1px solid #547080;display:inline-flex;align-items:center;justify-content:center;border-radius:50%}#aim-footer .af-socials>a:hover{background:#ffffff13;border-color:white}#aim-footer .af-socials svg{width:19px;height:19px;display:block}#aim-footer .af-contacts>a{display:block}#aim-footer .af-contacts .af-tel{font-size:21px;font-weight:700;white-space:nowrap;color:white;margin-bottom:7px}#aim-footer .af-viber{font-size:12px;display:inline-block!important;text-decoration:underline;text-underline-offset:5px;padding:5px 0}#aim-footer .af-office{margin-top:19px;padding-top:16px;border-top:1px solid #294554}#aim-footer .af-office>a{display:block;font-size:12px;padding:3px 0;overflow-wrap:anywhere}#aim-footer .af-office .af-office-name{font-weight:700;color:#fff;margin-bottom:4px}#aim-footer .af-more{display:flex;align-items:baseline;gap:32px;padding:24px 0;border-top:1px solid #294554}#aim-footer .af-more>span{font-size:11px;color:#8eafc0;white-space:nowrap}#aim-footer .af-more nav{display:flex;flex-wrap:wrap;gap:12px 30px}#aim-footer .af-more a{font-size:12px}#aim-footer .af-bottom{border-top:1px solid #294554;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 0}#aim-footer .af-bottom p{margin:0;font-size:11px;color:#91adbc}#aim-footer .af-top{font-size:11px;white-space:nowrap}
+@media(max-width:1050px){#aim-footer .af-main{grid-template-columns:1fr 1fr;gap:40px 55px}#aim-footer .af-contacts{max-width:330px}#aim-footer .af-wrap{width:calc(100% - 64px)}}
+@media(max-width:600px){footer#aim-footer{padding-top:44px!important}#aim-footer .af-wrap{width:calc(100% - 40px)}#aim-footer .af-main{grid-template-columns:1fr 1fr;gap:31px 20px;padding-bottom:26px}#aim-footer .af-brand{grid-column:1/-1}#aim-footer .af-brand img{width:205px}#aim-footer .af-brand .af-motto{font-size:20px;margin-top:14px}#aim-footer .af-brand p{font-size:13px;margin-top:13px}#aim-footer .af-socials>a{width:44px;height:44px}#aim-footer h2{font-size:14px;margin-bottom:12px}#aim-footer .af-links>a{font-size:12px;min-height:44px;padding:10px 0;line-height:1.65}#aim-footer .af-contacts{grid-column:1/-1;max-width:none;border-top:1px solid #294554;padding-top:29px}#aim-footer .af-contacts .af-tel{font-size:24px;min-height:44px}#aim-footer .af-viber{min-height:44px;font-size:14px;padding:10px 0}#aim-footer .af-office{margin-top:16px;padding-top:16px}#aim-footer .af-office>a{font-size:13px;min-height:40px;padding:8px 0}#aim-footer .af-more{display:block;padding:23px 0}#aim-footer .af-more>span{display:block;margin-bottom:11px}#aim-footer .af-more nav{display:grid;grid-template-columns:1fr 1fr;gap:4px 20px}#aim-footer .af-more a{font-size:12px;display:flex;align-items:center;min-height:44px}#aim-footer .af-bottom{padding:18px 0;align-items:start;gap:16px}#aim-footer .af-bottom p{max-width:225px;font-size:10px;line-height:1.8}#aim-footer .af-bottom .af-top{min-height:44px;display:flex;align-items:start;font-size:10px}}
+@media(prefers-reduced-motion:reduce){#aim-footer *{transition:none}}
 
-<footer>
-    <img class="usa-flag" src="{% static 'img/USA Flag.png' %}" alt="">
-    <div id="footer-nav-container">
-        <div id="logo-container">
-            <a href="{% url 'index' %}">
-                <img src="{% static 'img/AIM_logo 1.webp' %}" alt="">
-            </a>
-            <p>Work Hard Travel Far</p>
-        </div>
-        <div class="nav-container">
-            <h1>БЪРЗИ ВРЪЗКИ</h1>
-            <a href="{% url 'index' %}">Начало</a>
-            <a href="{% url 'index' %}#about">За нас</a>
-            <a href="{% url 'offers' %}">Работни оферти</a>
-            <a href="{% url 'news' %}">Блог</a>
-            <a href="{% url 'contacts' %}">Контакти</a>
-        </div>
-        <div class="nav-container">
-            <h1>БРИГАДА В САЩ</h1>
-            <a href="{% url 'wat usa' %}#header-nav">Бригадата</a>
-            <a href="{% url 'application guide' %}">Кандидатстване</a>
-            <a href="{% url 'program price' %}">Цената</a>
-
-        </div>
-        <div class="nav-container">
-            <h1>ОНЛАЙН УСЛУГИ</h1>
-            <a href="{% url 'online' %}#online-free-anchor">Безплатна консултация</a>
-            <a href="{% url 'online' %}#online-register-anchor">Регистрация за бригада</a>
-            <br>
-            <div id="phone-details">
-                <?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" stroke-width="1.5"
-                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                    <path
-                            d="M18.118 14.702L14 15.5c-2.782-1.396-4.5-3-5.5-5.5l.77-4.13L7.815 2H4.064c-1.128 0-2.016.932-1.847 2.047.42 2.783 1.66 7.83 5.283 11.453 3.805 3.805 9.286 5.456 12.302 6.113 1.165.253 2.198-.655 2.198-1.848v-3.584l-3.882-1.479z"
-                            stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                </svg>
-                <a href="tel:0889966583">
-                    +359 88 99 66 583
-                </a>
-            </div>
-            <div id="email-details">
-                <?xml version="1.0" encoding="UTF-8"?>
-                <svg width="24px" height="24px" stroke-width="1.5"
-                     viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#FFFFFF">
-                    <path d="M7 9l5 3.5L17 9" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                          stroke-linejoin="round"></path>
-                    <path d="M2 17V7a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2z" stroke="#FFFFFF"
-                          stroke-width="1.5"></path>
-                </svg>
-                <a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a>
-            </div>
-        </div>
-        <div class="nav-container">
-            <h1>ДРУГИ УСЛУГИ</h1>
-            <a href="{% url "internship" %}">Лагер / Стаж САЩ</a>
-{#            <a href="{% url "h2b-for-non-students" %}">Работа за нестуденти (Н2В Виза)</a>#}
-            <a href="#">Самолетни билети</a>
-            <a href="{% url 'taxes' %}">Данъци в САЩ</a>
-            <a href="{% url "taxes" %}">Данъци</a>
-        </div>
-    </div>
-    <div id="horizontal-line">
-        <hr>
-    </div>
-    <div id="footer-link-container">
-        <div id="footer-text">
-            <p>Copyright © <span>AIM Travel USA</span> 2023. Всички права запазени.</p>
-        </div>
-        <div id="footer-links-icons">
-
-            <div id="footer-right-links-icons">
-                <div id="footer-login">
-                    <a id="footer-login-p1" href="#">Login</a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div id="insta-link">
-                    <a href="https://www.instagram.com/aimtravel_usa/" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
+</style>
+<footer id="aim-footer" aria-label="Връзки и контакти на AIM Travel">
+ <div class="af-wrap af-main">
+  <div class="af-brand"><a class="af-home" href="/" aria-label="AIM Travel — начало"><img src="/static/img/AIM_logo%201.webp" alt="AIM Travel USA" width="240" height="110" loading="lazy"></a><p class="af-motto">Work Hard Travel Far</p><p>Бригада в САЩ с личен консултант.<br>Онлайн, в София и във Варна.</p><div class="af-socials" aria-label="Социални мрежи"><a href="https://www.instagram.com/aimtravel_usa/" aria-label="AIM Travel в Instagram" title="Instagram" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
                             <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
                                   stroke-linecap="round" stroke-linejoin="round"></path>
@@ -91,50 +16,20 @@
                                   stroke="#FFFFFF" stroke-width="1.5"></path>
                             <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
                                   stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div id="fb-link">
-                    <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
+                        </svg></a><a href="https://www.facebook.com/profile.php?id=100072235954652" aria-label="AIM Travel в Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
                             <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
                                   stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
                                   stroke-linejoin="round">
                             </path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div id="youtube-link">
-                    <a href="https://www.youtube.com/@aimtravel9347" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
+                        </svg></a><a href="https://www.youtube.com/@aimtravel9347" aria-label="AIM Travel в YouTube" title="YouTube" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
                             <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
                                   stroke-linecap="round" stroke-linejoin="round"></path>
                             <path
                                     d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
                                     stroke="#FFFFFF" stroke-width="1.5"></path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div class="tiktok-link">
-                    <a href="https://www.tiktok.com/@aim_travelusa" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
+                        </svg></a><a href="https://www.tiktok.com/@aimtravel_usa" aria-label="AIM Travel в TikTok" title="TikTok" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" width="24px" height="24px" stroke-width="1.5"
                              viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
                             <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
                                   stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
@@ -142,119 +37,11 @@
                             </path>
                             <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
                                   stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
-    <div id="footer-responsive">
-        <div id="logo-container">
-            <a href="{% url 'index' %}">
-                <img src="{% static 'img/AIM_logo 1.webp' %}" alt="">
-            </a>
-            <p>Work Hard Travel Far</p>
-        </div>
-        <div id="horizontal-line">
-            <hr>
-        </div>
-        <div id="footer-contacts">
-            <h4>Свържи се с нас</h4>
-            <p>София, Студентски Град, ул. Йордан Йосифов №2, (До Bamboo и Joy Station)</p>
-            <a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a>
-            <a href="tel:0889966583">+359 889 96 65 83</a>
-            <br>
-            <p>Варна, бул. Цар Освободител №19</p>
-            <a href="mailto:varna@aimtravel.bg">varna@aimtravel.bg</a>
-            <a href="tel:0878630072">+359 878 63 00 72</a>
-
-        </div>
-        <br>
-        <div id="footer-links-icons">
-
-            <div id="footer-right-links-icons">
-                <div id="insta-link">
-                    <a href="https://www.instagram.com/aimtravel_usa/" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M12 16a4 4 0 100-8 4 4 0 000 8z" stroke="#FFFFFF" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M3 16V8a5 5 0 015-5h8a5 5 0 015 5v8a5 5 0 01-5 5H8a5 5 0 01-5-5z"
-                                  stroke="#FFFFFF" stroke-width="1.5"></path>
-                            <path d="M17.5 6.51l.01-.011" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div id="fb-link">
-                    <a href="https://www.facebook.com/profile.php?id=100072235954652" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M17 2h-3a5 5 0 00-5 5v3H6v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z"
-                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round">
-                            </path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div id="youtube-link">
-                    <a href="https://www.youtube.com/@aimtravel9347" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M14 12l-3.5 2v-4l3.5 2z" fill="#000000" stroke="#FFFFFF" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path
-                                    d="M2 12.707v-1.415c0-2.895 0-4.343.905-5.274.906-.932 2.332-.972 5.183-1.053C9.438 4.927 10.818 4.9 12 4.9c1.181 0 2.561.027 3.912.065 2.851.081 4.277.121 5.182 1.053.906.931.906 2.38.906 5.274v1.415c0 2.896 0 4.343-.905 5.275-.906.931-2.331.972-5.183 1.052-1.35.039-2.73.066-3.912.066-1.181 0-2.561-.027-3.912-.066-2.851-.08-4.277-.12-5.183-1.052C2 17.05 2 15.602 2 12.708z"
-                                    stroke="#FFFFFF" stroke-width="1.5"></path>
-                        </svg>
-                    </a>
-
-                </div>
-                <div class="vl">
-                    <hr>
-                </div>
-                <div class="tiktok-link">
-                    <a href="https://www.tiktok.com/@aim_travelusa" target="_blank">
-                        <?xml version="1.0" encoding="UTF-8"?>
-                        <svg width="24px" height="24px" stroke-width="1.5"
-                             viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000">
-                            <path d="M21 8v8a5 5 0 01-5 5H8a5 5 0 01-5-5V8a5 5 0 015-5h8a5 5 0 015 5z"
-                                  stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"
-                                  stroke-linejoin="round">
-                            </path>
-                            <path d="M10 12a3 3 0 103 3V6c.333 1 1.6 3 4 3" stroke="#FFFFFF" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-                    </a>
-                </div>
-
-
-            </div>
-        </div>
-        <div class="nav-container">
-            <h4>Бързи връзки</h4>
-            <a href="{% url 'index' %}">Начало</a>
-            <a href="{% url 'index' %}#about">За нас</a>
-            <a href="{% url 'offers' %}">Работни оферти</a>
-            <a href="{% url 'news' %}">Блог</a>
-            <a href="{% url 'contacts' %}">Контакти</a>
-        </div>
-        <div id="footer-text">
-            <p>Copyright © <span>AIM Travel USA</span> 2023. Всички права запазени.</p>
-        </div>
-    </div>
+                        </svg></a></div></div>
+  <nav class="af-links" aria-label="Бригада в САЩ"><h2>Бригада в САЩ</h2><a href="/kandidatstvane/">Кандидатстване</a><a href="/cenata/">Цени и финансиране</a><a href="/rabotnioferti/">Работни оферти</a><a href="/post/story/">Истории на студенти</a><a href="/post/story/#catalogs">Каталози по локации</a><a href="/post/news/">Блог</a></nav>
+  <nav class="af-links" aria-label="Онлайн услуги"><h2>Онлайн услуги</h2><a href="https://calendly.com/aimtravelusa/consultation">Безплатна консултация ↗</a><a href="/zapisvane-za-brigada/">Запиши се онлайн</a><a href="/wat-2027/registracia/">Регистрация за оферти</a><a href="/application-form/">Application Form</a><a href="/onlineservices/">Всички онлайн услуги</a></nav>
+  <div class="af-contacts"><h2>Свържи се с нас</h2><a class="af-tel" href="tel:+359889966583">+359 88 99 66 583</a><a class="af-viber" href="viber://chat?number=%2B359889966583">Пиши ни във Viber ↗</a><div class="af-office"><a class="af-office-name" href="/contacts/#ac-sofia">София · виж офиса ↗</a><a href="mailto:studentski@aimtravel.bg">studentski@aimtravel.bg</a><a href="mailto:sofia@aimtravel.bg">sofia@aimtravel.bg</a></div><div class="af-office"><a class="af-office-name" href="/contacts/#ac-varna">Варна · виж офиса ↗</a><a href="mailto:varna@aimtravel.bg">varna@aimtravel.bg</a><a href="tel:+359878630072">+359 878 63 00 72</a></div></div>
+ </div>
+ <div class="af-wrap af-more"><span>Още от AIM</span><nav aria-label="Още услуги"><a href="/contacts/">Контакти</a><a href="/internship/">Лагер / Стаж САЩ</a><a href="/contacts/">Самолетни билети · запитване</a><a href="/taxes/">Данъци в САЩ</a></nav></div>
+ <div class="af-wrap af-bottom"><p>© <span id="year">{% now "Y" %}</span> AIM Travel USA. Всички права запазени.</p><a class="af-top" href="#header-nav">Към началото ↑</a></div>
 </footer>

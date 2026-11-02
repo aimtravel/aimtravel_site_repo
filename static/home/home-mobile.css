@@ -1,0 +1,45 @@
+@media(max-width:700px){
+ #aim-home{overflow-x:clip}
+ #aim-home .ah-hero{min-height:640px;background-position:60% center}
+ #aim-home .ah-hero-copy{padding-top:29px;padding-bottom:17px}
+ #aim-home .ah-panel{min-height:365px}
+ #aim-home .ah-hero .ah-eyebrow{margin-bottom:14px}
+ #aim-home .ah-hero h1{font-size:32px;letter-spacing:2px}
+ #aim-home .ah-hero h1>span{font-size:53px;line-height:1;letter-spacing:-2px;margin-top:14px}
+ #aim-home .ah-hero h2{font-size:39px;letter-spacing:-1.4px;line-height:1.08}
+ #aim-home .ah-panel>p{font-size:14px;line-height:1.65;margin-top:20px}
+ #aim-home .ah-hero .ah-actions{gap:10px 16px;margin-top:22px}
+ #aim-home .ah-hero .ah-btn{font-size:12px;min-height:50px;padding:14px 17px;gap:20px}
+ #aim-home .ah-hero .ah-text{display:inline-flex;align-items:center;min-height:44px;padding:8px 0;font-size:12px}
+ #aim-home .ah-slider-guide{gap:9px;margin-bottom:12px}
+ #aim-home .ah-slider-guide>p{font-size:11px}
+ #aim-home .ah-slider-guide strong{max-width:160px;line-height:1.4;font-size:9px}
+ #aim-home .ah-slider-guide>div{gap:5px}
+ #aim-home .ah-slider-guide button{width:40px;height:40px;flex-shrink:0}
+ #aim-home .ah-tabs button{min-height:64px;padding-right:10px;font-size:10px}
+ #aim-home .ah-tabs button>span{display:none}
+ #aim-home .ah-hero-bottom{padding-bottom:18px}
+ #aim-home .ah-location-strip>.ah-wrap{padding-block:15px;scrollbar-width:none}
+ #aim-home .ah-location-strip a{display:inline-flex;align-items:center;min-height:32px}
+ #aim-home .ah-section{padding-block:52px}
+ #aim-home .ah-section-top>.ah-text,#aim-home .ah-online-foot a,#aim-home .ah-video a{min-height:44px;display:inline-flex;align-items:center}
+ #aim-home .ah-offer{flex-basis:90%}
+ #aim-home .ah-offer h3{font-size:20px}
+ #aim-home .ah-offer-facts strong{font-size:13px}
+ #aim-home .ah-editorial-photo{height:360px}
+ #aim-home .ah-proof{gap:12px}
+ #aim-home .ah-faq summary{min-height:60px}
+ #aim-home .ah-offices>a{min-height:60px}
+}
+@media(max-width:360px){
+ #aim-home .ah-wrap{width:calc(100% - 32px)}
+ #aim-home .ah-hero h1{font-size:28px}
+ #aim-home .ah-hero h1>span{font-size:47px}
+ #aim-home .ah-hero h2{font-size:35px}
+ #aim-home .ah-panel{min-height:395px}
+ #aim-home .ah-hero .ah-actions{gap:4px 12px}
+ #aim-home .ah-hero .ah-btn{font-size:11px;padding-inline:13px;gap:12px}
+ #aim-home .ah-hero .ah-text{font-size:11px}
+ #aim-home .ah-slider-guide button{width:36px;height:36px}
+ #aim-home .ah-slider-guide strong{max-width:140px}
+}
