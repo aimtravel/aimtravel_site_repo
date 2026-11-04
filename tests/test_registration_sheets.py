@@ -27,7 +27,7 @@ class RegistrationSheetsTest(TestCase):
     def test_export_uses_agreed_price_and_excludes_identity_numbers(self):
         values = registration_values(self.application)
         self.assertEqual(len(values), 20)
-        self.assertEqual(values[7:14], [1699, 80, 1619, "Да", 249, 481, 1868])
+        self.assertEqual(values[7:14], [1749, 80, 1669, "Да", 249, 481, 1918])
         self.assertNotIn(self.application.egn, values)
         self.assertNotIn(self.application.id_card_number, values)
         self.assertNotIn("token=", values[14])

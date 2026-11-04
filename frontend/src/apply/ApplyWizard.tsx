@@ -440,7 +440,7 @@ function PriceSummary() {
   const amount = Number(value || 0);
   const valid = /^\d*$/.test(value.trim()) && amount >= 0 && amount <= 690 && amount % 10 === 0;
   const adjustment = valid ? amount : 0;
-  const price = (option === "full_arranged" ? 1699 : 1499) - adjustment;
+  const price = (option === "full_arranged" ? 1749 : 1499) - adjustment;
   return <div aria-live="polite" className="border-t pt-4 text-sm">
     <p>Цена на програмата: <strong>{price} евро</strong></p>
     {adjustment > 0 && <p>Корекция: −{adjustment} евро</p>}
@@ -455,7 +455,7 @@ function ProgramStep() {
   const protection = watch("saveExchange");
   return <div className="grid gap-5">
     <fieldset className="grid gap-3"><legend className="mb-3 font-bold">Избери програма</legend>
-      <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="full_arranged" {...register("programOption")} /><span><b>Premium Full Arranged · 1699 евро{protection && " + Save Exchange"}</b><br />Избираш работна оферта с наше съдействие.</span></label>
+      <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="full_arranged" {...register("programOption")} /><span><b>Premium Full Arranged · 1749 евро{protection && " + Save Exchange"}</b><br />Избираш работна оферта с наше съдействие.</span></label>
       <label className="flex gap-3 rounded-lg border p-4"><input type="radio" value="self_arranged" {...register("programOption")} /><span><b>Self Arranged · 1499 евро{protection && " + Save Exchange"}</b><br />Кандидатстваш с работодател, който си намерил сам.</span></label>
     </fieldset>
     <section className="rounded-lg border bg-white p-4" aria-labelledby="save-exchange-title">
