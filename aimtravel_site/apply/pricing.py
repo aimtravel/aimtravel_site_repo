@@ -2,7 +2,7 @@
 from django.utils import timezone
 from rest_framework.exceptions import ValidationError
 
-PRICES = {"full_arranged": 1699, "self_arranged": 1499}
+PRICES = {"full_arranged": 1749, "self_arranged": 1499}
 DEPOSIT = 200
 SEVIS = 32
 PROTECTION = 249
