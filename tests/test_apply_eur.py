@@ -58,12 +58,12 @@ class EuroRegistrationTest(ApplicationFormTest):
                 xml = etree.fromstring(package.read('word/document.xml'))
         ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
         red = xml.xpath('//w:r[w:rPr/w:color[@w:val="C00000"]]/w:t/text()', namespaces=ns)
-        self.assertIn('1619', red)
+        self.assertIn('1669', red)
         for name, content, mime in mail.outbox[0].attachments[:2]:
             reader = PdfReader(BytesIO(content))
             colored = []
             def visit(text, cm, tm, font, size):
-                if '1619' in text:
+                if '1669' in text:
                     colored.append(text)
             for page in reader.pages:
                 page.extract_text(visitor_text=visit)
@@ -73,8 +73,8 @@ class EuroRegistrationTest(ApplicationFormTest):
             self.assertIn(b'.752941 0 0 rg', streams)
         for body in [mail.outbox[0].body, mail.outbox[0].alternatives[0][0]]:
             self.assertNotIn('Общо:', body)
-            self.assertNotIn('1868', body)
-            self.assertIn('Цена на програмата: 1619', body)
+            self.assertNotIn('1918', body)
+            self.assertIn('Цена на програмата: 1669', body)
             self.assertIn('Застраховка Save Exchange: 249', body)
 
     def test_identity_card_accepts_latin_and_cyrillic_letters(self):
@@ -156,10 +156,10 @@ class EuroRegistrationTest(ApplicationFormTest):
         response = self.submit(fee_adjustment_eur=80, save_exchange=True)
         self.assertEqual(response.status_code, 201, response.content)
         app = Application.objects.get()
-        self.assertEqual((app.price_eur, app.discount_eur, app.discount_code), (1619, 80, ''))
+        self.assertEqual((app.price_eur, app.discount_eur, app.discount_code), (1669, 80, ''))
         for name, content, mime in mail.outbox[0].attachments[:2]:
             text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
-            self.assertIn('1619', text)
+            self.assertIn('1669', text)
         self.assertIn('481 евро', mail.outbox[0].body)
         html = mail.outbox[0].alternatives[0][0]
         for value in ['BG60UNCR70001523205219', 'до 7 дни',
@@ -167,7 +167,7 @@ class EuroRegistrationTest(ApplicationFormTest):
                       'viber://chat?number=%2B359889966583',
                       'https://www.instagram.com/aimtravel_usa/',
                       'https://www.facebook.com/profile.php?id=100072235954652',
-                      'Цена на програмата: 1619 евро', 'Застраховка Save Exchange: 249 евро']:
+                      'Цена на програмата: 1669 евро', 'Застраховка Save Exchange: 249 евро']:
             self.assertIn(value, html)
 
     def test_numeric_adjustment_rejects_invalid_values(self):
@@ -181,14 +181,14 @@ class EuroRegistrationTest(ApplicationFormTest):
         response = self.submit(discount_code='aim80', save_exchange=True)
         self.assertEqual(response.status_code, 201, response.content)
         app = Application.objects.get()
-        self.assertEqual((app.base_price_eur, app.price_eur, app.discount_eur), (1699,1619,80))
+        self.assertEqual((app.base_price_eur, app.price_eur, app.discount_eur), (1749,1669,80))
         self.assertEqual(DiscountCode.objects.get().used_count, 1)
         self.assertEqual(len(mail.outbox[0].attachments), 3)
         for name, content, mime in mail.outbox[0].attachments[:2]:
             self.assertEqual(mime, 'application/pdf')
             text = ''.join(page.extract_text() for page in PdfReader(BytesIO(content)).pages)
-            self.assertIn('1619', text)
-            self.assertIn('хиляда шестстотин и деветнадесет', ' '.join(text.split()))
+            self.assertIn('1669', text)
+            self.assertIn('хиляда шестстотин шестдесет и девет', ' '.join(text.split()))
             self.assertNotIn('{{', text)
         self.assertIn('481 евро', mail.outbox[0].body)
         self.assertIn('7 календарни дни', mail.outbox[0].body)
@@ -217,7 +217,7 @@ class EuroRegistrationTest(ApplicationFormTest):
     def test_price_tampering_ignored(self):
         response=self.submit(price_eur=1,discount_eur=1698)
         self.assertEqual(response.status_code,201,response.content)
-        self.assertEqual(Application.objects.get().price_eur,1699)
+        self.assertEqual(Application.objects.get().price_eur,1749)
         self.assertIn('232 евро',mail.outbox[0].body)
         self.assertEqual(len(mail.outbox[0].attachments),2)
         self.assertIsNone(response.json()['annex_pdf_url'])
@@ -237,6 +237,7 @@ class EuroRegistrationTest(ApplicationFormTest):
         self.assertIsNone(Application.objects.get().contract_document.email_sent_at)
 
     def test_amount_words(self):
+        self.assertEqual(amount_words(1749),'хиляда седемстотин четиридесет и девет')
         self.assertEqual(amount_words(1699),'хиляда шестстотин деветдесет и девет')
         self.assertEqual(amount_words(1499),'хиляда четиристотин деветдесет и девет')
         self.assertEqual(amount_words(819),'осемстотин и деветнадесет')
