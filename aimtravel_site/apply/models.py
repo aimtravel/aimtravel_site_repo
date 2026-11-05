@@ -102,7 +102,7 @@ class Application(models.Model):
     phone = models.CharField(max_length=16)
     date_of_birth = models.DateField(null=True, blank=True)
     egn = models.CharField(max_length=10, blank=True)
-    id_card_number = models.CharField(max_length=9)
+    id_card_number = models.TextField()
     place_of_birth = models.CharField(max_length=80, blank=True)
 
     # --- образование ---
