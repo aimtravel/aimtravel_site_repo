@@ -35,7 +35,9 @@ class ApplicationCreateSerializer(serializers.Serializer):
         error_messages={"invalid": "errors.egn.checksum"},
     )
     id_card_number = serializers.RegexField(
-        r"^[A-Za-zА-Яа-яЍѝ0-9]{9}$", error_messages={"invalid": "errors.idCard.invalid"}
+        r"^[A-Za-zА-Яа-яЍѝ0-9]+$", required=True, allow_blank=False,
+        error_messages={"invalid": "errors.idCard.invalid", "blank": "errors.idCard.invalid",
+                        "required": "errors.idCard.invalid"}
     )
     # --- програма ---
     program_option = serializers.ChoiceField(choices=ProgramOption.choices)
