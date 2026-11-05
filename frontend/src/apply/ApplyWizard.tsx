@@ -430,7 +430,7 @@ function PersonalStep() {
     <TextField name="lastName" label="Фамилия" placeholder="Димитров" className="md:col-span-4" />
     <PhoneField className="md:col-span-12" />
     <TextField name="egn" label="ЕГН" inputMode="numeric" placeholder="10 цифри" className="md:col-span-6" />
-    <TextField name="idCardNumber" label="Номер на лична карта" inputMode="text" placeholder="9 букви и цифри" className="md:col-span-6" />
+    <TextField name="idCardNumber" label="Номер на лична карта" inputMode="text" placeholder="Номерът от личната карта" className="md:col-span-6" />
   </div>;
 }
 
