@@ -1,7 +1,8 @@
 """Public interest form for the WAT 2027 roadshow."""
 import json
 import logging
-from urllib.error import URLError
+import time
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 from uuid import UUID, uuid4
 
@@ -68,20 +69,35 @@ def _send_to_sheet(payload):
     webhook_secret = getattr(settings, 'GOOGLE_SHEETS_WEBHOOK_SECRET', '').strip()
     if not webhook_url or not webhook_secret:
         return False
-    payload['secret'] = webhook_secret
+    outbound = {**payload, 'secret': webhook_secret}
     request = Request(
         webhook_url,
-        data=json.dumps(payload, ensure_ascii=False).encode('utf-8'),
+        data=json.dumps(outbound, ensure_ascii=False).encode('utf-8'),
         headers={'Content-Type': 'application/json'},
         method='POST',
     )
-    try:
-        with urlopen(request, timeout=6) as response:
-            body = json.loads(response.read().decode('utf-8'))
-            return 200 <= response.status < 300 and body.get('ok') is True
-    except (OSError, URLError, ValueError):
-        logger.exception('WAT 2027 registration sync failed')
-        return False
+    reference = payload.get('registration_id', '')
+    # Retry only an explicit busy acknowledgement. Unknown delivery outcomes
+    # retain the same ID for a later retry; the receiver deduplicates that ID.
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=45) as response:
+                body = json.loads(response.read(4096).decode('utf-8'))
+                if 200 <= response.status < 300 and isinstance(body, dict):
+                    if body.get('ok') is True:
+                        return True
+                    if body.get('error') == 'busy' and attempt < 2:
+                        time.sleep(0.5)
+                        continue
+                logger.warning('WAT registration delivery not acknowledged reference=%s', reference)
+                return False
+        except HTTPError as error:
+            logger.warning('WAT registration HTTP failure reference=%s status=%s', reference, error.code)
+            return False
+        except (OSError, URLError, ValueError) as error:
+            logger.warning('WAT registration transport failure reference=%s type=%s', reference, type(error).__name__)
+            return False
+    return False
 
 
 @never_cache
@@ -121,7 +137,7 @@ def wat_2027_registration(request):
     if not _send_to_sheet(payload):
         return render(request, 'wat_2027_registration.html', _form_context(**{
             'values': values,
-            'errors': {'form': 'В момента не успяхме да запазим данните. Опитай отново след малко.'},
+            'errors': {'form': 'Не получихме потвърждение от таблицата. Данните са запазени във формата. Изчакай малко и натисни отново „Изпрати регистрацията“. Код: ' + payload['registration_id']},
             'registration_id': payload['registration_id'],
         }), status=503)
     return redirect(f"{reverse('wat 2027 registration')}?success=1")
